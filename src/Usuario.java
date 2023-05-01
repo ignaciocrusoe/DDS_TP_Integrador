@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import validator.PasswordValidator;
+import DDS_TP_Integrador.ValidadorDeUsuarios;
 
 public class User {
     private String username;
