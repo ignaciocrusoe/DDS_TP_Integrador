@@ -1,3 +1,4 @@
+package main;
 import java.io.IOException;
 import  java.io.PrintWriter;
 import java.io.File;
@@ -21,7 +22,7 @@ public class CargadorDatos {
     }
 
     public void givenDataArray_whenConvertToCSV_thenOutputCreated() throws IOException {
-        File csvOutputFile = new File("src\\datos.csv");
+        File csvOutputFile = new File("src\\main\\datos.csv");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
                     .map(this::convertToCSV)

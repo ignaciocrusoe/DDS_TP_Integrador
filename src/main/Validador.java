@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ public class Validador {
     public boolean validate_weak_password(String password)
     {
         try {
-            File file = new File("src\\top-10000-passwords.txt");
+            File file = new File("src\\main\\top-10000-passwords.txt");
             Scanner file_reader = new Scanner(file);
             while (file_reader.hasNextLine()) {
                 String weak_password = file_reader.nextLine();
