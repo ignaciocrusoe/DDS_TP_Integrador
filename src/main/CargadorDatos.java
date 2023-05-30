@@ -1,45 +1,31 @@
 package main;
-import java.io.IOException;
-import  java.io.PrintWriter;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.io.FileNotFoundException;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
+
+//esto es una prueba no mas
+//VER COMO USAR APACHE COMMONS CSV PARA ACTUALIZAR UN CSV Y NO TENER QUE ESCRIBIRLO DE CERO
 public class CargadorDatos {
-    List<String[]> dataLines = new ArrayList<>();
+    private static final String SAMPLE_CSV_FILE = "./src/main/datos.csv";
 
+    public static void main(String[] args) throws IOException {
+        try (
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
 
+                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                        .withHeader("ID", "Name", "Designation", "Company"));
+        ) {
+            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");
+            csvPrinter.printRecord("2", "Satya Nadella", "CEO", "Microsoft");
+            csvPrinter.printRecord("3", "Tim cook", "CEO", "Apple");
 
-    public String convertToCSV(String[] data) {
+            csvPrinter.printRecord(Arrays.asList("4", "Mark Zuckerberg", "CEO", "Facebook"));
 
-        return Stream.of(data)
-                .map(this::escapeSpecialCharacters)
-                .collect(Collectors.joining(","));
-    }
-
-    public void givenDataArray_whenConvertToCSV_thenOutputCreated() throws IOException {
-        File csvOutputFile = new File("src\\main\\datos.csv");
-        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-            dataLines.stream()
-                    .map(this::convertToCSV)
-                    .forEach(pw::println);
+            csvPrinter.flush();
         }
-
     }
-
-    public String escapeSpecialCharacters(String data) {
-        String escapedData = data.replaceAll("\\R", " ");
-        if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-            data = data.replace("\"", "\"\"");
-            escapedData = "\"" + data + "\"";
-        }
-        return escapedData;
-    }
-
-
-
 }
