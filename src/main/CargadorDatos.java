@@ -9,23 +9,38 @@ import java.util.Arrays;
 
 //esto es una prueba no mas
 //VER COMO USAR APACHE COMMONS CSV PARA ACTUALIZAR UN CSV Y NO TENER QUE ESCRIBIRLO DE CERO
-public class CargadorDatos {
-    private static final String SAMPLE_CSV_FILE = "./src/main/datos.csv";
+public static void leerCSV(String archivoCSV) throws IOException {
+    // Abre el archivo CSV para lectura
+    Reader reader = new FileReader(archivoCSV);
+    CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
 
-    public static void main(String[] args) throws IOException {
-        try (
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
+    // Itera sobre los registros del CSV
+    for (CSVRecord csvRecord : csvParser) {
+        // Accede a los valores de cada columna del registro actual
+        String columna1 = csvRecord.get(0);
+        String columna2 = csvRecord.get(1);
+        // ... Accede a más columnas según sea necesario
 
-                CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                        .withHeader("ID", "Name", "Designation", "Company"));
-        ) {
-            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");
-            csvPrinter.printRecord("2", "Satya Nadella", "CEO", "Microsoft");
-            csvPrinter.printRecord("3", "Tim cook", "CEO", "Apple");
-
-            csvPrinter.printRecord(Arrays.asList("4", "Mark Zuckerberg", "CEO", "Facebook"));
-
-            csvPrinter.flush();
-        }
+        // Realiza las operaciones necesarias con los valores de las columnas
+        // Por ejemplo, puedes imprimirlos en la consola
+        System.out.println("Columna 1: " + columna1);
+        System.out.println("Columna 2: " + columna2);
+        // ... Realiza operaciones adicionales con los valores
     }
+
+    // Cierra el recurso
+    csvParser.close();
+    reader.close();
 }
+
+try {
+    leerCSV("archivo.csv");
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+/*Asegúrate de reemplazar "archivo.csv" con la ruta y el nombre de tu archivo CSV.
+
+Este código abrirá el archivo CSV especificado, leerá los registros y te permitirá acceder a
+ los valores de cada columna del registro utilizando el método get() de la clase CSVRecord.
+  Puedes realizar las operaciones que necesites con los valores de las columnas dentro del bucle for.*/
