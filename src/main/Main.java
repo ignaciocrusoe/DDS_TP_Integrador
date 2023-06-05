@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import main.LeerDatosCSV;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -15,6 +16,8 @@ public class Main {
         } else {
             System.out.print("Contraseña invalida!");
 
+
+        LeerDatosCSV reader = new LeerDatosCSV();
             //cargador.dataLines.add(new String[]{ "prueba", "1234" });
             //cargador.givenDataArray_whenConvertToCSV_thenOutputCreated();
         }

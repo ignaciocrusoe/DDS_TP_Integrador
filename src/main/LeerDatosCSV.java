@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 public class LeerDatosCSV {
-    private static final String SAMPLE_CSV_FILE_PATH = "./users.csv";
+    private static final String SAMPLE_CSV_FILE_PATH = "src/main/probando.csv";
 
     public static void main(String[] args) throws IOException {
         try (
@@ -23,6 +23,7 @@ public class LeerDatosCSV {
                 String nombre_organismo = csvRecord.get(0);
                 String mail_organismo = csvRecord.get(1);
                 String entidades = csvRecord.get(2);
+
 
 
                 System.out.println("Record No - " + csvRecord.getRecordNumber()); //imprime el numero de fila que leyo
