@@ -9,11 +9,11 @@ import java.util.Arrays;
 
 //esto es una prueba no mas
 //VER COMO USAR APACHE COMMONS CSV PARA ACTUALIZAR UN CSV Y NO TENER QUE ESCRIBIRLO DE CERO
-public static void leerCSV(String archivoCSV) throws IOException {
-    // Abre el archivo CSV para lectura
-    Reader reader = new FileReader(archivoCSV);
-    CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
-
+public static void leerCSV(String archivoCSV) throws IOException{
+        // Abre el archivo CSV para lectura
+        Reader reader=new FileReader(archivoCSV);
+        CSVParser csvParser=new CSVParser(reader,CSVFormat.DEFAULT);
+        }
     // Itera sobre los registros del CSV
     for (CSVRecord csvRecord : csvParser) {
         // Accede a los valores de cada columna del registro actual
