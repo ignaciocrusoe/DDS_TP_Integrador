@@ -1,21 +1,24 @@
-package src.Rankings;
+package Rankings;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Collections;
-import package.Entidades.Entidad;
-import package.Comunidades.Comunidad;
+import Entidades.Entidad;
+import Comunidades.Comunidad;
+import Entidades.Entidad;
+import Entidades.RepoEntidades;
+import Incidentes.RepoIncidentes;
 
-public class GestorDeRankings {
+public class GestorRankings {
     RepoIncidentes repoIncidentes;
     RepoEntidades repoEntidades;
     public int rankingSize;
 
-    public ranking1(){
+    public Collections ranking1(){
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::promedioIncidentes));
     }
-    public ranking2(){
+    public Collections ranking2(){
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::cantidadDeIncidentes));
     }
 
@@ -25,10 +28,8 @@ public class GestorDeRankings {
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::impacto));
     }
     */
-    public crearRanking(){
+    /*public crearRanking(){
 
-    }
+    }*/
 }
 
-public class InformeSemanal {
-}

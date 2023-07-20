@@ -4,7 +4,6 @@ import Incidentes.Incidente;
 import Localizaciones.Localizacion;
 import GestoresIncidentes.GestorIncidentesRecargado;
 import GestoresNotificaciones.GestorNotificacionesPersona;
-
-public class Comunidad{
+public class Persona {
 
 }

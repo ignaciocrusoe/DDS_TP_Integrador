@@ -1,26 +1,17 @@
-package src.Incidentes;
+package Incidentes;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Collections;
-import package.Entidades.Entidad;
-import package.Comunidades.Persona;
-import package.Comunidades.Comunidad;
-import package.Servicios.Prestacion;
-import package.Servicios.AgrupacionPrestaciones;
-import package.Establecimientos.Establecimiento;
+import Entidades.Entidad;
+import Comunidades.Persona;
+import Comunidades.Comunidad;
+import Servicios.Prestacion;
+import Servicios.AgrupacionPrestaciones;
+import Establecimientos.Establecimiento;
+import java.time.temporal.ChronoUnit;
 
-
-public class RepoIncidentes {
-    List<Incidente> listaIncidentes;
-
-    //public Incidente buscarIncidente(){}
-}
-
-public class RepoEntidades {
-    List<Incidente> listaEntidades;
-}
 
 public class Incidente {
     private String id;
@@ -58,7 +49,7 @@ public class Incidente {
         Incidente unIncidente = new Incidente("id1", new Persona(), new Prestacion(), "Descripción.", [new Comunidad()], [new Persona()]);
     }
 
-    public int duracion(){
+    public long duracion(){
         return apertura.until(cierre, ChronoUnit.HOURS);
     }
 }

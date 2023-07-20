@@ -1,18 +1,18 @@
-package src.Localizaciones;
-import package.Establecimientos.Establecimiento;
-import package.Comunidades.Persona;
-import package.Intereses.Interes;
+package Localizaciones;
+import Establecimientos.Establecimiento;
+import Comunidades.Persona;
+import Intereses.Interes;
 
 public class Localizacion extends Interes{
 
 }
 
-public class Provincia extends Localizacion{
+class Provincia extends Localizacion{
 
 }
-public class Departamento extends Localizacion{
+class Departamento extends Localizacion{
 
 }
-public class Municipio extends Localizacion{
+class Municipio extends Localizacion{
 
 }
