@@ -1,4 +1,4 @@
-package main.Intereses;
+package src.Intereses;
 
 public class Interes{
 

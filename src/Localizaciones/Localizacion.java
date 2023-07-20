@@ -1,4 +1,4 @@
-package main.Localizaciones;
+package src.Localizaciones;
 import package.Establecimientos.Establecimiento;
 import package.Comunidades.Persona;
 import package.Intereses.Interes;

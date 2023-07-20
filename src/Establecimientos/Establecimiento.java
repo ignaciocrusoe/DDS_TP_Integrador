@@ -1,4 +1,4 @@
-package main.Establecimientos;
+package src.Establecimientos;
 import package.Entidades.Entidad;
 import package.Incidentes.Incidente;
 import package.Localizaciones.Localizacion;

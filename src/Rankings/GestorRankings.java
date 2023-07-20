@@ -1,4 +1,4 @@
-package main.Rankings;
+package src.Rankings;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;

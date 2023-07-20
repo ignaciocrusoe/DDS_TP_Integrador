@@ -1,4 +1,4 @@
-package main.Comunidades;
+package src.Comunidades;
 import package.Intereses.Interes;
 import package.Incidentes.Incidente;
 import package.Localizaciones.Localizacion;

@@ -1,4 +1,4 @@
-package main.ValidadorContrasenias;
+package src.ValidadorContrasenias;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

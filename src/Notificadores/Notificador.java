@@ -1,4 +1,4 @@
-package main.Notificadores;
+package src.Notificadores;
 import package.GestoresNotificaciones.GestorNotificacionesPersona;
 import package.Entidades.Entidad;
 import package.Comunidades.Comunidad;

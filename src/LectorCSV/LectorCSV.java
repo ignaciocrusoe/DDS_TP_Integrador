@@ -1,4 +1,4 @@
-package main.LectorCSV;
+package src.LectorCSV;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.*;
+
 public class LeerDatosCSV {
     private static final String CSV1_FILE_PATH = "src/main/1.csv";
     private static final String CSV2_FILE_PATH = "src/main/2.csv";

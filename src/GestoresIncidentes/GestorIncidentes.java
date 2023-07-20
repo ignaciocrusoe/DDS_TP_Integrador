@@ -1,4 +1,4 @@
-package main.GestoresIncidentes
+package src.GestoresIncidentes
 import package.Entidades.Entidad;
 import package.Comunidades.Comunidad;
 import package.Comunidades.Persona;
