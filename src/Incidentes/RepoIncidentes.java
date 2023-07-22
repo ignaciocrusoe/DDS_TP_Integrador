@@ -3,7 +3,7 @@ package Incidentes;
 import java.util.List;
 
 public class RepoIncidentes {
-    List<Incidente> listaIncidentes;
+    private List<Incidente> listaIncidentes;
 
     //public Incidente buscarIncidente(){}
 }

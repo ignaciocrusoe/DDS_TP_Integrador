@@ -21,6 +21,11 @@ public class GestorRankings {
     public Collections ranking2(){
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::cantidadDeIncidentes));
     }
+    public GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
+        super();
+        this.repoIncidentes = repoIncidentes;
+        this.repoEntidades = repoEntidades;
+    }
 
     //Considerado en la siguiente entrega
     /*
