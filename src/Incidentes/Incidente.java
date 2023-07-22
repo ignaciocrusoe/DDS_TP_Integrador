@@ -27,16 +27,14 @@ public class Incidente {
     RepoIncidentes repoIncidentes;
 
     //1. Se debe permitir la apertura de incidentes
-    public Incidente(String id, Persona persona, Prestacion prestacion, String descripcion, List<Comunidad> comunidadesAfectadas, List<Persona> suscriptores, RepoIncidentes repoIncidentes){
+    public Incidente(String id, Persona persona, Prestacion prestacion, String descripcion, RepoIncidentes repoIncidentes){
         super();
         this.id = id;
         this.personaQueReporto = persona;
         this.descripcion = descripcion;
-        this.comunidadesAfectadas = comunidadesAfectadas;
         this.apertura = LocalDate.now();
         this.cierre = null;
         this.estado = true;
-        this.suscriptores = suscriptores;
 
         this.repoIncidentes = repoIncidentes;
     }
@@ -46,8 +44,16 @@ public class Incidente {
         this.estado = false;        
     }
 
+    public void agregarSuscriptores(Suscriptor suscriptor){
+        suscriptores.add(suscriptor);
+    }
+
+    public void agregarComunidad(Comunidad comunidad){
+        comunidadesAfectadas.add(comunidad);
+    }
+
     public void main(){
-        Incidente unIncidente = new Incidente("id1", new Persona(), new Prestacion(), "Descripción.", [new Comunidad()], [new Persona()]);
+        Incidente unIncidente = new Incidente("id1", new Persona(), new Prestacion(), "Descripción.", new RepoIncidentes());
     }
 
     public long duracion(){
