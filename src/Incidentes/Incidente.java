@@ -66,7 +66,7 @@ public class Incidente {
     }
 
     public void printIncidente() {
-        //todo
+        //todo printIncidente()
         //en la comunidad se deben poder ver los incidentes
         //asumo que por ahora solo los tenemos que mostrar en pantalla
         //luego se verá la correcta implementacion cuando armemos clases para el front

@@ -6,11 +6,11 @@ import Notificadores.NotificadorComunidad;
 public class GestorNotificacionesPersona {
 
     public void agregarNotificacionPendiente(Incidente nuevoIncidente) {
-        //todo
+        //todo agregarNotificacionPendiente(incidente)
     }
 
     public void notificarCercania(Incidente incidente) {
 
-        //todo
+        //todo notificarCercania(incidente)
     }
 }
