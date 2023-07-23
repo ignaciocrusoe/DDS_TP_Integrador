@@ -15,6 +15,8 @@ public class Persona {
   String nombre;
   Localizacion ubicacionActual;
 
+  GestorNotificacionesPersona gestorNotificaciones;
+
   public Persona(Boolean esAfectado, String nombre, Localizacion ubicacionActual){
     super();
     this.esAfectado = esAfectado;
@@ -22,6 +24,7 @@ public class Persona {
     this.membresias = new ArrayList<>();
     this.nombre = nombre;
     this.ubicacionActual = ubicacionActual;
+    this.gestorNotificaciones = new GestorNotificacionesPersona();
   }
 
     public Persona() {
@@ -30,6 +33,17 @@ public class Persona {
 
   public void cambiarRol(Boolean esAfectado){
     this.esAfectado = esAfectado;
+  }
+
+  public boolean estaDentroDeRadio(Double radio) {
+
+    //todo estaDentroDeRadio(radio)
+
+    return true;
+  }
+
+  public GestorNotificacionesPersona getGestorNotificaciones() {
+    return this.gestorNotificaciones;
   }
 }
 
