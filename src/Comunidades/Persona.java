@@ -4,14 +4,18 @@ import Incidentes.Incidente;
 import Localizaciones.Localizacion;
 import GestoresIncidentes.GestorIncidentesRecargado;
 import GestoresNotificaciones.GestorNotificacionesPersona;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Persona {
-  bool esAfectado;
+  Boolean esAfectado;
   private List<Miembro> membresias;
   private List<Interes> intereses;
-  string nombre;
+  String nombre;
   Localizacion ubicacionActual;
 
-  public Persona(bool esAfectado, string nombre, Localizacion ubicacionActual){
+  public Persona(Boolean esAfectado, String nombre, Localizacion ubicacionActual){
     super();
     this.esAfectado = esAfectado;
     this.intereses = new ArrayList<>();
@@ -24,7 +28,7 @@ public class Persona {
 
     }
 
-  public void cambiarRol(bool esAfectado){
+  public void cambiarRol(Boolean esAfectado){
     this.esAfectado = esAfectado;
   }
 }
