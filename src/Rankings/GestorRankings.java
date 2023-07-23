@@ -6,22 +6,24 @@ import java.util.Comparator;
 import java.util.Collections;
 import Entidades.Entidad;
 import Comunidades.Comunidad;
-import Entidades.Entidad;
+
 import Entidades.RepoEntidades;
 import Incidentes.RepoIncidentes;
 
 public class GestorRankings {
     RepoIncidentes repoIncidentes;
     RepoEntidades repoEntidades;
+
+    InformeSemanal informeSemanal;
     public int rankingSize;
 
-    public Collections ranking1(){
+    public List<Entidad> ranking1(){
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::promedioIncidentes));
     }
-    public Collections ranking2(){
+    public List<Entidad> ranking2(){
         return Collections.sort(repoEntidades, Comparator.comparing(Entidad::cantidadDeIncidentes));
     }
-    public GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
+    public void GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
         super();
         this.repoIncidentes = repoIncidentes;
         this.repoEntidades = repoEntidades;
@@ -36,5 +38,21 @@ public class GestorRankings {
     /*public crearRanking(){
 
     }*/
+
+    private void generarInforme(){
+    informeSemanal.agregarListaPromedio(this.ranking1());
+    informeSemanal.agregarListaCantidad(this.ranking2());
+    }
+
+    public void enviarInforme(){
+        for (Entidad entidad: this.repoEntidades.getListaEntidades()
+             ) {
+            entidad.recibirInforme();
+        }
+    }
+
+    public InformeSemanal obtenerInforme(){
+        return this.informeSemanal;
+    }
 }
 
