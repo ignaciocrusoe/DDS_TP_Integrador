@@ -17,6 +17,8 @@ public class GestorCercania {
 //        y por cada miembro (for each), avisarle a la comunidad que
 //        notifique con comunidad.sugerirActualizarIncidente()
 
+
+
     }
     public void setRadioCercania(Double radio){
         this.radio = radio;
