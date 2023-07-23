@@ -1,4 +1,5 @@
 package Comunidades;
+import GestoresNotificaciones.MedioComunicacion;
 import Intereses.Interes;
 import Incidentes.Incidente;
 import Localizaciones.Localizacion;
@@ -17,19 +18,16 @@ public class Persona {
 
   GestorNotificacionesPersona gestorNotificaciones;
 
-  public Persona(Boolean esAfectado, String nombre, Localizacion ubicacionActual){
+  public Persona(Boolean esAfectado, String nombre, Localizacion ubicacionActual,MedioComunicacion medio){
     super();
     this.esAfectado = esAfectado;
     this.intereses = new ArrayList<>();
     this.membresias = new ArrayList<>();
     this.nombre = nombre;
     this.ubicacionActual = ubicacionActual;
-    this.gestorNotificaciones = new GestorNotificacionesPersona();
+    this.gestorNotificaciones = new GestorNotificacionesPersona(medio);
+
   }
-
-    public Persona() {
-
-    }
 
   public void cambiarRol(Boolean esAfectado){
     this.esAfectado = esAfectado;
