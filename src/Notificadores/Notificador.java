@@ -20,7 +20,6 @@ public class Notificador{
 
         for (GestorNotificacionesPersona gestor:gestoresMiembros
         ) {
-
             gestor.agregarNotificacionPendiente(nuevoIncidente);
         }
 

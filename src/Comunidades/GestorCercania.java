@@ -1,6 +1,12 @@
 package Comunidades;
-public class GestorCercania {
 
+import Incidentes.Incidente;
+
+import java.util.List;
+
+public class GestorCercania {
+    //todo : decidir forma de funcionamiento
+    //corre en paralelo y analiza cada cierto tiempo, o bien la comunidad lo manda a hacer el analisis cada cierto tiempo
     Comunidad comunidadGestionada;
     Double radio;
 
@@ -11,13 +17,22 @@ public class GestorCercania {
 
     public void verificarMiembrosDentroDeRadio(){
 
-        //todo verificarMiembrosDentroDeRadio()
-//        deberia generar una lista de miembros cerca de un
-//        incidente en particular de la comunidad
-//        y por cada miembro (for each), avisarle a la comunidad que
-//        notifique con comunidad.sugerirActualizarIncidente()
+        //todo test verificarMiembrosDentroDeRadio()
+
+        // por cada incidente en la lista de inicidentes activos de la comunidad
+        for (Incidente incidente:comunidadGestionada.getIncidentesSegun(true)
+             ) {
+
+                // Genera una lista con los miembros cerca del incidente
+
+                List<Miembro> miembrosCercaIncidente = (List<Miembro>) comunidadGestionada.getMiembros().stream().filter(miembro -> miembro.estaDentroDeRadio(radio));
+
+                // Le indica a la comunidad que le sugiera actualizar el incidente a esos miembros
+
+                comunidadGestionada.sugerirActualizarIncidente(miembrosCercaIncidente,incidente);
 
 
+        }
 
 
     }

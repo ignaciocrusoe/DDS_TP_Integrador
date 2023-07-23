@@ -35,19 +35,21 @@ public class Comunidad{
     }
     public void verIncidentesSegun(@NotNull Boolean estado){
 
-//        todo : chequear si esta implementacion anda
-        List<Incidente> lista;
-
-        if(estado){
-             lista = incidentesActivos;
-        }else{
-            lista = incidentesFinalizados;
-        }
+        List<Incidente> lista = this.getIncidentesSegun(estado);
 
         for (Incidente incidente:lista
         ) {
             incidente.printIncidente(); //funcion que muestre los datos del incidente
 
+        }
+    }
+
+    public List<Incidente> getIncidentesSegun(@NotNull Boolean estado){
+        //        todo : test getIncidentesSegun(estado)
+        if(estado){
+            return incidentesActivos;
+        }else{
+            return incidentesFinalizados;
         }
     }
 
@@ -65,8 +67,17 @@ public class Comunidad{
         newsletter.notificarGestores(nuevoIncidente);
     }
 
-    public void sugerirActualizarIncidente(GestorNotificacionesPersona notificadorPesona,Incidente incidente){
+    public void sugerirActualizarIncidente(List<Miembro> miembrosCerca,Incidente incidente){
         // es el notify() del observer al GestorCercania
-        newsletter.notificarCercaniaIncidente(notificadorPesona,incidente);
+
+        // genera una lista de sus gestores de notificaciones para mandarsela al gestor de la comunidad
+        List<GestorNotificacionesPersona> gestoresNotisMiembros = (List<GestorNotificacionesPersona>) miembrosCerca.stream().map(miembro -> miembro.getPersona().getGestorNotificaciones());
+
+        newsletter.notificarCercaniaIncidente(gestoresNotisMiembros, incidente);
+
+    }
+
+    public List<Miembro> getMiembros() {
+        return this.miembros;
     }
 }

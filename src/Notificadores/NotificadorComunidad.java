@@ -1,5 +1,6 @@
 package Notificadores;
 
+import Comunidades.Miembro;
 import GestoresNotificaciones.GestorNotificacionesPersona;
 import Incidentes.Incidente;
 
@@ -14,9 +15,14 @@ public class NotificadorComunidad extends Notificador {
         this.gestoresMiembros = new LinkedList<GestorNotificacionesPersona>();
 
     }
-    public void notificarCercaniaIncidente(GestorNotificacionesPersona notificadorPesona, Incidente incidente) {
+    public void notificarCercaniaIncidente(List<GestorNotificacionesPersona> notificadoresPersonas, Incidente incidente) {
 
-        notificadorPesona.notificarCercania(incidente);
+        // Le envia la notificacion a cada notificador de la lista
+        for (GestorNotificacionesPersona notificadorPersona:notificadoresPersonas
+        ) {
+            notificadorPersona.notificarCercania(incidente);
+
+        }
     }
 
 
