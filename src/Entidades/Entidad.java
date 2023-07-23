@@ -14,12 +14,12 @@ import Notificadores.Notificador;
 
 
 public class Entidad extends Interes {
-    //List<Incidente> incidentes;
+    List<Incidente> incidentes;
 
-    //public int promedioIncidentes(){
+    public int promedioIncidentes(){
         return incidentes.map(x -> x.duracion()).average().orElse(0.0);
     }
-    //public int cantidadDeIncidentes(){
+    public int cantidadDeIncidentes(){
         return incidentes.size();
     }
 }

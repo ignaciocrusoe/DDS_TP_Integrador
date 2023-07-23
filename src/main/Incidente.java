@@ -1,8 +1,10 @@
-package Incidente;
+package main;
 import Comunidades.Comunidad;
-import Entidad.Entidad;
+import Entidades.Entidad;
 import Comunidades.Persona;
 import Servicios.Prestacion;
+
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
