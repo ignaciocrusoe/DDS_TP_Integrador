@@ -20,6 +20,10 @@ public class Persona {
     this.ubicacionActual = ubicacionActual;
   }
 
+    public Persona() {
+
+    }
+
   public void cambiarRol(bool esAfectado){
     this.esAfectado = esAfectado;
   }

@@ -59,5 +59,19 @@ public class Incidente {
     public long duracion(){
         return apertura.until(cierre, ChronoUnit.HOURS);
     }
+
+
+    public boolean getEstado(){
+        return this.estado;
+    }
+
+    public void printIncidente() {
+        //todo
+        //en la comunidad se deben poder ver los incidentes
+        //asumo que por ahora solo los tenemos que mostrar en pantalla
+        //luego se verá la correcta implementacion cuando armemos clases para el front
+
+
+    }
 }
 

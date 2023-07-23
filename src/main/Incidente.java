@@ -1,4 +1,5 @@
 package Incidente;
+import Comunidades.Comunidad;
 import Entidad.Entidad;
 import Comunidades.Persona;
 import Servicios.Prestacion;
