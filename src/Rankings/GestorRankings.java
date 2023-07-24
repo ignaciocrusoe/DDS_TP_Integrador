@@ -18,10 +18,12 @@ public class GestorRankings {
     public int rankingSize;
 
     public List<Entidad> ranking1(){
-        return Collections.sort(repoEntidades, Comparator.comparing(Entidad::promedioIncidentes));
+        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparing(Entidad::promedioIncidentes);
+        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorPromedioIncidente);
     }
     public List<Entidad> ranking2(){
-        return Collections.sort(repoEntidades, Comparator.comparing(Entidad::cantidadDeIncidentes));
+        Comparator<Entidad> comparadorPorCantidadDeIncidentes =  Comparator.comparing(Entidad::cantidadDeIncidentes);
+        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorCantidadDeIncidentes);
     }
     public void GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
         super();

@@ -20,7 +20,7 @@ public class Entidad extends Interes {
     GestorRankings gestorRankings;
 
     public int promedioIncidentes(){
-        return incidentes.map(x -> x.duracion()).average().orElse(0.0);
+        return incidentes.map( x -> x.duracion()).average().orElse(0.0);
     }
     public int cantidadDeIncidentes(){
         return incidentes.size();
