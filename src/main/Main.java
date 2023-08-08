@@ -1,6 +1,7 @@
-package src;
+package main;
 import java.io.IOException;
 import java.util.List;
+import LectorCSV.LectorCSV;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,7 +13,7 @@ public class Main {
             System.out.print("Contraseña invalida!");
          */
 
-        LeerDatosCSV reader = new LeerDatosCSV();
+        LectorCSV reader = new LectorCSV();
 
         List<List<String>> listaCsv1 = reader.leerCsv1();
         List<List<String>> listaCsv2 = reader.leerCsv1();
