@@ -43,6 +43,18 @@
             <version>3.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -55,7 +67,7 @@
                     <archive>
                         <manifest>
                             //aca va la clase principal que se va a ejecutar
-                            <mainClass>com.example.bank.App</mainClass>
+                            <mainClass>{ejemplo}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
