@@ -11,12 +11,8 @@ import Servicios.Prestacion;
 import Servicios.AgrupacionPrestaciones;
 import Establecimientos.Establecimiento;
 import java.time.temporal.ChronoUnit;
+import Comunidades.Persona;
 
-public class RepoIncidentes {
-    List<Incidente> listaIncidentes;
-
-    //public Incidente buscarIncidente(){}
-}
 public class Incidente {
     private String id;
     Persona personaQueReporto;
@@ -48,7 +44,7 @@ public class Incidente {
         this.estado = false;        
     }
 
-    public void agregarSuscriptores(Suscriptor suscriptor){
+    public void agregarSuscriptores(Persona suscriptor){
         suscriptores.add(suscriptor);
     }
 
@@ -56,8 +52,8 @@ public class Incidente {
         comunidadesAfectadas.add(comunidad);
     }
 
-    public void main(){
-        Incidente unIncidente = new Incidente("id1", new Persona(), new Prestacion(), "Descripción.", new RepoIncidentes());
+    public void Incidente(Persona persona){
+        Incidente unIncidente = new Incidente("id1", persona, new Prestacion(), "Descripción.", new RepoIncidentes());
     }
 
     public long duracion(){

@@ -12,6 +12,7 @@ import Rankings.InformeSemanal;
 import Rankings.GestorRankings;
 import Establecimientos.Establecimiento;
 import Incidentes.Incidente;
+import Incidentes.RepoIncidentes;
 import GestoresIncidentes.GestorIncidentes;
 import Intereses.Interes;
 import Notificadores.Notificador;
@@ -33,18 +34,5 @@ public class Entidad extends Interes {
 
     public void recibirInforme(){
         this.informeSemanal = gestorRankings.obtenerInforme();
-    }
-}
-
-public class RepoEntidades {
-    List<Incidente> listaEntidades;
-}
-
-    public void main(){
-        Incidente unIncidente = new Incidente("id1", new Persona(), new Prestacion(), "Descripción.", [new Comunidad()], [new Persona()]);
-    }
-
-    public int duracion(){
-        return apertura.until(cierre, ChronoUnit.HOURS);
     }
 }
