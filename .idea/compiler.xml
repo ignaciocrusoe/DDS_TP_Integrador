@@ -9,5 +9,8 @@
         <module name="DDS_TP_Integrador" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="untitled" target="20" />
+    </bytecodeTargetLevel>
   </component>
 </project>

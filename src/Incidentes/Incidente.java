@@ -12,7 +12,11 @@ import Servicios.AgrupacionPrestaciones;
 import Establecimientos.Establecimiento;
 import java.time.temporal.ChronoUnit;
 
+public class RepoIncidentes {
+    List<Incidente> listaIncidentes;
 
+    //public Incidente buscarIncidente(){}
+}
 public class Incidente {
     private String id;
     Persona personaQueReporto;
