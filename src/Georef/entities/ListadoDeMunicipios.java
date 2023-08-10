@@ -1,5 +1,4 @@
-package domain.services.georef.entities;
-
+package Georef.entities;
 import java.util.List;
 
 public class ListadoDeMunicipios {

@@ -1,5 +1,4 @@
-package domain.services.georef.entities;
-
+package Georef.entities;
 public class Municipio {
     public int id;
     public String nombre;
