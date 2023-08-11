@@ -16,20 +16,21 @@ public class GestorRankings {
 
     InformeSemanal informeSemanal;
     public int rankingSize;
+//todo: arreglar
 
-    public List<Entidad> ranking1(){
-        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparing(Entidad::promedioIncidentes);
-        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorPromedioIncidente);
-    }
-    public List<Entidad> ranking2(){
-        Comparator<Entidad> comparadorPorCantidadDeIncidentes =  Comparator.comparing(Entidad::cantidadDeIncidentes);
-        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorCantidadDeIncidentes);
-    }
-    public void GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
-        super();
-        this.repoIncidentes = repoIncidentes;
-        this.repoEntidades = repoEntidades;
-    }
+//    public List<Entidad> ranking1(){
+//        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparing(Entidad::promedioIncidentes);
+//        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorPromedioIncidente);
+//    }
+//    public List<Entidad> ranking2(){
+//        Comparator<Entidad> comparadorPorCantidadDeIncidentes =  Comparator.comparing(Entidad::cantidadDeIncidentes);
+//        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorCantidadDeIncidentes);
+//    }
+//    public void GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
+//        super();
+//        this.repoIncidentes = repoIncidentes;
+//        this.repoEntidades = repoEntidades;
+//    }
 
     //Considerado en la siguiente entrega
     /*
@@ -41,10 +42,12 @@ public class GestorRankings {
 
     }*/
 
-    private void generarInforme(){
-    informeSemanal.agregarListaPromedio(this.ranking1());
-    informeSemanal.agregarListaCantidad(this.ranking2());
-    }
+    //no se no anda
+
+//    private void generarInforme(){
+//    informeSemanal.agregarListaPromedio(this.ranking1());
+//    informeSemanal.agregarListaCantidad(this.ranking2());
+//    }
 
     public void enviarInforme(){
         for (Entidad entidad: this.repoEntidades.getListaEntidades()

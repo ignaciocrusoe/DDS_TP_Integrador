@@ -26,7 +26,14 @@ public class Entidad extends Interes {
     GestorRankings gestorRankings;
 
     public int promedioIncidentes(){
-        return incidentes.map( x -> x.duracion()).average().orElse(0.0);
+
+        long sumatoria=0;
+        for (Incidente incidente:incidentes
+             ) {
+            sumatoria+=incidente.duracion();
+
+        }
+        return (int)(sumatoria/incidentes.size());
     }
     public int cantidadDeIncidentes(){
         return incidentes.size();

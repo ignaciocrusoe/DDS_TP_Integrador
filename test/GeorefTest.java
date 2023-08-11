@@ -1,6 +1,9 @@
 import Georef.ServicioGeoref;
+import Georef.entities.ListadoDeMunicipios;
+import Georef.entities.ListadoDeProvincias;
+import Georef.entities.Municipio;
+import Georef.entities.Provincia;
 import org.junit.Test;
-import Georef.entities.*;
 
 import java.io.IOException;
 
@@ -12,6 +15,8 @@ public class GeorefTest {
         ServicioGeoref api = new ServicioGeoref();
 
         ListadoDeProvincias provincias = api.listadoDeProvincias();
+
+        System.out.println("\nEstas son las provincias de Argentina");
 
         for (Provincia provincia:provincias.provincias
              ) {
@@ -28,8 +33,10 @@ public class GeorefTest {
         ServicioGeoref api = new ServicioGeoref();
 
         ListadoDeProvincias provincias = api.listadoDeProvincias();
+        int indexProvincia = 5;
+        System.out.println("\n Estos son los municipios de: " + provincias.provincias.get(indexProvincia).nombre);
 
-        ListadoDeMunicipios municipiosDeProvincia = api.listadoDeMunicipiosDeProvincia(provincias.provincias.get(1));
+        ListadoDeMunicipios municipiosDeProvincia = api.listadoDeMunicipiosDeProvincia(provincias.provincias.get(indexProvincia));
 
         for (Municipio municipio: municipiosDeProvincia.municipios
         ) {
