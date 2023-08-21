@@ -1,5 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
+import Grupo11.DDS_TP_Integrador.Incidentes.RepoIncidentes;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
@@ -11,57 +12,29 @@ import java.util.List;
 
 
 //todo : estos métodos me parece que deben ir en Incidente directamente:
-// +actualizarIncidenteReportado(Incidente)
-// +cerrarIncidenteReportado(Incidente)
+// +actualizarIncidenteReportado(Incidente) SI
+// +cerrarIncidenteReportado(Incidente) SI
+//todo: se pueden agregar intereses o se intancia la comunidad con una lista fija? ni idea
 
 public class Comunidad{
-
     private List<Miembro> miembros;
     private List<Interes> interesesComunes;
-    private List<Incidente> incidentesActivos;
-    private List<Incidente> incidentesFinalizados;
+    private RepoIncidentes repoIncidentes;
     private NotificadorComunidad newsletter;
     private GestorCercania gestorCercania;
 
     public Comunidad(Double radioCercaniaIncidentes){
         this.miembros = new LinkedList<Miembro>();
-        //todo: se pueden agregar intereses o se intancia la comunidad con una lista fija?
         this.interesesComunes = new LinkedList<Interes>();
-        this.incidentesActivos = new LinkedList<Incidente>();
-        this.incidentesFinalizados = new LinkedList<Incidente>();
-
+        this.repoIncidentes = new RepoIncidentes();
         this.newsletter = new NotificadorComunidad();
         this.gestorCercania = new GestorCercania(this, radioCercaniaIncidentes);
     }
-    public void verIncidentesSegun(@NotNull Boolean estado){
-
-        List<Incidente> lista = this.getIncidentesSegun(estado);
-
-        for (Incidente incidente:lista
-        ) {
-            incidente.printIncidente(); //funcion que muestre los datos del incidente
-
-        }
+    public RepoIncidentes getRepoIncidentes() {
+        return repoIncidentes;
     }
-
-    public List<Incidente> getIncidentesSegun(@NotNull Boolean estado){
-        //        todo : test getIncidentesSegun(estado)
-        if(estado){
-            return incidentesActivos;
-        }else{
-            return incidentesFinalizados;
-        }
-    }
-
-    public void agregarIncidente(@NotNull Incidente nuevoIncidente){
-
-        if (nuevoIncidente.getEstado()){
-            incidentesActivos.add(nuevoIncidente);
-        }else{
-            incidentesFinalizados.add(nuevoIncidente); //caso borde
-        }
-
-        this.notificarNuevoIncidenteAMiembros(nuevoIncidente);
+    public List<Miembro> getMiembros() {
+        return miembros;
     }
     private void notificarNuevoIncidenteAMiembros(Incidente nuevoIncidente){
         newsletter.notificarGestores(nuevoIncidente);
@@ -77,7 +50,5 @@ public class Comunidad{
 
     }
 
-    public List<Miembro> getMiembros() {
-        return this.miembros;
-    }
+
 }

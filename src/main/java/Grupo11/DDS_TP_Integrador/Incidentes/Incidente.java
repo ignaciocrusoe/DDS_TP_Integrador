@@ -11,66 +11,45 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import java.time.temporal.ChronoUnit;
 
+//todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
 
 public class Incidente {
-    private String id;
-    Persona personaQueReporto;
-    Prestacion prestacionIncidentada;
-    public String descripcion;
+    private Integer identificador;
+    private String observaciones;
+    private Entidad entidad;
+    private Persona personaQueReporto;
+    private Prestacion prestacionIncidentada;
+    private Establecimiento establecimiento;
     private List<Comunidad> comunidadesAfectadas;
-    LocalDate apertura;
-    LocalDate cierre;
-    boolean estado;
-    private List<Persona> suscriptores;
-
-    RepoIncidentes repoIncidentes;
+    private LocalDate apertura;
+    private LocalDate cierre;
+    private Boolean estado; //todo estado podria ser un enum
 
     //1. Se debe permitir la apertura de incidentes
-    public Incidente(String id, Persona persona, Prestacion prestacion, String descripcion, RepoIncidentes repoIncidentes){
+    public Incidente(Integer identificador, String observaciones, Entidad entidad, Persona persona, Prestacion prestacion, Establecimiento establecimiento, List<Comunidad> comunidades){
         super();
-        this.id = id;
+        this.identificador = identificador;
+        this.observaciones = observaciones;
+        this.entidad = entidad;
         this.personaQueReporto = persona;
-        this.descripcion = descripcion;
-        this.apertura = LocalDate.now();
+        this.prestacionIncidentada = prestacion;
+        this.establecimiento = establecimiento;
+        this.comunidadesAfectadas = comunidades;
+        this.apertura = LocalDate.now(); //tiene que incluir fecha y hora
         this.cierre = null;
-        this.estado = true;
-
-        this.repoIncidentes = repoIncidentes;
+        this.estado = true; //true el incidente esta abierto
     }
+
     //2. Se debe permitir el cierre de incidentes
     public void cerrarIncidente(){
         this.cierre = LocalDate.now();
-        this.estado = false;        
+        this.estado = false; //false el incidente esta cerrado
     }
-
-    public void agregarSuscriptores(Persona suscriptor){
-        suscriptores.add(suscriptor);
+    public Boolean getEstado() {
+        return estado;
     }
-
-    public void agregarComunidad(Comunidad comunidad){
-        comunidadesAfectadas.add(comunidad);
-    }
-
-    public void Incidente(Persona persona){
-        Incidente unIncidente = new Incidente("id1", persona, new Prestacion(), "Descripción.", new RepoIncidentes());
-    }
-
     public long duracion(){
         return apertura.until(cierre, ChronoUnit.HOURS);
-    }
-
-
-    public boolean getEstado(){
-        return this.estado;
-    }
-
-    public void printIncidente() {
-        //todo printIncidente()
-        //en la comunidad se deben poder ver los incidentes
-        //asumo que por ahora solo los tenemos que mostrar en pantalla
-        //luego se verá la correcta implementacion cuando armemos clases para el front
-
-
     }
 }
 

@@ -14,7 +14,7 @@ public class GestorCercania {
         this.radio = radioCercania;
         this.comunidadGestionada = comunidadGestionada;
     }
-
+/*
     public void verificarMiembrosDentroDeRadio(){
 
         //todo test verificarMiembrosDentroDeRadio()
@@ -39,5 +39,5 @@ public class GestorCercania {
     public void setRadioCercania(Double radio){
         this.radio = radio;
     }
-
+*/
 }

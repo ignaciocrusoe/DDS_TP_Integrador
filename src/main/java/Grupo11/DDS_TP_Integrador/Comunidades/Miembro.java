@@ -4,10 +4,8 @@ import Grupo11.DDS_TP_Integrador.Localizaciones.*;
 
 public class Miembro {
 
-   final private Comunidad comunidadMiembro;
-
-   final private Persona personaMiembro;
-
+    final private Comunidad comunidadMiembro;
+    final private Persona personaMiembro;
     private Rol rolEnComunidad;
     private TipoUsuario tipoUsuario;
 
@@ -17,11 +15,6 @@ public class Miembro {
         this.rolEnComunidad=rol;
         this.tipoUsuario=tipo;
     }
-
-    public boolean estaDentroDeRadio(Double radio){
-       return this.personaMiembro.estaDentroDeRadio(radio);
-    }
-
     public void setTipoUsuario(TipoUsuario tipo){
         this.tipoUsuario=tipo;
     }

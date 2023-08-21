@@ -10,39 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Persona {
-  Boolean esAfectado;
   private List<Miembro> membresias;
   private List<Interes> intereses;
-  String nombre;
-  Localizacion ubicacionActual;
-
-  GestorNotificacionesPersona gestorNotificaciones;
-
-  public Persona(Boolean esAfectado, String nombre, Localizacion ubicacionActual,MedioComunicacion medio){
-    super();
-    this.esAfectado = esAfectado;
-    this.intereses = new ArrayList<>();
-    this.membresias = new ArrayList<>();
-    this.nombre = nombre;
-    this.ubicacionActual = ubicacionActual;
-    this.gestorNotificaciones = new GestorNotificacionesPersona(medio);
-
-  }
-
-  public void cambiarRol(Boolean esAfectado){
-    this.esAfectado = esAfectado;
-  }
-
-  public boolean estaDentroDeRadio(Double radio) {
-
-    //todo estaDentroDeRadio(radio)
-
-    return true;
-  }
+  private String nombre;
+  private Localizacion ubicacionActual;
+  private GestorNotificacionesPersona gestorNotificaciones;
+  private GestorIncidentesRecargado gestorIncidentesRecargado;
 
   public GestorNotificacionesPersona getGestorNotificaciones() {
     return this.gestorNotificaciones;
   }
+  public Persona(String nombre, MedioComunicacion medio){
+    super();
+    this.intereses = new ArrayList<Interes>();
+    this.membresias = new ArrayList<Miembro>();
+    this.nombre = nombre;
+    this.gestorNotificaciones = new GestorNotificacionesPersona(medio);
+  }
+
 }
 
 
