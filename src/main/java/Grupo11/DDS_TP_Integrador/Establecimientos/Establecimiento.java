@@ -7,9 +7,3 @@ import Grupo11.DDS_TP_Integrador.Servicios.*;
 public class Establecimiento{
 
 }
-class Estacion extends Establecimiento {
-
-}
-class Sucursal extends Establecimiento {
-
-}

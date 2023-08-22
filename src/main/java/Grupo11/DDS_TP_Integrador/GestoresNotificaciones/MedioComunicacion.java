@@ -6,9 +6,4 @@ import Grupo11.DDS_TP_Integrador.Notificadores.*;
 public class MedioComunicacion {
 
 }
-class Email extends MedioComunicacion{
 
-}
-class Whatsapp extends MedioComunicacion {
-
-}

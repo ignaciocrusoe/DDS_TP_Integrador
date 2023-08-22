@@ -42,9 +42,3 @@ public class Entidad extends Interes {
         this.informeSemanal = gestorRankings.obtenerInforme();
     }
 }
-class Linea extends Entidad {
-
-}
-class Organizacion extends Entidad {
-
-}

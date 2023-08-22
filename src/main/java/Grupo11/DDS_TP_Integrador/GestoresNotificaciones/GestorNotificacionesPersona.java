@@ -3,30 +3,27 @@ import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
 public class GestorNotificacionesPersona {
-
-    MedioComunicacion medioComunicacion;
-    List<Incidente> incidentesANotificar;
+    private List<LocalDate> horarios;
+    private MedioComunicacion medioComunicacion;
+    private RepoNotificaciones repoNotificacionesPendientes;
 
     public GestorNotificacionesPersona(MedioComunicacion medio){
-        this.incidentesANotificar = new LinkedList<Incidente>();
+        this.repoNotificacionesPendientes = new RepoNotificaciones();
         this.medioComunicacion = medio;
-
     }
-    public void agregarNotificacionPendiente(Incidente nuevoIncidente) {
-        incidentesANotificar.add(nuevoIncidente);
+    public void actualizarNotificacionesPendientes(Notificacion notificacion) {
+        repoNotificacionesPendientes.addNotificacion(notificacion);
     }
 
-    public void notificarCercania(Incidente incidente) {
-
-        //todo notificarCercania(incidente)
-        //acá deberíamos armar la estructura del mensaje y ejecutar medio.notify(mensaje)
-
-    }
     public void setMedioComunicacion(MedioComunicacion medioComunicacion) {
-        this.medioComunicacion = medioComunicacion;
+        medioComunicacion = medioComunicacion;
     }
 }
+
+
+

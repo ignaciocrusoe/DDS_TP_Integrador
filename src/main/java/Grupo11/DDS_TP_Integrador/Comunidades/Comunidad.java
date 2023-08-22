@@ -5,10 +5,14 @@ import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import org.jetbrains.annotations.NotNull;
+import static Grupo11.DDS_TP_Integrador.GestoresNotificaciones.TipoNotificacion.NUEVO_INCIDENTE;
+import static Grupo11.DDS_TP_Integrador.GestoresNotificaciones.TipoNotificacion.SUGERENCIA;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+
 
 
 //todo : estos métodos me parece que deben ir en Incidente directamente:
@@ -20,14 +24,14 @@ public class Comunidad{
     private List<Miembro> miembros;
     private List<Interes> interesesComunes;
     private RepoIncidentes repoIncidentes;
-    private NotificadorComunidad newsletter;
+    private NotificadorComunidad notificadorComunidad;
     private GestorCercania gestorCercania;
 
     public Comunidad(Double radioCercaniaIncidentes){
         this.miembros = new LinkedList<Miembro>();
         this.interesesComunes = new LinkedList<Interes>();
         this.repoIncidentes = new RepoIncidentes();
-        this.newsletter = new NotificadorComunidad();
+        this.notificadorComunidad = new NotificadorComunidad();
         this.gestorCercania = new GestorCercania(this, radioCercaniaIncidentes);
     }
     public RepoIncidentes getRepoIncidentes() {
@@ -37,16 +41,16 @@ public class Comunidad{
         return miembros;
     }
     private void notificarNuevoIncidenteAMiembros(Incidente nuevoIncidente){
-        newsletter.notificarGestores(nuevoIncidente);
+        notificadorComunidad.setNotificacion(new Notificacion(nuevoIncidente, NUEVO_INCIDENTE));
+        notificadorComunidad.notificarGestores();
     }
-
-    public void sugerirActualizarIncidente(List<Miembro> miembrosCerca,Incidente incidente){
-        // es el notify() del observer al GestorCercania
+    public void sugerirActualizarIncidente(List<Miembro> miembrosCerca,Incidente nuevoIncidente){
 
         // genera una lista de sus gestores de notificaciones para mandarsela al gestor de la comunidad
-        List<GestorNotificacionesPersona> gestoresNotisMiembros = (List<GestorNotificacionesPersona>) miembrosCerca.stream().map(miembro -> miembro.getPersona().getGestorNotificaciones());
+        List<GestorNotificacionesPersona> gestoresNotificaciones = miembrosCerca.stream().map(miembro -> miembro.getPersona().getGestorNotificaciones()).toList();
 
-        newsletter.notificarCercaniaIncidente(gestoresNotisMiembros, incidente);
+        notificadorComunidad.setNotificacion(new Notificacion(nuevoIncidente, SUGERENCIA));
+        notificadorComunidad.notificarSugerencia(gestoresNotificaciones);
 
     }
 
