@@ -51,5 +51,9 @@ public class Incidente {
     public long duracion(){
         return apertura.until(cierre, ChronoUnit.HOURS);
     }
+
+    public Entidad getEntidad() {
+        return entidad;
+    }
 }
 

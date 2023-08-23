@@ -19,26 +19,16 @@ import Grupo11.DDS_TP_Integrador.Servicios.*;
 
 
 public class Entidad extends Interes {
-    List<Incidente> incidentes;
-    InformeSemanal informeSemanal;
 
-    GestorRankings gestorRankings;
-
-    public int promedioIncidentes(){
-
-        long sumatoria=0;
-        for (Incidente incidente:incidentes
-             ) {
-            sumatoria+=incidente.duracion();
-
-        }
-        return (int)(sumatoria/incidentes.size());
-    }
-    public int cantidadDeIncidentes(){
-        return incidentes.size();
-    }
+    protected RepoIncidentes repoIncidentes;
+    protected InformeSemanal informeSemanal;
+    protected GestorRankings gestorRankings;
 
     public void recibirInforme(){
         this.informeSemanal = gestorRankings.obtenerInforme();
+    }
+
+    public RepoIncidentes getRepoIncidentes() {
+        return repoIncidentes;
     }
 }

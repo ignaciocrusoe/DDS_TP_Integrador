@@ -25,4 +25,14 @@ public class RepoIncidentes {
         return listaIncidentes.stream().filter(mismoEstado).toList();
     }
 
+    public long promedioIncidentes(){
+
+        long sumatoria=0;
+        for (Incidente incidente:listaIncidentes) {
+            sumatoria+=incidente.duracion();
+
+        }
+        return (sumatoria/(listaIncidentes.size()));
+    }
+
 }

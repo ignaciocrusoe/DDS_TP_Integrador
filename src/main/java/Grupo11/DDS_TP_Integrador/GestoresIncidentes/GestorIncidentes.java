@@ -9,6 +9,7 @@ public class GestorIncidentes {
     public void reportarIncidenteParaAfectados(Incidente incidente, List<Comunidad> comunidades){
         for (Comunidad comunidad : comunidades) {
             comunidad.getRepoIncidentes().addIncidente(incidente);
+            incidente.getEntidad().getRepoIncidentes().addIncidente(incidente);
         }
     }
 }

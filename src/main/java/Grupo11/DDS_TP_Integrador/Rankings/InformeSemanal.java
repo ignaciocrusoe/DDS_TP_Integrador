@@ -13,7 +13,6 @@ public class InformeSemanal {
     public void agregarListaPromedio(List<Entidad> listaEntidad){
         this.entidadesPromedioCierreIncidentes = listaEntidad;
     }
-
     public void agregarListaCantidad(List<Entidad> listaEntidad){
         this.entidadesMayorCantidadIncidentes = listaEntidad;
     }
