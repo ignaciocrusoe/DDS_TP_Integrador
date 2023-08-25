@@ -22,19 +22,11 @@ public class GestorRankings {
         return repoEntidades.getListaEntidades().stream().sorted(comparadorPorPromedioIncidente).toList();
     }
 
+    public List<Entidad> calcularEntidadesConMasIncidentesReportados(){
+        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> e.getRepoIncidentes().cantidadIncidentes());
+        return repoEntidades.getListaEntidades().stream().sorted(comparadorPorPromedioIncidente).toList();
+    }
 
-    //todo falta revisar el ranking 2, ni idea como hacerlo
-//    public List<Entidad> calcularEntidadesConMasIncidentesReportados(){
-//        Comparator<Entidad> comparadorPorCantidadDeIncidentes =  Comparator.comparing(Entidad::cantidadDeIncidentes);
-//        return Collections.sort(repoEntidades.getListaEntidades(), comparadorPorCantidadDeIncidentes);
-//    }
-//    public void GestorRankings(RepoIncidentes repoIncidentes, RepoEntidades repoEntidades){
-//        super();
-//        this.repoIncidentes = repoIncidentes;
-//        this.repoEntidades = repoEntidades;
-//    }
-
-    //todo: no se no anda, que cosa no anda?
     public void generarInforme(){
         informeSemanal.agregarListaPromedio(this.calcularTiempoPromedioDeCierreIncidentes());
         informeSemanal.agregarListaCantidad(this.calcularEntidadesConMasIncidentesReportados());

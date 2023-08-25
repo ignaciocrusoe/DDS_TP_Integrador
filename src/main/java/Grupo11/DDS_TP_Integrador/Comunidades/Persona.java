@@ -1,10 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
+import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
-import Grupo11.DDS_TP_Integrador.Incidentes.*;
-import Grupo11.DDS_TP_Integrador.Localizaciones.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
-import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 
 import java.util.ArrayList;
 import java.util.List;

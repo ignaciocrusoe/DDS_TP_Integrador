@@ -1,4 +1,4 @@
-package Grupo11.DDS_TP_Integrador.Georef.entities;
+package Grupo11.DDS_TP_Integrador.Georef.Localizaciones;
 import java.util.List;
 
 public class ListadoDeMunicipios {

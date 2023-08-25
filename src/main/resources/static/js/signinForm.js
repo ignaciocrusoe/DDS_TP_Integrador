@@ -21,7 +21,7 @@ signInForm.addEventListener("submit", async (e) => {
     signInForm.reset();
 
     // show welcome message
-    showMessage("Welcome" + userCredentials.user.email);
+    showMessage("Welcome " + userCredentials.user.email);
   } catch (error) {
     if (error.code === 'auth/wrong-password') {
       showMessage("Wrong password", "error")

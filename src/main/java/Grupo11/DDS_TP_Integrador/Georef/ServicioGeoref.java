@@ -1,6 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Georef;
 
-import Grupo11.DDS_TP_Integrador.Georef.entities.*;
+import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.*;
 
 import retrofit2.Call;
 import retrofit2.Response;

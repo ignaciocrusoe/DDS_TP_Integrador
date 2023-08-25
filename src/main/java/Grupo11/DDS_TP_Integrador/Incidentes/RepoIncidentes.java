@@ -35,4 +35,7 @@ public class RepoIncidentes {
         return (sumatoria/(listaIncidentes.size()));
     }
 
+    public int cantidadIncidentes() {
+        return listaIncidentes.size();
+    }
 }

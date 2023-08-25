@@ -25,7 +25,7 @@ public class Entidad extends Interes {
     protected GestorRankings gestorRankings;
 
     public void recibirInforme(){
-        this.informeSemanal = gestorRankings.obtenerInforme();
+        this.informeSemanal = gestorRankings.getInformeSemanal();
     }
 
     public RepoIncidentes getRepoIncidentes() {

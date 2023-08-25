@@ -1,7 +1,5 @@
 package Grupo11.DDS_TP_Integrador;
 
-import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
