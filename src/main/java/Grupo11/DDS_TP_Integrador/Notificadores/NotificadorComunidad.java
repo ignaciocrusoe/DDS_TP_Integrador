@@ -8,7 +8,7 @@ public class NotificadorComunidad extends Notificador {
     public void notificarSugerencia(List<GestorNotificacionesPersona> gestoresNotificaciones) {
         // Le envia la notificacion a cada notificador de la lista
         for (GestorNotificacionesPersona gestorNotificaciones : gestoresNotificaciones) {
-            gestorNotificaciones.actualizarNotificacionesPendientes(notificacion);
+            gestorNotificaciones.addNotificacionPendiente(notificacion);
         }
     }
 }

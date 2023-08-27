@@ -18,7 +18,7 @@ public class Notificador{
     public void notificarGestores(){
         for (GestorNotificacionesPersona gestorNotificaciones:listaGestoresNotificaciones
         ) {
-            gestorNotificaciones.actualizarNotificacionesPendientes(notificacion);
+            gestorNotificaciones.addNotificacionPendiente(notificacion);
         }
     }
     public void suscribirGestor(GestorNotificacionesPersona gestor){

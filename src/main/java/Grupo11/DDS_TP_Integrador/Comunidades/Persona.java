@@ -27,10 +27,12 @@ public class Persona {
 
   @Transient
   private Localizacion ubicacionActual;
-  @Transient
+
+  @Embedded
   private GestorNotificacionesPersona gestorNotificaciones;
   @Transient
   private GestorIncidentesRecargado gestorIncidentesRecargado;
+
 
   public Persona() {
     membresias = new ArrayList<Miembro>();
