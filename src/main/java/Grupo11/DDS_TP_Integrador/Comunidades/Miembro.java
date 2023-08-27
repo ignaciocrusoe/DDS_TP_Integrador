@@ -1,6 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 
-import Grupo11.DDS_TP_Integrador.Localizaciones.*;
+//import Grupo11.DDS_TP_Integrador.Localizaciones.*;
 
 public class Miembro {
 
