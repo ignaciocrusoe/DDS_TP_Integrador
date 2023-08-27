@@ -47,7 +47,7 @@ public class Comunidad{
     public void sugerirActualizarIncidente(List<Miembro> miembrosCerca,Incidente nuevoIncidente){
 
         // genera una lista de sus gestores de notificaciones para mandarsela al gestor de la comunidad
-        List<GestorNotificacionesPersona> gestoresNotificaciones = miembrosCerca.stream().map(miembro -> miembro.getPersona().getGestorNotificaciones()).toList();
+        List<GestorNotificacionesPersona> gestoresNotificaciones = miembrosCerca.stream().map(miembro -> miembro.getPersonaMiembro().getGestorNotificaciones()).toList();
 
         notificadorComunidad.setNotificacion(new Notificacion(nuevoIncidente, SUGERENCIA));
         notificadorComunidad.notificarSugerencia(gestoresNotificaciones);
