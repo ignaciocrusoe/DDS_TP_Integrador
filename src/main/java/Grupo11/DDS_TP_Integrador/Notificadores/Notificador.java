@@ -15,10 +15,10 @@ public class Notificador{
         super();
         this.listaGestoresNotificaciones = new LinkedList<GestorNotificacionesPersona>();
     }
-    public void notificarGestores(){
-        for (GestorNotificacionesPersona gestorNotificaciones:listaGestoresNotificaciones
+    public void notificarPersonas(List<Persona> personas, Notificacion notificacion){
+        for (Persona persona:personas
         ) {
-            gestorNotificaciones.addNotificacionPendiente(notificacion);
+            persona.getNotificaciones().getListaNotificaciones().add(notificacion);
         }
     }
     public void suscribirGestor(GestorNotificacionesPersona gestor){

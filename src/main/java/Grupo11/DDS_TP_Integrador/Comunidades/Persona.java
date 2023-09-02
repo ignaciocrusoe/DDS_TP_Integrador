@@ -4,57 +4,72 @@ import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name="personas")
+@Entity(name="personas")
 public class Persona {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="id_persona")
-  private Long idPersona;
+  private Long id_persona;
+  @Column(name="nombre")
   private String nombre;
 
-  @OneToMany(mappedBy = "personaMiembro", cascade=CascadeType.ALL)
-  private List<Miembro> membresias;
-
-  @ManyToMany
-  @JoinColumn(name="id_persona")
-  private List<Interes> intereses;
-
+  @Column(name="horarios")
+  private List<LocalDate> horarios;
   @Transient
+  @Column(name="medio")
+  private MedioComunicacion medioComunicacion;
+
+  @Transient //todo hay que ver como almacenar la localizacion
   private Localizacion ubicacionActual;
 
-  @Embedded
+  @OneToOne
+  @JoinColumn(name = "notificaciones")
+  private RepoNotificaciones notificaciones;
+
+  @OneToMany(mappedBy = "persona_miembro", cascade=CascadeType.ALL)
+  @Column(name="miembro")
+  private List<Miembro> membresias;
+  @ManyToMany
+  @JoinTable(name = "interes x persona",
+          joinColumns = @JoinColumn(name = "id_interes"),
+          inverseJoinColumns = @JoinColumn(name = "id_persona"))
+  private List<Interes> intereses_persona;
+  @Autowired
+  @Transient
   private GestorNotificacionesPersona gestorNotificaciones;
+  @Autowired
   @Transient
   private GestorIncidentesRecargado gestorIncidentesRecargado;
 
 
   public Persona() {
     membresias = new ArrayList<Miembro>();
-    intereses = new ArrayList<Interes>();
+    intereses_persona = new ArrayList<Interes>();
   }
 
-  public Persona(Long idPersona, String nombre, List<Miembro> membresias, List<Interes> intereses, Localizacion ubicacionActual, GestorNotificacionesPersona gestorNotificaciones, GestorIncidentesRecargado gestorIncidentesRecargado) {
-    this.idPersona = idPersona;
+  public Persona(Long id_persona, String nombre, List<Miembro> membresias, List<Interes> intereses, Localizacion ubicacionActual, GestorNotificacionesPersona gestorNotificaciones, GestorIncidentesRecargado gestorIncidentesRecargado) {
+    this.id_persona = id_persona;
     this.nombre = nombre;
     this.membresias = membresias;
-    this.intereses = intereses;
+    this.intereses_persona = intereses;
     this.ubicacionActual = ubicacionActual;
     this.gestorNotificaciones = gestorNotificaciones;
     this.gestorIncidentesRecargado = gestorIncidentesRecargado;
   }
 
-  public Long getIdPersona() {
-    return idPersona;
+  public Long getId_persona() {
+    return id_persona;
   }
 
-  public void setIdPersona(Long idPersona) {
-    this.idPersona = idPersona;
+  public void setId_persona(Long id_persona) {
+    this.id_persona = id_persona;
   }
 
   public String getNombre() {
@@ -65,20 +80,20 @@ public class Persona {
     this.nombre = nombre;
   }
 
-  public List<Miembro> getMembresias() {
-    return membresias;
+  public List<LocalDate> getHorarios() {
+    return horarios;
   }
 
-  public void setMembresias(List<Miembro> membresias) {
-    this.membresias = membresias;
+  public void setHorarios(List<LocalDate> horarios) {
+    this.horarios = horarios;
   }
 
-  public List<Interes> getIntereses() {
-    return intereses;
+  public MedioComunicacion getMedioComunicacion() {
+    return medioComunicacion;
   }
 
-  public void setIntereses(List<Interes> intereses) {
-    this.intereses = intereses;
+  public void setMedioComunicacion(MedioComunicacion medioComunicacion) {
+    this.medioComunicacion = medioComunicacion;
   }
 
   public Localizacion getUbicacionActual() {
@@ -89,20 +104,28 @@ public class Persona {
     this.ubicacionActual = ubicacionActual;
   }
 
-  public GestorNotificacionesPersona getGestorNotificaciones() {
-    return gestorNotificaciones;
+  public RepoNotificaciones getNotificaciones() {
+    return notificaciones;
   }
 
-  public void setGestorNotificaciones(GestorNotificacionesPersona gestorNotificaciones) {
-    this.gestorNotificaciones = gestorNotificaciones;
+  public void setNotificaciones(RepoNotificaciones notificaciones) {
+    this.notificaciones = notificaciones;
   }
 
-  public GestorIncidentesRecargado getGestorIncidentesRecargado() {
-    return gestorIncidentesRecargado;
+  public List<Miembro> getMembresias() {
+    return membresias;
   }
 
-  public void setGestorIncidentesRecargado(GestorIncidentesRecargado gestorIncidentesRecargado) {
-    this.gestorIncidentesRecargado = gestorIncidentesRecargado;
+  public void setMembresias(List<Miembro> membresias) {
+    this.membresias = membresias;
+  }
+
+  public List<Interes> getIntereses_persona() {
+    return intereses_persona;
+  }
+
+  public void setIntereses_persona(List<Interes> intereses_persona) {
+    this.intereses_persona = intereses_persona;
   }
 }
 

@@ -14,15 +14,15 @@ public class Notificacion {
     @Column(name="id_notificacion")
     private Long idNotificacion;
 
+    @ManyToOne
+    @JoinColumn(name = "repo_notificaciones")
+    private RepoNotificaciones repo_notificaciones;
+
     @Transient //todo ver persistencia
     private Incidente incidente;
 
     @Enumerated(EnumType.STRING)
     private TipoNotificacion tipo;
-
-    @ManyToOne
-    @JoinColumn(name="id_persona")
-    private Persona persona;
 
     public Notificacion(Incidente incidente, TipoNotificacion tipo){
         super();
@@ -42,6 +42,14 @@ public class Notificacion {
         this.idNotificacion = idNotificacion;
     }
 
+    public RepoNotificaciones getRepo_notificaciones() {
+        return repo_notificaciones;
+    }
+
+    public void setRepo_notificaciones(RepoNotificaciones repo_notificaciones) {
+        this.repo_notificaciones = repo_notificaciones;
+    }
+
     public Incidente getIncidente() {
         return incidente;
     }
@@ -56,13 +64,5 @@ public class Notificacion {
 
     public void setTipo(TipoNotificacion tipo) {
         this.tipo = tipo;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
 }
