@@ -8,8 +8,8 @@ import java.util.List;
 public class GestorIncidentes {
     public void reportarIncidenteParaAfectados(Incidente incidente, List<Comunidad> comunidades){
         for (Comunidad comunidad : comunidades) {
-            comunidad.getRepoIncidentes().addIncidente(incidente);
-            incidente.getEntidad().getRepoIncidentes().addIncidente(incidente);
+            comunidad.getIncidentesReportados().add(incidente);
+            incidente.getEntidad().getIncidentes_reportados().add(incidente);
         }
     }
 }

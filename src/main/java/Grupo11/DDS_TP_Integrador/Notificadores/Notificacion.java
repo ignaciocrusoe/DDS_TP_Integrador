@@ -1,4 +1,4 @@
-package Grupo11.DDS_TP_Integrador.GestoresNotificaciones;
+package Grupo11.DDS_TP_Integrador.Notificadores;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "notificaciones_pendientes")
+@Table(name = "notificaciones")
 public class Notificacion {
 
     @Id
@@ -15,8 +15,8 @@ public class Notificacion {
     private Long idNotificacion;
 
     @ManyToOne
-    @JoinColumn(name = "repo_notificaciones")
-    private RepoNotificaciones repo_notificaciones;
+    @JoinColumn(name = "persona")
+    private Persona persona;
 
     @Transient //todo ver persistencia
     private Incidente incidente;
@@ -42,12 +42,12 @@ public class Notificacion {
         this.idNotificacion = idNotificacion;
     }
 
-    public RepoNotificaciones getRepo_notificaciones() {
-        return repo_notificaciones;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setRepo_notificaciones(RepoNotificaciones repo_notificaciones) {
-        this.repo_notificaciones = repo_notificaciones;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public Incidente getIncidente() {

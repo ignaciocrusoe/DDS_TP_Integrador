@@ -1,8 +1,11 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
+import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
+import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
+import Grupo11.DDS_TP_Integrador.Notificadores.RepoNotificaciones;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +20,7 @@ public class Persona {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="id_persona")
   private Long id_persona;
-  @Column(name="nombre")
+  @Column(name="nombre_persona")
   private String nombre;
 
   @Column(name="horarios")
@@ -29,11 +32,10 @@ public class Persona {
   @Transient //todo hay que ver como almacenar la localizacion
   private Localizacion ubicacionActual;
 
-  @OneToOne
-  @JoinColumn(name = "notificaciones")
-  private RepoNotificaciones notificaciones;
+  @OneToMany(mappedBy = "persona")
+  private List<Notificacion> listaNotificaciones;
 
-  @OneToMany(mappedBy = "persona_miembro", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy = "persona", cascade=CascadeType.ALL)
   @Column(name="miembro")
   private List<Miembro> membresias;
   @ManyToMany
@@ -41,6 +43,7 @@ public class Persona {
           joinColumns = @JoinColumn(name = "id_interes"),
           inverseJoinColumns = @JoinColumn(name = "id_persona"))
   private List<Interes> intereses_persona;
+
   @Autowired
   @Transient
   private GestorNotificacionesPersona gestorNotificaciones;
@@ -48,6 +51,8 @@ public class Persona {
   @Transient
   private GestorIncidentesRecargado gestorIncidentesRecargado;
 
+
+  //metodos utilitarios
 
   public Persona() {
     membresias = new ArrayList<Miembro>();
@@ -79,7 +84,6 @@ public class Persona {
   public void setNombre(String nombre) {
     this.nombre = nombre;
   }
-
   public List<LocalDate> getHorarios() {
     return horarios;
   }
@@ -104,12 +108,11 @@ public class Persona {
     this.ubicacionActual = ubicacionActual;
   }
 
-  public RepoNotificaciones getNotificaciones() {
-    return notificaciones;
+  public List<Notificacion> getNotificaciones() {
+    return listaNotificaciones;
   }
-
-  public void setNotificaciones(RepoNotificaciones notificaciones) {
-    this.notificaciones = notificaciones;
+  public void setNotificaciones(List<Notificacion> notificaciones) {
+    this.listaNotificaciones = notificaciones;
   }
 
   public List<Miembro> getMembresias() {

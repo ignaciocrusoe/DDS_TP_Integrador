@@ -6,36 +6,28 @@ import java.util.function.Predicate;
 
 //todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
 public class RepoIncidentes {
-    private List<Incidente> listaIncidentes;
 
-    public List<Incidente> getListaIncidentes() {
-        return listaIncidentes;
-    }
-    public void addIncidente(Incidente incidente){
-        listaIncidentes.add(incidente);
+    public void cerrarIncidente(List<Incidente> incidentes, Incidente incidente){
+        var index = incidentes.indexOf(incidente);
+        incidentes.get(index).cerrarIncidente();
     }
 
-    public void cerrarIncidente(Incidente incidente){
-        var index = listaIncidentes.indexOf(incidente);
-        listaIncidentes.get(index).cerrarIncidente();
-    }
-
-    public List<Incidente> getIncidenteSegunEstado(Boolean estado){
+    public List<Incidente> getIncidenteSegunEstado(List<Incidente> incidentes, Boolean estado){
         Predicate<Incidente> mismoEstado = (i) -> i.getEstado() == estado;
-        return listaIncidentes.stream().filter(mismoEstado).toList();
+        return incidentes.stream().filter(mismoEstado).toList();
     }
 
-    public long promedioIncidentes(){
+    public long promedioIncidentes(List<Incidente> incidentes){
 
         long sumatoria=0;
-        for (Incidente incidente:listaIncidentes) {
+        for (Incidente incidente:incidentes) {
             sumatoria+=incidente.duracion();
 
         }
-        return (sumatoria/(listaIncidentes.size()));
+        return (sumatoria/(incidentes.size()));
     }
 
-    public int cantidadIncidentes() {
-        return listaIncidentes.size();
+    public int cantidadIncidentes(List<Incidente> incidentes) {
+        return incidentes.size();
     }
 }

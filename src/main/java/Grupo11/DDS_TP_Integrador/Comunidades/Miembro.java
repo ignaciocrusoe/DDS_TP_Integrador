@@ -12,12 +12,12 @@ public class Miembro {
     private Long id_miembro;
 
     @ManyToOne
-    @JoinColumn(name="comunidad_miembro")
-    private Comunidad comunidad_miembro;
+    @JoinColumn(name="comunidad")
+    private Comunidad comunidad;
 
     @ManyToOne
-    @JoinColumn(name = "persona_miembro")
-    private Persona persona_miembro;
+    @JoinColumn(name = "persona")
+    private Persona persona;
 
     @Enumerated(EnumType.STRING)
     @Column(name="rol_comunidad")
@@ -27,13 +27,10 @@ public class Miembro {
     @Column(name="rol_usuario")
     private TipoUsuario tipoUsuario;
 
-    public Miembro() {
-    }
-
-    public Miembro(Long id_miembro, Comunidad comunidad_miembro, Persona persona_miembro, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
+    public Miembro(Long id_miembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
         this.id_miembro = id_miembro;
-        this.comunidad_miembro = comunidad_miembro;
-        this.persona_miembro = persona_miembro;
+        this.comunidad = comunidad;
+        this.persona = persona;
         this.rolEnComunidad = rolEnComunidad;
         this.tipoUsuario = tipoUsuario;
     }
@@ -46,12 +43,12 @@ public class Miembro {
         this.id_miembro = id_miembro;
     }
 
-    public Comunidad getcomunidad_miembro() {
-        return comunidad_miembro;
+    public Comunidad getcomunidad() {
+        return comunidad;
     }
 
-    public Persona getpersona_miembro() {
-        return persona_miembro;
+    public Persona getPersona() {
+        return persona;
     }
 
     public Rol getRolEnComunidad() {

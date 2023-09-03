@@ -11,7 +11,9 @@ import java.util.List;
 
 
 public class GestorNotificacionesPersona {
+    public void notificarEnHorario(){
 
+    }
 
 
 }

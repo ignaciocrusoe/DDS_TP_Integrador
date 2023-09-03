@@ -9,22 +9,25 @@ import Grupo11.DDS_TP_Integrador.Comunidades.*;
 
 import Grupo11.DDS_TP_Integrador.Entidades.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class GestorRankings {
 
-    private RepoEntidades repoEntidades;
-    private RepoComunidades repoComunidades;
+    private List<Entidad> entidades;
+    private List<Comunidad> comunidades;
     private InformeSemanal informeSemanal;
+    @Autowired
+    private RepoIncidentes repoIncidentes;
 
     public List<Entidad> calcularTiempoPromedioDeCierreIncidentes(){
 
-        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> e.getRepoIncidentes().promedioIncidentes());
-        return repoEntidades.getListaEntidades().stream().sorted(comparadorPorPromedioIncidente).toList();
+        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> repoIncidentes.promedioIncidentes(e.getIncidentes_reportados()) );
+        return entidades.stream().sorted(comparadorPorPromedioIncidente).toList();
     }
 
     public List<Entidad> calcularEntidadesConMasIncidentesReportados(){
-        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> e.getRepoIncidentes().cantidadIncidentes());
-        return repoEntidades.getListaEntidades().stream().sorted(comparadorPorPromedioIncidente).toList();
+        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> repoIncidentes.cantidadIncidentes(e.getIncidentes_reportados()));
+        return entidades.stream().sorted(comparadorPorPromedioIncidente).toList();
     }
 
     public void generarInforme(){
@@ -33,7 +36,7 @@ public class GestorRankings {
     }
 
     public void enviarInforme(){
-        for (Entidad entidad: repoEntidades.getListaEntidades()) {
+        for (Entidad entidad: entidades) {
             entidad.recibirInforme();
         }
     }

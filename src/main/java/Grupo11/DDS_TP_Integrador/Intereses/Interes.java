@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name="intereses")
+@Entity(name = "intereses")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Interes{
 
     @Id
