@@ -11,7 +11,7 @@ public class ListadoDeProvincias {
 
     public Optional<Provincia> provinciaDeId(int id){
         return this.provincias.stream()
-                .filter(p -> p.id == id)
+                .filter(p -> p.getId() == id)
                 .findFirst();
     }
 

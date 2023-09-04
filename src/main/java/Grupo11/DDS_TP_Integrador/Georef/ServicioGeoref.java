@@ -38,7 +38,7 @@ public class ServicioGeoref implements GeorefService {
 
     public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(Provincia provincia) throws IOException {
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+        Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(provincia.getId(), "id, nombre", maximaCantidadRegistrosDefault);
         Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
         return responseListadoDeMunicipios.body();
     }
@@ -53,18 +53,15 @@ public class ServicioGeoref implements GeorefService {
         return null;
     }
 
-    @Override
-    public Call<ListadoDeMunicipios> municipios(int idProvincia) {
+    public Call<ListadoDeMunicipios> municipios(long idProvincia) {
         return null;
     }
 
-    @Override
-    public Call<ListadoDeMunicipios> municipios(int idProvincia, String campos) {
+    public Call<ListadoDeMunicipios> municipios(long idProvincia, String campos) {
         return null;
     }
 
-    @Override
-    public Call<ListadoDeMunicipios> municipios(int idProvincia, String campos, int max) {
+    public Call<ListadoDeMunicipios> municipios(long idProvincia, String campos, int max) {
         return null;
     }
 }

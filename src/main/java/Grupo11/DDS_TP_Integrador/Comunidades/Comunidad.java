@@ -3,6 +3,7 @@ import Grupo11.DDS_TP_Integrador.Incidentes.RepoIncidentes;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
+import Grupo11.DDS_TP_Integrador.Rankings.InformeSemanal;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +37,9 @@ public class Comunidad{
             inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
     private List<Interes> intereses_comunidad;
 
+    @ManyToMany(mappedBy = "comunidadesMayorImpacto")
+    protected List<InformeSemanal> informeSemanalesComunidad;
+
     @Transient
     private RepoIncidentes repoIncidentes;
     @Autowired
@@ -61,12 +65,17 @@ public class Comunidad{
 
     //metodos utilitarios
 
-    public Comunidad(Double radioCercaniaIncidentes){
-        this.miembros = new LinkedList<Miembro>();
-        this.intereses_comunidad = new LinkedList<Interes>();
-        this.repoIncidentes = new RepoIncidentes();
-        this.notificadorComunidad = new Notificador();
-        this.gestorCercania = new GestorCercania(this, radioCercaniaIncidentes);
+
+    public Comunidad() {
+    }
+
+    public Comunidad(Long id_comunidad, String nombre, List<Incidente> incidentesReportados, List<Miembro> miembros, List<Interes> intereses_comunidad, List<InformeSemanal> informeSemanalesComunidad) {
+        this.id_comunidad = id_comunidad;
+        this.nombre = nombre;
+        this.incidentesReportados = incidentesReportados;
+        this.miembros = miembros;
+        this.intereses_comunidad = intereses_comunidad;
+        this.informeSemanalesComunidad = informeSemanalesComunidad;
     }
 
     public Long getId_comunidad() {

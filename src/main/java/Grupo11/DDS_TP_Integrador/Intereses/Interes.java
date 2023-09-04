@@ -7,14 +7,13 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity(name = "intereses")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Interes{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_interes")
-    private Long id_interes;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    protected Long id;
 
     @ManyToMany(mappedBy = "intereses_comunidad")
     private List<Comunidad> comunidades;
@@ -23,15 +22,15 @@ public class Interes{
     @ManyToMany(mappedBy = "intereses_persona")
     private List<Persona> personas;
 
-    @Column(name="nombre_interes")
-    private String nombre_interes;
+    @Column(name="nombre")
+    protected String nombre;
 
-    public Long getId_interes() {
-        return id_interes;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_interes(Long id_interes) {
-        this.id_interes = id_interes;
+    public void setId(Long id_interes) {
+        this.id = id_interes;
     }
 
     public List<Comunidad> getComunidades() {
@@ -50,11 +49,11 @@ public class Interes{
         this.personas = personas;
     }
 
-    public String getNombre_interes() {
-        return nombre_interes;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombre_interes(String nombre_interes) {
-        this.nombre_interes = nombre_interes;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

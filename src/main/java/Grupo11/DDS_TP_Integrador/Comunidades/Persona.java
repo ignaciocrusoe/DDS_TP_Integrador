@@ -25,11 +25,12 @@ public class Persona {
 
   @Column(name="horarios")
   private List<LocalDate> horarios;
-  @Transient
-  @Column(name="medio")
-  private MedioComunicacion medioComunicacion;
 
-  @Transient //todo hay que ver como almacenar la localizacion
+  @OneToOne
+  @JoinColumn(name = "medio")
+  private MedioComunicacion medioComunicacion;
+  @OneToOne
+  @JoinColumn(name = "ubicacion_Actual")
   private Localizacion ubicacionActual;
 
   @OneToMany(mappedBy = "persona")

@@ -33,7 +33,8 @@ public class Incidente {
     private Persona personaQueReporto;
     @Transient
     private Prestacion prestacionIncidentada;
-    @Transient
+    @OneToOne
+    @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
 
     @ManyToMany(mappedBy = "incidentesReportados")

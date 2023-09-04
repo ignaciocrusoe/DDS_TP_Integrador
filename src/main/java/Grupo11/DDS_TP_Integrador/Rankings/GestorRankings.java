@@ -37,7 +37,7 @@ public class GestorRankings {
 
     public void enviarInforme(){
         for (Entidad entidad: entidades) {
-            entidad.recibirInforme();
+            // ACA FALTA ALGO PARA RECIBIR EL INFORME
         }
     }
 

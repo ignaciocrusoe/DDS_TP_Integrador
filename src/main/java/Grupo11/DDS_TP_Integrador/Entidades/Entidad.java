@@ -21,24 +21,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity(name = "entidades")
 @PrimaryKeyJoinColumn(name = "id_entidad")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Entidad extends Interes {
-
-    @Column(name="nombre_entidad")
-    protected String nombre;
-    @Autowired
     @Transient
-    private RepoIncidentes repoIncidentes;
-    @Autowired
+    protected RepoIncidentes repoIncidentes;
     @Transient
-    private GestorRankings gestorRankings;
+    protected GestorRankings gestorRankings;
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;
+    @ManyToOne
+    @JoinColumn(name = "prestador")
+    protected Prestador prestador;
+    @ManyToOne
+    @JoinColumn(name = "organismoControl")
+    protected OrganismoControl organismoControl;
+    @ManyToMany(mappedBy = "entidadesPromedioCierreIncidentes")
+    protected List<InformeSemanal> informesSemanlesPorPromedio;
+    @ManyToMany(mappedBy = "entidadesMayorCantidadIncidentes")
+    protected List<InformeSemanal> informesSemanlesPorMayor;
 
-    @Transient
-    protected InformeSemanal informeSemanal;
 
-    public void recibirInforme(){
-        this.informeSemanal = gestorRankings.getInformeSemanal();
+    public Entidad() {
+    }
+
+    public Entidad(RepoIncidentes repoIncidentes, GestorRankings gestorRankings, List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<InformeSemanal> informesSemanlesPorPromedio, List<InformeSemanal> informesSemanlesPorMayor) {
+        this.repoIncidentes = repoIncidentes;
+        this.gestorRankings = gestorRankings;
+        this.incidentes_reportados = incidentes_reportados;
+        this.prestador = prestador;
+        this.organismoControl = organismoControl;
+        this.informesSemanlesPorPromedio = informesSemanlesPorPromedio;
+        this.informesSemanlesPorMayor = informesSemanlesPorMayor;
+    }
+
+    public List<InformeSemanal> getInformesSemanlesPorPromedio() {
+        return informesSemanlesPorPromedio;
+    }
+
+    public void setInformesSemanlesPorPromedio(List<InformeSemanal> informesSemanlesPorPromedio) {
+        this.informesSemanlesPorPromedio = informesSemanlesPorPromedio;
+    }
+
+    public List<InformeSemanal> getInformesSemanlesPorMayor() {
+        return informesSemanlesPorMayor;
+    }
+
+    public void setInformesSemanlesPorMayor(List<InformeSemanal> informesSemanlesPorMayor) {
+        this.informesSemanlesPorMayor = informesSemanlesPorMayor;
     }
 
     public RepoIncidentes getRepoIncidentes() {
@@ -73,11 +102,19 @@ public class Entidad extends Interes {
         this.incidentes_reportados = incidentes_reportados;
     }
 
-    public InformeSemanal getInformeSemanal() {
-        return informeSemanal;
+    public Prestador getPrestador() {
+        return prestador;
     }
 
-    public void setInformeSemanal(InformeSemanal informeSemanal) {
-        this.informeSemanal = informeSemanal;
+    public void setPrestador(Prestador prestador) {
+        this.prestador = prestador;
+    }
+
+    public OrganismoControl getOrganismoControl() {
+        return organismoControl;
+    }
+
+    public void setOrganismoControl(OrganismoControl organismoControl) {
+        this.organismoControl = organismoControl;
     }
 }

@@ -20,7 +20,7 @@ public class GeorefTest {
         for (Provincia provincia:provincias.provincias
              ) {
 
-            System.out.println(provincia.nombre);
+            System.out.println(provincia.getNombre());
         }
 
 
@@ -33,14 +33,14 @@ public class GeorefTest {
 
         ListadoDeProvincias provincias = api.listadoDeProvincias();
         int indexProvincia = 5;
-        System.out.println("\n Estos son los municipios de: " + provincias.provincias.get(indexProvincia).nombre);
+        System.out.println("\n Estos son los municipios de: " + provincias.provincias.get(indexProvincia).getNombre());
 
         ListadoDeMunicipios municipiosDeProvincia = api.listadoDeMunicipiosDeProvincia(provincias.provincias.get(indexProvincia));
 
         for (Municipio municipio: municipiosDeProvincia.municipios
         ) {
 
-            System.out.println(municipio.nombre);
+            System.out.println(municipio.getNombre());
         }
 
 
