@@ -36,22 +36,26 @@ public class Entidad extends Interes {
     @JoinColumn(name = "organismoControl")
     protected OrganismoControl organismoControl;
     @ManyToMany(mappedBy = "entidadesPromedioCierreIncidentes")
-    protected List<InformeSemanal> informesSemanlesPorPromedio;
+    private List<InformeSemanal> informesSemanlesPorPromedio;
     @ManyToMany(mappedBy = "entidadesMayorCantidadIncidentes")
-    protected List<InformeSemanal> informesSemanlesPorMayor;
+    private List<InformeSemanal> informesSemanlesPorMayor;
+
+    @OneToMany(mappedBy = "entidad")
+    protected List<InformeSemanal> informesSemanales;
+
+    public void agregarInforme(InformeSemanal informe ){
+        informesSemanales.add((informe));
+    }
 
 
     public Entidad() {
     }
 
-    public Entidad(RepoIncidentes repoIncidentes, GestorRankings gestorRankings, List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<InformeSemanal> informesSemanlesPorPromedio, List<InformeSemanal> informesSemanlesPorMayor) {
-        this.repoIncidentes = repoIncidentes;
-        this.gestorRankings = gestorRankings;
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<InformeSemanal> informesSemanales) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
-        this.informesSemanlesPorPromedio = informesSemanlesPorPromedio;
-        this.informesSemanlesPorMayor = informesSemanlesPorMayor;
+        this.informesSemanales = informesSemanales;
     }
 
     public List<InformeSemanal> getInformesSemanlesPorPromedio() {
@@ -116,5 +120,13 @@ public class Entidad extends Interes {
 
     public void setOrganismoControl(OrganismoControl organismoControl) {
         this.organismoControl = organismoControl;
+    }
+
+    public List<InformeSemanal> getInformesSemanales() {
+        return informesSemanales;
+    }
+
+    public void setInformesSemanales(List<InformeSemanal> informesSemanales) {
+        this.informesSemanales = informesSemanales;
     }
 }

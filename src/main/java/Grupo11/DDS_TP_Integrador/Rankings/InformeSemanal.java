@@ -33,6 +33,10 @@ public class InformeSemanal {
             inverseJoinColumns = @JoinColumn(name = "id_informe"))
     private List<Comunidad> comunidadesMayorImpacto;
 
+    @ManyToOne
+    @JoinColumn(name = "entidad")
+    private Entidad entidad;
+
     public void agregarListaPromedio(List<Entidad> listaEntidad){
         this.entidadesPromedioCierreIncidentes = listaEntidad;
     }
@@ -43,11 +47,12 @@ public class InformeSemanal {
     public InformeSemanal() {
     }
 
-    public InformeSemanal(Long id_informe, List<Entidad> entidadesPromedioCierreIncidentes, List<Entidad> entidadesMayorCantidadIncidentes, List<Comunidad> comunidadesMayorImpacto) {
+    public InformeSemanal(Long id_informe, List<Entidad> entidadesPromedioCierreIncidentes, List<Entidad> entidadesMayorCantidadIncidentes, List<Comunidad> comunidadesMayorImpacto, Entidad entidad) {
         this.id_informe = id_informe;
         this.entidadesPromedioCierreIncidentes = entidadesPromedioCierreIncidentes;
         this.entidadesMayorCantidadIncidentes = entidadesMayorCantidadIncidentes;
         this.comunidadesMayorImpacto = comunidadesMayorImpacto;
+        this.entidad = entidad;
     }
 
     public Long getId_informe() {
@@ -80,5 +85,13 @@ public class InformeSemanal {
 
     public void setComunidadesMayorImpacto(List<Comunidad> comunidadesMayorImpacto) {
         this.comunidadesMayorImpacto = comunidadesMayorImpacto;
+    }
+
+    public Entidad getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
     }
 }
