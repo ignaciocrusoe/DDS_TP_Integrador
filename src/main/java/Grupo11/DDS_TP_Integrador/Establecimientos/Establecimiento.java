@@ -6,6 +6,8 @@ import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Servicios.*;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name = "establecimientos")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Establecimiento{
@@ -21,13 +23,17 @@ public class Establecimiento{
     @JoinColumn(name = "localizacion")
     protected Localizacion localizacion;
 
+    @OneToMany(mappedBy = "establecimiento")
+    protected List<Prestacion> prestaciones;
+
     public Establecimiento() {
     }
 
-    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion) {
+    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, List<Prestacion> prestaciones) {
         this.id_establecimiento = id_establecimiento;
         this.nombre_establecimiento = nombre_establecimiento;
         this.localizacion = localizacion;
+        this.prestaciones = prestaciones;
     }
 
     public Long getId_establecimiento() {
@@ -44,6 +50,14 @@ public class Establecimiento{
 
     public void setNombre_establecimiento(String nombre_establecimiento) {
         this.nombre_establecimiento = nombre_establecimiento;
+    }
+
+    public List<Prestacion> getPrestaciones() {
+        return prestaciones;
+    }
+
+    public void setPrestaciones(List<Prestacion> prestaciones) {
+        this.prestaciones = prestaciones;
     }
 
     public Localizacion getLocalizacion() {
