@@ -13,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class GestorRankings {
 
-    private List<Entidad> entidades;
+    private List<RankingPromedioCierreIncidente> ranking1;
+    private List<RankingMasIncidentes> ranking2;
+    private List<RankingMayorImpacto> ranking3;
+
+    private List<Entidad> entidades; //hay que ver como se consiguen todas las entidades y comunidades
     private List<Comunidad> comunidades;
-    private InformeSemanal informeSemanal;
+
     @Autowired
     private RepoIncidentes repoIncidentes;
 
@@ -30,19 +34,5 @@ public class GestorRankings {
         return entidades.stream().sorted(comparadorPorPromedioIncidente).toList();
     }
 
-    public void generarInforme(){
-        informeSemanal.agregarListaPromedio(this.calcularTiempoPromedioDeCierreIncidentes());
-        informeSemanal.agregarListaCantidad(this.calcularEntidadesConMasIncidentesReportados());
-    }
-
-    public void enviarInforme(){
-        for (Entidad entidad: entidades) {
-            entidad.agregarInforme(informeSemanal);
-        }
-    }
-
-    public InformeSemanal getInformeSemanal(){
-        return informeSemanal;
-    }
 }
 

@@ -18,15 +18,13 @@ import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import Grupo11.DDS_TP_Integrador.Servicios.*;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 @Entity(name = "entidades")
 @PrimaryKeyJoinColumn(name = "id_entidad")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Entidad extends Interes {
-    @Transient
-    protected RepoIncidentes repoIncidentes;
-    @Transient
-    protected GestorRankings gestorRankings;
+
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;
     @ManyToOne
@@ -35,67 +33,48 @@ public class Entidad extends Interes {
     @ManyToOne
     @JoinColumn(name = "organismoControl")
     protected OrganismoControl organismoControl;
-    @ManyToMany(mappedBy = "entidadesPromedioCierreIncidentes")
-    private List<InformeSemanal> informesSemanlesPorPromedio;
-    @ManyToMany(mappedBy = "entidadesMayorCantidadIncidentes")
-    private List<InformeSemanal> informesSemanlesPorMayor;
 
-    @OneToMany(mappedBy = "entidad")
-    protected List<InformeSemanal> informesSemanales;
+    @ManyToMany
+    @JoinTable(name = "entidad x persona",
+            joinColumns = @JoinColumn(name = "id_entidad"),
+            inverseJoinColumns = @JoinColumn(name = "id_persona"))
+    protected List<Persona> suscriptores;
 
-    public void agregarInforme(InformeSemanal informe ){
-        informesSemanales.add((informe));
-    }
+    @ManyToOne
+    @JoinColumn(name = "rankingMasIncidentes")
+    protected RankingMasIncidentes rankingMasIncidentes;
+
+    @ManyToOne
+    @JoinColumn(name = "rankingPromedioCierreIncidente")
+    protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
+
+    @Autowired
+    @Transient
+    protected RepoIncidentes repoIncidentes;
+    @Autowired
+    @Transient
+    protected GestorRankings gestorRankings;
+    @Autowired
+    @Transient
+    protected Notificador notificador;
+
+
+
+
+
+    //metodos utilitarios
 
 
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<InformeSemanal> informesSemanales) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, RankingMasIncidentes rankingMasIncidentes, RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
-        this.informesSemanales = informesSemanales;
-    }
-
-    public List<InformeSemanal> getInformesSemanlesPorPromedio() {
-        return informesSemanlesPorPromedio;
-    }
-
-    public void setInformesSemanlesPorPromedio(List<InformeSemanal> informesSemanlesPorPromedio) {
-        this.informesSemanlesPorPromedio = informesSemanlesPorPromedio;
-    }
-
-    public List<InformeSemanal> getInformesSemanlesPorMayor() {
-        return informesSemanlesPorMayor;
-    }
-
-    public void setInformesSemanlesPorMayor(List<InformeSemanal> informesSemanlesPorMayor) {
-        this.informesSemanlesPorMayor = informesSemanlesPorMayor;
-    }
-
-    public RepoIncidentes getRepoIncidentes() {
-        return repoIncidentes;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setRepoIncidentes(RepoIncidentes repoIncidentes) {
-        this.repoIncidentes = repoIncidentes;
-    }
-
-    public GestorRankings getGestorRankings() {
-        return gestorRankings;
-    }
-
-    public void setGestorRankings(GestorRankings gestorRankings) {
-        this.gestorRankings = gestorRankings;
+        this.suscriptores = suscriptores;
+        this.rankingMasIncidentes = rankingMasIncidentes;
+        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
     }
 
     public List<Incidente> getIncidentes_reportados() {
@@ -122,11 +101,27 @@ public class Entidad extends Interes {
         this.organismoControl = organismoControl;
     }
 
-    public List<InformeSemanal> getInformesSemanales() {
-        return informesSemanales;
+    public List<Persona> getSuscriptores() {
+        return suscriptores;
     }
 
-    public void setInformesSemanales(List<InformeSemanal> informesSemanales) {
-        this.informesSemanales = informesSemanales;
+    public void setSuscriptores(List<Persona> suscriptores) {
+        this.suscriptores = suscriptores;
+    }
+
+    public RankingMasIncidentes getRankingMasIncidentes() {
+        return rankingMasIncidentes;
+    }
+
+    public void setRankingMasIncidentes(RankingMasIncidentes rankingMasIncidentes) {
+        this.rankingMasIncidentes = rankingMasIncidentes;
+    }
+
+    public RankingPromedioCierreIncidente getRankingPromedioCierreIncidente() {
+        return rankingPromedioCierreIncidente;
+    }
+
+    public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
+        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
     }
 }

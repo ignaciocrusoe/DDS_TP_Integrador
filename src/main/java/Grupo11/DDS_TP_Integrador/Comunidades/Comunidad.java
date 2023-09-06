@@ -3,14 +3,13 @@ import Grupo11.DDS_TP_Integrador.Incidentes.RepoIncidentes;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
-import Grupo11.DDS_TP_Integrador.Rankings.InformeSemanal;
+import Grupo11.DDS_TP_Integrador.Rankings.RankingMayorImpacto;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion.NUEVO_INCIDENTE;
 import static Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion.SUGERENCIA;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity(name = "comunidades")
@@ -32,14 +31,16 @@ public class Comunidad{
     @Column(name="miembro")
     private List<Miembro> miembros;
     @ManyToMany
-    @JoinTable(name = "comunidad x persona",
+    @JoinTable(name = "comunidad x interes",
             joinColumns = @JoinColumn(name = "id_interes"),
             inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
     private List<Interes> intereses_comunidad;
 
-    @ManyToMany(mappedBy = "comunidadesMayorImpacto")
-    protected List<InformeSemanal> informeSemanalesComunidad;
+    @ManyToOne
+    @JoinColumn(name = "rankingMayorImpacto")
+    private RankingMayorImpacto rankingMayorImpacto;
 
+    @Autowired
     @Transient
     private RepoIncidentes repoIncidentes;
     @Autowired
@@ -63,19 +64,30 @@ public class Comunidad{
         return miembros.stream().map(miembro -> miembro.getPersona()).toList();
     }
 
+
+
+
+
+
+
+
+
+
+
+
     //metodos utilitarios
 
 
     public Comunidad() {
     }
 
-    public Comunidad(Long id_comunidad, String nombre, List<Incidente> incidentesReportados, List<Miembro> miembros, List<Interes> intereses_comunidad, List<InformeSemanal> informeSemanalesComunidad) {
+    public Comunidad(Long id_comunidad, String nombre, List<Incidente> incidentesReportados, List<Miembro> miembros, List<Interes> intereses_comunidad, RankingMayorImpacto rankingMayorImpacto) {
         this.id_comunidad = id_comunidad;
         this.nombre = nombre;
         this.incidentesReportados = incidentesReportados;
         this.miembros = miembros;
         this.intereses_comunidad = intereses_comunidad;
-        this.informeSemanalesComunidad = informeSemanalesComunidad;
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public Long getId_comunidad() {
@@ -84,22 +96,6 @@ public class Comunidad{
 
     public void setId_comunidad(Long id_comunidad) {
         this.id_comunidad = id_comunidad;
-    }
-
-    public List<Miembro> getMiembros() {
-        return miembros;
-    }
-
-    public void setMiembros(List<Miembro> miembros) {
-        this.miembros = miembros;
-    }
-
-    public List<Interes> getIntereses_comunidad() {
-        return intereses_comunidad;
-    }
-
-    public void setIntereses_comunidad(List<Interes> intereses_comunidad) {
-        this.intereses_comunidad = intereses_comunidad;
     }
 
     public String getNombre() {
@@ -118,11 +114,27 @@ public class Comunidad{
         this.incidentesReportados = incidentesReportados;
     }
 
-    public RepoIncidentes getRepoIncidentes() {
-        return repoIncidentes;
+    public List<Miembro> getMiembros() {
+        return miembros;
     }
 
-    public void setRepoIncidentes(RepoIncidentes repoIncidentes) {
-        this.repoIncidentes = repoIncidentes;
+    public void setMiembros(List<Miembro> miembros) {
+        this.miembros = miembros;
+    }
+
+    public List<Interes> getIntereses_comunidad() {
+        return intereses_comunidad;
+    }
+
+    public void setIntereses_comunidad(List<Interes> intereses_comunidad) {
+        this.intereses_comunidad = intereses_comunidad;
+    }
+
+    public RankingMayorImpacto getRankingMayorImpacto() {
+        return rankingMayorImpacto;
+    }
+
+    public void setRankingMayorImpacto(RankingMayorImpacto rankingMayorImpacto) {
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 }

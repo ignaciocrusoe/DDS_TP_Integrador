@@ -27,6 +27,23 @@ public class Miembro {
     @Column(name="rol_usuario")
     private TipoUsuario tipoUsuario;
 
+    //metodos utilitarios
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public Miembro(Long id_miembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
         this.id_miembro = id_miembro;
         this.comunidad = comunidad;

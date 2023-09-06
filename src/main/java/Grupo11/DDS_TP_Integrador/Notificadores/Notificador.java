@@ -9,7 +9,7 @@ public class Notificador{
     public void notificarPersonas(List<Persona> personas, Notificacion notificacion){
         for (Persona persona:personas
         ) {
-            persona.getNotificaciones().add(notificacion);
+            persona.getListaNotificaciones().add(notificacion);
         }
     }
 

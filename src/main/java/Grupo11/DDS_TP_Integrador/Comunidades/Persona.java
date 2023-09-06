@@ -1,4 +1,5 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
+import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
@@ -26,6 +27,12 @@ public class Persona {
   @Column(name="horarios")
   private List<LocalDate> horarios;
 
+  @Column(name="telefono")
+  private Integer telefono;
+
+  @Column(name="mail")
+  private List<LocalDate> mail;
+
   @OneToOne
   @JoinColumn(name = "medio")
   private MedioComunicacion medioComunicacion;
@@ -45,6 +52,9 @@ public class Persona {
           inverseJoinColumns = @JoinColumn(name = "id_persona"))
   private List<Interes> intereses_persona;
 
+  @ManyToMany(mappedBy = "suscriptores")
+  private List<Entidad> entidadesSuscriptas;
+
   @Autowired
   @Transient
   private GestorNotificacionesPersona gestorNotificaciones;
@@ -53,21 +63,34 @@ public class Persona {
   private GestorIncidentesRecargado gestorIncidentesRecargado;
 
 
+
+
+
+
+
+
+
+
+
+
   //metodos utilitarios
 
+
   public Persona() {
-    membresias = new ArrayList<Miembro>();
-    intereses_persona = new ArrayList<Interes>();
   }
 
-  public Persona(Long id_persona, String nombre, List<Miembro> membresias, List<Interes> intereses, Localizacion ubicacionActual, GestorNotificacionesPersona gestorNotificaciones, GestorIncidentesRecargado gestorIncidentesRecargado) {
+  public Persona(Long id_persona, String nombre, List<LocalDate> horarios, Integer telefono, List<LocalDate> mail, MedioComunicacion medioComunicacion, Localizacion ubicacionActual, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
     this.id_persona = id_persona;
     this.nombre = nombre;
-    this.membresias = membresias;
-    this.intereses_persona = intereses;
+    this.horarios = horarios;
+    this.telefono = telefono;
+    this.mail = mail;
+    this.medioComunicacion = medioComunicacion;
     this.ubicacionActual = ubicacionActual;
-    this.gestorNotificaciones = gestorNotificaciones;
-    this.gestorIncidentesRecargado = gestorIncidentesRecargado;
+    this.listaNotificaciones = listaNotificaciones;
+    this.membresias = membresias;
+    this.intereses_persona = intereses_persona;
+    this.entidadesSuscriptas = entidadesSuscriptas;
   }
 
   public Long getId_persona() {
@@ -85,12 +108,29 @@ public class Persona {
   public void setNombre(String nombre) {
     this.nombre = nombre;
   }
+
   public List<LocalDate> getHorarios() {
     return horarios;
   }
 
   public void setHorarios(List<LocalDate> horarios) {
     this.horarios = horarios;
+  }
+
+  public Integer getTelefono() {
+    return telefono;
+  }
+
+  public void setTelefono(Integer telefono) {
+    this.telefono = telefono;
+  }
+
+  public List<LocalDate> getMail() {
+    return mail;
+  }
+
+  public void setMail(List<LocalDate> mail) {
+    this.mail = mail;
   }
 
   public MedioComunicacion getMedioComunicacion() {
@@ -109,11 +149,12 @@ public class Persona {
     this.ubicacionActual = ubicacionActual;
   }
 
-  public List<Notificacion> getNotificaciones() {
+  public List<Notificacion> getListaNotificaciones() {
     return listaNotificaciones;
   }
-  public void setNotificaciones(List<Notificacion> notificaciones) {
-    this.listaNotificaciones = notificaciones;
+
+  public void setListaNotificaciones(List<Notificacion> listaNotificaciones) {
+    this.listaNotificaciones = listaNotificaciones;
   }
 
   public List<Miembro> getMembresias() {
@@ -130,6 +171,14 @@ public class Persona {
 
   public void setIntereses_persona(List<Interes> intereses_persona) {
     this.intereses_persona = intereses_persona;
+  }
+
+  public List<Entidad> getEntidadesSuscriptas() {
+    return entidadesSuscriptas;
+  }
+
+  public void setEntidadesSuscriptas(List<Entidad> entidadesSuscriptas) {
+    this.entidadesSuscriptas = entidadesSuscriptas;
   }
 }
 
