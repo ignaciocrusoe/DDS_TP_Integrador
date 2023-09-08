@@ -1,14 +1,14 @@
-package Grupo11.DDS_TP_Integrador.Incidentes;
+package Grupo11.calculoDeRanking.Incidentes;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Collections;
-import Grupo11.DDS_TP_Integrador.Entidades.*;
-import Grupo11.DDS_TP_Integrador.Comunidades.*;
-import Grupo11.DDS_TP_Integrador.Servicios.*;
-import Grupo11.DDS_TP_Integrador.Establecimientos.*;
-import Grupo11.DDS_TP_Integrador.Comunidades.*;
+//import Grupo11.calculoDeRanking.Entidades.*;
+//import Grupo11.calculoDeRanking.Comunidades.*;
+//import Grupo11.calculoDeRanking.Servicios.*;
+//import Grupo11.calculoDeRanking.Establecimientos.*;
+//import Grupo11.calculoDeRanking.Comunidades.*;
 import jakarta.persistence.*;
 
 import java.time.temporal.ChronoUnit;
@@ -26,19 +26,24 @@ public class Incidente {
 
     @ManyToOne
     @JoinColumn(name = "entidad")
-    private Entidad entidad;
+    private String entidad;
+    //private Entidad entidad;
 
     @OneToOne
     @JoinColumn(name = "persona_reportadora")
-    private Persona personaQueReporto;
+    private String personaQueReporto;
+    //private Persona personaQueReporto;
     @Transient
-    private Prestacion prestacionIncidentada;
+    private String prestacionIncidentada;
+    //private Prestacion prestacionIncidentada;
     @OneToOne
     @JoinColumn(name = "establecimiento")
-    private Establecimiento establecimiento;
+    private String establecimiento;
+    //private Establecimiento establecimiento;
 
     @ManyToMany(mappedBy = "incidentesReportados")
-    private List<Comunidad> comunidadesAfectadas;
+    private List<String> comunidadesAfectadas;
+    //private List<Comunidad> comunidadesAfectadas;
 
     @Column(name="horario_apertura")
     private LocalDate apertura;
@@ -48,7 +53,7 @@ public class Incidente {
     private Boolean estado; //todo estado podria ser un enum
 
     //1. Se debe permitir la apertura de incidentes
-    public Incidente(Long identificador, String observaciones, Entidad entidad, Persona persona, Prestacion prestacion, Establecimiento establecimiento, List<Comunidad> comunidades){
+    public Incidente(Long identificador, String observaciones, String entidad, String persona, String prestacion, String establecimiento, List<String> comunidades){
         super();
         this.id_incidente = identificador;
         this.observaciones = observaciones;
@@ -87,43 +92,43 @@ public class Incidente {
         this.observaciones = observaciones;
     }
 
-    public Entidad getEntidad() {
+    public String getEntidad() {
         return entidad;
     }
 
-    public void setEntidad(Entidad entidad) {
+    public void setEntidad(String entidad) {
         this.entidad = entidad;
     }
 
-    public Persona getPersonaQueReporto() {
+    public String getPersonaQueReporto() {
         return personaQueReporto;
     }
 
-    public void setPersonaQueReporto(Persona personaQueReporto) {
+    public void setPersonaQueReporto(String personaQueReporto) {
         this.personaQueReporto = personaQueReporto;
     }
 
-    public Prestacion getPrestacionIncidentada() {
+    public String getPrestacionIncidentada() {
         return prestacionIncidentada;
     }
 
-    public void setPrestacionIncidentada(Prestacion prestacionIncidentada) {
+    public void setPrestacionIncidentada(String prestacionIncidentada) {
         this.prestacionIncidentada = prestacionIncidentada;
     }
 
-    public Establecimiento getEstablecimiento() {
+    public String getEstablecimiento() {
         return establecimiento;
     }
 
-    public void setEstablecimiento(Establecimiento establecimiento) {
+    public void setEstablecimiento(String establecimiento) {
         this.establecimiento = establecimiento;
     }
 
-    public List<Comunidad> getComunidadesAfectadas() {
+    public List<String> getComunidadesAfectadas() {
         return comunidadesAfectadas;
     }
 
-    public void setComunidadesAfectadas(List<Comunidad> comunidadesAfectadas) {
+    public void setComunidadesAfectadas(List<String> comunidadesAfectadas) {
         this.comunidadesAfectadas = comunidadesAfectadas;
     }
 

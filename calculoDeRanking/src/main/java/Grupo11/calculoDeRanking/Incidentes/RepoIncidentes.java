@@ -1,4 +1,4 @@
-package Grupo11.DDS_TP_Integrador.Incidentes;
+package Grupo11.calculoDeRanking.Incidentes;
 
 import java.util.List;
 import java.util.function.Predicate;
