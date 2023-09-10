@@ -32,7 +32,27 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>6.0.0.Alpha7</version>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.2.7.Final</version>
+        </dependency>
+		<dependency>
+			<groupId>com.github.nbbrd.java-sql-util</groupId>
+			<artifactId>java-sql-jdbc</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.nbbrd.java-sql-util</groupId>
+			<artifactId>java-sql-jdbc</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.nbbrd.java-sql-util</groupId>
+			<artifactId>java-sql-jdbc</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
