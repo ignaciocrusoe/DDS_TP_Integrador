@@ -1,14 +1,9 @@
 package Grupo11.calculoDeRanking.calculoDeRanking;
 
-import java.util.ArrayList;
-import java.util.List;
-//import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-//import org.hibernate.criterion.Order;
-import Grupo11.calculoDeRanking.Entidades.*;
-import java.sql.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.*;
 /*
 public class calculoDeRanking {
 }
@@ -33,7 +28,21 @@ public class calculoDeRanking {
 }
 */
 public class calculoDeRanking {
-    public static List<Entidad> topFiveEntidades(String[] args){
+    public calculoDeRanking(){
+        SessionFactory factory = null;
+        Session session = factory.openSession();
+
+        Transaction tx = null;
+
+        try {
+        tx = session.beginTransaction();
+        session.createQuery("SELECT Incidente FROM Incidentes ORDER BY COUNT(Entidad) GROUP BY Entidad");
+        tx.commit();
+        } finally{}
+
+    }
+    /*
+
         try(Connection conn = DriveManager.getConnection(
             "REEMPLAZAR CON BASE DE DATOS DE MYSQL");
             Statement stmt = conn.createStatement();
@@ -43,4 +52,6 @@ public class calculoDeRanking {
                 ){}
 
     }
+
+    */
 }

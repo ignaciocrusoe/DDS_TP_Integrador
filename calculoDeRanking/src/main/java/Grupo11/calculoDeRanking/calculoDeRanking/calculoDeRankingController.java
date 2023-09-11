@@ -20,7 +20,7 @@ public class calculoDeRankingController {
     
     @GetMapping("/generarRanking")
     public int generarRanking(){
-        calculoDeRanking.calculoDeRanking();
+        //calculoDeRanking.calculoDeRanking();
         return 1;
     }
 
