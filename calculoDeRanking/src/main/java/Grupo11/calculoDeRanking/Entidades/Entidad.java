@@ -29,7 +29,7 @@ import org.springframework.stereotype.Repository;
 @PrimaryKeyJoinColumn(name = "id_entidad")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Entidad extends Interes {
-
+/*
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;
     @ManyToOne

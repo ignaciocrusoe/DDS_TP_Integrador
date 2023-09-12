@@ -23,9 +23,11 @@ public class calculoDeRankingController {
         //calculoDeRanking.calculoDeRanking();
         return 1;
     }
-
+/*
     @GetMapping("/prueba_entidad")
     public Entidad buscarEntidad(@RequestParam(id="id_entidad")){
         return new Entidad(id_entidad,)
     }
+
+ */
 }
