@@ -28,8 +28,8 @@ import org.springframework.stereotype.Repository;
 @Entity(name = "entidades")
 @PrimaryKeyJoinColumn(name = "id_entidad")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Entidad extends Interes {
-/*
+public class Entidad extends Interes{
+
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;
     @ManyToOne
@@ -39,12 +39,7 @@ public class Entidad extends Interes {
     @JoinColumn(name = "organismoControl")
     protected OrganismoControl organismoControl;
 
-    @ManyToMany
-    @JoinTable(name = "entidad x persona",
-            joinColumns = @JoinColumn(name = "id_entidad"),
-            inverseJoinColumns = @JoinColumn(name = "id_persona"))
-    protected List<Persona> suscriptores;
-
+    /*
     @ManyToOne
     @JoinColumn(name = "rankingMasIncidentes")
     protected RankingMasIncidentes rankingMasIncidentes;
@@ -53,15 +48,7 @@ public class Entidad extends Interes {
     @JoinColumn(name = "rankingPromedioCierreIncidente")
     protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
 
-    @Autowired
-    @Transient
-    protected RepoIncidentes repoIncidentes;
-    @Autowired
-    @Transient
-    protected GestorRankings gestorRankings;
-    @Autowired
-    @Transient
-    protected Notificador notificador;
+     */
 
 
 
@@ -73,13 +60,10 @@ public class Entidad extends Interes {
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, RankingMasIncidentes rankingMasIncidentes, RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
-        this.suscriptores = suscriptores;
-        this.rankingMasIncidentes = rankingMasIncidentes;
-        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
     }
 
     public List<Incidente> getIncidentes_reportados() {
@@ -106,6 +90,7 @@ public class Entidad extends Interes {
         this.organismoControl = organismoControl;
     }
 
+    /*
     public List<Persona> getSuscriptores() {
         return suscriptores;
     }
@@ -129,6 +114,6 @@ public class Entidad extends Interes {
     public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
         this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
     }
+    */
 
- */
 }

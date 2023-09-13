@@ -1,6 +1,5 @@
-package Grupo11.DDS_TP_Integrador.Entidades;
-/*
+package Grupo11.calculoDeRanking.Entidades;
+
 public class Linea extends Entidad {
 
 }
-*/

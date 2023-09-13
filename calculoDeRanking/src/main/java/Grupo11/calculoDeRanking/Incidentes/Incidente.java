@@ -9,6 +9,7 @@ import java.util.Collections;
 //import Grupo11.calculoDeRanking.Servicios.*;
 //import Grupo11.calculoDeRanking.Establecimientos.*;
 //import Grupo11.calculoDeRanking.Comunidades.*;
+import Grupo11.calculoDeRanking.Entidades.Entidad;
 import jakarta.persistence.*;
 
 import java.time.temporal.ChronoUnit;
@@ -21,29 +22,11 @@ public class Incidente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_incidente")
     private Long id_incidente;
-    @Column(name="observaciones")
-    private String observaciones;
-
     @ManyToOne
     @JoinColumn(name = "entidad")
-    private String entidad;
+    private Entidad entidad;
     //private Entidad entidad;
 
-    @OneToOne
-    @JoinColumn(name = "persona_reportadora")
-    private String personaQueReporto;
-    //private Persona personaQueReporto;
-    @Transient
-    private String prestacionIncidentada;
-    //private Prestacion prestacionIncidentada;
-    @OneToOne
-    @JoinColumn(name = "establecimiento")
-    private String establecimiento;
-    //private Establecimiento establecimiento;
-
-    @ManyToMany(mappedBy = "incidentesReportados")
-    private List<String> comunidadesAfectadas;
-    //private List<Comunidad> comunidadesAfectadas;
 
     @Column(name="horario_apertura")
     private LocalDate apertura;
@@ -53,15 +36,10 @@ public class Incidente {
     private Boolean estado; //todo estado podria ser un enum
 
     //1. Se debe permitir la apertura de incidentes
-    public Incidente(Long identificador, String observaciones, String entidad, String persona, String prestacion, String establecimiento, List<String> comunidades){
+    public Incidente(Long identificador, String observaciones, Entidad entidad, String persona, String prestacion, String establecimiento, List<String> comunidades){
         super();
         this.id_incidente = identificador;
-        this.observaciones = observaciones;
         this.entidad = entidad;
-        this.personaQueReporto = persona;
-        this.prestacionIncidentada = prestacion;
-        this.establecimiento = establecimiento;
-        this.comunidadesAfectadas = comunidades;
         this.apertura = LocalDate.now(); //tiene que incluir fecha y hora
         this.cierre = null;
         this.estado = true; //true el incidente esta abierto
@@ -84,53 +62,14 @@ public class Incidente {
         this.id_incidente = id_incidente;
     }
 
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public String getEntidad() {
+    public Entidad getEntidad() {
         return entidad;
     }
 
-    public void setEntidad(String entidad) {
+    public void setEntidad(Entidad entidad) {
         this.entidad = entidad;
     }
 
-    public String getPersonaQueReporto() {
-        return personaQueReporto;
-    }
-
-    public void setPersonaQueReporto(String personaQueReporto) {
-        this.personaQueReporto = personaQueReporto;
-    }
-
-    public String getPrestacionIncidentada() {
-        return prestacionIncidentada;
-    }
-
-    public void setPrestacionIncidentada(String prestacionIncidentada) {
-        this.prestacionIncidentada = prestacionIncidentada;
-    }
-
-    public String getEstablecimiento() {
-        return establecimiento;
-    }
-
-    public void setEstablecimiento(String establecimiento) {
-        this.establecimiento = establecimiento;
-    }
-
-    public List<String> getComunidadesAfectadas() {
-        return comunidadesAfectadas;
-    }
-
-    public void setComunidadesAfectadas(List<String> comunidadesAfectadas) {
-        this.comunidadesAfectadas = comunidadesAfectadas;
-    }
 
     public LocalDate getApertura() {
         return apertura;
