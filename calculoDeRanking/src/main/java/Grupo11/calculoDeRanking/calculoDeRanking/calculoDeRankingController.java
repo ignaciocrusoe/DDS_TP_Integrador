@@ -33,14 +33,16 @@ public class calculoDeRankingController {
             conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE", "ernestina", "sa");
         } catch (SQLException e) {
             e.printStackTrace();
+            return 400;
         }
         Statement stmt = null;
-        ResultSet rs = null;
+        int rs = 0;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1, 100)");
+            rs = stmt.executeUpdate("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1, 100)");
         } catch (SQLException e) {
             e.printStackTrace();
+            return 401;
         }
         return 200;
     }
