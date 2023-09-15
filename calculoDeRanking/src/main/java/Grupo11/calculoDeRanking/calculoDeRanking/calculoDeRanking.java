@@ -41,22 +41,22 @@ public class calculoDeRanking {
 */
 public class calculoDeRanking {
 
-    public static void ordenarEntidades(List<Entidad> entidades) {
+    public static List<Entidad> ordenarEntidades(List<Entidad> entidades) {
         Collections.sort(entidades, new Comparator<Entidad>() {
             @Override
             public int compare(Entidad entidad1, Entidad entidad2) {
                 return entidad1.cantidadIncidentes() - entidad2.cantidadIncidentes();
             }
         });
+        return entidades;
     }
 
-    public void generarListaEntidades(){
+    public static List<Entidad> generarListaEntidades(){
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/mydatabase", "username", "password");
+            conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSEe", "ernestina", "sa");
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
         }
         Statement stmt = null;
         ResultSet rs = null;
@@ -65,7 +65,6 @@ public class calculoDeRanking {
             rs = stmt.executeQuery("SELECT ID, NOMBRE, COUNT(ID_INCIDENTE)'CANTIDAD_INCIDENTES' FROM INCIDENTES LEFT JOIN ENTIDADES ON ENTIDAD = ID WHERE ESTADO = true GROUP BY ID");
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
         }
         List<Entidad> list = new ArrayList<>();
         try {
@@ -79,13 +78,14 @@ public class calculoDeRanking {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return;
         }
-
+    return list;
     }
 
 
-    public calculoDeRanking(){
+    public static List<Entidad> calcularRanking(){
+        return ordenarEntidades(generarListaEntidades());
+        /*
         SessionFactory factory = null;
         Session session = factory.openSession();
 
@@ -96,6 +96,7 @@ public class calculoDeRanking {
         session.createQuery("SELECT Incidente FROM Incidentes ORDER BY COUNT(Entidad) GROUP BY Entidad");
         tx.commit();
         } finally{}
+        */
 
     }
     /*

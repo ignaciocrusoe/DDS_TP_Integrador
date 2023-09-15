@@ -3,11 +3,14 @@ package Grupo11.calculoDeRanking.calculoDeRanking;
 import Grupo11.calculoDeRanking.Entidades.Entidad;
 import Grupo11.calculoDeRanking.Incidentes.Incidente;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 //import Grupo11.calculoDeRanking.Comunidades.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,9 +22,27 @@ public class calculoDeRankingController {
     }
     
     @GetMapping("/generarRanking")
-    public int generarRanking(){
-        //calculoDeRanking.calculoDeRanking();
-        return 1;
+    public List<Entidad> generarRanking(){
+        return calculoDeRanking.calcularRanking();
+    }
+
+    @GetMapping("/pruebaInsertar")
+    public int insertarPrueba(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE", "ernestina", "sa");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1, 100)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 200;
     }
 /*
     @GetMapping("/prueba_entidad")
