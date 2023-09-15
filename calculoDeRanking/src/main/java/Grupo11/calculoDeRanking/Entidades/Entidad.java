@@ -39,6 +39,8 @@ public class Entidad extends Interes{
     @JoinColumn(name = "organismoControl")
     protected OrganismoControl organismoControl;
 
+    private int cantidadIncidentes;
+
     /*
     @ManyToOne
     @JoinColumn(name = "rankingMasIncidentes")
@@ -88,6 +90,13 @@ public class Entidad extends Interes{
 
     public void setOrganismoControl(OrganismoControl organismoControl) {
         this.organismoControl = organismoControl;
+    }
+
+    public int cantidadIncidentes() {
+        return cantidadIncidentes;
+    }
+    public void setCantidadIncidentes(int cant) {
+        this.cantidadIncidentes = cant;
     }
 
     /*

@@ -1,9 +1,21 @@
 package Grupo11.calculoDeRanking.calculoDeRanking;
 
+import Grupo11.calculoDeRanking.Entidades.Entidad;
+import Grupo11.calculoDeRanking.Entidades.OrganismoControl;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 /*
 public class calculoDeRanking {
 }
@@ -28,6 +40,51 @@ public class calculoDeRanking {
 }
 */
 public class calculoDeRanking {
+
+    public static void ordenarEntidades(List<Entidad> entidades) {
+        Collections.sort(entidades, new Comparator<Entidad>() {
+            @Override
+            public int compare(Entidad entidad1, Entidad entidad2) {
+                return entidad1.cantidadIncidentes() - entidad2.cantidadIncidentes();
+            }
+        });
+    }
+
+    public void generarListaEntidades(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/mydatabase", "username", "password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT ID, NOMBRE, COUNT(ID_INCIDENTE)'CANTIDAD_INCIDENTES' FROM INCIDENTES LEFT JOIN ENTIDADES ON ENTIDAD = ID WHERE ESTADO = true GROUP BY ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        List<Entidad> list = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                Entidad obj = new Entidad();
+                //obj.setOrganismoControl(rs.getObject("ORGANISMO_CONTROL", Class<OrganismoControl>));
+                obj.setCantidadIncidentes(rs.getInt("CANTIDAD_INCIDENTES"));
+                obj.setId(rs.getLong("ID"));
+                obj.setNombre(rs.getString("NOMBRE"));
+                list.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+    }
+
+
     public calculoDeRanking(){
         SessionFactory factory = null;
         Session session = factory.openSession();
