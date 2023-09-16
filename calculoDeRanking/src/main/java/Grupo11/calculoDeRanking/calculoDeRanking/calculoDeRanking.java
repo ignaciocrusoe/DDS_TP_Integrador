@@ -2,6 +2,7 @@ package Grupo11.calculoDeRanking.calculoDeRanking;
 
 import Grupo11.calculoDeRanking.Entidades.Entidad;
 import Grupo11.calculoDeRanking.Entidades.OrganismoControl;
+import Grupo11.calculoDeRanking.Incidentes.Incidente;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,6 +42,20 @@ public class calculoDeRanking {
 }
 */
 public class calculoDeRanking {
+
+    public int calcularImpacto(Entidad entidad, int cnf){
+        int tResolucion = 0;
+        int cNoResueltos = 0;
+        for(Incidente incidente : entidad.getIncidentes_reportados()){
+            if(!incidente.getEstado()){
+            tResolucion += Duration.between(incidente.getCierre(), incidente.getApertura()).toDays();
+            }
+            else{
+                cNoResueltos++;
+            }
+        }
+    return tResolucion + cNoResueltos * cnf;
+}
 
     public static List<Entidad> ordenarEntidades(List<Entidad> entidades) {
         Collections.sort(entidades, new Comparator<Entidad>() {
