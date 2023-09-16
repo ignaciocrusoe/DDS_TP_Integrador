@@ -23,7 +23,12 @@ public class calculoDeRankingController {
     
     @GetMapping("/generarRanking")
     public List<Entidad> generarRanking(){
-        return calculoDeRanking.calcularRanking();
+        return calculoDeRanking.calcularRanking(1);
+    }
+
+    @GetMapping("/getListaEntidades")
+    public List<Entidad> getListaEntidades() {
+        return calculoDeRanking.generarListaEntidades();
     }
 
     @GetMapping("/pruebaInsertar")

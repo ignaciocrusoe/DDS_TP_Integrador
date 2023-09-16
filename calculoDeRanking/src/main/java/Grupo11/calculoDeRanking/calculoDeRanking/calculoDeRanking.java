@@ -1,12 +1,7 @@
 package Grupo11.calculoDeRanking.calculoDeRanking;
 
 import Grupo11.calculoDeRanking.Entidades.Entidad;
-import Grupo11.calculoDeRanking.Entidades.OrganismoControl;
 import Grupo11.calculoDeRanking.Incidentes.Incidente;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,7 +38,7 @@ public class calculoDeRanking {
 */
 public class calculoDeRanking {
 
-    public int calcularImpacto(Entidad entidad, int cnf){
+    private static int calcularImpacto(Entidad entidad, int cnf){
         int tResolucion = 0;
         int cNoResueltos = 0;
         for(Incidente incidente : entidad.getIncidentes_reportados()){
@@ -57,11 +52,11 @@ public class calculoDeRanking {
     return tResolucion + cNoResueltos * cnf;
 }
 
-    public static List<Entidad> ordenarEntidades(List<Entidad> entidades) {
+    public static List<Entidad> ordenarEntidades(List<Entidad> entidades, int cnf) {
         Collections.sort(entidades, new Comparator<Entidad>() {
             @Override
             public int compare(Entidad entidad1, Entidad entidad2) {
-                return entidad1.cantidadIncidentes() - entidad2.cantidadIncidentes();
+                return calculoDeRanking.calcularImpacto(entidad1, cnf) - calculoDeRanking.calcularImpacto(entidad2, cnf);
             }
         });
         return entidades;
@@ -99,8 +94,8 @@ public class calculoDeRanking {
     }
 
 
-    public static List<Entidad> calcularRanking(){
-        return ordenarEntidades(generarListaEntidades());
+    public static List<Entidad> calcularRanking(int cnf){
+        return ordenarEntidades(generarListaEntidades(), cnf);
         /*
         SessionFactory factory = null;
         Session session = factory.openSession();
