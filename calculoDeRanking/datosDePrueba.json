@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "nombre": "Entidad1",
+    "incidentes_reportados": [
+      {
+        "id_incidente": 1,
+        "entidad": null,
+        "apertura": "2023-09-20",
+        "cierre": null,
+        "estado": true
+      }
+    ],
+    "prestador": null,
+    "organismoControl": null
+  },
+  {
+    "id": 2,
+    "nombre": "Entidad2",
+    "incidentes_reportados": [
+      {
+        "id_incidente": 2,
+        "entidad": null,
+        "apertura": "2023-09-18",
+        "cierre": null,
+        "estado": true
+      },
+      {
+        "id_incidente": 3,
+        "entidad": null,
+        "apertura": "2023-08-20",
+        "cierre": null,
+        "estado": true
+      }
+    ],
+    "prestador": null,
+    "organismoControl": null
+  },
+  {
+    "id": 3,
+    "nombre": "Entidad3",
+    "incidentes_reportados": null,
+    "prestador": null,
+    "organismoControl": null
+  }
+]
