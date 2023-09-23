@@ -63,6 +63,7 @@ public class calculoDeRanking {
                 return calculoDeRanking.calcularImpacto(entidad1, cnf) - calculoDeRanking.calcularImpacto(entidad2, cnf);
             }
         });
+        Collections.reverse(entidades);
         return entidades;
     }
     /*
