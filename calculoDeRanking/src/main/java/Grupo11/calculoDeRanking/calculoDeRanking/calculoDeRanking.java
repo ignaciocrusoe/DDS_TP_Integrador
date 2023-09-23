@@ -38,9 +38,12 @@ public class calculoDeRanking {
 */
 public class calculoDeRanking {
 
-    private static int calcularImpacto(Entidad entidad, int cnf){
+    static int calcularImpacto(Entidad entidad, int cnf){
         int tResolucion = 0;
         int cNoResueltos = 0;
+        if(entidad.getIncidentes_reportados() == null){
+            return 0;
+        }
         for(Incidente incidente : entidad.getIncidentes_reportados()){
             if(!incidente.getEstado()){
             tResolucion += Duration.between(incidente.getCierre(), incidente.getApertura()).toDays();
@@ -52,6 +55,7 @@ public class calculoDeRanking {
     return tResolucion + cNoResueltos * cnf;
 }
 
+
     public static List<Entidad> ordenarEntidades(List<Entidad> entidades, int cnf) {
         Collections.sort(entidades, new Comparator<Entidad>() {
             @Override
@@ -61,7 +65,23 @@ public class calculoDeRanking {
         });
         return entidades;
     }
+    /*
 
+        public static List<Entidad> ordenarEntidades(List<Entidad> entidades, int cnf) {
+            int n = entidades.size();
+            Entidad entidad = null;
+            for(int i = 0; i < n; i++) {
+                for(int j = 1; j < (n - i); j++) {
+                    if(calculoDeRanking.calcularImpacto(entidades.get(j - 1),cnf) < calculoDeRanking.calcularImpacto(entidades.get(j),cnf)) {
+                        entidad = entidades.get(j - 1);
+                        entidades.set(j - 1, entidades.get(j));
+                        entidades.set(j, entidad);
+                    }
+                }
+            }
+            return entidades;
+        }
+      */
     public static List<Entidad> generarListaEntidades(){
         Connection conn = null;
         try {

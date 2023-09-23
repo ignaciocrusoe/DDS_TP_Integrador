@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Grupo11.calculoDeRanking.calculoDeRanking.calculoDeRanking.*;
 import static Grupo11.calculoDeRanking.calculoDeRanking.calculoDeRanking.ordenarEntidades;
 
 @RestController
@@ -39,6 +40,11 @@ public class calculoDeRankingController {
     public List<Entidad> calcularEntidad(@RequestBody List<Entidad> entidades){
         //Da error cuando se invoca al método ordenarEntidades()
         return ordenarEntidades(entidades, 1);
+    }
+
+    @PostMapping("/calcularImpacto")
+    public Integer calcularImpactoPost(@RequestBody Entidad entidad){
+        return calculoDeRanking.calcularImpacto(entidad, 1);
     }
 
     @PostMapping("/validarEntidadesPrueba")
