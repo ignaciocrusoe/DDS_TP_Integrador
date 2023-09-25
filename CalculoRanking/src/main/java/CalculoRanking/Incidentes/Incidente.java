@@ -1,18 +1,11 @@
-package Grupo11.calculoDeRanking.Incidentes;
-import java.util.List;
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.Collections;
-//import Grupo11.calculoDeRanking.Entidades.*;
-//import Grupo11.calculoDeRanking.Comunidades.*;
-//import Grupo11.calculoDeRanking.Servicios.*;
-//import Grupo11.calculoDeRanking.Establecimientos.*;
-//import Grupo11.calculoDeRanking.Comunidades.*;
-import Grupo11.calculoDeRanking.Entidades.Entidad;
+package CalculoRanking.Incidentes;
+
+import CalculoRanking.Entidades.Entidad;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 //todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
 

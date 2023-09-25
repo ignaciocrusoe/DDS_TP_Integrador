@@ -1,50 +1,51 @@
-package Grupo11.calculoDeRanking.calculoDeRanking;
+package CalculoRanking.Controllers;
 
-import Grupo11.calculoDeRanking.Entidades.Entidad;
-import Grupo11.calculoDeRanking.Incidentes.Incidente;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
-//import Grupo11.calculoDeRanking.Comunidades.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static Grupo11.calculoDeRanking.calculoDeRanking.calculoDeRanking.*;
-import static Grupo11.calculoDeRanking.calculoDeRanking.calculoDeRanking.ordenarEntidades;
+import CalculoRanking.Entidades.Entidad;
+import CalculoRanking.Incidentes.Incidente;
 
+import CalculoRanking.Calculo.CalculoRanking;
 @RestController
-public class calculoDeRankingController {
+public class CalculoRankingController {
 
+    @Autowired
+    CalculoRanking calculoRanking;
     @GetMapping("/prueba")
     public Incidente prueba() {
         return new Incidente(1L, "Observación de ejemplo.", null, null, null, null, null);
     }
-    
+
     @GetMapping("/generarRanking")
     public List<Entidad> generarRanking(){
-        return calculoDeRanking.calcularRanking(1);
+        return calculoRanking.calcularRanking(1);
     }
 
     @GetMapping("/getListaEntidades")
     public List<Entidad> getListaEntidades() {
-        return calculoDeRanking.generarListaEntidades();
+        return calculoRanking.generarListaEntidades();
     }
 
     @PostMapping("/calcularRanking")
     public List<Entidad> calcularEntidad(@RequestBody List<Entidad> entidades){
         //Da error cuando se invoca al método ordenarEntidades()
-        return ordenarEntidades(entidades, 1);
+        return calculoRanking.ordenarEntidades(entidades, 1);
     }
 
     @PostMapping("/calcularImpacto")
     public Integer calcularImpactoPost(@RequestBody Entidad entidad){
-        return calculoDeRanking.calcularImpacto(entidad, 1);
+        return calculoRanking.calcularImpacto(entidad, 1);
     }
 
     @PostMapping("/validarEntidadesPrueba")

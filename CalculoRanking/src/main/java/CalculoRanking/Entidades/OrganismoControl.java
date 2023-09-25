@@ -1,4 +1,4 @@
-package Grupo11.calculoDeRanking.Entidades;
+package CalculoRanking.Entidades;
 
 import jakarta.persistence.*;
 

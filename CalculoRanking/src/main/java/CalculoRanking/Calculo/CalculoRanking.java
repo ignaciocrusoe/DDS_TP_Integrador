@@ -1,18 +1,25 @@
-package Grupo11.calculoDeRanking.calculoDeRanking;
+package CalculoRanking.Calculo;
 
-import Grupo11.calculoDeRanking.Entidades.Entidad;
-import Grupo11.calculoDeRanking.Incidentes.Incidente;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+
+import CalculoRanking.Entidades.*;
+import CalculoRanking.Incidentes.*;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class CalculoRanking {
 /*
 public class calculoDeRanking {
 }
@@ -36,9 +43,8 @@ public class calculoDeRanking {
     }
 }
 */
-public class calculoDeRanking {
 
-    static int calcularImpacto(Entidad entidad, int cnf){
+    public int calcularImpacto(Entidad entidad, int cnf){
         int tResolucion = 0;
         int cNoResueltos = 0;
         if(entidad.getIncidentes_reportados() == null){
@@ -46,21 +52,21 @@ public class calculoDeRanking {
         }
         for(Incidente incidente : entidad.getIncidentes_reportados()){
             if(!incidente.getEstado()){
-            tResolucion += Duration.between(incidente.getCierre(), incidente.getApertura()).toDays();
+                tResolucion += Duration.between(incidente.getCierre(), incidente.getApertura()).toDays();
             }
             else{
                 cNoResueltos++;
             }
         }
-    return tResolucion + cNoResueltos * cnf;
-}
+        return tResolucion + cNoResueltos * cnf;
+    }
 
 
-    public static List<Entidad> ordenarEntidades(List<Entidad> entidades, int cnf) {
+    public List<Entidad> ordenarEntidades(List<Entidad> entidades, int cnf) {
         Collections.sort(entidades, new Comparator<Entidad>() {
             @Override
             public int compare(Entidad entidad1, Entidad entidad2) {
-                return calculoDeRanking.calcularImpacto(entidad1, cnf) - calculoDeRanking.calcularImpacto(entidad2, cnf);
+                return calcularImpacto(entidad1, cnf) - calcularImpacto(entidad2, cnf);
             }
         });
         Collections.reverse(entidades);
@@ -83,7 +89,7 @@ public class calculoDeRanking {
             return entidades;
         }
       */
-    public static List<Entidad> generarListaEntidades(){
+    public List<Entidad> generarListaEntidades(){
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSEe", "ernestina", "sa");
@@ -111,11 +117,11 @@ public class calculoDeRanking {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return list;
+        return list;
     }
 
 
-    public static List<Entidad> calcularRanking(int cnf){
+    public List<Entidad> calcularRanking(int cnf){
         return ordenarEntidades(generarListaEntidades(), cnf);
         /*
         SessionFactory factory = null;

@@ -1,10 +1,10 @@
-package Grupo11.calculoDeRanking;
+package CalculoRanking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CalculoDeRankingApplicationTests {
+class CalculoRankingApplicationTests {
 
 	@Test
 	void contextLoads() {

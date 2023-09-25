@@ -1,12 +1,10 @@
-package Grupo11.calculoDeRanking.Intereses;
+package CalculoRanking.Intereses;
 /*
 import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 */
 
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity(name = "intereses")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

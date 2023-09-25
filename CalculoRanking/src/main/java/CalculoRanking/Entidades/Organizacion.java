@@ -1,4 +1,4 @@
-package Grupo11.calculoDeRanking.Entidades;
+package CalculoRanking.Entidades;
 
 public class Organizacion extends Entidad {
 }

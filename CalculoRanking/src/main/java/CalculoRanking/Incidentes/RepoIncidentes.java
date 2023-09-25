@@ -1,4 +1,4 @@
-package Grupo11.calculoDeRanking.Incidentes;
+package CalculoRanking.Incidentes;
 
 import java.util.List;
 import java.util.function.Predicate;
