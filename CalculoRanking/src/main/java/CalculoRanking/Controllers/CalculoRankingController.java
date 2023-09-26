@@ -1,22 +1,18 @@
 package CalculoRanking.Controllers;
 
+import CalculoRanking.Calculo.CalculoRanking;
+import CalculoRanking.Entidades.Entidad;
+import CalculoRanking.Incidentes.Incidente;
+import CalculoRanking.Rankings.Ranking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import CalculoRanking.Entidades.Entidad;
-import CalculoRanking.Incidentes.Incidente;
-
-import CalculoRanking.Calculo.CalculoRanking;
 @RestController
 public class CalculoRankingController {
 
@@ -27,8 +23,8 @@ public class CalculoRankingController {
         return new Incidente(1L, "Observación de ejemplo.", null, null, null, null, null);
     }
 
-    @GetMapping("/generarRanking")
-    public List<Entidad> generarRanking(){
+    @GetMapping("/generarRankingDEPRECATED")
+    public List<Entidad> generarRankingDEPRECATED(){
         return calculoRanking.calcularRanking(1);
     }
 
@@ -90,6 +86,40 @@ public class CalculoRankingController {
         try {
             stmt = conn.createStatement();
             rs = stmt.executeUpdate("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1, 100)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 401;
+        }
+        return 200;
+    }
+
+
+    @PostMapping("/generarRanking")
+    public int generarRanking(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE", "ernestina", "sa");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 400;
+        }
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("GET * FROM ENTIDADES");
+            List<Incidente> list = new ArrayList<>();
+            Ranking ranking = new Ranking();
+            ranking.setIncidentes(list);
+            while (rs.next()) {
+                Incidente incidente =  new Incidente(1L, "Observación de ejemplo.", null, null, null, null, null);
+                incidente.setApertura(rs.getDate("horario_apertura").toLocalDate());
+                incidente.setCierre(rs.getDate("horario_cierre").toLocalDate());
+                incidente.setEstado(rs.getBoolean("estado"));
+                incidente.setId_incidente(rs.getLong("id_incidente"));
+                // add more fields as needed
+                list.add(incidente);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return 401;
