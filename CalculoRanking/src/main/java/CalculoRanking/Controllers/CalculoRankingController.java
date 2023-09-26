@@ -95,36 +95,8 @@ public class CalculoRankingController {
 
 
     @PostMapping("/generarRanking")
-    public int generarRanking(){
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE", "ernestina", "sa");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 400;
-        }
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("GET * FROM ENTIDADES");
-            List<Incidente> list = new ArrayList<>();
-            Ranking ranking = new Ranking();
-            ranking.setIncidentes(list);
-            while (rs.next()) {
-                Incidente incidente =  new Incidente(1L, "Observación de ejemplo.", null, null, null, null, null);
-                incidente.setApertura(rs.getDate("horario_apertura").toLocalDate());
-                incidente.setCierre(rs.getDate("horario_cierre").toLocalDate());
-                incidente.setEstado(rs.getBoolean("estado"));
-                incidente.setId_incidente(rs.getLong("id_incidente"));
-                // add more fields as needed
-                list.add(incidente);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 401;
-        }
-        return 200;
+    public int generarRankingPost(){
+        return Ranking.generarRanking();
     }
 /*
     @GetMapping("/prueba_entidad")
