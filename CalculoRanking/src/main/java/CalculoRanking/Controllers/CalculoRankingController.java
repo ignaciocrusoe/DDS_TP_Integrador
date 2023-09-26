@@ -96,7 +96,7 @@ public class CalculoRankingController {
 
     @PostMapping("/generarRanking")
     public int generarRankingPost(){
-        return Ranking.generarRanking();
+        return CalculoRanking.generarRanking();
     }
 /*
     @GetMapping("/prueba_entidad")

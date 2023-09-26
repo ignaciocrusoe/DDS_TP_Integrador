@@ -1,5 +1,6 @@
 package CalculoRanking.Calculo;
 
+import java.sql.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,14 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-
 import CalculoRanking.Entidades.*;
 import CalculoRanking.Incidentes.*;
+import CalculoRanking.Rankings.Ranking;
 import org.springframework.stereotype.Component;
 
 
@@ -150,4 +146,63 @@ public class calculoDeRanking {
     }
 
     */
+
+
+    public static int generarRanking(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE", "ernestina", "sa");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 400;
+        }
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("GET * FROM ENTIDADES");
+            List<Entidad> list = new ArrayList<>();
+            Ranking ranking = new Ranking();
+            ranking.setEntidades(list);
+            while (rs.next()) {
+
+                Entidad entidad =  new Entidad();
+                entidad.setPrestador((Prestador) rs.getObject("Prestador"));
+                entidad.setNombre(rs.getString("Nombre"));
+                entidad.setId(rs.getLong("Id"));
+                entidad.setOrganismoControl((OrganismoControl) rs.getObject("Organismo_Control"));
+
+                list.add(entidad);
+            }
+            ranking.setEntidades(list);
+            insertarRanking(ranking);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 401;
+        }
+        return 200;
+    }
+
+    public static void insertarRanking(Ranking ranking) {
+        String url = "jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE";
+        String user = "ernestina";
+        String password = "sa";
+        String query = "INSERT INTO Ranking (, field2, field3) VALUES (?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = con.prepareStatement(query)) {
+
+            // set the values of the query parameters
+            stmt.setLong(1, ranking.getId());
+            stmt.setArray(3, (Array) ranking.getEntidades());
+
+            // execute the SQL query
+            int rowsInserted = stmt.executeUpdate();
+            System.out.println(rowsInserted + " rows inserted.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

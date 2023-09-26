@@ -1,5 +1,6 @@
 package CalculoRanking;
 
+import CalculoRanking.Calculo.CalculoRanking;
 import org.slf4j.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +20,7 @@ public class CalculoRankingApplication {
 	private static Logger logger = LoggerFactory.getLogger(CalculoRankingApplication.class);
 	@Scheduled(fixedRate = 2000L)
 	public void job(){
-		//aca se llamaría el metodo que extrae entidades de la base de datos, calcula el ranking y lo almacena
+		//CalculoRanking.generarRanking();
 		logger.info("la fecha es: " + new Date());
 	}
 
