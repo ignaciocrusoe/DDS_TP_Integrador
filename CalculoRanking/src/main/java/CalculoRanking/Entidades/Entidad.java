@@ -74,6 +74,7 @@ public class Entidad extends Interes{
 
     public int cantidadIncidentes() {
         return cantidadIncidentes;
+        //return incidentes_reportados.size();
     }
     public void setCantidadIncidentes(int cant) {
         this.cantidadIncidentes = cant;

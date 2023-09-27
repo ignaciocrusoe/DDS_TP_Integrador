@@ -160,7 +160,7 @@ public class calculoDeRanking {
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("GET * FROM ENTIDADES");
+            rs = stmt.executeQuery("SELECT * FROM ENTIDADES");
             List<Entidad> list = new ArrayList<>();
             Ranking ranking = new Ranking();
             ranking.setEntidades(list);
@@ -187,16 +187,16 @@ public class calculoDeRanking {
         String url = "jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE";
         String user = "ernestina";
         String password = "sa";
-        String query = "INSERT INTO Ranking (, field2, field3) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Ranking (ID_RANKING) VALUES (?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = con.prepareStatement(query)) {
-
-            // set the values of the query parameters
             stmt.setLong(1, ranking.getId());
-            stmt.setArray(3, (Array) ranking.getEntidades());
 
-            // execute the SQL query
+            //Da error cuando quiero agregar la lista de entidades
+            //Array array = con.createArrayOf("Entidad", ranking.getEntidades().toArray());
+            //stmt.setArray(3, array);
+
             int rowsInserted = stmt.executeUpdate();
             System.out.println(rowsInserted + " rows inserted.");
 

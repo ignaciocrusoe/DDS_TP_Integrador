@@ -19,6 +19,7 @@ public class Ranking {
             name = "Incidentes",
             inverseJoinColumns = @JoinColumn(name = "id_incidente")
     )
+    @Column(name="ENTIDADES")
     private List<Entidad> entidades;
 
     public void setEntidades(List<Entidad> entidades){
@@ -35,7 +36,12 @@ public class Ranking {
     }
 
     public Long getId() {
-        return id_ranking;
+        if(id_ranking == null){
+            return 0L;
+        }
+        else {
+            return id_ranking;
+        }
     }
     public List<Entidad> getEntidades(){
         return this.entidades;

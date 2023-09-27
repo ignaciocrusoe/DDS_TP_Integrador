@@ -85,7 +85,7 @@ public class CalculoRankingController {
         int rs = 0;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeUpdate("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1, 100)");
+            rs = stmt.executeUpdate("INSERT INTO ENTIDADES (ID, CANTIDAD_INCIDENTES) VALUES (1L, 100)");
         } catch (SQLException e) {
             e.printStackTrace();
             return 401;
