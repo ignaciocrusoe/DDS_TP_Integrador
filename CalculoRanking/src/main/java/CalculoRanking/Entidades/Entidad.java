@@ -13,13 +13,8 @@ public class Entidad extends Interes{
 
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;
-    @ManyToOne
-    @JoinColumn(name = "prestador")
-    protected Prestador prestador;
-    @ManyToOne
-    @JoinColumn(name = "organismoControl")
-    protected OrganismoControl organismoControl;
 
+    @Column(name = "cantidadIncidentes")
     protected int cantidadIncidentes; //cantidad de incidentes?
 
     @ManyToOne
@@ -29,19 +24,12 @@ public class Entidad extends Interes{
 
 
 
-
-
-
     //metodos utilitarios
-
-
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, int cantidadIncidentes, Ranking rankingMayorImpacto) {
+    public Entidad(List<Incidente> incidentes_reportados, int cantidadIncidentes, Ranking rankingMayorImpacto) {
         this.incidentes_reportados = incidentes_reportados;
-        this.prestador = prestador;
-        this.organismoControl = organismoControl;
         this.cantidadIncidentes = cantidadIncidentes;
         this.rankingMayorImpacto = rankingMayorImpacto;
     }
@@ -54,21 +42,6 @@ public class Entidad extends Interes{
         this.incidentes_reportados = incidentes_reportados;
     }
 
-    public Prestador getPrestador() {
-        return prestador;
-    }
-
-    public void setPrestador(Prestador prestador) {
-        this.prestador = prestador;
-    }
-
-    public OrganismoControl getOrganismoControl() {
-        return organismoControl;
-    }
-
-    public void setOrganismoControl(OrganismoControl organismoControl) {
-        this.organismoControl = organismoControl;
-    }
 
     public int cantidadIncidentes() {
         return cantidadIncidentes;

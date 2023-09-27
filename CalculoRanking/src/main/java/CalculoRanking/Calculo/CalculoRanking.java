@@ -104,7 +104,6 @@ public class calculoDeRanking {
         try {
             while (rs.next()) {
                 Entidad obj = new Entidad();
-                //obj.setOrganismoControl(rs.getObject("ORGANISMO_CONTROL", Class<OrganismoControl>));
                 obj.setCantidadIncidentes(rs.getInt("CANTIDAD_INCIDENTES"));
                 obj.setId(rs.getLong("ID"));
                 obj.setNombre(rs.getString("NOMBRE"));
@@ -167,10 +166,8 @@ public class calculoDeRanking {
             while (rs.next()) {
 
                 Entidad entidad =  new Entidad();
-                entidad.setPrestador((Prestador) rs.getObject("Prestador"));
                 entidad.setNombre(rs.getString("Nombre"));
                 entidad.setId(rs.getLong("Id"));
-                entidad.setOrganismoControl((OrganismoControl) rs.getObject("Organismo_Control"));
 
                 list.add(entidad);
             }

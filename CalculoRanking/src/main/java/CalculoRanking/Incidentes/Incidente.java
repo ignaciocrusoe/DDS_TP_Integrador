@@ -20,7 +20,6 @@ public class Incidente {
     private Entidad entidad;
     //private Entidad entidad;
 
-
     @Column(name="horario_apertura")
     private LocalDate apertura;
     @Column(name="horario_cierre")
