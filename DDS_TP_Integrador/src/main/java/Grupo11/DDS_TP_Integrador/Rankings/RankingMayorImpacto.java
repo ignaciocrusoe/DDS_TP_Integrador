@@ -1,6 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Rankings;
 
-import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
+import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
@@ -13,20 +13,18 @@ public class RankingMayorImpacto {
     @Column(name="id_ranking3")
     private Long id_ranking3;
     @OneToMany(mappedBy = "rankingMayorImpacto")
-    private List<Comunidad> comunidades;
+    private List<Entidad> Entidades;
 
-
-
-
+    
 
     //metodos utilitarios
 
     public RankingMayorImpacto() {
     }
 
-    public RankingMayorImpacto(Long id_ranking3, List<Comunidad> comunidades) {
+    public RankingMayorImpacto(Long id_ranking3, List<Entidad> Entidades) {
         this.id_ranking3 = id_ranking3;
-        this.comunidades = comunidades;
+        this.Entidades = Entidades;
     }
 
     public Long getId_ranking3() {
@@ -37,12 +35,12 @@ public class RankingMayorImpacto {
         this.id_ranking3 = id_ranking3;
     }
 
-    public List<Comunidad> getComunidades() {
-        return comunidades;
+    public List<Entidad> getEntidades() {
+        return Entidades;
     }
 
-    public void setComunidades(List<Comunidad> comunidades) {
-        this.comunidades = comunidades;
+    public void setEntidades(List<Entidad> Entidades) {
+        this.Entidades = Entidades;
     }
 }
 

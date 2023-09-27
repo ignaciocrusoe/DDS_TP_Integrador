@@ -8,23 +8,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name="Ranking")
+@Entity(name="RankingMayorImpacto")
 public class Ranking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_ranking")
+    @Column(name="id_ranking3")
     private Long id_ranking;
-    @ManyToMany
-    @JoinTable(
-            name = "Incidentes",
-            inverseJoinColumns = @JoinColumn(name = "id_incidente")
-    )
-    @Column(name="ENTIDADES")
+    @OneToMany(mappedBy = "rankingMayorImpacto")
     private List<Entidad> entidades;
 
-    public void setEntidades(List<Entidad> entidades){
-        this.entidades = entidades;
-    }
+
 
 
 
@@ -33,6 +26,19 @@ public class Ranking {
 
 
     public Ranking() {
+    }
+
+    public Ranking(Long id_ranking, List<Entidad> entidades) {
+        this.id_ranking = id_ranking;
+        this.entidades = entidades;
+    }
+
+    public Long getId_ranking() {
+        return id_ranking;
+    }
+
+    public void setId_ranking(Long id_ranking) {
+        this.id_ranking = id_ranking;
     }
 
     public Long getId() {
@@ -45,6 +51,10 @@ public class Ranking {
     }
     public List<Entidad> getEntidades(){
         return this.entidades;
+    }
+
+    public void setEntidades(List<Entidad> entidades){
+        this.entidades = entidades;
     }
  /*
     public void setId_ranking3(Long id_ranking3) {

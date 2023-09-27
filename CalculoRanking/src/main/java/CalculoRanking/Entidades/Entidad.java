@@ -3,6 +3,7 @@ package CalculoRanking.Entidades;
 import CalculoRanking.Incidentes.*;
 import CalculoRanking.Intereses.*;
 import jakarta.persistence.*;
+import CalculoRanking.Rankings.*;
 
 import java.util.List;
 
@@ -19,18 +20,13 @@ public class Entidad extends Interes{
     @JoinColumn(name = "organismoControl")
     protected OrganismoControl organismoControl;
 
-    private int cantidadIncidentes;
-
-    /*
-    @ManyToOne
-    @JoinColumn(name = "rankingMasIncidentes")
-    protected RankingMasIncidentes rankingMasIncidentes;
+    protected int cantidadIncidentes; //cantidad de incidentes?
 
     @ManyToOne
-    @JoinColumn(name = "rankingPromedioCierreIncidente")
-    protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
+    @JoinColumn(name = "rankingMayorImpacto")
+    private Ranking rankingMayorImpacto;
 
-     */
+
 
 
 
@@ -42,10 +38,12 @@ public class Entidad extends Interes{
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, int cantidadIncidentes, Ranking rankingMayorImpacto) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
+        this.cantidadIncidentes = cantidadIncidentes;
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public List<Incidente> getIncidentes_reportados() {
@@ -79,31 +77,5 @@ public class Entidad extends Interes{
     public void setCantidadIncidentes(int cant) {
         this.cantidadIncidentes = cant;
     }
-
-    /*
-    public List<Persona> getSuscriptores() {
-        return suscriptores;
-    }
-
-    public void setSuscriptores(List<Persona> suscriptores) {
-        this.suscriptores = suscriptores;
-    }
-
-    public RankingMasIncidentes getRankingMasIncidentes() {
-        return rankingMasIncidentes;
-    }
-
-    public void setRankingMasIncidentes(RankingMasIncidentes rankingMasIncidentes) {
-        this.rankingMasIncidentes = rankingMasIncidentes;
-    }
-
-    public RankingPromedioCierreIncidente getRankingPromedioCierreIncidente() {
-        return rankingPromedioCierreIncidente;
-    }
-
-    public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
-        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
-    }
-    */
 
 }

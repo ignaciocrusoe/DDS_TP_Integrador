@@ -48,6 +48,10 @@ public class Entidad extends Interes {
     @JoinColumn(name = "rankingPromedioCierreIncidente")
     protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
 
+    @ManyToOne
+    @JoinColumn(name = "rankingMayorImpacto")
+    private RankingMayorImpacto rankingMayorImpacto;
+
     @Autowired
     @Transient
     protected RepoIncidentes repoIncidentes;
@@ -68,13 +72,14 @@ public class Entidad extends Interes {
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, RankingMasIncidentes rankingMasIncidentes, RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, RankingMasIncidentes rankingMasIncidentes, RankingPromedioCierreIncidente rankingPromedioCierreIncidente, RankingMayorImpacto rankingMayorImpacto) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
         this.suscriptores = suscriptores;
         this.rankingMasIncidentes = rankingMasIncidentes;
         this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public List<Incidente> getIncidentes_reportados() {
@@ -123,5 +128,13 @@ public class Entidad extends Interes {
 
     public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
         this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
+    }
+
+    public RankingMayorImpacto getRankingMayorImpacto() {
+        return rankingMayorImpacto;
+    }
+
+    public void setRankingMayorImpacto(RankingMayorImpacto rankingMayorImpacto) {
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 }
