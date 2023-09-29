@@ -1,20 +1,21 @@
 package CalculoRanking.Rankings;
 
 import CalculoRanking.Entidades.Entidad;
-import CalculoRanking.Incidentes.*;
 import jakarta.persistence.*;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="RankingMayorImpacto")
-public class Ranking {
+public class RankingMayorImpacto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_ranking3")
     private Long id_ranking;
-    @OneToMany(mappedBy = "rankingMayorImpacto")
+    @ManyToMany()
+    @JoinTable(name = "ranking_mayor_impacto_x_entidad",
+            joinColumns = @JoinColumn(name = "id_ranking3"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
     private List<Entidad> entidades;
 
 
@@ -25,12 +26,18 @@ public class Ranking {
 
 
 
-    public Ranking() {
+    public RankingMayorImpacto() {
+
     }
 
-    public Ranking(Long id_ranking, List<Entidad> entidades) {
+    public RankingMayorImpacto(Long id_ranking, List<Entidad> entidades) {
         this.id_ranking = id_ranking;
         this.entidades = entidades;
+    }
+
+    public RankingMayorImpacto(Long id_ranking) {
+        this.id_ranking = id_ranking;
+        this.entidades = new ArrayList<>();
     }
 
     public Long getId_ranking() {

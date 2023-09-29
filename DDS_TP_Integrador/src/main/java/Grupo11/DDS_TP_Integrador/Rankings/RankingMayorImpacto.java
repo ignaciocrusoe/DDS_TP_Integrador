@@ -12,7 +12,10 @@ public class RankingMayorImpacto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_ranking3")
     private Long id_ranking3;
-    @OneToMany(mappedBy = "rankingMayorImpacto")
+    @ManyToMany
+    @JoinTable(name = "ranking_mayor_impacto_x_entidad",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_id_ranking3"))
     private List<Entidad> Entidades;
 
     

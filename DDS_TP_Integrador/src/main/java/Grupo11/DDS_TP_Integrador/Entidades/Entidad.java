@@ -2,7 +2,7 @@ package Grupo11.DDS_TP_Integrador.Entidades;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Collections;
 
@@ -40,17 +40,14 @@ public class Entidad extends Interes {
             inverseJoinColumns = @JoinColumn(name = "id_persona"))
     protected List<Persona> suscriptores;
 
-    @ManyToOne
-    @JoinColumn(name = "rankingMasIncidentes")
-    protected RankingMasIncidentes rankingMasIncidentes;
+    @ManyToMany(mappedBy = "entidades")
+    protected List<RankingMasIncidentes> rankingMasIncidentes;
 
-    @ManyToOne
-    @JoinColumn(name = "rankingPromedioCierreIncidente")
-    protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
+    @ManyToMany(mappedBy = "entidades")
+    protected List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente;
 
-    @ManyToOne
-    @JoinColumn(name = "rankingMayorImpacto")
-    private RankingMayorImpacto rankingMayorImpacto;
+    @ManyToMany(mappedBy = "Entidades")
+    protected List<RankingMayorImpacto> rankingMayorImpacto;
 
     @Autowired
     @Transient
@@ -72,7 +69,7 @@ public class Entidad extends Interes {
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, RankingMasIncidentes rankingMasIncidentes, RankingPromedioCierreIncidente rankingPromedioCierreIncidente, RankingMayorImpacto rankingMayorImpacto) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente, List<RankingMayorImpacto> rankingMayorImpacto, RepoIncidentes repoIncidentes, GestorRankings gestorRankings, Notificador notificador) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
@@ -80,7 +77,12 @@ public class Entidad extends Interes {
         this.rankingMasIncidentes = rankingMasIncidentes;
         this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
         this.rankingMayorImpacto = rankingMayorImpacto;
+        this.repoIncidentes = repoIncidentes;
+        this.gestorRankings = gestorRankings;
+        this.notificador = notificador;
     }
+
+
 
     public List<Incidente> getIncidentes_reportados() {
         return incidentes_reportados;
@@ -114,27 +116,27 @@ public class Entidad extends Interes {
         this.suscriptores = suscriptores;
     }
 
-    public RankingMasIncidentes getRankingMasIncidentes() {
+    public List<RankingMasIncidentes> getRankingMasIncidentes() {
         return rankingMasIncidentes;
     }
 
-    public void setRankingMasIncidentes(RankingMasIncidentes rankingMasIncidentes) {
+    public void setRankingMasIncidentes(List<RankingMasIncidentes> rankingMasIncidentes) {
         this.rankingMasIncidentes = rankingMasIncidentes;
     }
 
-    public RankingPromedioCierreIncidente getRankingPromedioCierreIncidente() {
+    public List<RankingPromedioCierreIncidente> getRankingPromedioCierreIncidente() {
         return rankingPromedioCierreIncidente;
     }
 
-    public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
+    public void setRankingPromedioCierreIncidente(List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente) {
         this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
     }
 
-    public RankingMayorImpacto getRankingMayorImpacto() {
+    public List<RankingMayorImpacto> getRankingMayorImpacto() {
         return rankingMayorImpacto;
     }
 
-    public void setRankingMayorImpacto(RankingMayorImpacto rankingMayorImpacto) {
+    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
         this.rankingMayorImpacto = rankingMayorImpacto;
     }
 }

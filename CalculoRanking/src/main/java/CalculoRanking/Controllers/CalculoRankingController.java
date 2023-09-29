@@ -1,23 +1,16 @@
 package CalculoRanking.Controllers;
 
 import CalculoRanking.Calculo.CalculoRanking;
-import CalculoRanking.Entidades.Entidad;
-import CalculoRanking.Incidentes.Incidente;
-import CalculoRanking.Rankings.Ranking;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 @RestController
 public class CalculoRankingController {
 
     @Autowired
     CalculoRanking calculoRanking;
+
+    /*
     @GetMapping("/prueba")
     public Incidente prueba() {
         return new Incidente(1L, "Observación de ejemplo.", null, null, null, null, null);
@@ -98,7 +91,7 @@ public class CalculoRankingController {
     public int generarRankingPost(){
         return CalculoRanking.generarRanking();
     }
-/*
+
     @GetMapping("/prueba_entidad")
     public Entidad buscarEntidad(@RequestParam(id="id_entidad")){
         return new Entidad(id_entidad,)
