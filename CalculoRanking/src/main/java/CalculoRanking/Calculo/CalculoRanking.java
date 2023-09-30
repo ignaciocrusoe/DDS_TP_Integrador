@@ -14,8 +14,6 @@ import CalculoRanking.Repositories.RankingMayorImpactoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class CalculoRanking {
     @Autowired

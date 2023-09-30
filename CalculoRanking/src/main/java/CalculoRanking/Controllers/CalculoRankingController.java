@@ -3,6 +3,7 @@ package CalculoRanking.Controllers;
 import CalculoRanking.Calculo.CalculoRanking;
 import CalculoRanking.Entidades.Entidad;
 import CalculoRanking.Incidentes.Incidente;
+import CalculoRanking.RankingRequest.RankingRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -26,18 +27,22 @@ public class CalculoRankingController {
     CalculoRanking calculoRanking;
 
 
-    @Operation(summary="Genera un ranking", description="Dada una lista de entidades como body, retorna la misma ordenada según el criterio establecido")
+    @Operation(summary="Genera un ranking", description="Dada una lista de entidades y un coeficiente entero como body, devuelve la misma ordenada según que entidades tengan mayor impacto en comunidades")
     @GetMapping("/calculoRanking")
 
     public ResponseEntity<List<Entidad>> calcularRanking(
-            @Parameter(in = ParameterIn.QUERY, name = "entidades", description = "Descripción del parámetro entidades", required = true,content = @io.swagger.v3.oas.annotations.media.Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-            @RequestBody List<Entidad> entidades){
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+        description = "Se pide una lista de entidades y un coeficiente"
+            )
+        @RequestBody RankingRequest rankingRequest){
 
-//        cuando exista:
-//        List<Entidad> ranking = calculoRanking.calcularRanking(entidades);
-//        return new ResponseEntity<>(ranking, HttpStatus.OK);
-        List<Entidad> rankingFicticio = new ArrayList<Entidad>();
-        return new ResponseEntity<List<Entidad>>(rankingFicticio, HttpStatus.OK);
+        List<Entidad> entidades = rankingRequest.getEntidades();
+        int cnf = rankingRequest.getCoeficiente();
+
+        List<Entidad> ranking = calculoRanking.calcularRanking(entidades, cnf);
+        return new ResponseEntity<List<Entidad>>(ranking, HttpStatus.OK);
+        //List<Entidad> rankingFicticio = new ArrayList<Entidad>();
+        //return new ResponseEntity<List<Entidad>>(rankingFicticio, HttpStatus.OK);
     }
 
 
