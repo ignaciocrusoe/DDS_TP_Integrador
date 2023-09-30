@@ -187,7 +187,7 @@ public class calculoDeRanking {
         String url = "jdbc:h2:mem:tpdatabase;DB_CLOSE_ON_EXIT=FALSE";
         String user = "ernestina";
         String password = "sa";
-        String query = "INSERT INTO Ranking (, field2, field3) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Ranking (field1, field2, field3) VALUES (?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = con.prepareStatement(query)) {
