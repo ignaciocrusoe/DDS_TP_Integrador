@@ -3,49 +3,30 @@ package CalculoRanking.Entidades;
 import CalculoRanking.Incidentes.*;
 import CalculoRanking.Intereses.*;
 import jakarta.persistence.*;
+import CalculoRanking.Rankings.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "entidades")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Entidad extends Interes{
 
-    @OneToMany(mappedBy = "entidad")
+    @OneToMany(mappedBy = "entidad",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Incidente> incidentes_reportados;
-    @ManyToOne
-    @JoinColumn(name = "prestador")
-    protected Prestador prestador;
-    @ManyToOne
-    @JoinColumn(name = "organismoControl")
-    protected OrganismoControl organismoControl;
 
-    private int cantidadIncidentes;
-
-    /*
-    @ManyToOne
-    @JoinColumn(name = "rankingMasIncidentes")
-    protected RankingMasIncidentes rankingMasIncidentes;
-
-    @ManyToOne
-    @JoinColumn(name = "rankingPromedioCierreIncidente")
-    protected RankingPromedioCierreIncidente rankingPromedioCierreIncidente;
-
-     */
-
-
-
+    @ManyToMany(mappedBy = "entidades")
+    protected List<RankingMayorImpacto> rankingMayorImpacto;
 
 
     //metodos utilitarios
-
-
     public Entidad() {
+        this.incidentes_reportados = new ArrayList<>();
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl) {
+    public Entidad(List<Incidente> incidentes_reportados, List<RankingMayorImpacto> rankingMayorImpacto) {
         this.incidentes_reportados = incidentes_reportados;
-        this.prestador = prestador;
-        this.organismoControl = organismoControl;
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public List<Incidente> getIncidentes_reportados() {
@@ -56,53 +37,12 @@ public class Entidad extends Interes{
         this.incidentes_reportados = incidentes_reportados;
     }
 
-    public Prestador getPrestador() {
-        return prestador;
+    public List<RankingMayorImpacto> getRankingMayorImpacto() {
+        return rankingMayorImpacto;
     }
 
-    public void setPrestador(Prestador prestador) {
-        this.prestador = prestador;
+    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
+        this.rankingMayorImpacto = rankingMayorImpacto;
     }
-
-    public OrganismoControl getOrganismoControl() {
-        return organismoControl;
-    }
-
-    public void setOrganismoControl(OrganismoControl organismoControl) {
-        this.organismoControl = organismoControl;
-    }
-
-    public int cantidadIncidentes() {
-        return cantidadIncidentes;
-    }
-    public void setCantidadIncidentes(int cant) {
-        this.cantidadIncidentes = cant;
-    }
-
-    /*
-    public List<Persona> getSuscriptores() {
-        return suscriptores;
-    }
-
-    public void setSuscriptores(List<Persona> suscriptores) {
-        this.suscriptores = suscriptores;
-    }
-
-    public RankingMasIncidentes getRankingMasIncidentes() {
-        return rankingMasIncidentes;
-    }
-
-    public void setRankingMasIncidentes(RankingMasIncidentes rankingMasIncidentes) {
-        this.rankingMasIncidentes = rankingMasIncidentes;
-    }
-
-    public RankingPromedioCierreIncidente getRankingPromedioCierreIncidente() {
-        return rankingPromedioCierreIncidente;
-    }
-
-    public void setRankingPromedioCierreIncidente(RankingPromedioCierreIncidente rankingPromedioCierreIncidente) {
-        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
-    }
-    */
 
 }

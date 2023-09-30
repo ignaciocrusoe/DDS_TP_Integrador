@@ -36,10 +36,6 @@ public class Comunidad{
             inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
     private List<Interes> intereses_comunidad;
 
-    @ManyToOne
-    @JoinColumn(name = "rankingMayorImpacto")
-    private RankingMayorImpacto rankingMayorImpacto;
-
     @Autowired
     @Transient
     private RepoIncidentes repoIncidentes;
@@ -87,7 +83,6 @@ public class Comunidad{
         this.incidentesReportados = incidentesReportados;
         this.miembros = miembros;
         this.intereses_comunidad = intereses_comunidad;
-        this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public Long getId_comunidad() {
@@ -130,11 +125,4 @@ public class Comunidad{
         this.intereses_comunidad = intereses_comunidad;
     }
 
-    public RankingMayorImpacto getRankingMayorImpacto() {
-        return rankingMayorImpacto;
-    }
-
-    public void setRankingMayorImpacto(RankingMayorImpacto rankingMayorImpacto) {
-        this.rankingMayorImpacto = rankingMayorImpacto;
-    }
 }

@@ -3,8 +3,6 @@ package CalculoRanking.Incidentes;
 import java.util.List;
 import java.util.function.Predicate;
 
-
-//todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
 public class RepoIncidentes {
 
     public void cerrarIncidente(List<Incidente> incidentes, Incidente incidente){

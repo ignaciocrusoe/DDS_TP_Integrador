@@ -1,7 +1,7 @@
 package Grupo11.DDS_TP_Integrador.Rankings;
 import java.util.List;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Collections;
 import Grupo11.DDS_TP_Integrador.Entidades.*;

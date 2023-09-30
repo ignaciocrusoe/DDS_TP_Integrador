@@ -10,7 +10,7 @@ import Grupo11.DDS_TP_Integrador.Notificadores.RepoNotificaciones;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +25,13 @@ public class Persona {
   private String nombre;
 
   @Column(name="horarios")
-  private List<LocalDate> horarios;
+  private List<LocalDateTime> horarios;
 
   @Column(name="telefono")
   private Integer telefono;
 
   @Column(name="mail")
-  private List<LocalDate> mail;
+  private String mail;
 
   @OneToOne
   @JoinColumn(name = "medio")
@@ -79,7 +79,7 @@ public class Persona {
   public Persona() {
   }
 
-  public Persona(Long id_persona, String nombre, List<LocalDate> horarios, Integer telefono, List<LocalDate> mail, MedioComunicacion medioComunicacion, Localizacion ubicacionActual, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
+  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, Localizacion ubicacionActual, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
     this.id_persona = id_persona;
     this.nombre = nombre;
     this.horarios = horarios;
@@ -109,11 +109,11 @@ public class Persona {
     this.nombre = nombre;
   }
 
-  public List<LocalDate> getHorarios() {
+  public List<LocalDateTime> getHorarios() {
     return horarios;
   }
 
-  public void setHorarios(List<LocalDate> horarios) {
+  public void setHorarios(List<LocalDateTime> horarios) {
     this.horarios = horarios;
   }
 
@@ -125,11 +125,11 @@ public class Persona {
     this.telefono = telefono;
   }
 
-  public List<LocalDate> getMail() {
+  public String getMail() {
     return mail;
   }
 
-  public void setMail(List<LocalDate> mail) {
+  public void setMail(String mail) {
     this.mail = mail;
   }
 
