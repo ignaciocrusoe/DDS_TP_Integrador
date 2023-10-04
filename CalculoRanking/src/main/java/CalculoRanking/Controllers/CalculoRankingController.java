@@ -27,7 +27,7 @@ public class CalculoRankingController {
     CalculoRanking calculoRanking;
 
 
-    @Operation(summary="Genera un ranking", description="Dada una lista de entidades y un coeficiente entero como body, devuelve la misma ordenada según que entidades tengan mayor impacto en comunidades")
+    @Operation(summary="Genera un ranking", description="Dada una lista de entidades y un coeficiente entero como body, devuelve la misma ordenada según que entidades tengan mayor impacto en comunidades.")
     @GetMapping("/calculoRanking")
 
     public ResponseEntity<List<Entidad>> calcularRanking(
@@ -41,10 +41,10 @@ public class CalculoRankingController {
 
         List<Entidad> ranking = calculoRanking.calcularRanking(entidades, cnf);
         return new ResponseEntity<List<Entidad>>(ranking, HttpStatus.OK);
-        //List<Entidad> rankingFicticio = new ArrayList<Entidad>();
-        //return new ResponseEntity<List<Entidad>>(rankingFicticio, HttpStatus.OK);
+
     }
 
+//    DEPRECATED
 
 //    @GetMapping("/prueba")
 //    public Incidente prueba() {

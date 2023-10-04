@@ -17,7 +17,7 @@ public class GestorRankings {
     private List<RankingMasIncidentes> ranking2;
     private List<RankingMayorImpacto> ranking3;
 
-    private List<Entidad> entidades; //hay que ver como se consiguen todas las entidades y comunidades
+    private List<Entidad> entidades;
     private List<Comunidad> comunidades;
 
     @Autowired

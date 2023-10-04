@@ -60,7 +60,7 @@ public class CalculoRanking {
     //el cnf se tiene que establecer desde la aplicacion (asumamos que es un 2)
     public void calcularRankingSemanal(int cnf){
         RankingMayorImpacto nuevoRanking = new RankingMayorImpacto();
-        nuevoRanking.setEntidades  (  calcularRanking (this.obtenerEntidades(), 2) );
+        nuevoRanking.setEntidades  (  calcularRanking (this.obtenerEntidades(), cnf) );
         rankingRepo.save((nuevoRanking));
     }
 

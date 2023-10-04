@@ -21,12 +21,11 @@ public class CalculoRankingApplication {
 	}
 
 	private static Logger logger = LoggerFactory.getLogger(CalculoRankingApplication.class);
-	/*
-	//@Scheduled(cron = "59 23 * * SUN") este es el que va
-	@Scheduled(fixedRate = 2000L)
+	//@Scheduled(fixedRate = 2000L)
+	@Scheduled(cron = "59 59 23 ? * SUN")
 	public void job(){
 		calculoRanking.calcularRankingSemanal(2);
-		System.out.println("Se genero el ranking semanal");
-	}*/
+		System.out.println("Se genero el ranking semanal!");
+	}
 
 }
