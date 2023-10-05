@@ -13,8 +13,6 @@ import jakarta.persistence.*;
 
 import java.time.temporal.ChronoUnit;
 
-//todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
-
 @Entity(name = "incidentes")
 public class Incidente {
     @Id
