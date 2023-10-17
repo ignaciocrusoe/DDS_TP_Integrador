@@ -2,11 +2,9 @@ package CalculoRanking;
 
 import CalculoRanking.Entidades.Entidad;
 import CalculoRanking.Incidentes.Incidente;
-import CalculoRanking.Rankings.RankingMayorImpacto;
 
 import CalculoRanking.Repositories.EntidadRepository;
-import CalculoRanking.Repositories.RankingMayorImpactoRepository;
-import jakarta.transaction.Transactional;
+import CalculoRanking.Repositories.RankingRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +20,7 @@ public class CalculoRankingTest {
     @Autowired
     private EntidadRepository entidadRepo;
     @Autowired
-    private RankingMayorImpactoRepository rankingRepo;
+    private RankingRepository rankingRepo;
     @Autowired
     private CalculoRanking calculoRanking;
 

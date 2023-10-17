@@ -5,23 +5,27 @@ import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import jakarta.persistence.*;
 
 @Entity(name = "prestaciones")
-@PrimaryKeyJoinColumn(name = "id_prestacion")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name = "id_prestacion")
 public class Prestacion extends Interes{
     @ManyToOne
     @JoinColumn(name = "establecimiento")
-    protected Establecimiento establecimiento;
+    private Establecimiento establecimiento;
 
-    @ManyToOne
-    @JoinColumn(name = "agrupacion_prestaciones")
-    private AgrupacionPrestaciones prestaciones;
+    @OneToOne
+    @JoinColumn(name = "id_servicio")
+    private Servicio servicio;
 
     public Prestacion() {
     }
 
-    public Prestacion(Establecimiento establecimiento, AgrupacionPrestaciones prestaciones) {
+    public Prestacion(Establecimiento establecimiento, Servicio servicio) {
         this.establecimiento = establecimiento;
-        this.prestaciones = prestaciones;
+        this.servicio = servicio;
+    }
+
+    public Prestacion(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
     }
 
     public Establecimiento getEstablecimiento() {
@@ -32,12 +36,12 @@ public class Prestacion extends Interes{
         this.establecimiento = establecimiento;
     }
 
-    public AgrupacionPrestaciones getPrestaciones() {
-        return prestaciones;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setPrestaciones(AgrupacionPrestaciones prestaciones) {
-        this.prestaciones = prestaciones;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 }
 

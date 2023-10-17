@@ -2,6 +2,7 @@ package CalculoRanking.Entidades;
 
 import CalculoRanking.Incidentes.*;
 import CalculoRanking.Intereses.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import CalculoRanking.Rankings.*;
 
@@ -15,7 +16,8 @@ public class Entidad extends Interes{
     @OneToMany(mappedBy = "entidad",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Incidente> incidentes_reportados;
 
-    @ManyToMany(mappedBy = "entidades")
+    @JsonIgnore
+    @OneToMany(mappedBy = "entidad")
     protected List<RankingMayorImpacto> rankingMayorImpacto;
 
 
@@ -41,8 +43,8 @@ public class Entidad extends Interes{
         return rankingMayorImpacto;
     }
 
-    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
-        this.rankingMayorImpacto = rankingMayorImpacto;
+    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto1) {
+        this.rankingMayorImpacto = rankingMayorImpacto1;
     }
 
 }

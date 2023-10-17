@@ -1,24 +1,13 @@
 package Grupo11.DDS_TP_Integrador.Entidades;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Collections;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
-import Grupo11.DDS_TP_Integrador.Rankings.*;
-import Grupo11.DDS_TP_Integrador.Establecimientos.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
-import Grupo11.DDS_TP_Integrador.Incidentes.*;
-import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
-import Grupo11.DDS_TP_Integrador.Servicios.*;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 @Entity(name = "entidades")
 @PrimaryKeyJoinColumn(name = "id_entidad")
@@ -40,13 +29,13 @@ public class Entidad extends Interes {
             inverseJoinColumns = @JoinColumn(name = "id_persona"))
     protected List<Persona> suscriptores;
 
-    @ManyToMany(mappedBy = "entidades")
+    @OneToMany(mappedBy = "entidad")
     protected List<RankingMasIncidentes> rankingMasIncidentes;
 
-    @ManyToMany(mappedBy = "entidades")
-    protected List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente;
+    @OneToMany(mappedBy = "entidad")
+    protected List<RankingPromedioCierre> rankingPromedioCierre;
 
-    @ManyToMany(mappedBy = "Entidades")
+    @OneToMany(mappedBy = "entidad")
     protected List<RankingMayorImpacto> rankingMayorImpacto;
 
     @Autowired
@@ -69,13 +58,13 @@ public class Entidad extends Interes {
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente, List<RankingMayorImpacto> rankingMayorImpacto, RepoIncidentes repoIncidentes, GestorRankings gestorRankings, Notificador notificador) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, RepoIncidentes repoIncidentes, GestorRankings gestorRankings, Notificador notificador) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
         this.suscriptores = suscriptores;
         this.rankingMasIncidentes = rankingMasIncidentes;
-        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
+        this.rankingPromedioCierre = rankingPromedioCierre;
         this.rankingMayorImpacto = rankingMayorImpacto;
         this.repoIncidentes = repoIncidentes;
         this.gestorRankings = gestorRankings;
@@ -124,12 +113,12 @@ public class Entidad extends Interes {
         this.rankingMasIncidentes = rankingMasIncidentes;
     }
 
-    public List<RankingPromedioCierreIncidente> getRankingPromedioCierreIncidente() {
-        return rankingPromedioCierreIncidente;
+    public List<RankingPromedioCierre> getRankingPromedioCierreIncidente() {
+        return rankingPromedioCierre;
     }
 
-    public void setRankingPromedioCierreIncidente(List<RankingPromedioCierreIncidente> rankingPromedioCierreIncidente) {
-        this.rankingPromedioCierreIncidente = rankingPromedioCierreIncidente;
+    public void setRankingPromedioCierreIncidente(List<RankingPromedioCierre> rankingPromedioCierre) {
+        this.rankingPromedioCierre = rankingPromedioCierre;
     }
 
     public List<RankingMayorImpacto> getRankingMayorImpacto() {

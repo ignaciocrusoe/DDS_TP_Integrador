@@ -1,6 +1,5 @@
-package Grupo11.DDS_TP_Integrador.Rankings;
+package CalculoRanking.Rankings;
 
-import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,30 +16,23 @@ public class Ranking {
     @Column(name = "fechaRanking")
     private LocalDateTime fechaRanking;
 
-    @OneToMany(mappedBy = "ranking")
-    private List<RankingMasIncidentes> rankingMasIncidentes;
-
-    @OneToMany(mappedBy = "ranking")
-    private List<RankingPromedioCierre> rankingPromedioCierre;
-
-    @OneToMany(mappedBy = "ranking")
+    @OneToMany( mappedBy = "ranking", cascade = CascadeType.ALL)
     private List<RankingMayorImpacto> rankingMayorImpacto;
 
     public Ranking() {
         this.rankingMayorImpacto = new ArrayList<>();
     }
 
-    public Ranking(Long id_ranking, LocalDateTime fechaRanking, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto) {
+    public Ranking(Long id_ranking, LocalDateTime fechaRanking, List<RankingMayorImpacto> rankingMayorImpacto) {
         this.id_ranking = id_ranking;
         this.fechaRanking = fechaRanking;
-        this.rankingMasIncidentes = rankingMasIncidentes;
-        this.rankingPromedioCierre = rankingPromedioCierre;
         this.rankingMayorImpacto = rankingMayorImpacto;
     }
 
     public Ranking(LocalDateTime fechaRanking) {
         this.fechaRanking = fechaRanking;
     }
+
     public Long getId_ranking() {
         return id_ranking;
     }
@@ -55,22 +47,6 @@ public class Ranking {
 
     public void setFechaRanking(LocalDateTime fechaRanking) {
         this.fechaRanking = fechaRanking;
-    }
-
-    public List<RankingMasIncidentes> getRankingMasIncidentes() {
-        return rankingMasIncidentes;
-    }
-
-    public void setRankingMasIncidentes(List<RankingMasIncidentes> rankingMasIncidentes) {
-        this.rankingMasIncidentes = rankingMasIncidentes;
-    }
-
-    public List<RankingPromedioCierre> getRankingPromedioCierre() {
-        return rankingPromedioCierre;
-    }
-
-    public void setRankingPromedioCierre(List<RankingPromedioCierre> rankingPromedioCierre) {
-        this.rankingPromedioCierre = rankingPromedioCierre;
     }
 
     public List<RankingMayorImpacto> getRankingMayorImpacto() {

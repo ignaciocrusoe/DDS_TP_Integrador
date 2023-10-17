@@ -1,15 +1,12 @@
 package Grupo11.DDS_TP_Integrador.Rankings;
 
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
-import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
 import java.util.List;
-
-@Entity(name="rankingMayorImpacto")
+@Entity(name="rankingPromedioCierre")
 @IdClass(RankingPK.class)
-public class RankingMayorImpacto {
-
+public class RankingPromedioCierre {
     @Id
     @ManyToOne
     @JoinColumn(name = "entidad")
@@ -23,10 +20,14 @@ public class RankingMayorImpacto {
     @Column(name = "posicion")
     private Integer posicion;
 
+
     //metodos utilitarios
 
 
-    public RankingMayorImpacto(Entidad entidad, Ranking ranking, Integer posicion) {
+    public RankingPromedioCierre() {
+    }
+
+    public RankingPromedioCierre(Entidad entidad, Ranking ranking, Integer posicion) {
         this.entidad = entidad;
         this.ranking = ranking;
         this.posicion = posicion;
@@ -38,9 +39,6 @@ public class RankingMayorImpacto {
 
     public void setRanking(Ranking ranking) {
         this.ranking = ranking;
-    }
-
-    public RankingMayorImpacto() {
     }
 
     public Entidad getEntidad() {
@@ -59,4 +57,3 @@ public class RankingMayorImpacto {
         this.posicion = posicion;
     }
 }
-

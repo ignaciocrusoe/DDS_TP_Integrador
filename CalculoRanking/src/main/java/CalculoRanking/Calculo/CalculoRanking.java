@@ -1,6 +1,7 @@
 package CalculoRanking.Calculo;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -8,9 +9,12 @@ import java.util.List;
 
 import CalculoRanking.Entidades.*;
 import CalculoRanking.Incidentes.*;
+import CalculoRanking.Rankings.Ranking;
 import CalculoRanking.Rankings.RankingMayorImpacto;
 import CalculoRanking.Repositories.EntidadRepository;
 import CalculoRanking.Repositories.RankingMayorImpactoRepository;
+import CalculoRanking.Repositories.RankingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +23,10 @@ public class CalculoRanking {
     @Autowired
     private EntidadRepository entidadRepo;
     @Autowired
-    private RankingMayorImpactoRepository rankingRepo;
+    private RankingRepository rankingRepo;
+
+    @Autowired
+    private RankingMayorImpactoRepository rankingMayorImpactoRepo;
 
     // ESTO CALCULA EL IMPACTO
     public int calcularImpacto(Entidad entidad, int cnf){
@@ -58,9 +65,18 @@ public class CalculoRanking {
 
     //ESTO SE EJECUTA EN EL SCHEDULER
     //el cnf se tiene que establecer desde la aplicacion (asumamos que es un 2)
+    @Transactional
     public void calcularRankingSemanal(int cnf){
-        RankingMayorImpacto nuevoRanking = new RankingMayorImpacto();
-        nuevoRanking.setEntidades  (  calcularRanking (this.obtenerEntidades(), cnf) );
+
+        int index = 0;
+        Ranking nuevoRanking = new Ranking(LocalDateTime.now());
+        List<Entidad> entidades = calcularRanking (this.obtenerEntidades(), cnf);
+
+        for (Entidad entidad : entidades) {
+            nuevoRanking.getRankingMayorImpacto().add(new RankingMayorImpacto(entidad, nuevoRanking, index));
+            index++;
+        }
+
         rankingRepo.save((nuevoRanking));
     }
 

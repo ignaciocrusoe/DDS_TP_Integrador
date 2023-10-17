@@ -6,43 +6,54 @@ import jakarta.persistence.*;
 
 import java.util.List;
 @Entity(name="rankingMasIncidentes")
+@IdClass(RankingPK.class)
 public class RankingMasIncidentes {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_ranking2")
-    private Long id_ranking2;
+    @ManyToOne
+    @JoinColumn(name = "entidad")
+    private Entidad entidad;
 
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "ranking")
+    private Ranking ranking;
 
-    @ManyToMany
-    @JoinTable(name = "ranking_mas_incidentes_x_entidad",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_id_ranking2"))
-    private List<Entidad> entidades;
-
+    @Column(name = "posicion")
+    private Integer posicion;
 
     //metodos utilitarios
+
+
+    public RankingMasIncidentes(Entidad entidad, Ranking ranking, Integer posicion) {
+        this.entidad = entidad;
+        this.ranking = ranking;
+        this.posicion = posicion;
+    }
+
+    public Ranking getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
 
     public RankingMasIncidentes() {
     }
 
-    public RankingMasIncidentes(Long id_ranking2, List<Entidad> entidades) {
-        this.id_ranking2 = id_ranking2;
-        this.entidades = entidades;
+    public Entidad getEntidad() {
+        return entidad;
     }
 
-    public Long getId_ranking2() {
-        return id_ranking2;
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
     }
 
-    public void setId_ranking2(Long id_ranking2) {
-        this.id_ranking2 = id_ranking2;
+    public Integer getPosicion() {
+        return posicion;
     }
 
-    public List<Entidad> getEntidades() {
-        return entidades;
-    }
-
-    public void setEntidades(List<Entidad> entidades) {
-        this.entidades = entidades;
+    public void setPosicion(Integer posicion) {
+        this.posicion = posicion;
     }
 }
