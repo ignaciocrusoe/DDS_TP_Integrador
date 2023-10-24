@@ -184,15 +184,37 @@
 		                            </div>
 
 									<div class="tab-pane" id="informacion">
-		                                <h5 class="info-text">What type of location do you have? </h5>
 		                                
-										<h5 class="info-text">Información privada:</h5>
+										<h5 class="info-text">Editá tu información privada:</h5>
+										<div class="row">
+		                                	<div class="col-sm-12">
+		                            		</div>
+		                                	<div class="col-sm-5 col-sm-offset-1">
+		                                    	<div class="form-group">
+		                                        	<label>Horario de notificaciones</label>
+		                                        	<input type="text" class="form-control" id="exampleInputEmail1" placeholder="07:30">
+		                                    	</div>
+		                                	</div>
+		                                	<div class="col-sm-5">
+		                                    	<div class="form-group">
+		                                            <label>Medio de comunicación</label><br>
+		                                            <select name="country" class="form-control">
+		                                                <option disabled="" selected="">Medio de cominicación</option>
+		                                                <option value="Mail"> Mail </option>
+		                                                <option value="Whatsapp"> Whatsapp </option>
+		                                            </select>
+		                                        </div>
+		                                	</div>
+											<div class="row">
+											<div class="col-sm-5 col-sm-offset-1">
 												<ht class="info-text"><b>Entidades de interés:</b></ht>
 												<ul id="element-list">
 													<li>Entidad 1</li>
 													<li>Entidad 2</li>
 													<li>Entidad 3</li>
 												  </ul>
+												</div>
+												<div class="col-sm-5">
 												  <div class="form-group">
 		                                        	<h6>Agregar entidad de interés</h6>
 		                                        	<select class="form-control" id="new-element-input">
@@ -205,7 +227,8 @@
 		                                        	</select>
 		                                    	</div>
 												  <button id="add-element-button" class="btn btn-info">Agregar interés</button>
-												  
+												  </div>
+												  </div>
 												  <script>
 													const list = document.getElementById('element-list');
 													const input = document.getElementById('new-element-input');
@@ -222,7 +245,7 @@
 
 
 
-
+												  	</div>
 		                            </div>
 		                            
 		                        
