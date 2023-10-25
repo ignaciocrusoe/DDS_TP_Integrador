@@ -1369,7 +1369,8 @@ input[type="button"]:focus {
 .wizard-card .choice {
   text-align: center;
   cursor: pointer;
-  margin-top: 38px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .wizard-card .choice .icon {
   text-align: center;
