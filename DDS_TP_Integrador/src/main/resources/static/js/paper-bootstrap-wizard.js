@@ -2,36 +2,7 @@
  *
  Paper Bootstrap Wizard - V1.0.1
 *
-* =========================================================
-*
-* Copyright 2016 Creative Tim (http://www.creative-tim.com/product/paper-bootstrap-wizard)
- *
- *                       _oo0oo_
- *                      o8888888o
- *                      88" . "88
- *                      (| -_- |)
- *                      0\  =  /0
- *                    ___/`---'\___
- *                  .' \|     |// '.
- *                 / \|||  :  |||// \
- *                / _||||| -:- |||||- \
- *               |   | \\  -  /// |   |
- *               | \_|  ''\---/''  |_/ |
- *               \  .-\__  '-'  ___/-. /
- *             ___'. .'  /--.--\  `. .'___
- *          ."" '<  `.___\_<|>_/___.' >' "".
- *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
- *         \  \ `_.   \_ __\ /__ _/   .-` /  /
- *     =====`-.____`.___ \_____/___.-`___.-'=====
- *                       `=---='
- *
- *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- *               Buddha Bless:  "No Bugs"
- *
- * ========================================================= */
-
-// Paper Bootstrap Wizard Functions
+* =========================================================*/
 
 searchVisible = 0;
 transparent = true;
@@ -45,15 +16,15 @@ transparent = true;
             var $validator = $('.wizard-card form').validate({
         		  rules: {
         		    firstname: {
-        		      required: true,
+        		      required: false,
         		      minlength: 3
         		    },
         		    lastname: {
-        		      required: true,
+        		      required: false,
         		      minlength: 3
         		    },
         		    email: {
-        		      required: true
+        		      required: false
         		    }
                 },
         	});
