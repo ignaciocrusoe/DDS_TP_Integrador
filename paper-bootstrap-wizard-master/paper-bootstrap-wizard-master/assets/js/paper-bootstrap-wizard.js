@@ -113,13 +113,10 @@ transparent = true;
                     var move_distance = 100 / $total;
                     move_distance = move_distance * (index) + move_distance / 2;
 
-                    if($wizard.find($('.navigation-closed')).length === 0){
+                    $wizard.find($('.progress-bar')).css({width: move_distance + '%'});
+                    //e.relatedTarget // previous tab
 
-                        $wizard.find($('.progress-bar')).css({width: move_distance + '%'});
-                        //e.relatedTarget // previous tab
-
-                        $wizard.find($('.wizard-card .nav-pills li.active a .icon-circle')).addClass('checked');
-                    }
+                    $wizard.find($('.wizard-card .nav-pills li.active a .icon-circle')).addClass('checked');
 
                 }
 	        });

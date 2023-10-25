@@ -137,16 +137,6 @@
                 transition: width .3s ease;
             }
         }
-
-        .progress-full-width { /* Nueva clase para barra de progreso que ocupa todo el ancho */
-            .progress-bar {
-                box-shadow: none;
-                -webkit-transition: none;
-                -o-transition: none;
-                transition: none;
-                width: 100%;
-            }
-        }
     }
 
     .info-text{
