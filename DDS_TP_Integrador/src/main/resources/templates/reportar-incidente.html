@@ -51,30 +51,10 @@
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 	<link href="../static/css/themify-icons.css" rel="stylesheet">
-	<!-- Google Tag Manager -->
-	<script>(function (w, d, s, l, i) {
-		w[l] = w[l] || [];
-		w[l].push({
-			'gtm.start':
-					new Date().getTime(), event: 'gtm.js'
-		});
-		var f = d.getElementsByTagName(s)[0],
-				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-		j.async = true;
-		j.src =
-				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-		f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');</script>
-	<!-- End Google Tag Manager -->
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
-			height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+
 <div class="image-container set-full-height" style="background-image: url('../static/img/ciudad-violeta.jpg')">
 	<!--   Big container   -->
 	<div class="container">
@@ -178,12 +158,14 @@
 									<h5 class="info-text"> Mostranos el problema.</h5>
 									<div class="col-sm-10 col-sm-offset-1">
 										<div class="picture-container">
-											<div class="picture">
-												<img src="../static/img/icono-galeria.jpg" class="picture-src"
+											<div class="picture" style=" width: 150px; height: 150px;">
+												<img style="margin-top: 0;" src="../static/img/icono-galeria.jpg" class="picture-src"
 													 id="wizardPicturePreview" title=""/>
 												<input type="file" id="wizard-picture">
 											</div>
-											<h6>Elegí una imagen</h6>
+											<div class="col-sm-4 col-sm-offset-4">
+												<button style="margin-top: 20px; width: 100%;" type="button" class="btn btn-fill btn-warning btn-wd">Cargar archivo</button>
+											</div>
 										</div>
 									</div>
 
@@ -194,7 +176,7 @@
 										<div class="col-sm-10 col-sm-offset-1">
 											<div class="form-group">
 												<label>Descripción del Incidente</label>
-												<textarea class="form-control" placeholder="" rows="9"></textarea>
+												<textarea class="form-control" placeholder="" rows="3"></textarea>
 											</div>
 										</div>
 										<div class="col-sm-10 col-sm-offset-1">

@@ -72,46 +72,104 @@
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
                             <form action="" method="">
-                                <div class="wizard-header text-center">
-                                    <h3 class="wizard-title">¡Bienvenido al Sistema de Apoyo a Comunidades con Movilidad Reducida!</h3>
-                                    <p> </p>
-                                    <p class="category">Estas son sus últimas notificaciones.</p>
+                                <!-- You can switch "data-color="azure"" with one of the next bright colors: "blue", "green", "orange", "red" -->
+                                
+                                <div class="wizard-header">
+                                    <h3 class="wizard-title">Buscá una notificación</h3>
+                                    <p class="category">Estas son tus útlimas notificaciones.</p>
                                 </div>
-                                <div class="wizard-navigation">
-                                    <div class="progress-with-circle">
-                                         <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                                
+                                <div class="wizard-navigation navigation-closed">
+                                    <div class="progress-with-circle progress-full-width">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 100%;"></div>
                                     </div>
                                     <ul>
                                         <li>
-                                            <a href="#notificaciones" data-toggle="tab">
+                                            <a href="#tablaDeIncidentes" data-toggle="tab">
                                                 <div class="icon-circle">
-                                                    <i class="ti-user"></i>
+                                                    <i class="ti-search"></i>
                                                 </div>
-                                                <p style="white-space: nowrap;">Notificaciones</p>
+                                                Notificaciones
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
+                                
                                 <div class="tab-content">
-                                    <div class="tab-pane" id="notificaciones">
-                                        <div class="row">
-                                            <div class="col-sm-10 d-flex col-sm-offset-1">
-                                                <ul class="list-group" style="margin-top: 20px;">
-                                                  <li class="list-group-item d-flex justify-content-between">
-                                                      <button style="width: 100%;" type="button" class="btn btn-success">¡Nuevo incidente en Coto!</button>
-                                                  </li>
-                                                  <li class="list-group-item d-flex justify-content-between">
-                                                    <button style="width: 100%;" type="button" class="btn btn-danger">¡Cierre de incidente en Coto!</button>
-                                                  </li>
-                                                  <li class="list-group-item d-flex justify-content-between">
-                                                    <button style="width: 100%;" type="button" class="btn btn-warning">¡Sugerencia de revisión de incidente en Coto!</button>
-                                                  </li>
-                                                </ul>
+                                    <div class="col-sm-12">
+                                        <div class="position-relative" style="margin-bottom: 20px;">
+                                            <div></div>
+                                            <input class="form-control w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente o por nombre">
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="tablaDeIncidentes">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="row">
+                                                    <div class="container mt-5 px-2" style="width: 100%; max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-responsive table-borderless">
+                                                                <thead>
+                                                                    <tr class="bg-light">
+                                                                        <th scope="col" class="col-1">#</th>
+                                                                        <th scope="col" class="col-1">Fecha</th>
+                                                                        <th scope="col" class="col-1">Descripción</th>
+                                                                        <th scope="col" class="col-1">Tipo</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>12</td>
+                                                                        <td>1 Oct, 21</td>
+                                                                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+                                                                        <td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>14</td>
+                                                                        <td>12 Oct, 21</td>
+                                                                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Ascensores Disco</td>
+                                                                        <td><i class="fa fa-times-circle text-danger"></i><span class="ms-1"> Apertura</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>17</td>
+                                                                        <td>1 Nov, 21</td>
+                                                                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+                                                                        <td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>90</td>
+                                                                        <td>19 Oct, 21</td>
+                                                                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+                                                                        <td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>12</td>
+                                                                        <td>1 Oct, 21</td>
+                                                                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Puertas Carrefour</td>
+                                                                        <td><i class="fa fa-question-circle text-warning"></i><span class="ms-1"> Sugerencia</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>12</td>
+                                                                        <td>1 Oct, 21</td>
+                                                                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Escaleras Coto</td>
+                                                                        <td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+                                                                        <td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
-                            </form>
+                                <div class="clearfix"></div>
+                            </form>                            
                         </div>
                     </div> <!-- wizard container -->
                 </div>

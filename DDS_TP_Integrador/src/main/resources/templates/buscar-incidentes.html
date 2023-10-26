@@ -51,35 +51,16 @@
 
 	<!-- Fonts and Icons -->
 	<!--	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">-->
-	<!--	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 	<link href="../static/css/themify-icons.css" rel="stylesheet">
 	<link href="../static/css/custom.css" rel="stylesheet">
-	<!-- Google Tag Manager -->
-	<script>(function (w, d, s, l, i) {
-		w[l] = w[l] || [];
-		w[l].push({
-			'gtm.start':
-					new Date().getTime(), event: 'gtm.js'
-		});
-		var f = d.getElementsByTagName(s)[0],
-				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-		j.async = true;
-		j.src =
-				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-		f.parentNode.insertBefore(j, f);
-	})(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');</script>
-	<!-- End Google Tag Manager -->
+	
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
-			height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+
 <div class="image-container set-full-height" style="background-image: url('../static/img/ciudad-violeta.jpg')">
 
 	<!--   Big container   -->
@@ -91,20 +72,18 @@
 				<div class="wizard-container">
 					<div class="card wizard-card" data-color="orange" id="wizard">
 						<form action="" method="">
-							<!--        You can switch " data-color="azure" "  with one of the next bright colors: "blue", "green", "orange", "red"           -->
-
+							<!-- You can switch "data-color="azure"" with one of the next bright colors: "blue", "green", "orange", "red" -->
+							
 							<div class="wizard-header">
 								<h3 class="wizard-title">Busc&aacute; un Incidente</h3>
 								<p class="category">Consult&aacute; la informaci&oacute;n de un incidente.</p>
 							</div>
-
+							
 							<div class="wizard-navigation navigation-closed">
 								<div class="progress-with-circle progress-full-width">
-									<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
-										 aria-valuemax="3" style="width: 100%;"></div>
+									<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 100%;"></div>
 								</div>
 								<ul>
-
 									<li>
 										<a href="#tablaDeIncidentes" data-toggle="tab">
 											<div class="icon-circle">
@@ -113,188 +92,91 @@
 											Buscar
 										</a>
 									</li>
-
-
 								</ul>
 							</div>
-
-
+							
 							<div class="tab-content">
-
 								<div class="col-sm-12">
-									<h5 class="info-text"> Eleg&iacute; alg&uacute;n criterio para la
-										b&uacute;squeda.</h5>
-
-									<div class="position-relative">
+									<div class="position-relative" style="margin-bottom: 20px;">
 										<div></div>
-										<input class="form-control w-100" placeholder="Search by order#, name...">
-										<span class="position-absolute search"><i class="fa fa-search"></i></span>
+										<input class="form-control w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente o por nombre">
 									</div>
-
-									<!--										<div class="px-2">-->
-
-									<!--											<span>Filters <i class="fa fa-angle-down"></i></span>-->
-									<!--											<i class="fa fa-ellipsis-h ms-3"></i>-->
-									<!--										</div>-->
-									<div class="tab-pane scrollable-tab-content" id="tablaDeIncidentes">
-
+									
+									<div class="tab-pane" id="tablaDeIncidentes">
 										<div class="col-sm-10 col-sm-offset-1">
-
 											<div class="row">
-
-												<div class="container mt-5 px-2"
-													 style="width: 100%; max-height: 400px; overflow-y: auto;">
-
-													<div class="mb-2 d-flex justify-content-between align-items-center">
-
-													</div>
+												<div class="container mt-5 px-2" style="width: 100%; max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
 													<div class="table-responsive">
 														<table class="table table-responsive table-borderless">
-
 															<thead>
-															<tr class="bg-light">
-
-																<th scope="col" class="col-1">#</th>
-																<th scope="col" class="col-1">Fecha de Apertura</th>
-																<th scope="col" class="col-1">Prestación Afectada</th>
-																<th scope="col" class="col-1">Estado</th>
-
-															</tr>
+																<tr class="bg-light">
+																	<th scope="col" class="col-1">#</th>
+																	<th scope="col" class="col-1">Fecha</th>
+																	<th scope="col" class="col-1">Prestación Afectada</th>
+																	<th scope="col" class="col-1">Estado</th>
+																</tr>
 															</thead>
 															<tbody>
-															<tr>
-
-																<td>12</td>
-																<td>1 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/VKOeFyS.png"
-																		 width="25"> Althan Travis
-																</td>
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-
-															</tr>
-
-															<tr>
-
-																<td>14</td>
-																<td>12 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/nmnmfGv.png"
-																		 width="25"> Tomo arvis
-																</td>
-
-
-																<td><i class="fa fa-dot-circle-o text-danger"></i><span
-																		class="ms-1">Abierto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
-
-
-															<tr>
-
-																<td>17</td>
-																<td>1 Nov, 21</td>
-
-																<td><img src="https://i.imgur.com/VKOeFyS.png"
-																		 width="25"> Althan Travis
-																</td>
-
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
-
-
-															<tr>
-
-																<td>90</td>
-																<td>19 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/VKOeFyS.png"
-																		 width="25"> Travis head
-																</td>
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
-
-
-															<tr>
-
-																<td>12</td>
-																<td>1 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/nmnmfGv.png"
-																		 width="25"> Althan Travis
-																</td>
-
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
-															<tr>
-
-																<td>12</td>
-																<td>1 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/nmnmfGv.png"
-																		 width="25"> Althan Travis
-																</td>
-
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
-															<tr>
-
-																<td>12</td>
-																<td>1 Oct, 21</td>
-
-																<td><img src="https://i.imgur.com/nmnmfGv.png"
-																		 width="25"> Althan Travis
-																</td>
-
-
-																<td><i class="fa fa-check-circle-o green"></i><span
-																		class="ms-1">Resuelto</span></td>
-
-																<td><input type='button' class='btn btn-primary  '
-																		   name='ver' value='Ver M&aacute;s'/></td>
-															</tr>
+																<tr>
+																	<td>12</td>
+																	<td>1 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>14</td>
+																	<td>12 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-times-circle text-success"></i><span class="ms-1"> Apertura</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>17</td>
+																	<td>1 Nov, 21</td>
+																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>90</td>
+																	<td>19 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>90</td>
+																	<td>19 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>90</td>
+																	<td>19 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
+																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
+																<tr>
+																	<td>12</td>
+																	<td>1 Oct, 21</td>
+																	<td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Escaleras Coto</td>
+																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																</tr>
 															</tbody>
 														</table>
-
 													</div>
-
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 							<div class="clearfix"></div>
-						</form>
-
+						</form>						
 					</div>
 				</div> <!-- wizard container -->
 			</div>
