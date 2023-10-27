@@ -209,22 +209,128 @@
 
 		                                        	</select>
 		                                    	</div>
-												  <button id="add-element-button" class="btn btn-info">Agregar interés</button>
+												  <input id="add-element-button" type='button' class='btn btn-info' value='Agregar interés'/>
 												  </div>
-												  </div>
+												</div>
 												  <script>
-													const list = document.getElementById('element-list');
-													const input = document.getElementById('new-element-input');
+													  const list = document.getElementById('element-list');
+													  const input = document.getElementById('new-element-input');
 													const button = document.getElementById('add-element-button');
 												  
 													button.addEventListener('click', () => {
-													  const newElement = document.createElement('li');
-													  newElement.textContent = input.value;
-													  list.appendChild(newElement);
-													  input.value = '';
+														const newElement = document.createElement('li');
+														newElement.textContent = input.value;
+														list.appendChild(newElement);
+														input.value = '';
 													});
-												  </script>
+													</script>
+											<div class="row">
+												<div class="col-sm-5 col-sm-offset-1">
+													<ht class="info-text"><b>Prestaciones de interés:</b></ht>
+													<ul id="element-lista">
+														<li>Prestación 1</li>
+														<li>Prestación 2</li>
+														<li>Prestación 3</li>
+													  </ul>
+													</div>
+													<div class="col-sm-5">
+													  <div class="form-group">
+														<h6>Agregar prestación de interés</h6>
+														<select class="form-control" id="new-element-inputa">
+															<option disabled="" selected="">Agregar prestación de interés</option>
+															<option>Prestación A</option>
+															<option>Prestación B</option>
+															<option>Prestación C</option>
+															<option>Prestación D</option>
+	
+														</select>
+													</div>
+													  <input id="add-element-buttona" type='button' class='btn btn-info' value='Agregar interés'/>
+													  </div>
+													</div>
+													<script>
+														const lista = document.getElementById('element-lista');
+														const inputa = document.getElementById('new-element-inputa');
+													  const buttona = document.getElementById('add-element-buttona');
+													
+													  buttona.addEventListener('click', () => {
+														  const newElementa = document.createElement('li');
+														  newElementa.textContent = inputa.value;
+														  lista.appendChild(newElementa);
+														  inputa.value = '';
+													  });
+													  </script>
+
+
+
+													<div class="row">
+														<div class="col-sm-5 col-sm-offset-1">
+															<ht class="info-text"><b>Localizaciones de interés:</b></ht>
+															<ul id="element-listb">
+																<li>Localización 1</li>
+																<li>Localización 2</li>
+																<li>Localización 3</li>
+															  </ul>
+															</div>
+															<div class="col-sm-5">
+															  <div class="form-group">
+																<h6>Agregar localización de interés</h6>
+																<select class="form-control" id="new-element-inputb">
+																	<option disabled="" selected="">Agregar localización de interés</option>
+																	<option>Localización A</option>
+																	<option>Localización B</option>
+																	<option>Localización C</option>
+																	<option>Localización D</option>
+			
+																</select>
+															</div>
+															  <input id="add-element-buttonb" type='button' class='btn btn-info' value='Agregar interés'/>
+															  </div>
+															</div>
+															<script>
+																const listb = document.getElementById('element-listb');
+																const inputb = document.getElementById('new-element-inputb');
+															  const buttonb = document.getElementById('add-element-buttonb');
+															
+															  buttonb.addEventListener('click', () => {
+																  const newElementb = document.createElement('li');
+																  newElementb.textContent = inputb.value;
+																  listb.appendChild(newElementb);
+																  inputb.value = '';
+															  });
+															  </script>
+
+
+
+
+
+
+
+
+
+
+
+
 												</div>
+												
+
+
+												
+												
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		                        </div>
 		                            
 		                        
