@@ -5,7 +5,7 @@ export function showMessage(message, type = "success") {
     destination: "https://github.com/apvarun/toastify-js",
     newWindow: true,
     close: true,
-    gravity: "bottom", // `top` or `bottom`
+    gravity: "top", // `top` or `bottom`
     position: "right", // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover
     style: {
