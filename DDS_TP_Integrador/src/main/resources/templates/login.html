@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
@@ -36,7 +36,7 @@
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="orange" id="wizardProfile">
-		                    <form action="" method="">
+		                    <div>
 		                    	<div class="wizard-header text-center">
 		                        	<h3 class="wizard-title">¡Bienvenido al Sistema de Monitoreo de Estado de Servicios de Transporte Público y de Establecimientos!</h3>
 									<p> </p>
@@ -74,33 +74,34 @@
 		                            	<div class="row">
 											<div class="col-sm-10 d-flex col-sm-offset-1">
 
-												<div class="form-group">
-													<label>Correo Electrónico <small>(required)</small></label>
-													<input name="firstname" type="text" class="form-control" placeholder="Por ejemplo: pepe@gmail.com" required>
-												</div>
+												<form class="form-group" id="login-form">
+													<label style="margin-top:10px">Correo Electrónico</label>
+													<input name="mail" type="text" id="login-email" class="form-control" placeholder="Por ejemplo: pepe@gmail.com">
 
-												<div class="form-group">
-													<label>Contraseña <small>(required)</small></label>
-													<input name="firstname" type="text" class="form-control" placeholder="Contraseña" required>
-												</div>
+													<label style="margin-top:10px">Contraseña</label>
+													<input name="contraseña" type="password" id="login-password" class="form-control" placeholder="Contraseña">
+
+													<div class="row" style="margin-top: 20px;">
+														<div class="col-sm-12 d-flex">
+															<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd'>Iniciar sesión</button>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-6 d-flex " style="margin-top: 20px;">
+															<button style="width: 100%;" id="googleLogin" type='submit' class='btn btn-fill btn-warning btn-wd'>Google</button>
+														</div>
+
+														<div class="col-sm-6 d-flex" style="margin-top: 20px;">
+															<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd' disabled>Outlook</button>
+														</div>
+													</div>
+
+												</form>
 				
 											</div>
 									
 										</div>
-										<div class="row" style="margin-top: 20px;">
-											<div class="col-sm-10 d-flex col-sm-offset-1">
-												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Iniciar sesión' />
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-5 d-flex col-sm-offset-1" style="margin-top: 20px;">
-												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Google' />
-											</div>
-										
-											<div class="col-sm-5 d-flex" style="margin-top: 20px;">
-												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Outlook' />
-											</div>
-										</div>
+
 										
 		                            </div>
 
@@ -109,25 +110,26 @@
 		                                <div class="row">
 											<div class="col-sm-10 d-flex col-sm-offset-1">
 								
-												<div class="form-group">
-													<label>Correo Electrónico <small>(required)</small></label>
-													<input name="firstname" type="text" class="form-control" placeholder="Por ejemplo: pepe@gmail.com" required>
-												</div>
+												<form class="form-group"  id="signup-form">
+													<label style="margin-top:10px">Correo Electrónico</label>
+													<input name="mail" type="text" id="signup-email" class="form-control" placeholder="Por ejemplo: pepe@gmail.com">
 
-												<div class="form-group">
-													<label>Contraseña <small>(required)</small></label>
-													<input name="firstname" type="text" class="form-control" placeholder="Contraseña" required>
-												</div>
+													<label style="margin-top:10px">Contraseña</label>
+													<input name="contraseña" type="password" id="signup-password" class="form-control" placeholder="Contraseña">
+
+													<div class="row" style="margin-top: 20px;">
+														<div class="col-sm-12 d-flex ">
+															<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd'>Registrar</button>
+														</div>
+													</div>
+
+												</form>
 				
 											</div>
 									
 										</div>
-										<div class="row" style="margin-top: 20px;">
-											<div class="col-sm-10 d-flex col-sm-offset-1">
-												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Registrar' />
-											</div>
-										</div>
-										<div class="row">
+
+										<!-- <div class="row">
 											<div class="col-sm-5 d-flex col-sm-offset-1" style="margin-top: 20px;">
 												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Google' />
 											</div>
@@ -135,11 +137,11 @@
 											<div class="col-sm-5 d-flex" style="margin-top: 20px;">
 												<input style="width: 100%;" type='button' class='btn btn-fill btn-warning btn-wd' name='' value='Outlook' />
 											</div>
-										</div>
+										</div> -->
 		                     
 		                        	</div>
 								</div>
-		                    </form>
+		                    </div>
 		                </div>
 		            </div> <!-- wizard container -->
 		        </div>
@@ -166,6 +168,7 @@
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script src="" th:src="@{js/main.js}" type="module"></script>
+
 
 
 </html>

@@ -13,12 +13,13 @@ googleButton.addEventListener("click", async (e) => {
     console.log(credentials);
     console.log("google sign in");
     
-    // Close the login modal
-    const modalInstance = bootstrap.Modal.getInstance(googleButton.closest('.modal'));
-    modalInstance.hide();
+    localStorage.setItem('justSignedUp', 'true');
 
-    // show welcome message
-    showMessage("Welcome " + credentials.user.displayName);
+    window.location.href = '/inicio';
+
+    // reset the form
+    signInForm.reset();
+
   } catch (error) {
     console.log(error);
   }

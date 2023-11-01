@@ -13,22 +13,20 @@ signUpForm.addEventListener("submit", async (e) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     console.log(userCredential)
 
-    // Close the signup modal
-    const signupModal = document.querySelector('#signupModal');
-    const modal = bootstrap.Modal.getInstance(signupModal);
-    modal.hide();
+    localStorage.setItem('justSignedUp', 'true');
+
+    window.location.href = '/inicio';
 
     // reset the form
     signUpForm.reset();
-
-    // show welcome message
-    showMessage("Welcome " + userCredentials.user.email);
 
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
       showMessage("Email already in use", "error")
     } else if (error.code === 'auth/invalid-email') {
-      showMessage("Invalid email", "error")
+      showMessage("Proporcione un email valido", "error")
+    } else if (error.code === 'auth/missing-password') {
+      showMessage("Proporcione una contraseña valida", "error")
     } else if (error.code === 'auth/weak-password') {
       showMessage("Weak password", "error")
     } else if (error.code) {

@@ -13,20 +13,25 @@ signInForm.addEventListener("submit", async (e) => {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password)
     console.log(userCredentials)
 
-    // Close the login modal
-    const modal = bootstrap.Modal.getInstance(signInForm.closest('.modal'));
-    modal.hide();
+    localStorage.setItem('justSignedUp', 'true');
+
+    window.location.href = '/inicio';
 
     // reset the form
     signInForm.reset();
 
-    // show welcome message
-    showMessage("Welcome " + userCredentials.user.email);
+
+
   } catch (error) {
+    console.log(error)
     if (error.code === 'auth/wrong-password') {
       showMessage("Wrong password", "error")
     } else if (error.code === 'auth/user-not-found') {
       showMessage("User not found", "error")
+    } else if (error.code === 'auth/invalid-email') {
+      showMessage("Proporcione un email valido", "error")
+    } else if (error.code === 'auth/missing-password') {
+      showMessage("Proporcione una contraseña valida", "error")
     } else {
       showMessage("Something went wrong", "error")
     }
