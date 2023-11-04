@@ -12,7 +12,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Establecimiento{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_establecimiento")
     protected Long id_establecimiento;
 
@@ -26,14 +26,19 @@ public class Establecimiento{
     @OneToMany(mappedBy = "establecimiento")
     protected List<Prestacion> prestaciones;
 
+    @ManyToOne
+    @JoinColumn(name = "id_entidad")
+    protected Entidad entidad;
+
     public Establecimiento() {
     }
 
-    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, List<Prestacion> prestaciones) {
+    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, List<Prestacion> prestaciones, Entidad entidad) {
         this.id_establecimiento = id_establecimiento;
         this.nombre_establecimiento = nombre_establecimiento;
         this.localizacion = localizacion;
         this.prestaciones = prestaciones;
+        this.entidad = entidad;
     }
 
     public Long getId_establecimiento() {
@@ -66,5 +71,13 @@ public class Establecimiento{
 
     public void setLocalizacion(Localizacion localizacion) {
         this.localizacion = localizacion;
+    }
+
+    public Entidad getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
     }
 }

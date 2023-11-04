@@ -2,16 +2,13 @@ package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
-import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
-import Grupo11.DDS_TP_Integrador.Notificadores.RepoNotificaciones;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="personas")
@@ -36,9 +33,6 @@ public class Persona {
   @OneToOne
   @JoinColumn(name = "medio")
   private MedioComunicacion medioComunicacion;
-  @OneToOne
-  @JoinColumn(name = "ubicacion_Actual")
-  private Localizacion ubicacionActual;
 
   @OneToMany(mappedBy = "persona")
   private List<Notificacion> listaNotificaciones;
@@ -60,7 +54,7 @@ public class Persona {
   private GestorNotificacionesPersona gestorNotificaciones;
   @Autowired
   @Transient
-  private GestorIncidentesRecargado gestorIncidentesRecargado;
+  private GestorIncidentesPersona gestorIncidentesPersona;
 
 
 
@@ -79,14 +73,13 @@ public class Persona {
   public Persona() {
   }
 
-  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, Localizacion ubicacionActual, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
+  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
     this.id_persona = id_persona;
     this.nombre = nombre;
     this.horarios = horarios;
     this.telefono = telefono;
     this.mail = mail;
     this.medioComunicacion = medioComunicacion;
-    this.ubicacionActual = ubicacionActual;
     this.listaNotificaciones = listaNotificaciones;
     this.membresias = membresias;
     this.intereses_persona = intereses_persona;
@@ -139,14 +132,6 @@ public class Persona {
 
   public void setMedioComunicacion(MedioComunicacion medioComunicacion) {
     this.medioComunicacion = medioComunicacion;
-  }
-
-  public Localizacion getUbicacionActual() {
-    return ubicacionActual;
-  }
-
-  public void setUbicacionActual(Localizacion ubicacionActual) {
-    this.ubicacionActual = ubicacionActual;
   }
 
   public List<Notificacion> getListaNotificaciones() {

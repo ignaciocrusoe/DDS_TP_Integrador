@@ -2,6 +2,7 @@ package Grupo11.DDS_TP_Integrador.Entidades;
 import java.util.List;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
+import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
@@ -38,9 +39,12 @@ public class Entidad extends Interes {
     @OneToMany(mappedBy = "entidad")
     protected List<RankingMayorImpacto> rankingMayorImpacto;
 
+    @OneToMany(mappedBy = "entidad")
+    protected List<Establecimiento> establecimientos;
+
     @Autowired
     @Transient
-    protected RepoIncidentes repoIncidentes;
+    protected IncidenteProvider incidenteProvider;
     @Autowired
     @Transient
     protected GestorRankings gestorRankings;
@@ -58,7 +62,7 @@ public class Entidad extends Interes {
     public Entidad() {
     }
 
-    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, RepoIncidentes repoIncidentes, GestorRankings gestorRankings, Notificador notificador) {
+    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, List<Establecimiento> establecimientos, IncidenteProvider incidenteProvider, GestorRankings gestorRankings, Notificador notificador) {
         this.incidentes_reportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
@@ -66,12 +70,11 @@ public class Entidad extends Interes {
         this.rankingMasIncidentes = rankingMasIncidentes;
         this.rankingPromedioCierre = rankingPromedioCierre;
         this.rankingMayorImpacto = rankingMayorImpacto;
-        this.repoIncidentes = repoIncidentes;
+        this.establecimientos = establecimientos;
+        this.incidenteProvider = incidenteProvider;
         this.gestorRankings = gestorRankings;
         this.notificador = notificador;
     }
-
-
 
     public List<Incidente> getIncidentes_reportados() {
         return incidentes_reportados;
@@ -127,5 +130,45 @@ public class Entidad extends Interes {
 
     public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
         this.rankingMayorImpacto = rankingMayorImpacto;
+    }
+
+    public List<RankingPromedioCierre> getRankingPromedioCierre() {
+        return rankingPromedioCierre;
+    }
+
+    public void setRankingPromedioCierre(List<RankingPromedioCierre> rankingPromedioCierre) {
+        this.rankingPromedioCierre = rankingPromedioCierre;
+    }
+
+    public List<Establecimiento> getEstablecimientos() {
+        return establecimientos;
+    }
+
+    public void setEstablecimientos(List<Establecimiento> establecimientos) {
+        this.establecimientos = establecimientos;
+    }
+
+    public IncidenteProvider getIncidenteProvider() {
+        return incidenteProvider;
+    }
+
+    public void setIncidenteProvider(IncidenteProvider incidenteProvider) {
+        this.incidenteProvider = incidenteProvider;
+    }
+
+    public GestorRankings getGestorRankings() {
+        return gestorRankings;
+    }
+
+    public void setGestorRankings(GestorRankings gestorRankings) {
+        this.gestorRankings = gestorRankings;
+    }
+
+    public Notificador getNotificador() {
+        return notificador;
+    }
+
+    public void setNotificador(Notificador notificador) {
+        this.notificador = notificador;
     }
 }

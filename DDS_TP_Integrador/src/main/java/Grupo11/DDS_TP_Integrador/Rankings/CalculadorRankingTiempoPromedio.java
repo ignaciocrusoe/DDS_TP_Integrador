@@ -9,7 +9,7 @@ public class CalculadorRankingTiempoPromedio extends CalculadorRanking{
 
     @Override
     public List<Entidad> calcularRanking(List<Entidad> entidades) {
-        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> repoIncidentes.promedioIncidentes(e.getIncidentes_reportados()) );
+        Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> incidenteProvider.promedioIncidentes(e.getIncidentes_reportados()) );
         return entidades.stream().sorted(comparadorPorPromedioIncidente).toList();
     }
 

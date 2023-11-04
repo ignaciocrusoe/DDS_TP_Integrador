@@ -1,5 +1,5 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
-import Grupo11.DDS_TP_Integrador.Incidentes.RepoIncidentes;
+import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
 import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
@@ -22,6 +22,9 @@ public class Comunidad{
     @Column(name="nombre_comunidad")
     private String nombre;
 
+    @Column(name="descripcion_comunidad")
+    private String descripcion_comunidad;
+
     @ManyToMany
     @JoinTable(name = "comunidad x incidente",
             joinColumns = @JoinColumn(name = "id_incidente"),
@@ -38,14 +41,10 @@ public class Comunidad{
 
     @Autowired
     @Transient
-    private RepoIncidentes repoIncidentes;
+    private IncidenteProvider incidenteProvider;
     @Autowired
     @Transient
     private Notificador notificadorComunidad;
-    @Autowired
-    @Transient
-    private GestorCercania gestorCercania;
-
 
     private void notificarNuevoIncidenteAcomunidad_miembro(Incidente nuevoIncidente){
         notificadorComunidad.notificarPersonas( this.getPersonasMiembras(), new Notificacion(nuevoIncidente, NUEVO_INCIDENTE));

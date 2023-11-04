@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 
 //todo faltaría poder actualizar los incidentes, tienen que ser distintos metodos dependiendo que se quiere actualizar
-public class RepoIncidentes {
+public class IncidenteProvider {
 
     public void cerrarIncidente(List<Incidente> incidentes, Incidente incidente){
         var index = incidentes.indexOf(incidente);
