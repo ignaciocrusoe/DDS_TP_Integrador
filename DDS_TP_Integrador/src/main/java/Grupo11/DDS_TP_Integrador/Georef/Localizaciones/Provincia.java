@@ -15,13 +15,20 @@ public class Provincia{
     @Column(name = "nombre_provincia")
     private String nombre_provincia;
 
-    @OneToMany(mappedBy = "provincia")
-    private List<Departamento> departamentos;
+    @Column(name = "latitud_provincia")
+    private Double latitud_provincia;
+    @Column(name = "longuitud_provincia")
+    private Double longuitud_provincia;
 
-    public Provincia(Long id_provincia, String nombre_provincia, List<Departamento> departamentos) {
+    @OneToMany(mappedBy = "provincia")
+    private List<Municipio> municipos;
+
+    public Provincia(Long id_provincia, String nombre_provincia, Double latitud_provincia, Double longuitud_provincia, List<Municipio> municipos) {
         this.id_provincia = id_provincia;
         this.nombre_provincia = nombre_provincia;
-        this.departamentos = departamentos;
+        this.latitud_provincia = latitud_provincia;
+        this.longuitud_provincia = longuitud_provincia;
+        this.municipos = municipos;
     }
 
     public Provincia() {
@@ -43,11 +50,27 @@ public class Provincia{
         this.nombre_provincia = nombre_provincia;
     }
 
-    public List<Departamento> getDepartamentos() {
-        return departamentos;
+    public List<Municipio> getMunicipos() {
+        return municipos;
     }
 
-    public void setDepartamentos(List<Departamento> departamentos) {
-        this.departamentos = departamentos;
+    public Double getLatitud_provincia() {
+        return latitud_provincia;
+    }
+
+    public void setLatitud_provincia(Double latitud_provincia) {
+        this.latitud_provincia = latitud_provincia;
+    }
+
+    public Double getLonguitud_provincia() {
+        return longuitud_provincia;
+    }
+
+    public void setLonguitud_provincia(Double longuitud_provincia) {
+        this.longuitud_provincia = longuitud_provincia;
+    }
+
+    public void setMunicipos(List<Municipio> municipos) {
+        this.municipos = municipos;
     }
 }
