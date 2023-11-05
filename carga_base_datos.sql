@@ -18,6 +18,10 @@ insert into entidades (id, nombre, organismo_control, prestador) values
 (1,'COTO', 3, 3),
 (2, 'Trenes Argentinos', 4, 4);
 
+select * from login_event
+delete from login_event
+
+
 #provincias
 
 INSERT INTO provincias(nombre_provincia,id_provincia,latitud_provincia,longuitud_provincia) VALUES ('Misiones',54,-26.8753965086829,-54.6516966230371);
