@@ -20,6 +20,7 @@ insert into entidades (id, nombre, organismo_control, prestador) values
 
 select * from login_event
 delete from login_event
+select * from personas
 
 
 #provincias

@@ -1,4 +1,4 @@
-package Grupo11.DDS_TP_Integrador.Georef.Localizaciones;
+package Grupo11.DDS_TP_Integrador.Localizaciones;
 
 import jakarta.persistence.*;
 

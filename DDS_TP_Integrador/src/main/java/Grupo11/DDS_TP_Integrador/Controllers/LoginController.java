@@ -1,6 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Controllers;
 
+import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Repositories.LoginEventRepository;
+import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +18,40 @@ public class LoginController{
 
     @Autowired
     private LoginEventRepository loginEventRepository;
+    @Autowired
+    private PersonaRepository personaRepository;
 
     @PostMapping("/login-session")
     public ResponseEntity<String> handleLoginEvent(@RequestBody LoginInfo loginInfo) {
-            String userId = loginInfo.getUserId();
+        String userId = loginInfo.getUserId();
 
-            // Create a new LoginEvent record for the user's login
-            LoginEvent loginEvent = new LoginEvent();
-            loginEvent.setIdUsuario(userId);
-            loginEvent.setLoginTime(LocalDateTime.now());
+        // Buscar el primer LoginEvent con el mismo idUsuario
+        LoginEvent loginEventAnterior = loginEventRepository.findFirstByIdUsuarioOrderByIdUsuarioAsc(userId);
 
-            // Save the LoginEvent entity to the database using Hibernate
-            loginEventRepository.save(loginEvent);
+        // Inicializar una nueva Persona
+        Persona personaNueva = new Persona();
 
-            // You can also store the login event in a session to track the user's current session status
-            // You might need to implement a custom session management mechanism for this
-            // ...
+        if (loginEventAnterior != null) {
+            // Si se encontró un LoginEvent anterior, obtén su Persona
+            personaNueva = loginEventAnterior.getPersona();
+        }else{
+            personaRepository.save(personaNueva);
+        }
 
-            return ResponseEntity.ok("Login event processed successfully");
+        // Crear un nuevo LoginEvent y asignarle la misma Persona
+        LoginEvent loginEvent = new LoginEvent();
+        loginEvent.setIdUsuario(userId);
+        loginEvent.setLoginTime(LocalDateTime.now());
+        loginEvent.setPersona(personaNueva);
+
+        // Guardar el LoginEvent en la base de datos
+        loginEventRepository.save(loginEvent);
+
+        // Puedes seguir con el resto de tu lógica aquí
+
+        return ResponseEntity.ok("Login event processed successfully");
     }
+
 
     @PostMapping("/logout-session")
     public ResponseEntity<String> handleLogoutEvent(@RequestBody LoginInfo loginInfo) {

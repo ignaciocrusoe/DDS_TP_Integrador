@@ -1,6 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Establecimientos;
 import Grupo11.DDS_TP_Integrador.Entidades.*;
-import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
+import Grupo11.DDS_TP_Integrador.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 //import Grupo11.DDS_TP_Integrador.Localizaciones.*;
 import Grupo11.DDS_TP_Integrador.Servicios.*;

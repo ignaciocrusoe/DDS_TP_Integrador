@@ -1,7 +1,5 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
 
-import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
-import Grupo11.DDS_TP_Integrador.Rankings.RankingPK;
 import jakarta.persistence.*;
 
 import java.util.List;

@@ -1,14 +1,15 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
-import Grupo11.DDS_TP_Integrador.Georef.Localizaciones.Localizacion;
+import Grupo11.DDS_TP_Integrador.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
-import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
+import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="personas")
@@ -40,11 +41,6 @@ public class Persona {
   @OneToMany(mappedBy = "persona", cascade=CascadeType.ALL)
   @Column(name="miembro")
   private List<Miembro> membresias;
-  @ManyToMany
-  @JoinTable(name = "interes x persona",
-          joinColumns = @JoinColumn(name = "id_interes"),
-          inverseJoinColumns = @JoinColumn(name = "id_persona"))
-  private List<Interes> intereses_persona;
 
   @ManyToMany(mappedBy = "suscriptores")
   private List<Entidad> entidadesSuscriptas;
@@ -56,24 +52,18 @@ public class Persona {
   @Transient
   private GestorIncidentesPersona gestorIncidentesPersona;
 
-
-
-
-
-
-
-
-
-
-
+  @OneToMany(mappedBy = "persona")
+  private List<LoginEvent> loginEventList;
 
   //metodos utilitarios
 
-
   public Persona() {
+    horarios = new ArrayList<>();
+    entidadesSuscriptas = new ArrayList<>();
+    listaNotificaciones = new ArrayList<>();
   }
 
-  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Interes> intereses_persona, List<Entidad> entidadesSuscriptas) {
+  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
     this.id_persona = id_persona;
     this.nombre = nombre;
     this.horarios = horarios;
@@ -82,8 +72,16 @@ public class Persona {
     this.medioComunicacion = medioComunicacion;
     this.listaNotificaciones = listaNotificaciones;
     this.membresias = membresias;
-    this.intereses_persona = intereses_persona;
     this.entidadesSuscriptas = entidadesSuscriptas;
+    this.loginEventList = loginEventList;
+  }
+
+  public List<LoginEvent> getLoginEventList() {
+    return loginEventList;
+  }
+
+  public void setLoginEventList(List<LoginEvent> loginEventList) {
+    this.loginEventList = loginEventList;
   }
 
   public Long getId_persona() {
@@ -148,14 +146,6 @@ public class Persona {
 
   public void setMembresias(List<Miembro> membresias) {
     this.membresias = membresias;
-  }
-
-  public List<Interes> getIntereses_persona() {
-    return intereses_persona;
-  }
-
-  public void setIntereses_persona(List<Interes> intereses_persona) {
-    this.intereses_persona = intereses_persona;
   }
 
   public List<Entidad> getEntidadesSuscriptas() {

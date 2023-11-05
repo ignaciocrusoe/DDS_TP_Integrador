@@ -1,13 +1,17 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
 import Grupo11.DDS_TP_Integrador.Establecimientos.*;
-import Grupo11.DDS_TP_Integrador.Intereses.*;
-import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import jakarta.persistence.*;
 
 @Entity(name = "prestaciones")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@PrimaryKeyJoinColumn(name = "id_prestacion")
-public class Prestacion extends Interes{
+public class Prestacion{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_prestacion;
+
+    @Column(name = "nombre_prestacion")
+    private String nombre_prestacion;
+
     @ManyToOne
     @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
@@ -19,9 +23,27 @@ public class Prestacion extends Interes{
     public Prestacion() {
     }
 
-    public Prestacion(Establecimiento establecimiento, Servicio servicio) {
+    public Prestacion(Long id_prestacion, String nombre_prestacion, Establecimiento establecimiento, Servicio servicio) {
+        this.id_prestacion = id_prestacion;
+        this.nombre_prestacion = nombre_prestacion;
         this.establecimiento = establecimiento;
         this.servicio = servicio;
+    }
+
+    public Long getId_prestacion() {
+        return id_prestacion;
+    }
+
+    public void setId_prestacion(Long id_prestacion) {
+        this.id_prestacion = id_prestacion;
+    }
+
+    public String getNombre_prestacion() {
+        return nombre_prestacion;
+    }
+
+    public void setNombre_prestacion(String nombre_prestacion) {
+        this.nombre_prestacion = nombre_prestacion;
     }
 
     public Prestacion(Establecimiento establecimiento) {

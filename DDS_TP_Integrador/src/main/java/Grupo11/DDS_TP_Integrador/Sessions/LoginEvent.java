@@ -1,5 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Sessions;
 
+import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 public class LoginEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idLoginEvent;
 
     @Column(name = "idUsuario")
     private String idUsuario;  // Updated property name to match the repository method
@@ -18,22 +19,35 @@ public class LoginEvent {
     @Column(name = "logoutTime")
     private LocalDateTime logoutTime;  // Updated property name to match the repository method
 
+    @ManyToOne
+    @JoinColumn(name = "id_persona")
+    private Persona persona;
+
     public LoginEvent() {
     }
 
-    public LoginEvent(Long id, String idUsuario, LocalDateTime loginTime, LocalDateTime logoutTime) {
-        this.id = id;
+    public LoginEvent(Long idLoginEvent, String idUsuario, LocalDateTime loginTime, LocalDateTime logoutTime, Persona persona) {
+        this.idLoginEvent = idLoginEvent;
         this.idUsuario = idUsuario;
         this.loginTime = loginTime;
         this.logoutTime = logoutTime;
+        this.persona = persona;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLoginEvent() {
+        return idLoginEvent;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLoginEvent(Long idLoginEvent) {
+        this.idLoginEvent = idLoginEvent;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public String getIdUsuario() {

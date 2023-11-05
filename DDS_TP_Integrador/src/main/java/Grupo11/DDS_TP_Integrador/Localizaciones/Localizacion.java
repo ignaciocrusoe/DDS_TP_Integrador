@@ -1,13 +1,18 @@
-package Grupo11.DDS_TP_Integrador.Georef.Localizaciones;
+package Grupo11.DDS_TP_Integrador.Localizaciones;
+
 import Grupo11.DDS_TP_Integrador.Establecimientos.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
-import Grupo11.DDS_TP_Integrador.Intereses.*;
 import jakarta.persistence.*;
 
 @Entity(name = "localizaciones")
-@PrimaryKeyJoinColumn(name = "id_localizacion")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Localizacion extends Interes{
+public class Localizacion{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_localizacion;
+
+    @Column(name = "nombre_localizacion")
+    private String nombre_localizacion;
 
     @ManyToOne
     @JoinColumn(name = "id_municipio")
@@ -19,13 +24,31 @@ public class Localizacion extends Interes{
     private Double longuitud;
 
 
-    public Localizacion(Municipio municipio, Double latitud, Double longuitud) {
+    public Localizacion(Long id_localizacion, String nombre_localizacion, Municipio municipio, Double latitud, Double longuitud) {
+        this.id_localizacion = id_localizacion;
+        this.nombre_localizacion = nombre_localizacion;
         this.municipio = municipio;
         this.latitud = latitud;
         this.longuitud = longuitud;
     }
 
     public Localizacion() {
+    }
+
+    public Long getId_localizacion() {
+        return id_localizacion;
+    }
+
+    public void setId_localizacion(Long id_localizacion) {
+        this.id_localizacion = id_localizacion;
+    }
+
+    public String getNombre_localizacion() {
+        return nombre_localizacion;
+    }
+
+    public void setNombre_localizacion(String nombre_localizacion) {
+        this.nombre_localizacion = nombre_localizacion;
     }
 
     public Municipio getMunicipio() {

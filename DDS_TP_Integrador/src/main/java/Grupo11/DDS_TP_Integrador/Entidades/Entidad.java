@@ -5,15 +5,20 @@ import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
-import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity(name = "entidades")
-@PrimaryKeyJoinColumn(name = "id_entidad")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Entidad extends Interes {
+public class Entidad{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_entidad;
+
+    @Column(name = "nombre_entidad")
+    private String nombre_entidad;
 
     @OneToMany(mappedBy = "entidad")
     protected List<Incidente> incidentes_reportados;

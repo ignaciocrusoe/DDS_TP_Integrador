@@ -1,9 +1,7 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
-import Grupo11.DDS_TP_Integrador.Intereses.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
-import Grupo11.DDS_TP_Integrador.Rankings.RankingMayorImpacto;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,11 +31,7 @@ public class Comunidad{
     @OneToMany(mappedBy = "comunidad", cascade= CascadeType.ALL)
     @Column(name="miembro")
     private List<Miembro> miembros;
-    @ManyToMany
-    @JoinTable(name = "comunidad x interes",
-            joinColumns = @JoinColumn(name = "id_interes"),
-            inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
-    private List<Interes> intereses_comunidad;
+
 
     @Autowired
     @Transient
@@ -76,12 +70,14 @@ public class Comunidad{
     public Comunidad() {
     }
 
-    public Comunidad(Long id_comunidad, String nombre, List<Incidente> incidentesReportados, List<Miembro> miembros, List<Interes> intereses_comunidad, RankingMayorImpacto rankingMayorImpacto) {
+    public Comunidad(Long id_comunidad, String nombre, String descripcion_comunidad, List<Incidente> incidentesReportados, List<Miembro> miembros, IncidenteProvider incidenteProvider, Notificador notificadorComunidad) {
         this.id_comunidad = id_comunidad;
         this.nombre = nombre;
+        this.descripcion_comunidad = descripcion_comunidad;
         this.incidentesReportados = incidentesReportados;
         this.miembros = miembros;
-        this.intereses_comunidad = intereses_comunidad;
+        this.incidenteProvider = incidenteProvider;
+        this.notificadorComunidad = notificadorComunidad;
     }
 
     public Long getId_comunidad() {
@@ -114,14 +110,6 @@ public class Comunidad{
 
     public void setMiembros(List<Miembro> miembros) {
         this.miembros = miembros;
-    }
-
-    public List<Interes> getIntereses_comunidad() {
-        return intereses_comunidad;
-    }
-
-    public void setIntereses_comunidad(List<Interes> intereses_comunidad) {
-        this.intereses_comunidad = intereses_comunidad;
     }
 
 }
