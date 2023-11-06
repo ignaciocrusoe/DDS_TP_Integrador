@@ -4,23 +4,25 @@ import { showMessage } from "./showMessage.js";
 
 const googleButton = document.querySelector("#googleLogin");
 
-googleButton.addEventListener("click", async (e) => {
-  e.preventDefault();
+if(googleButton){
+    googleButton.addEventListener("click", async (e) => {
+      e.preventDefault();
 
-  const provider = new GoogleAuthProvider();
-  try {
-    const credentials = await signInWithPopup(auth, provider)
-    console.log(credentials);
-    console.log("google sign in");
-    
-    localStorage.setItem('justSignedUp', 'true');
+      const provider = new GoogleAuthProvider();
+      try {
+        const credentials = await signInWithPopup(auth, provider)
+        console.log(credentials);
+        console.log("google sign in");
 
-    window.location.href = '/inicio';
+        localStorage.setItem('justSignedUp', 'true');
 
-    // reset the form
-    signInForm.reset();
+        window.location.href = '/inicio';
 
-  } catch (error) {
-    console.log(error);
-  }
-});
+        // reset the form
+        signInForm.reset();
+
+      } catch (error) {
+        console.log(error);
+      }
+    });
+}

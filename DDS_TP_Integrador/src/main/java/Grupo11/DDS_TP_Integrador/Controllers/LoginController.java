@@ -3,6 +3,7 @@ package Grupo11.DDS_TP_Integrador.Controllers;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Repositories.LoginEventRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
+import Grupo11.DDS_TP_Integrador.Responses.LoginResponse;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class LoginController{
@@ -22,7 +25,7 @@ public class LoginController{
     private PersonaRepository personaRepository;
 
     @PostMapping("/login-session")
-    public ResponseEntity<String> handleLoginEvent(@RequestBody LoginInfo loginInfo) {
+    public ResponseEntity<LoginResponse> handleLoginEvent(@RequestBody LoginInfo loginInfo) {
         String userId = loginInfo.getUserId();
 
         // Buscar el primer LoginEvent con el mismo idUsuario
@@ -49,7 +52,10 @@ public class LoginController{
 
         // Puedes seguir con el resto de tu lógica aquí
 
-        return ResponseEntity.ok("Login event processed successfully");
+        LoginResponse loginResponse = new LoginResponse("IdPersona", personaNueva.getId_persona());
+
+        return ResponseEntity.ok(loginResponse);
+
     }
 
 

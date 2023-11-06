@@ -16,7 +16,6 @@ let loginInfo = {
   logoutTime: null,
 };
 
-
 // Handle user login
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -41,7 +40,19 @@ function sendLoginEvent(loginInfo) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(loginInfo),
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const idPersona = data.idPersona; // Retrieve the idPersona from the response
+      // Store the idPersona in localStorage
+      window.localStorage.setItem('idPersona', idPersona);
+
+      // Log the idPersona to the console here
+      console.log('Received idPersona:', idPersona);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 
 // Function to send a logout event to the backend
@@ -54,3 +65,11 @@ function sendLogoutEvent(loginInfo) {
     body: JSON.stringify(loginInfo),
   });
 }
+
+// Add an event listener to listen for changes in localStorage
+window.addEventListener('storage', (event) => {
+  if (event.key === 'idPersona') {
+    // Log the updated idPersona value
+    console.log('Received idPersona in another tab:', event.newValue);
+  }
+});
