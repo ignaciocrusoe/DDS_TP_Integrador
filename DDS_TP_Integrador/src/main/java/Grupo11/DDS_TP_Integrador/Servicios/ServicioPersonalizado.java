@@ -1,5 +1,10 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
 
-public class ServicioPersonalizado extends Servicio {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("ServicioPersonalizado")
+public class ServicioPersonalizado extends Prestacion {
 
 }

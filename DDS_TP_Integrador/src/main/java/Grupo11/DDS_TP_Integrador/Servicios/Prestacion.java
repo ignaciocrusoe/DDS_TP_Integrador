@@ -2,7 +2,12 @@ package Grupo11.DDS_TP_Integrador.Servicios;
 import Grupo11.DDS_TP_Integrador.Establecimientos.*;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity(name = "prestaciones")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "prestacion", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("Compuesta")
 public class Prestacion{
 
     @Id
@@ -12,22 +17,34 @@ public class Prestacion{
     @Column(name = "nombre_prestacion")
     private String nombre_prestacion;
 
+    @ManyToOne()
+    @JoinColumn(name = "prestacionPadre")
+    private Prestacion prestacionPadre;
+
+    @OneToMany(mappedBy = "prestacionPadre", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Prestacion> prestacionesHijas;
+
     @ManyToOne
     @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
 
-    @OneToOne
-    @JoinColumn(name = "id_servicio")
-    private Servicio servicio;
 
     public Prestacion() {
     }
 
-    public Prestacion(Long id_prestacion, String nombre_prestacion, Establecimiento establecimiento, Servicio servicio) {
+    public Prestacion(Long id_prestacion, String nombre_prestacion, Prestacion prestacionPadre, List<Prestacion> prestacionesHijas, Establecimiento establecimiento) {
         this.id_prestacion = id_prestacion;
         this.nombre_prestacion = nombre_prestacion;
+        this.prestacionPadre = prestacionPadre;
+        this.prestacionesHijas = prestacionesHijas;
         this.establecimiento = establecimiento;
-        this.servicio = servicio;
+    }
+
+    public boolean isLeaf() {
+        return (prestacionesHijas == null || prestacionesHijas.size() == 0);
+    }
+    public boolean isRoot() {
+        return (prestacionesHijas == null);
     }
 
     public Long getId_prestacion() {
@@ -46,8 +63,20 @@ public class Prestacion{
         this.nombre_prestacion = nombre_prestacion;
     }
 
-    public Prestacion(Establecimiento establecimiento) {
-        this.establecimiento = establecimiento;
+    public Prestacion getPrestacionPadre() {
+        return prestacionPadre;
+    }
+
+    public void setPrestacionPadre(Prestacion prestacionPadre) {
+        this.prestacionPadre = prestacionPadre;
+    }
+
+    public List<Prestacion> getPrestacionesHijas() {
+        return prestacionesHijas;
+    }
+
+    public void setPrestacionesHijas(List<Prestacion> prestacionesHijas) {
+        this.prestacionesHijas = prestacionesHijas;
     }
 
     public Establecimiento getEstablecimiento() {
@@ -56,14 +85,6 @@ public class Prestacion{
 
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
-    }
-
-    public Servicio getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
     }
 }
 

@@ -9,7 +9,9 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity(name = "establecimientos")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "categoria", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("Establecimiento")
 public class Establecimiento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +21,7 @@ public class Establecimiento{
     @Column(name="nombre_establecimiento")
     protected String nombre_establecimiento;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "localizacion")
     protected Localizacion localizacion;
 

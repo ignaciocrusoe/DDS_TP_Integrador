@@ -16,4 +16,19 @@ public class MainController {
         return "inicio";
     }
 
+    @GetMapping("/reportar_incidente")
+    public String reportar_incidente() {
+        return "reportar_incidente";
+    }
+
+    @GetMapping("/cerrar_incidente")
+    public String cerrar_incidente() {
+        return "cerrar_incidente";
+    }
+
+    @GetMapping("/buscar_incidentes")
+    public String buscar_incidentes() {
+        return "buscar_incidentes";
+    }
+
 }

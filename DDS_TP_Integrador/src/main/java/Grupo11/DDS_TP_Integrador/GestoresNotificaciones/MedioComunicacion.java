@@ -5,8 +5,10 @@ import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import jakarta.persistence.*;
 
-@Entity(name = "mediosComunicacion")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity(name = "medios_comunicacion")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "categoria", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("MedioComunicacion")
 public class MedioComunicacion {
 
     @Id

@@ -61,12 +61,12 @@
 		                            <div class="tab-pane" id="home">
 		                            	<div class="row">
 											<div class="col-sm-5 d-flex col-sm-offset-1">
-												<input style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Abrir incidente' />
-												<input style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Cerrar incidente' />
+												<input onclick="goToReportarIncidente()" style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Abrir incidente'>
+												<input onclick="goToCerrarIncidente()" style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Cerrar incidente'>
 											</div>
 											<div class="col-sm-5 d-flex ">
-												<input style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Modificar incidente' />
-												<input style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Buscar incidente' />
+												<input style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Modificar incidente'>
+												<input onclick="goToBuscarIncidentes()" style="width: 100%; height:100px; margin-top: 20px;" type='button' class='btn btn-fill btn-warning btn-wd card-hover-effect' name='' value='Buscar incidente'>
 											</div>
 											
 											
@@ -99,7 +99,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-	<script src="" th:src="@{js/inicio.js}" type="module"></script>
-	<script src="" th:src="@{js/main.js}" type="module"></script>
+	<script th:src="@{js/main.js}" type="module"></script>
+	<script th:src="@{js/inicio.js}" type="module"></script>
+
+	<script>
+		function goToReportarIncidente() {
+			window.location.href = "/reportar_incidente";
+		}
+
+		function goToCerrarIncidente() {
+			window.location.href = "/cerrar_incidente";
+		}
+
+		function goToBuscarIncidentes() {
+			window.location.href = "/buscar_incidentes";
+		}
+	</script>
 
 </html>

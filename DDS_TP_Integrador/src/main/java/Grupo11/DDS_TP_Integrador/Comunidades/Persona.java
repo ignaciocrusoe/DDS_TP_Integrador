@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Persona {
   private String nombre;
 
   @Column(name="horarios")
-  private List<LocalDateTime> horarios;
+  private LocalTime horarios;
 
   @Column(name="telefono")
   private Integer telefono;
@@ -31,7 +32,7 @@ public class Persona {
   @Column(name="mail")
   private String mail;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "medio")
   private MedioComunicacion medioComunicacion;
 
@@ -58,12 +59,11 @@ public class Persona {
   //metodos utilitarios
 
   public Persona() {
-    horarios = new ArrayList<>();
     entidadesSuscriptas = new ArrayList<>();
     listaNotificaciones = new ArrayList<>();
   }
 
-  public Persona(Long id_persona, String nombre, List<LocalDateTime> horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
+  public Persona(Long id_persona, String nombre, LocalTime horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
     this.id_persona = id_persona;
     this.nombre = nombre;
     this.horarios = horarios;
@@ -100,11 +100,11 @@ public class Persona {
     this.nombre = nombre;
   }
 
-  public List<LocalDateTime> getHorarios() {
+  public LocalTime getHorarios() {
     return horarios;
   }
 
-  public void setHorarios(List<LocalDateTime> horarios) {
+  public void setHorarios(LocalTime horarios) {
     this.horarios = horarios;
   }
 

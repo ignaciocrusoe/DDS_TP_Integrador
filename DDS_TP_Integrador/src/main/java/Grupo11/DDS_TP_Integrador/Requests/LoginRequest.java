@@ -1,8 +1,8 @@
-package Grupo11.DDS_TP_Integrador.Sessions;
+package Grupo11.DDS_TP_Integrador.Requests;
 
 import java.time.LocalDateTime;
 
-public class LoginInfo {
+public class LoginRequest {
     private String userId;
     private LocalDateTime loginTime;
     private LocalDateTime logoutTime;

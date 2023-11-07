@@ -1,5 +1,10 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
 
-public class Banio extends Servicio {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Banio")
+public class Banio extends Prestacion {
 
 }

@@ -1,5 +1,9 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
 
-public class Elevacion extends Servicio {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@DiscriminatorValue("Elevacion")
+public class Elevacion extends Prestacion {
 
 }

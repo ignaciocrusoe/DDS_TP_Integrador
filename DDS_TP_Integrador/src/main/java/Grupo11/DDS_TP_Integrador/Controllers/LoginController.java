@@ -5,7 +5,7 @@ import Grupo11.DDS_TP_Integrador.Repositories.LoginEventRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
 import Grupo11.DDS_TP_Integrador.Responses.LoginResponse;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
-import Grupo11.DDS_TP_Integrador.Sessions.LoginInfo;
+import Grupo11.DDS_TP_Integrador.Requests.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class LoginController{
@@ -25,8 +23,8 @@ public class LoginController{
     private PersonaRepository personaRepository;
 
     @PostMapping("/login-session")
-    public ResponseEntity<LoginResponse> handleLoginEvent(@RequestBody LoginInfo loginInfo) {
-        String userId = loginInfo.getUserId();
+    public ResponseEntity<LoginResponse> handleLoginEvent(@RequestBody LoginRequest loginRequest) {
+        String userId = loginRequest.getUserId();
 
         // Buscar el primer LoginEvent con el mismo idUsuario
         LoginEvent loginEventAnterior = loginEventRepository.findFirstByIdUsuarioOrderByIdUsuarioAsc(userId);
@@ -60,8 +58,8 @@ public class LoginController{
 
 
     @PostMapping("/logout-session")
-    public ResponseEntity<String> handleLogoutEvent(@RequestBody LoginInfo loginInfo) {
-            String userId = loginInfo.getUserId();
+    public ResponseEntity<String> handleLogoutEvent(@RequestBody LoginRequest loginRequest) {
+            String userId = loginRequest.getUserId();
 
             // Find the most recent login event for the user
             LoginEvent loginEvent = loginEventRepository.findFirstByIdUsuarioOrderByLoginTimeDesc(userId);

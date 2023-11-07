@@ -10,7 +10,9 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity(name = "entidades")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "categoria", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("Entidad")
 public class Entidad{
 
     @Id

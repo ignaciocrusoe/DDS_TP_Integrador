@@ -30,20 +30,6 @@ public class Miembro {
     //metodos utilitarios
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Miembro(Long id_miembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
         this.id_miembro = id_miembro;
         this.comunidad = comunidad;
