@@ -24,20 +24,15 @@ public class Prestacion{
     @OneToMany(mappedBy = "prestacionPadre", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Prestacion> prestacionesHijas;
 
-    @ManyToOne
-    @JoinColumn(name = "establecimiento")
-    private Establecimiento establecimiento;
-
 
     public Prestacion() {
     }
 
-    public Prestacion(Long id_prestacion, String nombre_prestacion, Prestacion prestacionPadre, List<Prestacion> prestacionesHijas, Establecimiento establecimiento) {
+    public Prestacion(Long id_prestacion, String nombre_prestacion, Prestacion prestacionPadre, List<Prestacion> prestacionesHijas) {
         this.id_prestacion = id_prestacion;
         this.nombre_prestacion = nombre_prestacion;
         this.prestacionPadre = prestacionPadre;
         this.prestacionesHijas = prestacionesHijas;
-        this.establecimiento = establecimiento;
     }
 
     public boolean isLeaf() {
@@ -79,12 +74,5 @@ public class Prestacion{
         this.prestacionesHijas = prestacionesHijas;
     }
 
-    public Establecimiento getEstablecimiento() {
-        return establecimiento;
-    }
-
-    public void setEstablecimiento(Establecimiento establecimiento) {
-        this.establecimiento = establecimiento;
-    }
 }
 

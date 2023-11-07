@@ -25,9 +25,6 @@ public class Establecimiento{
     @JoinColumn(name = "localizacion")
     protected Localizacion localizacion;
 
-    @OneToMany(mappedBy = "establecimiento")
-    protected List<Prestacion> prestaciones;
-
     @ManyToOne
     @JoinColumn(name = "id_entidad")
     protected Entidad entidad;
@@ -35,11 +32,10 @@ public class Establecimiento{
     public Establecimiento() {
     }
 
-    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, List<Prestacion> prestaciones, Entidad entidad) {
+    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, Entidad entidad) {
         this.id_establecimiento = id_establecimiento;
         this.nombre_establecimiento = nombre_establecimiento;
         this.localizacion = localizacion;
-        this.prestaciones = prestaciones;
         this.entidad = entidad;
     }
 
@@ -57,14 +53,6 @@ public class Establecimiento{
 
     public void setNombre_establecimiento(String nombre_establecimiento) {
         this.nombre_establecimiento = nombre_establecimiento;
-    }
-
-    public List<Prestacion> getPrestaciones() {
-        return prestaciones;
-    }
-
-    public void setPrestaciones(List<Prestacion> prestaciones) {
-        this.prestaciones = prestaciones;
     }
 
     public Localizacion getLocalizacion() {

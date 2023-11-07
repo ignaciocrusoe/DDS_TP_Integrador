@@ -2410,10 +2410,10 @@ insert into establecimientos (nombre_establecimiento, id_entidad, localizacion, 
 
 #prestaciones
 
-INSERT INTO prestaciones (nombre_prestacion, prestacion_padre, prestacion, establecimiento) VALUES
-('Elevaciones dobles', NULL, 'Compuesta', 2), #prestacion compuesta
-('Escaleras', 1, 'Elevacion', 2), #prestacion simple
-('Escaleras mecanicas', 1, 'Elevacion', 2); #prestacion simple
+INSERT INTO prestaciones (nombre_prestacion, prestacion_padre, prestacion) VALUES
+('Elevaciones dobles', NULL, 'Compuesta'), #prestacion compuesta
+('Escaleras', 1, 'Elevacion'), #prestacion simple
+('Escaleras mecanicas', 1, 'Elevacion'); #prestacion simple
 
 insert into medios_comunicacion (nombre_medio, categoria) values
 ('Whatsapp', 'Telefono'),

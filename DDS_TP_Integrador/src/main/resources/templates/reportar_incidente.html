@@ -88,9 +88,7 @@
 											<div class="form-group">
 												<label>Entidad Afectada</label>
 												<select class="form-control">
-													<option disabled="" selected="">- elegí una opción -</option>
-													<option> MrAhorro</option>
-													<option> Coto</option>
+													<option th:each="entidad : ${entidades}" th:value="${entidad.nombre_entidad}" th:text="${entidad.nombre_entidad}"></option>
 												</select>
 											</div>
 										</div>
