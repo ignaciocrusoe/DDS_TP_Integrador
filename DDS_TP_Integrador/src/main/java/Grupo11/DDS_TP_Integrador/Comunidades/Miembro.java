@@ -9,7 +9,7 @@ public class Miembro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_miembro")
-    private Long id_miembro;
+    private Long idMiembro;
 
     @ManyToOne
     @JoinColumn(name="comunidad")
@@ -30,20 +30,20 @@ public class Miembro {
     //metodos utilitarios
 
 
-    public Miembro(Long id_miembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
-        this.id_miembro = id_miembro;
+    public Miembro(Long idMiembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
+        this.idMiembro = idMiembro;
         this.comunidad = comunidad;
         this.persona = persona;
         this.rolEnComunidad = rolEnComunidad;
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Long getid_miembro() {
-        return id_miembro;
+    public Long getidMiembro() {
+        return idMiembro;
     }
 
-    public void setid_miembro(Long id_miembro) {
-        this.id_miembro = id_miembro;
+    public void setidMiembro(Long id_miembro) {
+        this.idMiembro = id_miembro;
     }
 
     public Comunidad getcomunidad() {
@@ -68,5 +68,25 @@ public class Miembro {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public Long getIdMiembro() {
+        return idMiembro;
+    }
+
+    public void setIdMiembro(Long idMiembro) {
+        this.idMiembro = idMiembro;
+    }
+
+    public Comunidad getComunidad() {
+        return comunidad;
+    }
+
+    public void setComunidad(Comunidad comunidad) {
+        this.comunidad = comunidad;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

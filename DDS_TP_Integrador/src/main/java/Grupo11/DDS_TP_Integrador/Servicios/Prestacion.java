@@ -1,5 +1,4 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
-import Grupo11.DDS_TP_Integrador.Establecimientos.*;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,10 +11,10 @@ public class Prestacion{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_prestacion;
+    private Long idPrestacion;
 
     @Column(name = "nombre_prestacion")
-    private String nombre_prestacion;
+    private String nombrePrestacion;
 
     @ManyToOne()
     @JoinColumn(name = "prestacionPadre")
@@ -28,9 +27,9 @@ public class Prestacion{
     public Prestacion() {
     }
 
-    public Prestacion(Long id_prestacion, String nombre_prestacion, Prestacion prestacionPadre, List<Prestacion> prestacionesHijas) {
-        this.id_prestacion = id_prestacion;
-        this.nombre_prestacion = nombre_prestacion;
+    public Prestacion(Long idPrestacion, String nombrePrestacion, Prestacion prestacionPadre, List<Prestacion> prestacionesHijas) {
+        this.idPrestacion = idPrestacion;
+        this.nombrePrestacion = nombrePrestacion;
         this.prestacionPadre = prestacionPadre;
         this.prestacionesHijas = prestacionesHijas;
     }
@@ -42,20 +41,20 @@ public class Prestacion{
         return (prestacionesHijas == null);
     }
 
-    public Long getId_prestacion() {
-        return id_prestacion;
+    public Long getIdPrestacion() {
+        return idPrestacion;
     }
 
-    public void setId_prestacion(Long id_prestacion) {
-        this.id_prestacion = id_prestacion;
+    public void setIdPrestacion(Long idPrestacion) {
+        this.idPrestacion = idPrestacion;
     }
 
-    public String getNombre_prestacion() {
-        return nombre_prestacion;
+    public String getNombrePrestacion() {
+        return nombrePrestacion;
     }
 
-    public void setNombre_prestacion(String nombre_prestacion) {
-        this.nombre_prestacion = nombre_prestacion;
+    public void setNombrePrestacion(String nombrePrestacion) {
+        this.nombrePrestacion = nombrePrestacion;
     }
 
     public Prestacion getPrestacionPadre() {

@@ -50,7 +50,7 @@ public class LoginController{
 
         // Puedes seguir con el resto de tu lógica aquí
 
-        LoginResponse loginResponse = new LoginResponse("IdPersona", personaNueva.getId_persona());
+        LoginResponse loginResponse = new LoginResponse("IdPersona", personaNueva.getIdPersona());
 
         return ResponseEntity.ok(loginResponse);
 

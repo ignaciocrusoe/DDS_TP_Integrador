@@ -1,14 +1,12 @@
 package Grupo11.DDS_TP_Integrador.Incidentes;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Collections;
+
 import Grupo11.DDS_TP_Integrador.Entidades.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Servicios.*;
 import Grupo11.DDS_TP_Integrador.Establecimientos.*;
-import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import jakarta.persistence.*;
 
 import java.time.temporal.ChronoUnit;
@@ -18,7 +16,7 @@ public class Incidente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_incidente")
-    private Long id_incidente;
+    private Long idIncidente;
     @Column(name="observaciones")
     private String observaciones;
 
@@ -26,12 +24,14 @@ public class Incidente {
     @JoinColumn(name = "entidad")
     private Entidad entidad;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "persona_reportadora")
     private Persona personaQueReporto;
-    @Transient
+
+    @ManyToOne
+    @JoinColumn(name = "prestacion_incidentada")
     private Prestacion prestacionIncidentada;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
 
@@ -43,19 +43,26 @@ public class Incidente {
     @Column(name="horario_cierre")
     private LocalDateTime cierre;
     @Column(name="estado")
-    private Boolean estado; //todo estado podria ser un enum
+    private Boolean estado; //true abierto, false cerrado
 
     //1. Se debe permitir la apertura de incidentes
-    public Incidente(Long identificador, String observaciones, Entidad entidad, Persona persona, Prestacion prestacion, Establecimiento establecimiento, List<Comunidad> comunidades){
+    public Incidente(Long identificador, String observaciones, Entidad entidad, Persona persona, Prestacion prestacion, Establecimiento establecimiento){
         super();
-        this.id_incidente = identificador;
+        this.idIncidente = identificador;
         this.observaciones = observaciones;
         this.entidad = entidad;
         this.personaQueReporto = persona;
         this.prestacionIncidentada = prestacion;
         this.establecimiento = establecimiento;
-        this.comunidadesAfectadas = comunidades;
-        this.apertura = LocalDateTime.now(); //tiene que incluir fecha y hora
+        this.comunidadesAfectadas = new ArrayList<>();
+        this.apertura = LocalDateTime.now();
+        this.cierre = null;
+        this.estado = true; //true el incidente esta abierto
+    }
+
+    public Incidente() {
+        this.comunidadesAfectadas = new ArrayList<>();
+        this.apertura = LocalDateTime.now();
         this.cierre = null;
         this.estado = true; //true el incidente esta abierto
     }
@@ -69,12 +76,12 @@ public class Incidente {
         return apertura.until(cierre, ChronoUnit.HOURS);
     }
 
-    public Long getId_incidente() {
-        return id_incidente;
+    public Long getIdIncidente() {
+        return idIncidente;
     }
 
-    public void setId_incidente(Long id_incidente) {
-        this.id_incidente = id_incidente;
+    public void setIdIncidente(Long idIncidente) {
+        this.idIncidente = idIncidente;
     }
 
     public String getObservaciones() {

@@ -15,13 +15,13 @@ public class Comunidad{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_comunidad")
-    private Long id_comunidad;
+    private Long idComunidad;
 
     @Column(name="nombre_comunidad")
     private String nombre;
 
     @Column(name="descripcion_comunidad")
-    private String descripcion_comunidad;
+    private String descripcionComunidad;
 
     @ManyToMany
     @JoinTable(name = "comunidad x incidente",
@@ -70,22 +70,22 @@ public class Comunidad{
     public Comunidad() {
     }
 
-    public Comunidad(Long id_comunidad, String nombre, String descripcion_comunidad, List<Incidente> incidentesReportados, List<Miembro> miembros, IncidenteProvider incidenteProvider, Notificador notificadorComunidad) {
-        this.id_comunidad = id_comunidad;
+    public Comunidad(Long idComunidad, String nombre, String descripcionComunidad, List<Incidente> incidentesReportados, List<Miembro> miembros, IncidenteProvider incidenteProvider, Notificador notificadorComunidad) {
+        this.idComunidad = idComunidad;
         this.nombre = nombre;
-        this.descripcion_comunidad = descripcion_comunidad;
+        this.descripcionComunidad = descripcionComunidad;
         this.incidentesReportados = incidentesReportados;
         this.miembros = miembros;
         this.incidenteProvider = incidenteProvider;
         this.notificadorComunidad = notificadorComunidad;
     }
 
-    public Long getId_comunidad() {
-        return id_comunidad;
+    public Long getIdComunidad() {
+        return idComunidad;
     }
 
-    public void setId_comunidad(Long id_comunidad) {
-        this.id_comunidad = id_comunidad;
+    public void setIdComunidad(Long idComunidad) {
+        this.idComunidad = idComunidad;
     }
 
     public String getNombre() {

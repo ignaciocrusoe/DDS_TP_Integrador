@@ -1,6 +1,5 @@
 package Grupo11.DDS_TP_Integrador.Comunidades;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
-import Grupo11.DDS_TP_Integrador.Localizaciones.Localizacion;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
@@ -8,7 +7,6 @@ import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class Persona {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="id_persona")
-  private Long id_persona;
+  private Long idPersona;
   @Column(name="nombre_persona")
   private String nombre;
 
@@ -63,8 +61,8 @@ public class Persona {
     listaNotificaciones = new ArrayList<>();
   }
 
-  public Persona(Long id_persona, String nombre, LocalTime horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
-    this.id_persona = id_persona;
+  public Persona(Long idPersona, String nombre, LocalTime horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
+    this.idPersona = idPersona;
     this.nombre = nombre;
     this.horarios = horarios;
     this.telefono = telefono;
@@ -84,12 +82,12 @@ public class Persona {
     this.loginEventList = loginEventList;
   }
 
-  public Long getId_persona() {
-    return id_persona;
+  public Long getIdPersona() {
+    return idPersona;
   }
 
-  public void setId_persona(Long id_persona) {
-    this.id_persona = id_persona;
+  public void setIdPersona(Long idPersona) {
+    this.idPersona = idPersona;
   }
 
   public String getNombre() {

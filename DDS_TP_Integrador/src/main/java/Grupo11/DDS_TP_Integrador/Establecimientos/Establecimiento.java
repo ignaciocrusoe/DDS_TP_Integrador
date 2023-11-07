@@ -1,12 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Establecimientos;
 import Grupo11.DDS_TP_Integrador.Entidades.*;
 import Grupo11.DDS_TP_Integrador.Localizaciones.Localizacion;
-import Grupo11.DDS_TP_Integrador.Incidentes.*;
 //import Grupo11.DDS_TP_Integrador.Localizaciones.*;
-import Grupo11.DDS_TP_Integrador.Servicios.*;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity(name = "establecimientos")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -16,10 +12,10 @@ public class Establecimiento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_establecimiento")
-    protected Long id_establecimiento;
+    protected Long idEstablecimiento;
 
     @Column(name="nombre_establecimiento")
-    protected String nombre_establecimiento;
+    protected String nombreEstablecimiento;
 
     @ManyToOne
     @JoinColumn(name = "localizacion")
@@ -32,27 +28,27 @@ public class Establecimiento{
     public Establecimiento() {
     }
 
-    public Establecimiento(Long id_establecimiento, String nombre_establecimiento, Localizacion localizacion, Entidad entidad) {
-        this.id_establecimiento = id_establecimiento;
-        this.nombre_establecimiento = nombre_establecimiento;
+    public Establecimiento(Long idEstablecimiento, String nombreEstablecimiento, Localizacion localizacion, Entidad entidad) {
+        this.idEstablecimiento = idEstablecimiento;
+        this.nombreEstablecimiento = nombreEstablecimiento;
         this.localizacion = localizacion;
         this.entidad = entidad;
     }
 
-    public Long getId_establecimiento() {
-        return id_establecimiento;
+    public Long getIdEstablecimiento() {
+        return idEstablecimiento;
     }
 
-    public void setId_establecimiento(Long id_establecimiento) {
-        this.id_establecimiento = id_establecimiento;
+    public void setIdEstablecimiento(Long idEstablecimiento) {
+        this.idEstablecimiento = idEstablecimiento;
     }
 
-    public String getNombre_establecimiento() {
-        return nombre_establecimiento;
+    public String getNombreEstablecimiento() {
+        return nombreEstablecimiento;
     }
 
-    public void setNombre_establecimiento(String nombre_establecimiento) {
-        this.nombre_establecimiento = nombre_establecimiento;
+    public void setNombreEstablecimiento(String nombreEstablecimiento) {
+        this.nombreEstablecimiento = nombreEstablecimiento;
     }
 
     public Localizacion getLocalizacion() {

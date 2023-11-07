@@ -26,5 +26,40 @@ public class Localizacion{
         this.latitudLocalizacion = latitudLocalizacion;
         this.longuitudLocalizacion = longuitudLocalizacion;
     }
+
+    public Localizacion() {
+    }
+
+    public Long getIdLocalizacion() {
+        return idLocalizacion;
+    }
+
+    public void setIdLocalizacion(Long idLocalizacion) {
+        this.idLocalizacion = idLocalizacion;
+    }
+
+    public String getNombreLocalizacion() {
+        return nombreLocalizacion;
+    }
+
+    public void setNombreLocalizacion(String nombreLocalizacion) {
+        this.nombreLocalizacion = nombreLocalizacion;
+    }
+
+    public Double getLatitudLocalizacion() {
+        return latitudLocalizacion;
+    }
+
+    public void setLatitudLocalizacion(Double latitudLocalizacion) {
+        this.latitudLocalizacion = latitudLocalizacion;
+    }
+
+    public Double getLonguitudLocalizacion() {
+        return longuitudLocalizacion;
+    }
+
+    public void setLonguitudLocalizacion(Double longuitudLocalizacion) {
+        this.longuitudLocalizacion = longuitudLocalizacion;
+    }
 }
 
