@@ -8,6 +8,7 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
+import Grupo11.DDS_TP_Integrador.Requests.BuscarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Requests.ReportarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,14 +95,23 @@ public class MainController {
         return ResponseEntity.ok("Incident reported successfully!");
     }
 
-    @GetMapping("/cerrar_incidente")
-    public String cerrar_incidente() {
-        return "cerrar_incidente";
+    @GetMapping("/info_incidente")
+    public String info_incidente() {
+        return "info_incidente";
     }
 
     @GetMapping("/buscar_incidentes")
     public String buscar_incidentes() {
         return "buscar_incidentes";
+    }
+
+    @GetMapping("/buscar-incidente-id")
+    public ModelAndView obtenerInformacion(@RequestParam("idIncidente") Long idIncidente) {
+        Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
+
+        ModelAndView modelAndView = new ModelAndView("info_incidente");
+
+        return modelAndView;
     }
 
 }

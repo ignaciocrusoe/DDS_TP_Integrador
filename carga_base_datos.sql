@@ -3,6 +3,8 @@
 drop schema dds;
 create schema dds;
 
+select * from incidentes
+
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
 #organismos de control

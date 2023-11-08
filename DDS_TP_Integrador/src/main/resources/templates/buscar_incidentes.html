@@ -35,7 +35,7 @@
 				<!--      Wizard container        -->
 				<div class="wizard-container">
 					<div class="card wizard-card" data-color="orange" id="wizard">
-						<form action="" method="">
+						<!--<form action="" method="">-->
 							<!-- You can switch "data-color="azure"" with one of the next bright colors: "blue", "green", "orange", "red" -->
 							
 							<div class="wizard-header">
@@ -64,12 +64,14 @@
 									<div class="tab-pane" id="tablaDeIncidentes">
 										<div class="col-sm-10 col-sm-offset-1">
 											<div class="row">
-												<div class="input-group">
-													<input class="form-control" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente">
-													<span class="input-group-btn">
-														<button style="" type="submit" class="btn btn-fill btn-warning btn-wd">Buscar incidente</button>
-													</span>
-												</div>
+												<form id="buscar-incidente-form">
+													<div class="input-group">
+														<input name="idIncidente" class="form-control" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente">
+														<span class="input-group-btn">
+															<button type="submit" class="btn btn-fill btn-warning btn-wd">Buscar incidente</button>
+														</span>
+													</div>
+												</form>
 											</div>
 
 											<div class="row">
@@ -145,7 +147,7 @@
 								</div>
 							</div>
 							<div class="clearfix"></div>
-						</form>						
+						<!--</form>				-->
 					</div>
 				</div> <!-- wizard container -->
 			</div>
@@ -171,4 +173,5 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+	<script th:src="@{js/infoIncidente.js}" type="module"></script>
 </html>
