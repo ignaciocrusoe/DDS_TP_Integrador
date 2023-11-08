@@ -21,7 +21,6 @@
 	<link th:href="@{https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css}" rel="stylesheet">
 	<link th:href="@{https://fonts.googleapis.com/css?family=Muli:400,300}" rel='stylesheet' type='text/css'>
 	<link th:href="@{/css/themify-icons.css}" rel="stylesheet">
-	
 </head>
 
 <body>
@@ -59,83 +58,88 @@
 									</li>
 								</ul>
 							</div>
-							
+
 							<div class="tab-content">
 								<div class="col-sm-12">
-									<div class="position-relative" style="margin-bottom: 20px;">
-										<div></div>
-										<input class="form-control w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente o por nombre">
-									</div>
-									
 									<div class="tab-pane" id="tablaDeIncidentes">
 										<div class="col-sm-10 col-sm-offset-1">
+											<div class="row">
+												<div class="input-group">
+													<input class="form-control" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente">
+													<span class="input-group-btn">
+														<button style="" type="submit" class="btn btn-fill btn-warning btn-wd">Buscar incidente</button>
+													</span>
+												</div>
+											</div>
+
 											<div class="row">
 												<div class="container mt-5 px-2" style="width: 100%; max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
 													<div class="table-responsive">
 														<table class="table table-responsive table-borderless">
 															<thead>
-																<tr class="bg-light">
-																	<th scope="col" class="col-1">#</th>
-																	<th scope="col" class="col-1">Fecha</th>
-																	<th scope="col" class="col-1">Prestación Afectada</th>
-																	<th scope="col" class="col-1">Estado</th>
-																</tr>
+															<tr class="bg-light">
+																<th scope="col" class="col-1">#</th>
+																<th scope="col" class="col-1">Fecha</th>
+																<th scope="col" class="col-1">Prestación Afectada</th>
+																<th scope="col" class="col-1">Estado</th>
+															</tr>
 															</thead>
 															<tbody>
-																<tr>
-																	<td>12</td>
-																	<td>1 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>14</td>
-																	<td>12 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-times-circle text-danger"></i><span class="ms-1"> Apertura</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>17</td>
-																	<td>1 Nov, 21</td>
-																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>90</td>
-																	<td>19 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>90</td>
-																	<td>19 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>90</td>
-																	<td>19 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Ascensores Disco</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
-																<tr>
-																	<td>12</td>
-																	<td>1 Oct, 21</td>
-																	<td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Escaleras Coto</td>
-																	<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																	<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-																</tr>
+															<tr>
+																<td>12</td>
+																<td>1 Oct, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>14</td>
+																<td>12 Oct, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-times-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>17</td>
+																<td>1 Nov, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>90</td>
+																<td>19 Oct, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>90</td>
+																<td>19 Oct, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>90</td>
+																<td>19 Oct, 21</td>
+																<td>Ascensores Disco</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
+															<tr>
+																<td>12</td>
+																<td>1 Oct, 21</td>
+																<td>Escaleras Coto</td>
+																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+															</tr>
 															</tbody>
 														</table>
 													</div>
 												</div>
 											</div>
+
 										</div>
 									</div>
 								</div>
@@ -167,5 +171,4 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-	<script src="" th:src="@{js/main.js}" type="module"></script>
 </html>
