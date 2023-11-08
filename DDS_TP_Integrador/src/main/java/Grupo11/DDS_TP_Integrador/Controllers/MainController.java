@@ -14,11 +14,8 @@ import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -105,11 +102,16 @@ public class MainController {
         return "buscar_incidentes";
     }
 
-    @GetMapping("/buscar-incidente-id")
-    public ModelAndView obtenerInformacion(@RequestParam("idIncidente") Long idIncidente) {
+
+
+    @GetMapping("/buscar-incidente/{idIncidente}")
+    public ModelAndView obtenerInformacion(@PathVariable() Long idIncidente) {
         Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
 
         ModelAndView modelAndView = new ModelAndView("info_incidente");
+        modelAndView.addObject("incidente", incidente);
+
+        System.out.println(incidente.getIdIncidente());
 
         return modelAndView;
     }
