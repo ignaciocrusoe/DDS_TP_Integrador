@@ -33,7 +33,7 @@
 				<!-- Wizard container -->
 				<div class="wizard-container">
 					<div class="card wizard-card" data-color="orange" id="wizard">
-						<form action="" method="">
+
 							<!-- You can switch "data-color="azure"" with one of the next bright colors: "blue", "green", "orange", "red" -->
 							<div class="wizard-header">
 								<h3 class="wizard-title">Información del Incidente</h3>
@@ -87,35 +87,37 @@
 						<div class="tab-pane" id="detallesIncidente">
 							<div class="row">
 								<div class="col-sm-12">
-									<h5 class="info-text">Datos del problema.</h5>
+									<h5 class="info-text">Datos del incidente #<span th:text="${incidente.idIncidente}"></span></h5>
 								</div>
 								<div class="row" style="margin-bottom: 20px">
 									<div class="col-sm-5 col-sm-offset-1">
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Entidad</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>COTO</span></li>
+											<li style="text-align: center" class="list-group-item"><span th:text="${entidad.nombre_entidad}"></span></li>
 										</ul>
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Establecimiento</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>COTO Almagro</span></li>
+											<li style="text-align: center" class="list-group-item"><span th:text="${establecimiento.nombreEstablecimiento}"></span></li>
 										</ul>
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Prestación afectada</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>Escalera</span></li>
+											<li style="text-align: center" class="list-group-item"><span th:text="${prestacion.nombrePrestacion}"></span></li>
 										</ul>
 									</div>
 									<div class="col-sm-5">
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Estado</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>Abierto</span></li>
+											<li th:if="${incidente.estado}" style="text-align: center" class="list-group-item">Abierto></span></li>
+											<li th:unless="${incidente.estado}" style="text-align: center" class="list-group-item">Cerrado</li>
+
 										</ul>
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Horario apertura</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>20:30</span></li>
+											<li style="text-align: center" class="list-group-item"><span th:text="${incidente.apertura}"></span></li>
 										</ul>
 										<ul class="list-unstyled">
 											<li style="text-align: center" class="list-group-item"><span><b>Horario cierre</b></span></li>
-											<li style="text-align: center" class="list-group-item"><span>21:30</span></li>
+											<li style="text-align: center" class="list-group-item"><span th:text="${incidente.cierre}"></span></li>
 										</ul>
 									</div>
 								</div>
@@ -126,10 +128,13 @@
 								<div class="col-sm-12">
 									<h5 class="info-text">Contanos más sobre la resolución.</h5>
 								</div>
+								<form action="/cerrar-incidente" method="POST" id="cerrar-incidente-form">
 								<div class="col-sm-10 col-sm-offset-1">
+
 									<div class="form-group">
 										<label>Comentarios sobre la resolución</label>
-										<textarea class="form-control" placeholder="" rows="3"></textarea>
+										<textarea name="nuevaObservacion" class="form-control" placeholder="" rows="3"></textarea>
+										<input type="hidden" name="idIncidente" th:value="${incidente.idIncidente}" />
 									</div>
 								</div>
 								<div class="row">
@@ -137,11 +142,12 @@
 										<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Cerrar incidente</button>
 									</div>
 								</div>
+								</form>
 							</div>
 						</div>
 					</div>
 					<div class="clearfix"></div>
-					</form>
+
 				</div>
 			</div> <!-- wizard container -->
 		</div>
@@ -167,5 +173,5 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+	<script th:src="@{/js/infoIncidente.js}" type="module"></script>
 </html>

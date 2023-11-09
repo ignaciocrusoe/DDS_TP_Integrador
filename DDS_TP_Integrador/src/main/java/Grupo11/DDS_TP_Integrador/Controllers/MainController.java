@@ -8,7 +8,7 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
-import Grupo11.DDS_TP_Integrador.Requests.BuscarIncidenteRequest;
+import Grupo11.DDS_TP_Integrador.Requests.CerrarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Requests.ReportarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,8 +88,6 @@ public class MainController {
 
         gestorIncidentes.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
 
-        //System.out.println("todo bien" + " " + reportarIncidenteRequest.getDescripcion() );
-
         return ResponseEntity.ok("Incident reported successfully!");
     }
 
@@ -102,18 +101,37 @@ public class MainController {
         return "buscar_incidentes";
     }
 
-
-
     @GetMapping("/buscar-incidente/{idIncidente}")
     public ModelAndView obtenerInformacion(@PathVariable() Long idIncidente) {
         Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
+        Establecimiento establecimiento = incidente.getEstablecimiento();
+        Entidad entidad = incidente.getEntidad();
+        Prestacion prestacion = incidente.getPrestacionIncidentada();
 
         ModelAndView modelAndView = new ModelAndView("info_incidente");
         modelAndView.addObject("incidente", incidente);
-
-        System.out.println(incidente.getIdIncidente());
+        modelAndView.addObject("establecimiento", establecimiento);
+        modelAndView.addObject("entidad", entidad);
+        modelAndView.addObject("prestacion", prestacion);
 
         return modelAndView;
+    }
+
+    @PostMapping("/cerrar-incidente") // Define the specific endpoint for creating incidents
+    public ResponseEntity<String> createIncident(@RequestBody CerrarIncidenteRequest cerrarIncidenteRequest) {
+        // Handle the data received from the frontend
+        Incidente incidente = incidenteRepository.findByIdIncidente(cerrarIncidenteRequest.getIdIncidente());
+        String nuevaObservacion = cerrarIncidenteRequest.getDescription();
+        System.out.println(nuevaObservacion);
+
+        incidente.setObservaciones(nuevaObservacion);
+        incidente.setCierre(LocalDateTime.now());
+        incidente.setEstado(false);
+
+        incidenteRepository.save(incidente);
+
+        // Return a response, e.g., a success message
+        return ResponseEntity.ok("Incident created successfully");
     }
 
 }
