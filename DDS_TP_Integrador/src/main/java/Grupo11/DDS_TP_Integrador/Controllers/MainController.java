@@ -8,17 +8,21 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
+import Grupo11.DDS_TP_Integrador.LectorCSV.LectorCSV;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.CerrarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Requests.ReportarIncidenteRequest;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -133,6 +137,7 @@ public class MainController {
         return ResponseEntity.ok("Incident created successfully");
     }
 
+<<<<<<< HEAD
     @GetMapping("/editar_perfil/{idPersona}")
     public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
 
@@ -149,3 +154,31 @@ public class MainController {
     }
 
 }
+=======
+    @PostMapping("/importar-entidades-prestadoras/csv")
+    public ResponseEntity<String> uploadCsvFile(@RequestParam("file") MultipartFile file) throws IOException {
+        // Validate file
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("File is empty");
+        }
+        if (!file.getContentType().equals("text/csv")) {
+            return ResponseEntity.badRequest().body("File is not a CSV");
+        }
+
+        // Process file
+        LectorCSV.leerCsv1();
+        try {
+            // Parse CSV data and store in database
+
+
+            return ResponseEntity.ok("File uploaded successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file");
+        }
+    }
+
+}
+
+
+
+>>>>>>> 81ff71e25e2dd99539c538aa3bfe306f1d4c57a7

@@ -17,7 +17,7 @@ public class LectorCSV {
     private static final String[] HEADERS1 = {"nombre_organismo","mail_organismo","nombre_entidad"};
     private static final String[] HEADERS2 = {"nombre_prestador","mail_prestador","nombre_entidad","nombre_establecimiento"};
     private static final String[] HEADERS3 = {"nombre_establecimiento","prestacion","localizacion"};
-    public List<List<String>> leerCsv1() throws IOException {
+    public static List<List<String>> leerCsv1() throws IOException {
 
         Reader reader = Files.newBufferedReader(Paths.get(CSV1_FILE_PATH));
         List<List<String>> listaCsv = new ArrayList<>();
