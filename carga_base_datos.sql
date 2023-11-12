@@ -3,7 +3,7 @@
 drop schema dds;
 create schema dds;
 
-select * from incidentes
+select * from medios_comunicacion
 
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
@@ -2441,4 +2441,3 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona) values
 ('ADMIN', 'AFECTADO', 3, 1),
 ('COMUN', 'OBSERVADOR', 1, 1);
 
-select * from incidentesFK70umgdupa4rea9u2lsisjt5vx

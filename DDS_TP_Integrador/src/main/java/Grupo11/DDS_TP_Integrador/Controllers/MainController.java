@@ -6,6 +6,7 @@ import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
+import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.CerrarIncidenteRequest;
@@ -35,6 +36,9 @@ public class MainController {
     private PersonaRepository personaRepository;
     @Autowired
     private IncidenteRepository incidenteRepository;
+
+    @Autowired
+    private MedioComunicacionRepository medioComunicacionRepository;
     @Autowired
     private GestorIncidentesPersona gestorIncidentes;
 
@@ -91,17 +95,12 @@ public class MainController {
         return ResponseEntity.ok("Incident reported successfully!");
     }
 
-    @GetMapping("/info_incidente")
-    public String info_incidente() {
-        return "info_incidente";
+    @GetMapping("/buscar_incidente")
+    public String buscar_incidente() {
+        return "buscar_incidente";
     }
 
-    @GetMapping("/buscar_incidentes")
-    public String buscar_incidentes() {
-        return "buscar_incidentes";
-    }
-
-    @GetMapping("/buscar-incidente/{idIncidente}")
+    @GetMapping("/buscar_incidente/{idIncidente}")
     public ModelAndView obtenerInformacion(@PathVariable() Long idIncidente) {
         Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
         Establecimiento establecimiento = incidente.getEstablecimiento();
@@ -117,7 +116,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @PostMapping("/cerrar-incidente") // Define the specific endpoint for creating incidents
+    @PostMapping("/cerrar-incidente")
     public ResponseEntity<String> createIncident(@RequestBody CerrarIncidenteRequest cerrarIncidenteRequest) {
         // Handle the data received from the frontend
         Incidente incidente = incidenteRepository.findByIdIncidente(cerrarIncidenteRequest.getIdIncidente());
@@ -132,6 +131,21 @@ public class MainController {
 
         // Return a response, e.g., a success message
         return ResponseEntity.ok("Incident created successfully");
+    }
+
+    @GetMapping("/editar_perfil/{idPersona}")
+    public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
+
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+        List<MedioComunicacion> mediosComunicaciones = medioComunicacionRepository.findAll();
+
+        ModelAndView modelAndView = new ModelAndView("editar_perfil");
+        modelAndView.addObject("persona", persona);
+        modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
+
+        System.out.println(persona.getNombre());
+
+        return modelAndView;
     }
 
 }

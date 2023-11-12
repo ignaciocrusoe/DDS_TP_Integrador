@@ -24,7 +24,7 @@ public class Comunidad{
     private String descripcionComunidad;
 
     @ManyToMany
-    @JoinTable(name = "comunidad x incidente",
+    @JoinTable(name = "comunidad_x_incidente",
             joinColumns = @JoinColumn(name = "id_incidente"),
             inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
     private List<Incidente> incidentesReportados;

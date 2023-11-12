@@ -22,5 +22,23 @@ public class MedioComunicacion {
 
     }
 
+    public MedioComunicacion() {
+    }
+
+    public Long getId_medio() {
+        return id_medio;
+    }
+
+    public void setId_medio(Long id_medio) {
+        this.id_medio = id_medio;
+    }
+
+    public String getNombre_medio() {
+        return nombre_medio;
+    }
+
+    public void setNombre_medio(String nombre_medio) {
+        this.nombre_medio = nombre_medio;
+    }
 }
 

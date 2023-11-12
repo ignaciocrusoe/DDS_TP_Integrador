@@ -32,7 +32,7 @@ public class Entidad{
     protected OrganismoControl organismoControl;
 
     @ManyToMany
-    @JoinTable(name = "entidad x persona",
+    @JoinTable(name = "entidad_x_persona",
             joinColumns = @JoinColumn(name = "id_entidad"),
             inverseJoinColumns = @JoinColumn(name = "id_persona"))
     protected List<Persona> suscriptores;
@@ -59,13 +59,7 @@ public class Entidad{
     @Transient
     protected Notificador notificador;
 
-
-
-
-
     //metodos utilitarios
-
-
     public Entidad() {
     }
 
