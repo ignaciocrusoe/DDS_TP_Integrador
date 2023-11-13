@@ -5,6 +5,7 @@ import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
+import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentes;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-
 @Controller
 public class MainController {
 
@@ -44,7 +44,8 @@ public class MainController {
     @Autowired
     private MedioComunicacionRepository medioComunicacionRepository;
     @Autowired
-    private GestorIncidentesPersona gestorIncidentes;
+    private GestorIncidentesPersona gestorIncidentesPersona;
+
 
     @Autowired
     private EntidadRepository entidadRepository;
@@ -58,6 +59,8 @@ public class MainController {
     public String inicio() {
         return "inicio";
     }
+
+
 
     @GetMapping("/reportar_incidente")
     public String reportar_incidente(Model model) {
@@ -94,7 +97,7 @@ public class MainController {
         incidenteRepository.save(nuevoIncidente);
         entidadRepository.save(entidad);
 
-        gestorIncidentes.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
+        gestorIncidentesPersona.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
 
         return ResponseEntity.ok("Incident reported successfully!");
     }
@@ -120,6 +123,9 @@ public class MainController {
         return modelAndView;
     }
 
+
+
+
     @PostMapping("/cerrar-incidente")
     public ResponseEntity<String> createIncident(@RequestBody CerrarIncidenteRequest cerrarIncidenteRequest) {
         // Handle the data received from the frontend
@@ -137,7 +143,7 @@ public class MainController {
         return ResponseEntity.ok("Incident created successfully");
     }
 
-<<<<<<< HEAD
+
     @GetMapping("/editar_perfil/{idPersona}")
     public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
 
@@ -153,8 +159,8 @@ public class MainController {
         return modelAndView;
     }
 
-}
-=======
+
+
     @PostMapping("/importar-entidades-prestadoras/csv")
     public ResponseEntity<String> uploadCsvFile(@RequestParam("file") MultipartFile file) throws IOException {
         // Validate file
@@ -179,6 +185,3 @@ public class MainController {
 
 }
 
-
-
->>>>>>> 81ff71e25e2dd99539c538aa3bfe306f1d4c57a7

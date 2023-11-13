@@ -1,5 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Incidentes;
 
+import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
+import Grupo11.DDS_TP_Integrador.Repositories.IncidenteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +36,6 @@ public class IncidenteProvider {
     public int cantidadIncidentes(List<Incidente> incidentes) {
         return incidentes.size();
     }
+
+
 }

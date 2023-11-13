@@ -33,5 +33,11 @@ public class GestorIncidentes {
 
         }
     }
+
+    public List<Incidente> getIncidentesAbiertosByComunidad(Comunidad  comunidad){
+
+        return incidenteRepository.findByComunidadesAfectadasIsContainingAndEstadoTrue(comunidad);
+
+    }
 }
 

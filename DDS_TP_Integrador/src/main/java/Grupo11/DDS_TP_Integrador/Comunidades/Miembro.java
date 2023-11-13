@@ -38,6 +38,10 @@ public class Miembro {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public Miembro() {
+
+    }
+
     public Long getidMiembro() {
         return idMiembro;
     }
