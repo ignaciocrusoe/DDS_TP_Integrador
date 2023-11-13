@@ -1,3 +1,5 @@
+let latitudActualPersona, longitudActualPersona;
+
 export const idPersona = localStorage.getItem('idPersona');
 /*la idea es poder tomar de este script la lista de notificaciones y tenerlas siempre actualizadas
 tonces lo importamos en cualquier vista que tenga el boton de notificaciones
@@ -25,7 +27,6 @@ export async function actualizarNotificaciones(){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function obtenerUbicacion() {
-    let latitudActualPersona, longitudActualPersona;
 
     return new Promise((resolve, reject) => {
         if ("geolocation" in navigator) {

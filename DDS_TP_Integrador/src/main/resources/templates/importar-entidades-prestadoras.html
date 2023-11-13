@@ -49,6 +49,8 @@
 	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 	<link href="../static/css/themify-icons.css" rel="stylesheet">
 
+	<script src="@{/js/csv_parser.js}" type="text/javascript"></script>
+
 	<style>
 
 	</style>
@@ -94,7 +96,7 @@
 											<div class="picture-container">
 												<div class="picture" style=" width: 150px; height: 150px;">
 													<img style="margin-top: 18px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFQ0lEQVR4nO2dWYgdRRSGv8yMoigKaowoilEQUXENijIggsElGoiKqA9u4AZRRFARDEYNYkTIgIGgRnDBuKERfFBQEhfwSRRR3AgjKgb3LRmXaNJSUBeKQ/VM5t5J/tPV/UE93K7T557+/+mtblcPdHR0dHR07HyqhrUPgP0omKqB7RPgQAqlamj7DDiIAqka3L4E5lIYdiO9UtW0r4DDKYimG1IBG4GjKIQSDKmA74BjKICmGvJkZtn3wLE0nKYaMgtYmVn+C3AyDaaphhBNGcv0/QacSkNpsiE9lmX6NwNn0EBKMCSwNBMzAZxJwyjFkMDtmbi/gYU0iJIMCdyaif0HWERDKM2QwA3ANhO/BbiIBlCiIYFrgK1mnf+Ay3FOqYYELgP+zZhyNY4p2ZDAJRlTwuHsRpxSuiHEc8eWjCk345A2GBJYAPyVyXMnzmiLIYGzgT8zue7HEW0yJHA6sMmzKW0zJDAK/J7J+WAcsJTSRkMC84CfM3lXAUMIaashgROAHzO5H1Wa0mZDiL/Fb8zkXwOMIKCphlQ7oT3jYUO9UomafEO9UnWG+KLqDGknlfqIIS/AGXI95AU4Q66HvABnyPWQF+AMuR7yApwh10NegDPkesgLcIZcD3kBzpDrIS/AGXI95AU4Q66HvABnyPWQF+AMuR47soDd4/NQS+IDBOEZqHMzv8SNxMk1d8S4EH8psHfsPwu4Nmm5iTinmJh+pyAUacgQcBPwU82Q+f5J7HxgQ03cpzHmAbN8feY712R+F++H4gzZFXiuRuDQvk5iz4sPP9fFvhTjFpnlP2S+930Tc2Wf9RdnyFgm59b4IMFEIvIecRqzfd72G+CP+PmuGHtAJudss0dOmP4j+qy/KENGMxNlXgQOToQL4vamCqRxHwKHJrnCfPOjk8/jJj48gdhjbmYP6veBt6IMeTlzrB+uiV1hYi+YIvfTJj7MkupxjukLddB2Q/bJzFiaN0n8wyb24inyLzbxDyV9t5i+2wbYjmIMWWjybJgi3k7O/GiKN8WdZOLXJX2PmL5w6KTthtwzzYfMDslMohmfZLL/SHwZQPqymR7vmGnQuw2wHcUYssrkWb4d6yzPfP+2eHO4SyZ+vYkNh0niSby37F0GoxhDnu1jZtIwsDZTQ2hvZv7S7zMx4X0me5llwcxBKMaQF0yepdu53lAcKsndIK42seeb/iuA482yQV8QUIwhj5k8Y9NcfzS+Q9Eevo5MYmab+5xl8XI5XWcOg1GMIXebPK/1kWNOZlzL7mlfJH3Pm6u1qa7sWmXIhSbPpjjaO12uMnmeMv1PmLv79GIi9A1KMYbsm7mMXdxHnvkmx+Om//qkL4xfvZ58vo7BKcaQwCuZvWS0JnbPmmGV1VPcdR9n+tNBxZl4CWZRhpxY88KXtfFcsCIe84l7z7fxYmBJbG+ZdcMed5j5juFkNDhtv87QvMCiDMmd3KuaIQ97I5lr4SoqxxuZ2FeZGYozZFY0xb7wxV4JvT2JEb279bq/+Ht34CsyijMkPdavjP/JYHNs48mV0II43vVxnMQfzgWfx4HCMF15MsJvIe+ZdhozQ7GGNBW5HvICnCHXQ16AM+R6yAtwhlwPeQHOkOshL8AZcj3kBThDroe8AGfI9ZAX4Ay5HvICnCHXQ16AM+R6yAtwhlwPeQHOkOshL8AZcj3kBThDroe8AGfI9ZAX4Ay5HvICnCHXQ16AM+R6yAtwhlwPeQHOkOshL8AZcj3kBThDroe8AGfI9bAFdI3OkMrxH0K3h6A3oTMEvfBuDOno6OjooNX8D3Pzx10f3pJCAAAAAElFTkSuQmCC">
-													<input type="file" name="csvFile" accept=".csv" id="wizard-picture">
+													<input type="file" name="csvFile" accept=".csv" id="csv-file">
 												</div>
 											</div>
 										</div>
