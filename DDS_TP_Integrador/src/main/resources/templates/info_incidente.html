@@ -126,20 +126,24 @@
 						<div class="tab-pane" id="cerrarIncidente">
 							<div class="row">
 								<div class="col-sm-12">
-									<h5 class="info-text">Contanos más sobre la resolución.</h5>
+									<h5 th:if="${incidente.estado}" class="info-text">Contanos más sobre la resolución.</h5>
+									<h5 th:unless="${incidente.estado}" class="info-text">El incidente ya fue cerrado.</h5>
 								</div>
-								<form action="/cerrar-incidente" method="POST" id="cerrar-incidente-form">
+								<form th:action="@{/cerrar_incidente}" method="post" th:object="${cerrarIncidenteRequest}" id="cerrar-incidente-form">
 								<div class="col-sm-10 col-sm-offset-1">
 
 									<div class="form-group">
 										<label>Comentarios sobre la resolución</label>
-										<textarea name="nuevaObservacion" class="form-control" placeholder="" rows="3"></textarea>
+										<textarea th:if="${incidente.estado}" th:value="${description}" name="description" class="form-control" placeholder="" rows="3"></textarea>
+										<textarea th:unless="${incidente.estado}" th:value="${description}" name="description" class="form-control" placeholder="" rows="3" disabled></textarea>
 										<input type="hidden" name="idIncidente" th:value="${incidente.idIncidente}" />
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-10 col-sm-offset-1">
-										<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Cerrar incidente</button>
+										<button th:if="${incidente.estado}" style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Cerrar incidente</button>
+										<button th:unless="${incidente.estado}" style="width: 100%" type="submit" class="btn btn-fill btn-warning btn-wd" disabled>Incidente cerrado</button>
+
 									</div>
 								</div>
 								</form>

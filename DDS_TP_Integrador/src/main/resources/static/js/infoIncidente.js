@@ -2,6 +2,8 @@
 const idPersona = localStorage.getItem('idPersona');
 console.log('Received idPersona:', idPersona);
 
+/*
+
 document.addEventListener("DOMContentLoaded", function () {
   const incidentForm = document.getElementById("cerrar-incidente-form");
 
@@ -47,3 +49,5 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
+*/

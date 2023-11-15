@@ -74,8 +74,8 @@ public class MainController {
         return "reportar_incidente";
     }
 
-    @PostMapping("/crear-incidente") // Replace with your actual endpoint
-    public ResponseEntity<String> reportIncident(@RequestBody ReportarIncidenteRequest reportarIncidenteRequest) {
+    @PostMapping("/crear_incidente") // Replace with your actual endpoint
+    public String reportIncidente(@ModelAttribute ReportarIncidenteRequest reportarIncidenteRequest) {
         Establecimiento establecimiento = establecimientoRepository.findByNombreEstablecimiento(reportarIncidenteRequest.getEstablecimiento());
         Prestacion prestacion = prestacionRepository.findByNombrePrestacion(reportarIncidenteRequest.getPrestacion());
         Persona persona = personaRepository.findByIdPersona(reportarIncidenteRequest.getIdPersona());
@@ -99,7 +99,7 @@ public class MainController {
 
         gestorIncidentesPersona.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
 
-        return ResponseEntity.ok("Incident reported successfully!");
+        return "redirect:/reportar_incidente";
     }
 
     @GetMapping("/buscar_incidente")
@@ -126,8 +126,8 @@ public class MainController {
 
 
 
-    @PostMapping("/cerrar-incidente")
-    public ResponseEntity<String> createIncident(@RequestBody CerrarIncidenteRequest cerrarIncidenteRequest) {
+    @PostMapping("/cerrar_incidente")
+    public String createIncidente(@ModelAttribute CerrarIncidenteRequest cerrarIncidenteRequest) {
         // Handle the data received from the frontend
         Incidente incidente = incidenteRepository.findByIdIncidente(cerrarIncidenteRequest.getIdIncidente());
         String nuevaObservacion = cerrarIncidenteRequest.getDescription();
@@ -140,7 +140,7 @@ public class MainController {
         incidenteRepository.save(incidente);
 
         // Return a response, e.g., a success message
-        return ResponseEntity.ok("Incident created successfully");
+        return "redirect:/buscar_incidente/" + incidente.getIdIncidente();
     }
 
 
