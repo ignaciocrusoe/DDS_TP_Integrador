@@ -3,6 +3,7 @@ package Grupo11.DDS_TP_Integrador.Controllers;
 import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
 import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
+import Grupo11.DDS_TP_Integrador.Comunidades.Rol;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentes;
@@ -11,8 +12,7 @@ import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.LectorCSV.LectorCSV;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
-import Grupo11.DDS_TP_Integrador.Requests.CerrarIncidenteRequest;
-import Grupo11.DDS_TP_Integrador.Requests.ReportarIncidenteRequest;
+import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,8 @@ public class MainController {
     private PersonaRepository personaRepository;
     @Autowired
     private IncidenteRepository incidenteRepository;
-
+    @Autowired
+    private MiembroRepository miembroRepository;
     @Autowired
     private MedioComunicacionRepository medioComunicacionRepository;
     @Autowired
@@ -149,14 +150,47 @@ public class MainController {
 
         Persona persona = personaRepository.findByIdPersona(idPersona);
         List<MedioComunicacion> mediosComunicaciones = medioComunicacionRepository.findAll();
+        List<Miembro> membresias = persona.getMembresias();
 
         ModelAndView modelAndView = new ModelAndView("editar_perfil");
         modelAndView.addObject("persona", persona);
+        modelAndView.addObject("membresias", membresias);
         modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
 
         System.out.println(persona.getNombre());
 
         return modelAndView;
+    }
+
+
+    @DeleteMapping("/abandonar_comunidad")
+    public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
+
+
+        Miembro miembro = miembroRepository.getReferenceById();
+
+        // Return a response, e.g., a success message
+        return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
+    }
+
+    @PutMapping("/cambiar_rol")
+    public String cambiarRol(@ModelAttribute CambiarRolRequest cambiarRolRequest) {
+
+
+        Miembro miembro = miembroRepository.getReferenceById();
+
+        // Return a response, e.g., a success message
+        return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
+    }
+
+    @PutMapping("/cambiar_nombre")
+    public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
+
+
+        Persona persona = personaRepository.findByIdPersona();
+
+        // Return a response, e.g., a success message
+        return "redirect:/editar_perfil/" + persona.getIdPersona();
     }
 
 

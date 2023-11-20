@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
@@ -35,7 +35,7 @@
 				<div class="wizard-container">
 
 					<div class="card wizard-card" data-color="orange" id="wizardProfile">
-						<form action="" method="">
+
 							<!-- You can switch " data-color="orange" " with one of the next bright colors: "blue", "green", "orange", "red", "azure" -->
 
 							<div class="wizard-header text-center">
@@ -78,32 +78,35 @@
 							<div class="tab-content">
 
 								<div class="tab-pane" id="about">
+									<form action="" method="">
 									<div class="row">
 										<h5 class="info-text">Perfil público:</h5>
 										<div class="col-sm-4 col-sm-offset-1">
 											<div class="picture-container">
 												<div class="picture">
-													<img src="/static/img/default-avatar.jpg" class="picture-src"
-														 id="wizardPicturePreview" title="">
+													<img src="/static/img/default-avatar.jpg" id="wizardPicturePreview" title="">
 												</div>
-												<h6>Acá va el nombre</h6>
+												<h6 th:text="${persona.nombre}"></h6>
 											</div>
 										</div>
 										<div class="col-sm-6">
-											<div class="form-group">
-												<label>Nombre <small>(required)</small></label>
-												<input name="firstname" type="text" class="form-control" placeholder="Ejemplo: Pepe">
-											</div>
-											<div class="form-group">
-												<label>Apellido <small>(required)</small></label>
-												<input name="lastname" type="text" class="form-control" placeholder="Ejemplo: Pepón">
+												<div class="form-group">
+													<label>Nombre: </label>
+													<input name="firstname" type="text" class="form-control" placeholder="Ejemplo: Pepe">
+												</div>
 											</div>
 										</div>
+										<div class="row">
+											<div class="col-sm-10 col-sm-offset-1">
+												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Editar perfil</button>
+											</div>
+										</div>
+									</form>
 									</div>
-								</div>
 
-								<div class="tab-pane" id="informacion">
 
+									<div class="tab-pane" id="informacion">
+									<form action="" method="">
 									<h5 class="info-text">Editá tu información privada:</h5>
 									<div class="row">
 										<div class="row">
@@ -123,51 +126,52 @@
 												</div>
 											</div>
 										</div>
+										<div class="row">
+											<div class="col-sm-10 col-sm-offset-1">
+												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Cerrar incidente</button>
+											</div>
+										</div>
 									</div>
+									</form>
 								</div>
 
 								<div class="tab-pane" id="comunidades">
-									<h5 class="info-text"><b>Andrew Smith</b> es miembro de las siguientes comunidades:
-									</h5>
+									<h5 class="info-text"><b>Andrew Smith</b> es miembro de las siguientes comunidades:</h5>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1">
-											<div class="col-sm-6">
-												<div class="choice" data-toggle="wizard-checkbox">
-													<input type="checkbox" name="jobb" value="Design">
-													<div class="card card-checkboxes card-hover-effect">
-														<i class="ti-comments"></i>
-														<p>Comunidad 1</p>
-														<button class="btn btn-danger">Abandonar</button>
-														<p></p>
-														<select style="width: 60%; margin-bottom: 20px;"
-																class="btn form- control">
-															<option>Observador</option>
-															<option>Afectado</option>
-														</select>
+											<div th:each="membresia : ${membresias}">
+												<div class="col-sm-6">
+													<div class="choice" data-toggle="wizard-checkbox">
+														<input type="checkbox" name="jobb" value="Design">
+														<div class="card card-checkboxes card-hover-effect" >
+															<div class="row" style="padding-bottom: 10px">
+																<i class="ti-comments"></i>
+																<p th:text="${membresia.nombre}"></p>
+																<form action="" method="">
+																	<button class="btn btn-danger" >Abandonar</button>
+																</form>
+															</div>
+																<div class="row" style="padding-bottom: 10px">
+																<form action="" method="">
+																	<div >
+																	<select style="width: 60%;" class="btn form-control">
+																		<option>Observador</option>
+																		<option>Afectado</option>
+																	</select>
+																	<button class="btn btn-primary rounded-circle" style="padding-buttom: 50px;">+</button>
+																	</div>
+																</form>
+																</div>
+
+														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="choice" data-toggle="wizard-checkbox">
-													<input type="checkbox" name="jobb" value="Design">
-													<div class="card card-checkboxes card-hover-effect">
-														<i class="ti-comments"></i>
-														<p>Comunidad 2</p>
-														<button class="btn btn-danger">Abandonar</button>
-														<p></p>
-														<select style="width: 60%; margin-bottom: 20px;"
-																class="btn form- control">
-															<option>Observador</option>
-															<option>Afectado</option>
-														</select>
-													</div>
-												</div>
+
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div> <!-- wizard container -->
 			</div>

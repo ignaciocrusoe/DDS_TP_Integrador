@@ -3,7 +3,7 @@
 drop schema dds;
 create schema dds;
 
-select * from medios_comunicacion
+select * from incidentes
 
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
@@ -2436,8 +2436,9 @@ insert into comunidades (descripcion_comunidad, nombre_comunidad) values
 ('Comunidad ciegos', 'Para aquellos con problemas de vista'),
 ('Comunidad ancianos', 'Para aquellos en edad avanzada');
 
-insert into membresias (rol_comunidad, rol_usuario, comunidad, persona) values
-('COMUN', 'AFECTADO', 2, 2),
-('ADMIN', 'AFECTADO', 3, 1),
-('COMUN', 'OBSERVADOR', 1, 1);
+insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_comunidad) values
+('COMUN', 'AFECTADO', 2, 2, 'Comunidad ciegos'),
+('ADMIN', 'AFECTADO', 3, 1, 'Comunidad ancianos'),
+('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados');
+
 

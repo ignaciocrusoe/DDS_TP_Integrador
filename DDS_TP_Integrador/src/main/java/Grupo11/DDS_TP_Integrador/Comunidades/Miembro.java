@@ -11,6 +11,9 @@ public class Miembro {
     @Column(name="id_miembro")
     private Long idMiembro;
 
+    @Column(name="nombre_comunidad")
+    private String nombre;
+
     @ManyToOne
     @JoinColumn(name="comunidad")
     private Comunidad comunidad;
@@ -30,8 +33,9 @@ public class Miembro {
     //metodos utilitarios
 
 
-    public Miembro(Long idMiembro, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
+    public Miembro(Long idMiembro, String nombre, Comunidad comunidad, Persona persona, Rol rolEnComunidad, TipoUsuario tipoUsuario) {
         this.idMiembro = idMiembro;
+        this.nombre = nombre;
         this.comunidad = comunidad;
         this.persona = persona;
         this.rolEnComunidad = rolEnComunidad;
@@ -92,5 +96,13 @@ public class Miembro {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
