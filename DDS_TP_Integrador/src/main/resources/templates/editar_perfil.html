@@ -77,26 +77,33 @@
 							</div>
 							<div class="tab-content">
 
-								<div class="tab-pane" id="about">
-									<form action="" method="">
-									<div class="row">
-										<h5 class="info-text">Perfil público:</h5>
+								<div class="tab-pane" id="about" style="margin-top: 40px">
+									<form th:action="@{/cambiar_nombre}" method="post" th:object="${cambiarNombreRequest}" id="cambiar-nombre-form">
+
+										<div class="row">
+
 										<div class="col-sm-4 col-sm-offset-1">
 											<div class="picture-container">
+												<h6 th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
 												<div class="picture">
-													<img src="/static/img/default-avatar.jpg" id="wizardPicturePreview" title="">
+													<!--<img src="/static/img/default-avatar.jpg" id="wizardPicturePreview" title="">-->
 												</div>
-												<h6 th:text="${persona.nombre}"></h6>
+
 											</div>
 										</div>
 										<div class="col-sm-6">
 												<div class="form-group">
+													<input type="hidden" class="idPersonaInput" name="idPersona" th:value="${idPersona}">
+
 													<label>Nombre: </label>
-													<input name="firstname" type="text" class="form-control" placeholder="Ejemplo: Pepe">
+													<input name="nuevoNombre" th:value="${nuevoNombre}" type="text" class="form-control" placeholder="Ejemplo: Pepe">
+
+													<label>Apellido: </label>
+													<input name="nuevoApellido" th:value="${nuevoApellido}" type="text" class="form-control" placeholder="Ejemplo: Peposo">
 												</div>
 											</div>
 										</div>
-										<div class="row">
+										<div class="row" style="margin-top:20px;">
 											<div class="col-sm-10 col-sm-offset-1">
 												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Editar perfil</button>
 											</div>
@@ -105,61 +112,68 @@
 									</div>
 
 
-									<div class="tab-pane" id="informacion">
-									<form action="" method="">
-									<h5 class="info-text">Editá tu información privada:</h5>
+									<div class="tab-pane" id="informacion" style="margin-top: 40px">
+										<form th:action="@{/cambiar_medio}" method="post" th:object="${cambiarMedioRequest}" id="cambiar-medio-form">
+											<input type="hidden" class="idPersonaInput" name="idPersona" th:value="${idPersona}">
+											<h5 class="info-text">Editá tu información privada:</h5>
 									<div class="row">
 										<div class="row">
 											<div class="col-sm-5 col-sm-offset-1">
 												<div class="form-group">
 													<label>Horario de notificaciones</label>
-													<input type="text" class="form-control" id="exampleInputEmail1" placeholder="07:30">
+													<input type="time" class="form-control" name="horario" th:value="${horario}" placeholder="07:30">
 												</div>
 											</div>
 											<div class="col-sm-5">
 												<div class="form-group">
 													<label>Medio de comunicación</label><br>
-													<select name="country" class="form-control">
+													<select name="nombreMedio" class="form-control">
 														<option disabled="" selected="">Medio de cominicación</option>
-														<option th:each="medioComunicacion : ${mediosComunicaciones}" th:value="${medioComunicacion.nombre_medio}" th:text="${medioComunicacion.nombre_medio}"></option>
+														<option th:each="medioComunicacion : ${mediosComunicaciones}" th:value="${medioComunicacion.nombreMedio}" th:text="${medioComunicacion.nombreMedio}"></option>
 													</select>
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-sm-10 col-sm-offset-1">
-												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Cerrar incidente</button>
+												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Guardar cambios</button>
 											</div>
 										</div>
 									</div>
 									</form>
 								</div>
 
-								<div class="tab-pane" id="comunidades">
+								<div class="tab-pane" id="comunidades" style="margin-top: 10px">
 									<h5 class="info-text"><b>Andrew Smith</b> es miembro de las siguientes comunidades:</h5>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1">
 											<div th:each="membresia : ${membresias}">
 												<div class="col-sm-6">
 													<div class="choice" data-toggle="wizard-checkbox">
-														<input type="checkbox" name="jobb" value="Design">
 														<div class="card card-checkboxes card-hover-effect" >
+
 															<div class="row" style="padding-bottom: 10px">
 																<i class="ti-comments"></i>
 																<p th:text="${membresia.nombre}"></p>
-																<form action="" method="">
-																	<button class="btn btn-danger" >Abandonar</button>
+																<form th:action="@{/abandonar_comunidad}" method="post" th:object="${abandonarComunidadRequest}" id="abandonar-comunidad-form">
+																	<input type="hidden" class="idMiembro" name="idMiembro" th:value="${membresia.idMiembro}">
+																	<button type="submit" class="btn btn-danger" >Abandonar</button>
 																</form>
-															</div>
-																<div class="row" style="padding-bottom: 10px">
-																<form action="" method="">
-																	<div >
-																	<select style="width: 60%;" class="btn form-control">
-																		<option>Observador</option>
-																		<option>Afectado</option>
-																	</select>
-																	<button class="btn btn-primary rounded-circle" style="padding-buttom: 50px;">+</button>
-																	</div>
+
+																	<form th:action="@{/cambiar_tipo}" method="post" th:object="${reportarTipoRequest}" id="cambiar-rol-form">
+
+																		<input type="hidden" class="idMiembro" name="idMiembro" th:value="${membresia.idMiembro}">
+																		<div class="row" style="margin-top: 10px;">
+
+																		<select name="tipo" class="btn form-control" style="width: 60%;">
+																			<option disabled selected hidden>Tipo de usuario</option>
+																			<option>Observador</option>
+																			<option>Afectado</option>
+																		</select>
+																			<button type="submit" class="btn btn-primary rounded-circle" >+</button>
+
+																		</div>
+
 																</form>
 																</div>
 
@@ -196,6 +210,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-	<!-- <script src="" th:src="@{js/reportar.js}" type="module"></script> -->
+	<script th:src="@{/js/editar-perfil.js}" type="module"></script>
 </html>
 

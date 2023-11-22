@@ -3,10 +3,9 @@ package Grupo11.DDS_TP_Integrador.Controllers;
 import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
 import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
-import Grupo11.DDS_TP_Integrador.Comunidades.Rol;
+import Grupo11.DDS_TP_Integrador.Comunidades.TipoUsuario;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
-import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentes;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
@@ -47,6 +46,8 @@ public class MainController {
     @Autowired
     private GestorIncidentesPersona gestorIncidentesPersona;
 
+    @Autowired
+    private ComunidadRepository comunidadRepository;
 
     @Autowired
     private EntidadRepository entidadRepository;
@@ -157,40 +158,68 @@ public class MainController {
         modelAndView.addObject("membresias", membresias);
         modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
 
-        System.out.println(persona.getNombre());
-
         return modelAndView;
     }
 
 
-    @DeleteMapping("/abandonar_comunidad")
+    @PostMapping("/abandonar_comunidad")
     public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
 
 
-        Miembro miembro = miembroRepository.getReferenceById();
+        Miembro miembro = miembroRepository.getReferenceById(abandonarComunidadRequest.getIdMiembro());
 
-        // Return a response, e.g., a success message
+        miembroRepository.delete(miembro);
+
         return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
     }
 
-    @PutMapping("/cambiar_rol")
-    public String cambiarRol(@ModelAttribute CambiarRolRequest cambiarRolRequest) {
+    @PostMapping("/cambiar_tipo")
+    public String cambiarTipo(@ModelAttribute CambiarTipoRequest cambiarTipoRequest) {
 
 
-        Miembro miembro = miembroRepository.getReferenceById();
+        Miembro miembro = miembroRepository.getReferenceById(cambiarTipoRequest.getIdMiembro());
 
-        // Return a response, e.g., a success message
+        if( cambiarTipoRequest.getTipo().equals("Observador")){
+            miembro.setTipoUsuario(TipoUsuario.OBSERVADOR);
+        }else if (cambiarTipoRequest.getTipo().equals("Afectado")){
+            miembro.setTipoUsuario(TipoUsuario.AFECTADO);
+        }else{
+            miembro.setTipoUsuario( miembro.getTipoUsuario());
+        }
+
+        miembroRepository.save(miembro);
+
+        System.out.println(cambiarTipoRequest.getIdMiembro());
+        System.out.println(cambiarTipoRequest.getTipo());
+
         return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
     }
 
-    @PutMapping("/cambiar_nombre")
+    @PostMapping("/cambiar_nombre")
     public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
 
+        Persona persona = personaRepository.findByIdPersona(cambiarNombreRequest.getIdPersona());
+        persona.setNombre(cambiarNombreRequest.getNuevoNombre());
+        persona.setApellido(cambiarNombreRequest.getNuevoApellido());
+        personaRepository.save(persona);
 
-        Persona persona = personaRepository.findByIdPersona();
-
-        // Return a response, e.g., a success message
         return "redirect:/editar_perfil/" + persona.getIdPersona();
+    }
+
+    @PostMapping("/cambiar_medio")
+    public String cambiarMedio(@ModelAttribute CambiarMedioRequest cambiarMedioRequest) {
+
+        Persona persona = personaRepository.findByIdPersona(cambiarMedioRequest.getIdPersona());
+        persona.setHorarios(cambiarMedioRequest.getHorario());
+
+        System.out.println(cambiarMedioRequest.getHorario());
+
+        MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
+        persona.setMedioComunicacion(medio);
+        personaRepository.save(persona);
+
+        return "redirect:/editar_perfil/" + persona.getIdPersona();
+
     }
 
 

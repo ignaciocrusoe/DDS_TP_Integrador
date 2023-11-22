@@ -1,8 +1,4 @@
 package Grupo11.DDS_TP_Integrador.GestoresNotificaciones;
-import Grupo11.DDS_TP_Integrador.Incidentes.*;
-import Grupo11.DDS_TP_Integrador.Comunidades.*;
-import Grupo11.DDS_TP_Integrador.Notificadores.*;
-import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import jakarta.persistence.*;
 
 @Entity(name = "medios_comunicacion")
@@ -16,7 +12,7 @@ public class MedioComunicacion {
     @Column(name="id_medio")
     private Long id_medio;
     @Column(name="nombre_medio")
-    private String nombre_medio;
+    private String nombreMedio;
 
     public void notificar(){
 
@@ -33,12 +29,12 @@ public class MedioComunicacion {
         this.id_medio = id_medio;
     }
 
-    public String getNombre_medio() {
-        return nombre_medio;
+    public String getNombreMedio() {
+        return nombreMedio;
     }
 
-    public void setNombre_medio(String nombre_medio) {
-        this.nombre_medio = nombre_medio;
+    public void setNombreMedio(String nombreMedio) {
+        this.nombreMedio = nombreMedio;
     }
 }
 

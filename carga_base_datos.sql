@@ -3,8 +3,6 @@
 drop schema dds;
 create schema dds;
 
-select * from incidentes
-
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
 #organismos de control
@@ -2417,15 +2415,15 @@ INSERT INTO prestaciones (nombre_prestacion, prestacion_padre, prestacion) VALUE
 ('Escaleras', 1, 'Elevacion'), #prestacion simple
 ('Escaleras mecanicas', 1, 'Elevacion'); #prestacion simple
 
-insert into medios_comunicacion (nombre_medio, categoria) values
+insert into medios_comunicacion (nombre_Medio, categoria) values
 ('Whatsapp', 'Telefono'),
 ('Email', 'Email');
 
 #MANEJO DE SESIONES, PERSONAS, Y COMUNIDADES (CORRER ESTO LUEGO DE LA MIGRACION)
 
-INSERT INTO personas (horarios, mail, nombre_persona, telefono, medio) VALUES
-('17:00:00', 'pepe@gmail.com', 'Pepe', '1164638551', 2),
-('17:00:00', 'pepa@gmail.com', 'Pepa', '1164638551', 2);
+INSERT INTO personas (horarios, mail, nombre_persona, apellido_persona, telefono, medio) VALUES
+('17:00:00', 'pepe@gmail.com', 'Pepe', 'Peposo', '1164638551', 2),
+('17:00:00', 'pepa@gmail.com', 'Pepa', 'Peposa', '1164638551', 2);
 
 insert into login_event (id_usuario, login_time, logout_time, id_persona) values
 ('h1vZSKgCYiZNe3UnAeZLbXd3U4L2', '2023-11-06 23:07:40.000000', '2023-11-06 23:07:40.000000', 1), # pepe@gmail.com qwertyu
@@ -2440,5 +2438,7 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_c
 ('COMUN', 'AFECTADO', 2, 2, 'Comunidad ciegos'),
 ('ADMIN', 'AFECTADO', 3, 1, 'Comunidad ancianos'),
 ('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados');
+
+
 
 

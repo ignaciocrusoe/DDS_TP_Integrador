@@ -21,6 +21,9 @@ public class Persona {
   @Column(name="nombre_persona")
   private String nombre;
 
+  @Column(name="apellido_persona")
+  private String apellido;
+
   @Column(name="horarios")
   private LocalTime horarios;
 
@@ -61,9 +64,10 @@ public class Persona {
     listaNotificaciones = new ArrayList<>();
   }
 
-  public Persona(Long idPersona, String nombre, LocalTime horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
+  public Persona(Long idPersona, String nombre, String apellido, LocalTime horarios, Integer telefono, String mail, MedioComunicacion medioComunicacion, List<Notificacion> listaNotificaciones, List<Miembro> membresias, List<Entidad> entidadesSuscriptas, List<LoginEvent> loginEventList) {
     this.idPersona = idPersona;
     this.nombre = nombre;
+    this.apellido = apellido;
     this.horarios = horarios;
     this.telefono = telefono;
     this.mail = mail;
@@ -72,6 +76,14 @@ public class Persona {
     this.membresias = membresias;
     this.entidadesSuscriptas = entidadesSuscriptas;
     this.loginEventList = loginEventList;
+  }
+
+  public String getApellido() {
+    return apellido;
+  }
+
+  public void setApellido(String apellido) {
+    this.apellido = apellido;
   }
 
   public List<LoginEvent> getLoginEventList() {
