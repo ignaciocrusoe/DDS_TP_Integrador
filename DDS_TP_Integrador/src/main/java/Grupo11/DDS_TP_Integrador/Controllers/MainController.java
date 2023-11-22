@@ -64,6 +64,13 @@ public class MainController {
 
 
 
+    @GetMapping("/importar-entidades-prestadoras")
+    public String importarentidadesprestadoras() {
+        return "importar-entidades-prestadoras";
+    }
+
+
+
     @GetMapping("/reportar_incidente")
     public String reportar_incidente(Model model) {
 

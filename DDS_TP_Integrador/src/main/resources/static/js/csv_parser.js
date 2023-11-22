@@ -1,15 +1,15 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 
-const HEADERS3 = ['nombre_establecimiento', 'id_entidad', 'localizacion', 'categoria'];
-document.addEventListener("submit", function () {
+const HEADERS4 = ['nombre_establecimiento', 'id_entidad', 'localizacion', 'categoria'];
+document.getElementById("boton-cargar-archivo").addEventListener("submit", leer_csv_entidades () {
     const incidentForm = document.getElementById("csv-file")});
 
 function leer_csv_entidades(path) {
   const listaCsv = [];
   fs.createReadStream(path)
     .pipe(csv({
-      headers: HEADERS3,
+      headers: HEADERS4,
       delimiter: ';',
       skipHeader: true
     }))
