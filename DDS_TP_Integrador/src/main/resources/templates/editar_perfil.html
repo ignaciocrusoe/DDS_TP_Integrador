@@ -84,7 +84,9 @@
 
 										<div class="col-sm-4 col-sm-offset-1">
 											<div class="picture-container">
-												<h6 th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
+												<!-- Check if persona.nombre is not equal to 'NULL' -->
+												<h6 th:if="${persona.nombre != 'NULL' && persona.apellido != 'NULL'}" th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
+
 												<div class="picture">
 													<!--<img src="/static/img/default-avatar.jpg" id="wizardPicturePreview" title="">-->
 												</div>

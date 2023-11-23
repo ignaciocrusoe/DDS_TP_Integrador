@@ -2440,5 +2440,3 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_c
 ('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados');
 
 
-
-
