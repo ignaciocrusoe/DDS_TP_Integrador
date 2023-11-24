@@ -1,5 +1,7 @@
 package Grupo11.DDS_TP_Integrador.Requests;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 public class SubirCsvOrganismosRequest {
     private String nombre_organismo_control;
     private String mail_organismo_control;
