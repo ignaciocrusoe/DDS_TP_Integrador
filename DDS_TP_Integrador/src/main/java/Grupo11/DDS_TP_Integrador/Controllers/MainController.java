@@ -59,15 +59,6 @@ public class MainController {
         return "inicio";
     }
 
-
-
-    @GetMapping("/importar-entidades-prestadoras")
-    public String importarentidadesprestadoras() {
-        return "importar-entidades-prestadoras";
-    }
-
-
-
     @GetMapping("/reportar_incidente")
     public String reportar_incidente(Model model) {
 
@@ -226,6 +217,15 @@ public class MainController {
 
     }
 
+    @GetMapping("/importar-entidades-prestadoras")
+    public String importarentidadesprestadoras() {
+        return "importar-entidades-prestadoras";
+    }
+
+    @GetMapping("/importar-organismos")
+    public String importarorganismos() {
+        return "importar-organismos";
+    }
 
 
     @PostMapping("/importar-entidades-prestadoras/csv")

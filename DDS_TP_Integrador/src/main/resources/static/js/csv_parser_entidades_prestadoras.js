@@ -9,7 +9,7 @@ document.getElementById("boton-cargar-archivo").addEventListener("submit", funct
 });
 
 function leer_csv_entidades(path) {
-/*
+
   const listaCsv = [];
   fs.createReadStream(path)
     .pipe(csv({
@@ -18,12 +18,14 @@ function leer_csv_entidades(path) {
       skipHeader: true
     }))
     .on('data', (data) => {
-      const listaInterior = [];
-      listaInterior.push(data.nombre_establecimiento);
-      listaInterior.push(data.id_entidad);
-      listaInterior.push(data.localizacion);
-      listaInterior.push(data.categoria);
-      listaCsv.push(listaInterior);
+      // Create an object for each row and add it to the list
+      const objetoCsv = {
+        nombre_establecimiento: data.nombre_entidad,
+        id_entidad: data.id_entidad,
+        localizacion: data.organismo_de_control,
+        categoria: data.categoria
+      };
+      listaCsv.push(objetoCsv);
     })
     .on('end', () => {
       console.log(listaCsv);
@@ -35,15 +37,4 @@ function leer_csv_entidades(path) {
       .then((data) => console.log("Success:", data))
       .catch((error) => console.error("Error:", error));
     });
-    */
-    fetch("/importar-entidades-prestadoras/csv", {
-            method: "POST",
-            body: {
-            {
-              "nombre_establecimiento": "Coto",
-              "localizacion": "CABA",
-              "categoria": "Supermercados"
-            }
-            }
-          })
 }
