@@ -232,9 +232,11 @@ public class MainController {
 
 
     @PostMapping("/importar-entidades-prestadoras/csv")
-    public int uploadCsvFile(List<Entidad> entidades)
-    {
-     return 1;
+    public ResponseEntity<String> importar_entidades_prestadoras(@RequestBody List<SubirCsvRequest> subirCsvRequest) {
+
+        //Procesar los datos
+
+        return ResponseEntity.ok("Objects received successfully");
     }
 
 }
