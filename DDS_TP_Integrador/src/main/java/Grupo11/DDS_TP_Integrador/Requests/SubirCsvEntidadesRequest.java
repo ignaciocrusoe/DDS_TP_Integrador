@@ -1,8 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Requests;
 
-import Grupo11.DDS_TP_Integrador.Entidades.Prestador;
-
-public class SubirCsvRequest {
+public class SubirCsvEntidadesRequest {
     private String categoria;
     private String nombre_entidad;
     private Long organismo_de_control;
@@ -12,12 +10,12 @@ public class SubirCsvRequest {
         this.categoria = categoria;
     }
     public void setNombreEntidad(String nombreEntidad) {
-        this.nombreEntidad = nombreEntidad;
+        this.nombre_entidad = nombreEntidad;
     }
-    public void setOrganismoDeControl(String organismo_de_control) {
+    public void setOrganismoDeControl(Long organismo_de_control) {
         this.organismo_de_control = organismo_de_control;
     }
-    public void setPrestador(String prestador) {
+    public void setPrestador(Long prestador) {
         this.prestador = prestador;
     }
 

@@ -37,15 +37,14 @@ function leer_csv_entidades(path) {
       .catch((error) => console.error("Error:", error));
     });
     */
-    fetch("/importar-entidades-prestadoras/csv", {
+    fetch("localhost:8080/importar-entidades-prestadoras/csv", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        nombre_establecimiento: "Coto",
-        localizacion: "CABA",
-        categoria: "Supermercados"
+        nombre_organismo_control: "Coto",
+        mail_organismo_control: "coto@gmail.com"
       })
     })
     .then((response) => response.json())

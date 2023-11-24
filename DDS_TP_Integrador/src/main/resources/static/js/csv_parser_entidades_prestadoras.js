@@ -1,7 +1,7 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 
-const HEADERS4 = ['nombre_establecimiento', 'id_entidad', 'localizacion', 'categoria'];
+const HEADERS4 = ['categoria', 'nombre_entidad', 'organismo_de_control', 'prestador'];
 
 document.getElementById("boton-cargar-archivo").addEventListener("submit", function() {
   const incidentForm = document.getElementById("csv-file");

@@ -9,20 +9,16 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
-import Grupo11.DDS_TP_Integrador.LectorCSV.LectorCSV;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -232,7 +228,15 @@ public class MainController {
 
 
     @PostMapping("/importar-entidades-prestadoras/csv")
-    public ResponseEntity<String> importar_entidades_prestadoras(@RequestBody List<SubirCsvRequest> subirCsvRequest) {
+    public ResponseEntity<String> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
+
+        //Procesar los datos
+
+        return ResponseEntity.ok("Objects received successfully");
+    }
+
+    @PostMapping("/importar-organismos-de-control/csv")
+    public ResponseEntity<String> importar_organismos_de_control(@RequestBody List<SubirCsvOrganismosRequest> subirCsvOrganismosRequest) {
 
         //Procesar los datos
 
