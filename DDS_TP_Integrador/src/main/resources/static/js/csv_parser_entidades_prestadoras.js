@@ -1,40 +1,29 @@
-const fs = require('fs');
-const csv = require('csv-parser');
 
-const HEADERS4 = ['categoria', 'nombre_entidad', 'organismo_de_control', 'prestador'];
-
-document.getElementById("boton-cargar-archivo").addEventListener("submit", function() {
-  const incidentForm = document.getElementById("csv-file");
-  leer_csv_entidades(incidentForm.files[0].path);
+document.getElementById("boton-cargar-archivo").addEventListener("click", function() {
+  leer_csv_entidades();
 });
 
-function leer_csv_entidades(path) {
+function leer_csv_entidades() {
+  var listOfObjects = [
+    { categoria: 'Supermercado', nombre_entidad: 'Cotito', organismo_de_control: 1, prestador: 1},
+    { categoria: 'Supermercado', nombre_entidad: 'Cototo', organismo_de_control: 1, prestador: 1}
+  ];
 
-  const listaCsv = [];
-  fs.createReadStream(path)
-    .pipe(csv({
-      headers: HEADERS4,
-      delimiter: ';',
-      skipHeader: true
-    }))
-    .on('data', (data) => {
-      // Create an object for each row and add it to the list
-      const objetoCsv = {
-        nombre_establecimiento: data.nombre_entidad,
-        id_entidad: data.id_entidad,
-        localizacion: data.organismo_de_control,
-        categoria: data.categoria
-      };
-      listaCsv.push(objetoCsv);
+  const firstNombreEntidad = listOfObjects[0].nombre_entidad;
+        console.log(firstNombreEntidad);
+
+  fetch('/importar-entidades-prestadoras/csv', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(listOfObjects),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
     })
-    .on('end', () => {
-      console.log(listaCsv);
-      fetch("/importar-entidades-prestadoras/csv", {
-        method: "POST",
-        body: JSON.stringify(listaCsv)
-      })
-      .then((response) => response.json())
-      .then((data) => console.log("Success:", data))
-      .catch((error) => console.error("Error:", error));
+    .catch(error => {
+      console.error('Error:', error);
     });
 }

@@ -13,6 +13,7 @@ import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -227,13 +230,11 @@ public class MainController {
         return "importar-organismos";
     }
 
+    @PostMapping(value = "/importar-entidades-prestadoras/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
+        System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
 
-    @PostMapping("/importar-entidades-prestadoras/csv")
-    public ResponseEntity<String> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
-
-        //Procesar los datos
-
-        return ResponseEntity.ok("Objects received successfully");
+        return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
 
     @PostMapping("/importar-organismos-de-control/csv")
