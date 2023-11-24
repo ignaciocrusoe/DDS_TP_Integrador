@@ -232,25 +232,9 @@ public class MainController {
 
 
     @PostMapping("/importar-entidades-prestadoras/csv")
-    public ResponseEntity<String> uploadCsvFile(@RequestParam("file") MultipartFile file) throws IOException {
-        // Validate file
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("File is empty");
-        }
-        if (!file.getContentType().equals("text/csv")) {
-            return ResponseEntity.badRequest().body("File is not a CSV");
-        }
-
-        // Process file
-        LectorCSV.leerCsv1();
-        try {
-            // Parse CSV data and store in database
-
-
-            return ResponseEntity.ok("File uploaded successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing file");
-        }
+    public int uploadCsvFile(List<Entidad> entidades)
+    {
+     return 1;
     }
 
 }

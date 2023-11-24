@@ -1,14 +1,16 @@
-const fs = require('fs');
-const csv = require('csv-parser');
+//const fs = require('fs');
+//const csv = require('csv-parser');
 
 const HEADERS2 = ['nombre_organismo_control', 'mail_organismo_control'];
 
-document.getElementById("boton-cargar-archivo").addEventListener("submit", function() {
+document.getElementById("boton-cargar-archivo").addEventListener("click", function() {
   const incidentForm = document.getElementById("csv-file");
-  leer_csv_entidades(incidentForm.files[0].path);
+  leer_csv_entidades(incidentForm.path);
 });
 
 function leer_csv_entidades(path) {
+  /*
+  alert("Hello world");
   const listaCsv = [];
   fs.createReadStream(path)
     .pipe(csv({
@@ -26,7 +28,7 @@ function leer_csv_entidades(path) {
     })
     .on('end', () => {
       console.log(listaCsv);
-      fetch("/importar-entidades-prestadoras/csv", {
+      fetch("loclalhost:8080/importar-entidades-prestadoras/csv", {
         method: "POST",
         body: JSON.stringify(listaCsv)
       })
@@ -34,4 +36,19 @@ function leer_csv_entidades(path) {
       .then((data) => console.log("Success:", data))
       .catch((error) => console.error("Error:", error));
     });
+    */
+    fetch("/importar-entidades-prestadoras/csv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nombre_establecimiento: "Coto",
+        localizacion: "CABA",
+        categoria: "Supermercados"
+      })
+    })
+    .then((response) => response.json())
+    .then((data) => console.log("Success:", data))
+    .catch((error) => console.error("Error:", error));
 }

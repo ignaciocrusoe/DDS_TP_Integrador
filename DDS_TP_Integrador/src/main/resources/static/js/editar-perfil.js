@@ -61,3 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 */
+
+document.getElementById('myForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById('myForm'));
+
+  fetch('your-api-endpoint-url', {
+    method: 'POST',
+    body: formData
+  })
+    .then((response) => response.text())
+    .then((responseData) => {
+      const newWindow = window.open();
+      newWindow.document.write(responseData);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});

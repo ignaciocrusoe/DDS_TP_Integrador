@@ -9,6 +9,7 @@ document.getElementById("boton-cargar-archivo").addEventListener("submit", funct
 });
 
 function leer_csv_entidades(path) {
+/*
   const listaCsv = [];
   fs.createReadStream(path)
     .pipe(csv({
@@ -34,4 +35,15 @@ function leer_csv_entidades(path) {
       .then((data) => console.log("Success:", data))
       .catch((error) => console.error("Error:", error));
     });
+    */
+    fetch("/importar-entidades-prestadoras/csv", {
+            method: "POST",
+            body: {
+            {
+              "nombre_establecimiento": "Coto",
+              "localizacion": "CABA",
+              "categoria": "Supermercados"
+            }
+            }
+          })
 }
