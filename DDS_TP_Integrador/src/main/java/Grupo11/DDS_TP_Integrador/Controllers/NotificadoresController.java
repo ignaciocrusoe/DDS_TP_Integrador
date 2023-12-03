@@ -8,6 +8,7 @@ import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.GestorNotificacionesPers
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
+import Grupo11.DDS_TP_Integrador.Responses.NotificacionModificarIncidente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,6 @@ public class NotificadoresController {
     GestorNotificacionesPersona gestorNotificacionesPersona;
 
     @Autowired
-    private GestorIncidentes gestorIncidentes;
-
-    @Autowired
     private PersonaRepository personaRepository;
 
     @Autowired
@@ -38,31 +36,41 @@ public class NotificadoresController {
     @Autowired
     IncidenteService incidenteService;
 
+
     @GetMapping("/notificaciones")
     public String vistaNotificaciones() {
         return "notificaciones";
     }
 
     @GetMapping("/{idPersona}/incidentesDeInteres")
-    public ResponseEntity<List<Incidente>> incidentesDeInteres(@PathVariable() Long idPersona) {
+    public ResponseEntity<List<NotificacionModificarIncidente>> incidentesDeInteres(@PathVariable() Long idPersona) {
         Persona persona = personaRepository.findByIdPersona(idPersona);
         List<Long> comunidadesMiembro = comunidadService.getComunidadesMiembroId(persona);
 
-        List<Incidente> incidentes = new ArrayList<>();
+        List<NotificacionModificarIncidente> incidentes = new ArrayList<>();
 
         for (Long idComunidad : comunidadesMiembro
         ) {
             for (Incidente incidente : incidenteService.getIncidentesByComunidadAfectadaId(idComunidad)
+
             ) {
-                if (!incidente.getEstado()) { //incidentes abiertos
-                    incidentes.add(incidente);
+                if (incidente.getEstado()) { //incidentes abiertos
+                    NotificacionModificarIncidente noti = new NotificacionModificarIncidente(
+                            incidente.getIdIncidente(),
+                            incidente.getApertura(),
+                            incidente.getEstado(),
+                            incidente.getEstablecimiento().getNombreEstablecimiento(),
+                            incidente.getPrestacionIncidentada().getNombrePrestacion(),
+                            incidente.getEstablecimiento().getLocalizacion().getLatitudLocalizacion(),
+                            incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion()
+                    );
+                    incidentes.add(noti);
                 }
 
             }
 
         }
-
-        return new ResponseEntity<List<Incidente>>(incidentes, HttpStatus.OK);
+        return new ResponseEntity<List<NotificacionModificarIncidente>>(incidentes, HttpStatus.OK);
     }
 
 

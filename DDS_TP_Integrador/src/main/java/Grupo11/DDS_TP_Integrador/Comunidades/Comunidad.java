@@ -33,28 +33,29 @@ public class Comunidad{
     @Column(name="descripcion_comunidad")
     private String descripcionComunidad;
 
-//    @ManyToMany
-//    @JoinTable(name = "comunidad_x_incidente",
-//            joinColumns = @JoinColumn(name = "id_incidente"),
-//            inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
-//    @JsonIgnore
-//    private List<Incidente> incidentesReportados;
+    @ManyToMany
+    @JoinTable(name = "comunidad_x_incidente",
+            joinColumns = @JoinColumn(name = "id_incidente"),
+            inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
+    @JsonIgnore
+    private List<Incidente> incidentesReportados;
     @OneToMany(mappedBy = "comunidad", cascade= CascadeType.ALL)
     @Column(name="miembro")
     @JsonIgnore
     private List<Miembro> miembros;
 
 
-//    @Autowired
-//    @Transient
-//    private IncidenteProvider incidenteProvider;
-//    @Autowired
-//    @Transient
-//    private Notificador notificadorComunidad;
-//
-//    private void notificarNuevoIncidenteAcomunidad_miembro(Incidente nuevoIncidente){
-//        notificadorComunidad.notificarPersonas( this.getPersonasMiembras(), new Notificacion(nuevoIncidente, NUEVO_INCIDENTE));
-//    }
+    @Autowired
+    @Transient
+    private IncidenteProvider incidenteProvider;
+    @Autowired
+    @Transient
+    private Notificador notificadorComunidad;
+
+    private void notificarNuevoIncidenteAcomunidad_miembro(Incidente nuevoIncidente){
+        notificadorComunidad.notificarPersonas( this.getMiembros(), new Notificacion(nuevoIncidente, NUEVO_INCIDENTE));
+    }
+//  todo: esto creo que se puede eliminar
 //    public void sugerirActualizarIncidente(List<Miembro> comunidad_miembroCerca,Incidente nuevoIncidente){
 //
 //        List<Persona> personas_cerca = comunidad_miembroCerca.stream().map(miembro -> miembro.getPersona()).toList();

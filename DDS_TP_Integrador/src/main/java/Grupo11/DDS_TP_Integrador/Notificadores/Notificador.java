@@ -9,12 +9,12 @@ import java.util.List;
 
 @Service
 public class Notificador{
-//    public void notificarPersonas(List<Persona> personas, Notificacion notificacion){
-//        for (Persona persona:personas
-//        ) {
-//            persona.getListaNotificaciones().add(notificacion);
-//        }
-//    }
+    public void notificarPersonas(List<Miembro> miembros, Notificacion notificacion){
+        for (Miembro miembro: miembros
+        ) {
+            miembro.getPersona().getListaNotificaciones().add(notificacion);
+        }
+    }
 
 }
 

@@ -132,7 +132,7 @@
 
     setInterval(async function() {
         await mostrarPagina();
-    }, 5000);
+    }, 10000);
 
     /* para que deje de ejecutar cuando la aplicacion se cierra ?
 
@@ -153,6 +153,7 @@
             const module = await import('/js/sugerenciaRevisionIncidente.js');
             // Accede a la función incidentesASugerirModificar después de que el módulo se haya cargado
             const incidentesASugerirModificar = await module.incidentesASugerirModificar();
+            console.log(incidentesASugerirModificar);
 
             // Los datos se han obtenido con éxito, ahora puedes mostrar la página
             await llenarTablaConNotificacionesModificarIncidente(incidentesASugerirModificar);
@@ -185,8 +186,8 @@
             const tdFecha = document.createElement("td");
 
 // Verifica si notificacion.apertura tiene un valor antes de intentar formatear la fecha
-            if (notificacion.apertura) {
-                const fechaApertura = new Date(notificacion.apertura);
+            if (notificacion.fechaApertura) {
+                const fechaApertura = new Date(notificacion.fechaApertura);
 
                 // Utiliza métodos del objeto Date para obtener día, mes y año
                 const dia = fechaApertura.getDate();
@@ -204,11 +205,11 @@
             tr.appendChild(tdFecha);
 
             const tdDescripcion = document.createElement("td");
-            tdDescripcion.innerHTML = `<img src="https://i.imgur.com/VKOeFyS.png" width="25"> ${notificacion.prestacionIncidentada.nombrePrestacion}`;
+            tdDescripcion.innerHTML = `<img src="https://i.imgur.com/VKOeFyS.png" width="25"> ${notificacion.prestacionIncidentada}`;
             tr.appendChild(tdDescripcion);
 
             const tdEstablecimiento = document.createElement("td");
-            tdEstablecimiento.textContent = notificacion.establecimiento.nombreEstablecimiento;
+            tdEstablecimiento.textContent = notificacion.nombreEstablecimiento;
             tr.appendChild(tdEstablecimiento);
 
             const tdEstado = document.createElement("td");

@@ -41,30 +41,33 @@ public class Persona {
   @Column(name="mail")
   private String mail;
 
-//  @ManyToOne
-//  @JoinColumn(name = "medio")
-//  private MedioComunicacion medioComunicacion;
-//
-//  @OneToMany(mappedBy = "persona")
-//  @JsonManagedReference
-//  private List<Notificacion> listaNotificaciones;
-//
+  @ManyToOne
+  @JoinColumn(name = "medio")
+  private MedioComunicacion medioComunicacion;
+
+  @OneToMany(mappedBy = "persona")
+  @JsonManagedReference
+  private List<Notificacion> listaNotificaciones;
+
   @OneToMany(mappedBy = "persona", cascade=CascadeType.ALL)
   @Column(name="miembro")
   @JsonManagedReference
   private List<Miembro> membresias;
-//
-//  @ManyToMany(mappedBy = "suscriptores")
-//  @JsonManagedReference
-//  private List<Entidad> entidadesSuscriptas;
+
+    public void setMedioComunicacion(MedioComunicacion medio) {
+    }
+
+  @ManyToMany(mappedBy = "suscriptores")
+  @JsonManagedReference
+  private List<Entidad> entidadesSuscriptas;
 
 //  @Autowired
 //  private GestorNotificacionesPersona gestorNotificaciones;
 //  @Autowired
 //  private GestorIncidentesPersona gestorIncidentesPersona;
 
-//  @OneToMany(mappedBy = "persona")
-//  private List<LoginEvent> loginEventList;
+  @OneToMany(mappedBy = "persona")
+  private List<LoginEvent> loginEventList;
 
   //metodos utilitarios
 

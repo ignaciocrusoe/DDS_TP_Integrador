@@ -20,5 +20,4 @@ public class ComunidadXIncidenteId implements Serializable {
     private Long incidente;
 
     private Long comunidad;
-    // Constructores, getters y setters
 }

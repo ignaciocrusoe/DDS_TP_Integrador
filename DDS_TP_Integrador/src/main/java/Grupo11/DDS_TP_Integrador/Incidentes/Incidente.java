@@ -47,9 +47,9 @@ public class Incidente {
     @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
 
-//    @ManyToMany(mappedBy = "incidentesReportados")
-//    @JsonIgnore
-//    private List<Comunidad> comunidadesAfectadas;
+    @ManyToMany(mappedBy = "incidentesReportados")
+    @JsonIgnore
+    private List<Comunidad> comunidadesAfectadas;
 
     @Column(name="horario_apertura")
     private LocalDateTime apertura;

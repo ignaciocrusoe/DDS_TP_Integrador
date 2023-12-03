@@ -10,9 +10,8 @@ import java.util.List;
 public class GestorIncidentesPersona extends GestorIncidentes {
     public void cerrarIncidente(Incidente incidente, List<Comunidad> comunidades) {
         for (Comunidad comunidad : comunidades) {
-            //todo no deberia obtenerse desde comunidad sino desde un service de incidentes buscando por id comonidad
-            //List<Incidente> incidentes = comunidad.getIncidentesReportados();
-            //incidenteProvider.cerrarIncidente(incidentes, incidente);
+            List<Incidente> incidentes = comunidad.getIncidentesReportados();
+            incidenteProvider.cerrarIncidente(incidentes, incidente);
         }
     }
 }

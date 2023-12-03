@@ -74,33 +74,33 @@ public class MainController {
         return "reportar_incidente";
     }
 
-//    @PostMapping("/crear_incidente") // Replace with your actual endpoint
-//    public String reportIncidente(@ModelAttribute ReportarIncidenteRequest reportarIncidenteRequest) {
-//        Establecimiento establecimiento = establecimientoRepository.findByNombreEstablecimiento(reportarIncidenteRequest.getEstablecimiento());
-//        Prestacion prestacion = prestacionRepository.findByNombrePrestacion(reportarIncidenteRequest.getPrestacion());
-//        Persona persona = personaRepository.findByIdPersona(reportarIncidenteRequest.getIdPersona());
-//        Entidad entidad = establecimiento.getEntidad();
-//        List<Comunidad> comunidades = persona.getMembresias()
-//                .stream()
-//                .map(Miembro::getComunidad)
-//                .collect(Collectors.toList());
-//
-//        Incidente nuevoIncidente = new Incidente();
-//        nuevoIncidente.setEstablecimiento(establecimiento);
-//        nuevoIncidente.setPersonaQueReporto(persona);
-//        nuevoIncidente.setObservaciones(reportarIncidenteRequest.getDescripcion());
-//        nuevoIncidente.setPrestacionIncidentada(prestacion);
-//        nuevoIncidente.setEntidad(entidad);
-//
-//        entidad.getIncidentes_reportados().add(nuevoIncidente);
-//
-//        incidenteRepository.save(nuevoIncidente);
-//        entidadRepository.save(entidad);
-//
-//        gestorIncidentesPersona.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
-//
-//        return "redirect:/reportar_incidente";
-//    }
+    @PostMapping("/crear_incidente") // Replace with your actual endpoint
+    public String reportIncidente(@ModelAttribute ReportarIncidenteRequest reportarIncidenteRequest) {
+        Establecimiento establecimiento = establecimientoRepository.findByNombreEstablecimiento(reportarIncidenteRequest.getEstablecimiento());
+        Prestacion prestacion = prestacionRepository.findByNombrePrestacion(reportarIncidenteRequest.getPrestacion());
+        Persona persona = personaRepository.findByIdPersona(reportarIncidenteRequest.getIdPersona());
+        Entidad entidad = establecimiento.getEntidad();
+        List<Comunidad> comunidades = persona.getMembresias()
+                .stream()
+                .map(Miembro::getComunidad)
+                .collect(Collectors.toList());
+
+        Incidente nuevoIncidente = new Incidente();
+        nuevoIncidente.setEstablecimiento(establecimiento);
+        nuevoIncidente.setPersonaQueReporto(persona);
+        nuevoIncidente.setObservaciones(reportarIncidenteRequest.getDescripcion());
+        nuevoIncidente.setPrestacionIncidentada(prestacion);
+        nuevoIncidente.setEntidad(entidad);
+
+        entidad.getIncidentes_reportados().add(nuevoIncidente);
+
+        incidenteRepository.save(nuevoIncidente);
+        entidadRepository.save(entidad);
+
+        gestorIncidentesPersona.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
+
+        return "redirect:/reportar_incidente";
+    }
 
     @GetMapping("/buscar_incidente")
     public String buscar_incidente() {
@@ -144,20 +144,20 @@ public class MainController {
     }
 
 
-//    @GetMapping("/editar_perfil/{idPersona}")
-//    public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
-//
-//        Persona persona = personaRepository.findByIdPersona(idPersona);
-//        List<MedioComunicacion> mediosComunicaciones = medioComunicacionRepository.findAll();
-//        List<Miembro> membresias = persona.getMembresias();
-//
-//        ModelAndView modelAndView = new ModelAndView("editar_perfil");
-//        modelAndView.addObject("persona", persona);
-//        modelAndView.addObject("membresias", membresias);
-//        modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
-//
-//        return modelAndView;
-//    }
+    @GetMapping("/editar_perfil/{idPersona}")
+    public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
+
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+        List<MedioComunicacion> mediosComunicaciones = medioComunicacionRepository.findAll();
+        List<Miembro> membresias = persona.getMembresias();
+
+        ModelAndView modelAndView = new ModelAndView("editar_perfil");
+        modelAndView.addObject("persona", persona);
+        modelAndView.addObject("membresias", membresias);
+        modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
+
+        return modelAndView;
+    }
 
 
     @PostMapping("/abandonar_comunidad")
@@ -204,21 +204,21 @@ public class MainController {
         return "redirect:/editar_perfil/" + persona.getIdPersona();
     }
 
-//    @PostMapping("/cambiar_medio")
-//    public String cambiarMedio(@ModelAttribute CambiarMedioRequest cambiarMedioRequest) {
-//
-//        Persona persona = personaRepository.findByIdPersona(cambiarMedioRequest.getIdPersona());
-//        persona.setHorarios(cambiarMedioRequest.getHorario());
-//
-//        System.out.println(cambiarMedioRequest.getHorario());
-//
-//        MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
-//        persona.setMedioComunicacion(medio);
-//        personaRepository.save(persona);
-//
-//        return "redirect:/editar_perfil/" + persona.getIdPersona();
-//
-//    }
+    @PostMapping("/cambiar_medio")
+    public String cambiarMedio(@ModelAttribute CambiarMedioRequest cambiarMedioRequest) {
+
+        Persona persona = personaRepository.findByIdPersona(cambiarMedioRequest.getIdPersona());
+        persona.setHorarios(cambiarMedioRequest.getHorario());
+
+        System.out.println(cambiarMedioRequest.getHorario());
+
+        MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
+        persona.setMedioComunicacion(medio);
+        personaRepository.save(persona);
+
+        return "redirect:/editar_perfil/" + persona.getIdPersona();
+
+    }
 
     @GetMapping("/importar-entidades-prestadoras")
     public String importarentidadesprestadoras() {

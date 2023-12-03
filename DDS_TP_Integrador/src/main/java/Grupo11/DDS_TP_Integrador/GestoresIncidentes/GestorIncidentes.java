@@ -25,10 +25,9 @@ public class GestorIncidentes {
     public void reportarIncidenteParaAfectados(Incidente incidente, List<Comunidad> comunidades){
 
         for (Comunidad comunidad : comunidades) {
-            //incidente.getComunidadesAfectadas().add(comunidad);
+            incidente.getComunidadesAfectadas().add(comunidad);
 
-            //todo no deberia obtenerse desde comunidad sino desde un service de incidentes buscando por id comonidad
-           // comunidad.getIncidentesReportados().add(incidente);
+            comunidad.getIncidentesReportados().add(incidente);
 
             incidenteRepository.save(incidente);
             comunidadRepository.save(comunidad);
@@ -38,7 +37,7 @@ public class GestorIncidentes {
 
     public List<Incidente> getIncidentesAbiertosByComunidad(Comunidad  comunidad){
 
-        return null;//incidenteRepository.findByComunidadesAfectadasIsContainingAndEstadoTrue(comunidad);
+        return incidenteRepository.findByComunidadesAfectadasIsContainingAndEstadoTrue(comunidad);
 
     }
 }
