@@ -213,7 +213,7 @@
             tr.appendChild(tdEstablecimiento);
 
             const tdEstado = document.createElement("td");
-            tdEstado.innerHTML = `<i class="fa ${notificacion.estado === true ? "fa-check-circle text-success":"fa-times-circle text-danger"  }"></i><span class="ms-1">${notificacion.estado ? "Resuelto" : "Cerrado"}</span>`;
+            tdEstado.innerHTML = `<i class="fa ${notificacion.estado === true ? "fa-times-circle text-danger" :"fa-check-circle text-success" }"></i><span class="ms-1">${notificacion.estado ? "Abierto" : "Resuelto"}</span>`;
             tr.appendChild(tdEstado);
 
             const tdBoton = document.createElement("td");
