@@ -9,5 +9,5 @@ import java.util.List;
 public interface IncidenteRepository extends JpaRepository<Incidente,Long> {
     Incidente findByIdIncidente(Long idIncidente);
 
-    List<Incidente> findByComunidadesAfectadasIsContainingAndEstadoTrue(Comunidad comunidad);
+    //List<Incidente> findByComunidadesAfectadasIsContainingAndEstadoTrue(Comunidad comunidad);
 }

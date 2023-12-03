@@ -2,6 +2,8 @@ package Grupo11.DDS_TP_Integrador.Notificadores;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -16,6 +18,7 @@ public class Notificacion {
 
     @ManyToOne
     @JoinColumn(name = "persona")
+    @JsonBackReference
     private Persona persona;
 
     @Transient //todo ver persistencia

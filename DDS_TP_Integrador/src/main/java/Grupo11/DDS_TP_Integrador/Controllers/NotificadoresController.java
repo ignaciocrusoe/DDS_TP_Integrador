@@ -1,11 +1,12 @@
 package Grupo11.DDS_TP_Integrador.Controllers;
-import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
+
+import Grupo11.DDS_TP_Integrador.Comunidades.ComunidadService;
 import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentes;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.GestorNotificacionesPersona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
-import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
+import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.abs;
 
@@ -31,32 +32,76 @@ public class NotificadoresController {
     @Autowired
     private PersonaRepository personaRepository;
 
+    @Autowired
+    ComunidadService comunidadService;
+
+    @Autowired
+    IncidenteService incidenteService;
+
     @GetMapping("/notificaciones")
-    public String vistaNotificaciones(){
+    public String vistaNotificaciones() {
         return "notificaciones";
     }
 
-    @GetMapping("/{idPersona}/notificacionesActualizadas/{latitud}/{longitud}")
-    public ResponseEntity<List<Notificacion>> notificacionesActualizadasEndpoint(@PathVariable() Long idPersona, @PathVariable() Double latitud, @PathVariable() Double longitud) {
+    @GetMapping("/{idPersona}/incidentesDeInteres")
+    public ResponseEntity<List<Incidente>> incidentesDeInteres(@PathVariable() Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+        List<Long> comunidadesMiembro = comunidadService.getComunidadesMiembroId(persona);
+
+        List<Incidente> incidentes = new ArrayList<>();
+
+        for (Long idComunidad : comunidadesMiembro
+        ) {
+            for (Incidente incidente : incidenteService.getIncidentesByComunidadAfectadaId(idComunidad)
+            ) {
+                if (!incidente.getEstado()) { //incidentes abiertos
+                    incidentes.add(incidente);
+                }
+
+            }
+
+        }
+
+        return new ResponseEntity<List<Incidente>>(incidentes, HttpStatus.OK);
+    }
+
+
+
+    //pruebas json
+    @GetMapping("/{idPersona}/idsComunidadesMiembro")
+    public ResponseEntity<List<Long>> idsComunidadesMiembro(@PathVariable() Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+        List<Long> comunidadesMiembro = comunidadService.getComunidadesMiembroId(persona);
+
+        return new ResponseEntity<List<Long>>(comunidadesMiembro, HttpStatus.OK);
+    }
+
+    @GetMapping("/{idPersona}/datos")
+    public ResponseEntity<Persona> datosPersoan(@PathVariable() Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+        return new ResponseEntity<Persona>(persona, HttpStatus.OK);
+    }
+
+    @GetMapping("/{idPersona}/membresias")
+    public ResponseEntity<List<Miembro>> membresiasPersona(@PathVariable() Long idPersona) {
         Persona persona = personaRepository.findByIdPersona(idPersona);
 
         List<Miembro> membresias = persona.getMembresias();
-        List<Comunidad> comunidadesPersona = membresias.stream().map(miembro -> miembro.getComunidad()).collect(Collectors.toList());
-        List<Incidente> incidentesPersona = comunidadesPersona.stream().map(comunidad -> gestorIncidentes.getIncidentesAbiertosByComunidad(comunidad)).flatMap(List::stream).collect(Collectors.toList());
-
-        incidentesPersona.stream().filter(incidente -> estaCerca(incidente, latitud, longitud, 1000.0));
-        gestorNotificacionesPersona.sugerirMiembroCercaActualizarIncidente(persona, incidentesPersona);
-
-        List<Notificacion> notificacionesActualizadas = gestorNotificacionesPersona.obtenerNotificacionesPendientesPersona(persona);
-        return new ResponseEntity<List<Notificacion>>(notificacionesActualizadas, HttpStatus.OK);
+        return new ResponseEntity<List<Miembro>>(membresias, HttpStatus.OK);
     }
 
 
-            //esto re va en otro lugar pero bueno
-    private Boolean estaCerca(Incidente incidente, Double latitud, Double longitud, Double radio) {
+    //no anda hay recursividad
+//    @GetMapping("/{idPersona}/comunidades")
+//    public ResponseEntity<List<Comunidad>> comunidadesPersona(@PathVariable() Long idPersona) {
+//        Persona persona = personaRepository.findByIdPersona(idPersona);
+//
+//        List<Miembro> membresias = persona.getMembresias();
+//        List<Comunidad> comunidadesPersona = membresias.stream().map(miembro -> miembro.getComunidad()).collect(Collectors.toList());
+//       return new ResponseEntity<List<Comunidad>>(comunidadesPersona, HttpStatus.OK);
+//    }
 
-        return abs(latitud - incidente.getEstablecimiento().getLocalizacion().getLatitudLocalizacion()) <= radio
-                && abs(longitud - incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion()) <= radio;
-    }
+
 
 }

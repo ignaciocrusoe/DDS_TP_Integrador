@@ -24,22 +24,20 @@ public class GestorNotificacionesPersona {
     public void notificarEnHorario(){
 
     }
-    public void sugerirMiembroCercaActualizarIncidente(Persona personaMiembroCerca,List<Incidente> incidentesCerca){
-        for (Incidente incidente: incidentesCerca
-             ) {
-            notificadorComunidad.notificarPersonas((List<Persona>) personaMiembroCerca, new Notificacion(incidente, SUGERENCIA));
-        }
+//    public void sugerirMiembroCercaActualizarIncidente(Persona personaMiembroCerca,List<Incidente> incidentesCerca){
+//        for (Incidente incidente: incidentesCerca
+//             ) {
+//            notificadorComunidad.notificarPersonas((List<Persona>) personaMiembroCerca, new Notificacion(incidente, SUGERENCIA));
+//        }
 
-    }
+//    }
 
-    public List<Notificacion> obtenerNotificacionesPendientesPersona(Persona persona){
-
-        //return notificacionRepository.findAllByPersonaIdPersona(persona.getIdPersona()); depende qué traemos de bbdd
-        return persona.getListaNotificaciones();
-    }
+//    public List<Notificacion> obtenerNotificacionesPendientesPersona(Persona persona){
+//
+//        //return notificacionRepository.findAllByPersonaIdPersona(persona.getIdPersona()); depende qué traemos de bbdd
+//        return persona.getListaNotificaciones();
+//    }
 
 
 }
-
-
 

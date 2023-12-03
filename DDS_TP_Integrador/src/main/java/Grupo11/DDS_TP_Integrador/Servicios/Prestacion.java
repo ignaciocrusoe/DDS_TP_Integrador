@@ -1,4 +1,5 @@
 package Grupo11.DDS_TP_Integrador.Servicios;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class Prestacion{
     private String nombrePrestacion;
 
     @ManyToOne()
+    @JsonIgnore
     @JoinColumn(name = "prestacionPadre")
     private Prestacion prestacionPadre;
 
     @OneToMany(mappedBy = "prestacionPadre", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JsonIgnore
     private List<Prestacion> prestacionesHijas;
 
 

@@ -77,7 +77,8 @@
                                                                         <th scope="col" class="col-1">#</th>
                                                                         <th scope="col" class="col-1">Fecha</th>
                                                                         <th scope="col" class="col-1">Descripción</th>
-                                                                        <th scope="col" class="col-1">Tipo</th>
+                                                                        <th scope="col" class="col-1">Establecimiento</th>
+                                                                        <th scope="col" class="col-1">Estado</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -125,63 +126,93 @@
 <script>
 
     // Llama a la función para mostrar la página después de obtener los datos
+
+
     mostrarPagina();
+
+    setInterval(async function() {
+        await mostrarPagina();
+    }, 5000);
+
+    /* para que deje de ejecutar cuando la aplicacion se cierra ?
+
+    const intervalId = setInterval(async function() {
+        await mostrarPagina();
+    }, 5000);
+
+    // Para detener el intervalo, puedes hacerlo en algún lugar de tu código:
+    // clearInterval(intervalId);
+
+    */
+
+
 
     // Función para mostrar la página web después de obtener los datos
     async function mostrarPagina() {
         try {
-            const notificacionesActualizadas = await obtenerDatosDelBackend();
+            const module = await import('/js/sugerenciaRevisionIncidente.js');
+            // Accede a la función incidentesASugerirModificar después de que el módulo se haya cargado
+            const incidentesASugerirModificar = await module.incidentesASugerirModificar();
+
             // Los datos se han obtenido con éxito, ahora puedes mostrar la página
-            llenarTablaConNotificaciones(notificacionesActualizadas);
+            await llenarTablaConNotificacionesModificarIncidente(incidentesASugerirModificar);
         } catch (error) {
             // Ocurrió un error al obtener los datos
             document.body.innerHTML = `
-                    <h1>Error al cargar la página</h1>
-                    <p>${error.message}</p>
-                `;
+                <h1>Error al cargar la página</h1>
+                <p>${error.message}</p>
+            `;
         }
     }
 
-    async function obtenerDatosDelBackend() {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const module = await import('/js/sugerenciaRevisionIncidente.js');
 
-                // Espera a que se resuelva la Promesa de getNotificacionesActualizadas
-                const notificacionesActualizadas = await module.actualizarNotificaciones();
 
-                // Devuelve la lista de notificaciones actualizadas
-                resolve(notificacionesActualizadas);
-            } catch (error) {
-                // Rechaza la Promesa en caso de error
-                reject(error);
-            }
-        });
-    }
-
-    function llenarTablaConNotificaciones(notificacionesActualizadas) {
+    async function llenarTablaConNotificacionesModificarIncidente(incidentesASugerirModificar) {
         // Obtiene una referencia al elemento tbody de la tabla en tu documento HTML
         const tbody = document.querySelector("tbody");
+        // Limpia el contenido actual del tbody
+        tbody.innerHTML = '';
 
         // Itera sobre los datos y crea filas de tabla para cada elemento
-        notificacionesActualizadas.forEach(notificacion => {
+        incidentesASugerirModificar.forEach(notificacion => {
             const tr = document.createElement("tr");
 
             // Crea celdas de tabla y agrega datos a cada celda
             const tdId = document.createElement("td");
-            tdId.textContent = notificacion.id;
+            tdId.textContent = notificacion.idIncidente.toString();
             tr.appendChild(tdId);
 
             const tdFecha = document.createElement("td");
-            tdFecha.textContent = notificacion.fecha;
+
+// Verifica si notificacion.apertura tiene un valor antes de intentar formatear la fecha
+            if (notificacion.apertura) {
+                const fechaApertura = new Date(notificacion.apertura);
+
+                // Utiliza métodos del objeto Date para obtener día, mes y año
+                const dia = fechaApertura.getDate();
+                const mes = fechaApertura.getMonth() + 1; // Los meses comienzan desde 0
+                const año = fechaApertura.getFullYear();
+
+                // Formatea la fecha como dd/mm/yyyy
+                const fechaFormateada = `${dia}/${mes}/${año}`;
+
+                tdFecha.textContent = fechaFormateada;
+            } else {
+                tdFecha.textContent = ""; // Otra opción si notificacion.apertura es falsy
+            }
+
             tr.appendChild(tdFecha);
 
             const tdDescripcion = document.createElement("td");
-            tdDescripcion.innerHTML = `<img src="https://i.imgur.com/VKOeFyS.png" width="25"> ${notificacion.descripcion}`;
+            tdDescripcion.innerHTML = `<img src="https://i.imgur.com/VKOeFyS.png" width="25"> ${notificacion.prestacionIncidentada.nombrePrestacion}`;
             tr.appendChild(tdDescripcion);
 
+            const tdEstablecimiento = document.createElement("td");
+            tdEstablecimiento.textContent = notificacion.establecimiento.nombreEstablecimiento;
+            tr.appendChild(tdEstablecimiento);
+
             const tdEstado = document.createElement("td");
-            tdEstado.innerHTML = `<i class="fa ${notificacion.estado === "Cierre" ? "fa-check-circle text-success" : "fa-times-circle text-danger"}"></i><span class="ms-1"> ${notificacion.estado}</span>`;
+            tdEstado.innerHTML = `<i class="fa ${notificacion.estado === true ? "fa-check-circle text-success":"fa-times-circle text-danger"  }"></i><span class="ms-1">${notificacion.estado ? "Resuelto" : "Cerrado"}</span>`;
             tr.appendChild(tdEstado);
 
             const tdBoton = document.createElement("td");

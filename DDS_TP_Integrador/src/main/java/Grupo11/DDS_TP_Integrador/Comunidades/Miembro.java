@@ -2,6 +2,8 @@ package Grupo11.DDS_TP_Integrador.Comunidades;
 
 //import Grupo11.DDS_TP_Integrador.Localizaciones.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity(name="membresias")
@@ -19,6 +21,7 @@ public class Miembro {
     private Comunidad comunidad;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "persona")
     private Persona persona;
 
@@ -46,20 +49,36 @@ public class Miembro {
 
     }
 
-    public Long getidMiembro() {
+    public Long getIdMiembro() {
         return idMiembro;
     }
 
-    public void setidMiembro(Long id_miembro) {
-        this.idMiembro = id_miembro;
+    public void setIdMiembro(Long idMiembro) {
+        this.idMiembro = idMiembro;
     }
 
-    public Comunidad getcomunidad() {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Comunidad getComunidad() {
         return comunidad;
+    }
+
+    public void setComunidad(Comunidad comunidad) {
+        this.comunidad = comunidad;
     }
 
     public Persona getPersona() {
         return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public Rol getRolEnComunidad() {
@@ -76,33 +95,5 @@ public class Miembro {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-    }
-
-    public Long getIdMiembro() {
-        return idMiembro;
-    }
-
-    public void setIdMiembro(Long idMiembro) {
-        this.idMiembro = idMiembro;
-    }
-
-    public Comunidad getComunidad() {
-        return comunidad;
-    }
-
-    public void setComunidad(Comunidad comunidad) {
-        this.comunidad = comunidad;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 }
