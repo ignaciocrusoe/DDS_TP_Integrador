@@ -222,6 +222,11 @@
             btn.className = "btn btn-primary";
             btn.name = "ver";
             btn.value = "Ver Más";
+
+            btn.addEventListener("click", function() {
+                window.location.href = "/buscar_incidente/"+ notificacion.idIncidente.toString();
+            });
+
             tdBoton.appendChild(btn);
             tr.appendChild(tdBoton);
 
