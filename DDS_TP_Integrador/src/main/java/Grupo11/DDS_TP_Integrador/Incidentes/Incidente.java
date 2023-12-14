@@ -21,7 +21,6 @@ import java.time.temporal.ChronoUnit;
 @Entity(name = "incidentes")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Incidente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +60,13 @@ public class Incidente {
     //1. Se debe permitir la apertura de incidentes
 
     //2. Se debe permitir el cierre de incidentes
+
+    public Incidente() {
+        this.comunidadesAfectadas = new ArrayList<>();
+        this.apertura = LocalDateTime.now();
+        this.cierre = null;
+        this.estado = true; //true el incidente esta abierto
+    }
     public void cerrarIncidente(){
         this.cierre = LocalDateTime.now();
         this.estado = false; //false el incidente esta cerrado

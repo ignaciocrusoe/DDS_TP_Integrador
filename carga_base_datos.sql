@@ -2438,5 +2438,3 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_c
 ('COMUN', 'AFECTADO', 2, 2, 'Comunidad ciegos'),
 ('ADMIN', 'AFECTADO', 3, 1, 'Comunidad ancianos'),
 ('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados');
-
-

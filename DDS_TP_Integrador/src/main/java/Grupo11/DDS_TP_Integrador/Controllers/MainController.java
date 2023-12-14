@@ -163,7 +163,6 @@ public class MainController {
     @PostMapping("/abandonar_comunidad")
     public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
 
-
         Miembro miembro = miembroRepository.getReferenceById(abandonarComunidadRequest.getIdMiembro());
 
         miembroRepository.delete(miembro);
