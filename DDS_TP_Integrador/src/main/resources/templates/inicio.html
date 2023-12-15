@@ -90,6 +90,11 @@
 													   type='button'
 													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
 													   value='Notificaciones'>
+												<input onclick="goToPerfil()"
+													   style="width: 100%; height:100px; margin-top: 20px;"
+													   type='button'
+													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
+													   value='Perfil'>
 
 											</div>
 
@@ -129,6 +134,7 @@
 
 
 <script>
+	const idPersona = localStorage.getItem('idPersona');
 
 	function goToReportarIncidente() {
 		window.location.href = "/reportar_incidente";
@@ -145,6 +151,11 @@
 	function goToNotificaciones() {
 
 		window.location.href = "/notificaciones";
+	}
+
+	function goToPerfil() {
+
+		window.location.href = "/editar_perfil/"+ idPersona.toString();
 	}
 
 

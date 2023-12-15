@@ -1,34 +1,26 @@
 package Grupo11.DDS_TP_Integrador.Requests;
 
-import java.time.LocalTime;
+import Grupo11.DDS_TP_Integrador.Comunidades.IntervaloHorario;
+import lombok.Data;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 public class CambiarMedioRequest {
 
     private Long idPersona;
-    private LocalTime horario;
+    private List<IntervaloHorario> rangosHorariosPersona;
     private String nombreMedio;
 
-    public Long getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(Long idPersona) {
+    public CambiarMedioRequest(Long idPersona, List<IntervaloHorario> rangosHorariosPersona, String nombreMedio) {
         this.idPersona = idPersona;
-    }
-
-    public LocalTime getHorario() {
-        return horario;
-    }
-
-    public void setHorario(LocalTime horario) {
-        this.horario = horario;
-    }
-
-    public String getNombreMedio() {
-        return nombreMedio;
-    }
-
-    public void setNombreMedio(String nombreMedio) {
+        this.rangosHorariosPersona = rangosHorariosPersona;
         this.nombreMedio = nombreMedio;
+    }
+
+    public CambiarMedioRequest() {
+        this.rangosHorariosPersona = new ArrayList<IntervaloHorario>();
     }
 }

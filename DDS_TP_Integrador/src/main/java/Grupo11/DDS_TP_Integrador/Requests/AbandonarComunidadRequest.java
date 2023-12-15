@@ -1,13 +1,9 @@
 package Grupo11.DDS_TP_Integrador.Requests;
 
+import lombok.Data;
+
+@Data
 public class AbandonarComunidadRequest {
-    private Long idMiembro;
+    private Long idMiembroAEliminar;
 
-    public Long getIdMiembro() {
-        return idMiembro;
-    }
-
-    public void setIdMiembro(Long idMiembro) {
-        this.idMiembro = idMiembro;
-    }
 }

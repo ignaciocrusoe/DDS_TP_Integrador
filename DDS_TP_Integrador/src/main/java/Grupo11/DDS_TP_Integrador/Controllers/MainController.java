@@ -1,9 +1,6 @@
 package Grupo11.DDS_TP_Integrador.Controllers;
 
-import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
-import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
-import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
-import Grupo11.DDS_TP_Integrador.Comunidades.TipoUsuario;
+import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
@@ -21,10 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -51,6 +45,9 @@ public class MainController {
 
     @Autowired
     private EntidadRepository entidadRepository;
+
+    @Autowired
+    private IntervaloHorarioRepository intervaloHorarioRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -150,11 +147,24 @@ public class MainController {
         Persona persona = personaRepository.findByIdPersona(idPersona);
         List<MedioComunicacion> mediosComunicaciones = medioComunicacionRepository.findAll();
         List<Miembro> membresias = persona.getMembresias();
+        membresias.forEach(membresia ->System.out.println(membresia.getIdMiembro()));
+
+        List<IntervaloHorario> rangosDefault = intervaloHorarioRepository.findAll();
+
+        CambiarMedioRequest cambiarMedioRequest = new CambiarMedioRequest();
+        CambiarNombreRequest cambiarNombreRequest = new CambiarNombreRequest();
+        AbandonarComunidadRequest abandonarComunidadRequest = new AbandonarComunidadRequest();
+        CambiarTipoRequest cambiarTipoRequest = new CambiarTipoRequest();
 
         ModelAndView modelAndView = new ModelAndView("editar_perfil");
         modelAndView.addObject("persona", persona);
         modelAndView.addObject("membresias", membresias);
         modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
+        modelAndView.addObject("rangosHorariosDefault", rangosDefault);
+        modelAndView.addObject("cambiarMedioRequest", cambiarMedioRequest);
+        modelAndView.addObject("cambiarNombreRequest", cambiarNombreRequest);
+        modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
+        modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
 
         return modelAndView;
     }
@@ -162,8 +172,9 @@ public class MainController {
 
     @PostMapping("/abandonar_comunidad")
     public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
+        System.out.println("membresia a eliminar: " + abandonarComunidadRequest.getIdMiembroAEliminar());
 
-        Miembro miembro = miembroRepository.getReferenceById(abandonarComunidadRequest.getIdMiembro());
+        Miembro miembro = miembroRepository.getReferenceById(abandonarComunidadRequest.getIdMiembroAEliminar());
 
         miembroRepository.delete(miembro);
 
@@ -207,12 +218,29 @@ public class MainController {
     public String cambiarMedio(@ModelAttribute CambiarMedioRequest cambiarMedioRequest) {
 
         Persona persona = personaRepository.findByIdPersona(cambiarMedioRequest.getIdPersona());
-        persona.setHorarios(cambiarMedioRequest.getHorario());
 
-        System.out.println(cambiarMedioRequest.getHorario());
 
-        MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
-        persona.setMedioComunicacion(medio);
+        System.out.println("request agregar horarios " + cambiarMedioRequest.getRangosHorariosPersona());
+
+        if(cambiarMedioRequest.getNombreMedio() != null){
+            MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
+            persona.setMedioComunicacion(medio);
+        }
+
+        //logica pedorrisima para no duplicar horarios --> encapsular en algun lado asi no la veo mas
+
+        //funciona 10/10 igual
+
+        cambiarMedioRequest.getRangosHorariosPersona().forEach(intervaloHorario -> persona.getHorarios().add(intervaloHorario));
+
+        Set<Long> segundosSinRepetir = new HashSet<>();
+        persona.getHorarios().forEach(horario -> segundosSinRepetir.add(horario.getSegundos()));
+
+        List<IntervaloHorario> intervalosSinRepetir = new ArrayList<>();
+
+        segundosSinRepetir.forEach(segundos->intervalosSinRepetir.add(new IntervaloHorario(segundos)));
+
+        persona.setHorarios(intervalosSinRepetir);
         personaRepository.save(persona);
 
         return "redirect:/editar_perfil/" + persona.getIdPersona();

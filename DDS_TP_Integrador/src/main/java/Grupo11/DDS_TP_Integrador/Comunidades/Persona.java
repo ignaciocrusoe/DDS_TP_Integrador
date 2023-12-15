@@ -32,8 +32,9 @@ public class Persona {
   @Column(name="apellido_persona")
   private String apellido;
 
-  @Column(name="horarios")
-  private LocalTime horarios;
+  @ManyToMany
+  @JoinColumn(name="persona_intervalo_notis")
+  private List<IntervaloHorario> horarios;
 
   @Column(name="telefono")
   private Integer telefono;
