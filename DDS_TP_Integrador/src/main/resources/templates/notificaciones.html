@@ -34,6 +34,7 @@
                     <!-- Wizard container -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="orange" id="wizardProfile">
+
                             <form action="" method="">
                                 <!-- You can switch "data-color="azure"" with one of the next bright colors: "blue", "green", "orange", "red" -->
                                 
@@ -61,9 +62,17 @@
                                 </div>
                                 <div class="tab-content">
                                     <div class="col-sm-12">
+
                                         <div class="position-relative" style="margin-bottom: 20px;">
-                                            <div></div>
-                                            <input class="form-control w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente o por nombre">
+                                            <form id="buscar-incidente-form">
+                                                <div class="input-group">
+                                                    <input name="idIncidente" class="form-control  w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente">
+                                                    <span class="input-group-btn">
+															<button type="submit" class="btn btn-fill btn-warning btn-wd">Buscar notificacion</button>
+														</span>
+                                                </div>
+                                            </form>
+
                                         </div>
                                         
                                         <div class="tab-pane" id="tablaDeIncidentes">
@@ -79,6 +88,7 @@
                                                                         <th scope="col" class="col-1">Descripción</th>
                                                                         <th scope="col" class="col-1">Establecimiento</th>
                                                                         <th scope="col" class="col-1">Estado</th>
+                                                                        <th scope="col" class="col-1">Tipo</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -119,13 +129,14 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 <script th:src="@{js/sugerenciaRevisionIncidente.js}" type="module"></script>
+<script th:src="@{/js/obtenerNotificaciones.js}" type="module"></script>
+<script th:src="@{/js/administrarNotificaciones.js}" type="module"></script>
+
 
 
 
 
 <script>
-
-    // Llama a la función para mostrar la página después de obtener los datos
 
 
     mostrarPagina();
@@ -144,19 +155,30 @@
     // clearInterval(intervalId);
 
     */
-
-
-
+    
     // Función para mostrar la página web después de obtener los datos
     async function mostrarPagina() {
         try {
-            const module = await import('/js/sugerenciaRevisionIncidente.js');
-            // Accede a la función incidentesASugerirModificar después de que el módulo se haya cargado
-            const incidentesASugerirModificar = await module.incidentesASugerirModificar();
-            console.log(incidentesASugerirModificar);
+            const moduleSugerencias = await import('/js/sugerenciaRevisionIncidente.js');
+            const moduleNotificaciones = await import('/js/obtenerNotificaciones.js');
+            const incidentesASugerirModificar = await moduleSugerencias.incidentesASugerirModificar();
+            const otrasNotificaciones = moduleNotificaciones.obtenerNotificacionesPersona();
+            let listaNotificacionesCombinada = [];
+            if (incidentesASugerirModificar.length > 0 && otrasNotificaciones.length > 0) {
+                // Ambas listas no están vacías, así que puedes combinarlas
+                listaNotificacionesCombinada = incidentesASugerirModificar.concat(otrasNotificaciones);
+            } else if (incidentesASugerirModificar.length > 0) {
+                // Solo incidentesASugerirModificar tiene elementos
+                listaNotificacionesCombinada = incidentesASugerirModificar;
+            } else if (otrasNotificaciones.length > 0) {
+                // Solo otrasNotificaciones tiene elementos
+                listaNotificacionesCombinada = otrasNotificaciones;
+            } else {
+                console.error("No hay notificaciones pendientes");
+            }
+            console.log(listaNotificacionesCombinada);
+            await llenarTablaConNotificaciones(listaNotificacionesCombinada);
 
-            // Los datos se han obtenido con éxito, ahora puedes mostrar la página
-            await llenarTablaConNotificacionesModificarIncidente(incidentesASugerirModificar);
         } catch (error) {
             // Ocurrió un error al obtener los datos
             document.body.innerHTML = `
@@ -168,21 +190,19 @@
 
 
 
-    async function llenarTablaConNotificacionesModificarIncidente(incidentesASugerirModificar) {
-        // Obtiene una referencia al elemento tbody de la tabla en tu documento HTML
+    async function llenarTablaConNotificaciones(notificaciones) {
+
+
         const tbody = document.querySelector("tbody");
-        // Limpia el contenido actual del tbody
         tbody.innerHTML = '';
 
         // Itera sobre los datos y crea filas de tabla para cada elemento
-        incidentesASugerirModificar.forEach(notificacion => {
+        notificaciones.forEach(notificacion => {
             const tr = document.createElement("tr");
-
             // Crea celdas de tabla y agrega datos a cada celda
             const tdId = document.createElement("td");
             tdId.textContent = notificacion.idIncidente.toString();
             tr.appendChild(tdId);
-
             const tdFecha = document.createElement("td");
 
 // Verifica si notificacion.apertura tiene un valor antes de intentar formatear la fecha
@@ -216,6 +236,10 @@
             tdEstado.innerHTML = `<i class="fa ${notificacion.estado === true ? "fa-times-circle text-danger" :"fa-check-circle text-success" }"></i><span class="ms-1">${notificacion.estado ? "Abierto" : "Resuelto"}</span>`;
             tr.appendChild(tdEstado);
 
+            const tdTipoNotificacion = document.createElement("td");
+            tdTipoNotificacion.textContent = notificacion.tipo;
+            tr.appendChild(tdTipoNotificacion);
+
             const tdBoton = document.createElement("td");
             const btn = document.createElement("input");
             btn.type = "button";
@@ -233,8 +257,9 @@
             // Agrega la fila a la tabla
             tbody.appendChild(tr);
         });
-
     }
+
+
 
 </script>
 

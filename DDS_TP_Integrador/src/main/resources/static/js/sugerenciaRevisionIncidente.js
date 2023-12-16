@@ -1,5 +1,6 @@
+export const idPersona = localStorage.getItem('idPersona');
 export class NotificacionModificarIncidente {
-    constructor(idIncidente, fechaApertura, estado, nombreEstablecimiento, prestacionIncidentada,latitudEstablecimiento, longitudEstablecimiento) {
+    constructor(idIncidente, fechaApertura, estado, nombreEstablecimiento, prestacionIncidentada,latitudEstablecimiento, longitudEstablecimiento, tipo) {
         this.idIncidente = idIncidente;
         this.fechaApertura = fechaApertura;
         this.estado = estado;
@@ -7,6 +8,7 @@ export class NotificacionModificarIncidente {
         this.prestacionIncidentada = prestacionIncidentada;
         this.latitudEstablecimiento = latitudEstablecimiento;
         this.longitudEstablecimiento = longitudEstablecimiento;
+        this.tipo = tipo;
     }
 }
 
@@ -33,21 +35,19 @@ function parsearJSONaIncidentes(json) {
             item.nombreEstablecimiento,
             item.prestacionIncidentada,
             item.latitudEstablecimiento,
-            item.longitudEstablecimiento
+            item.longitudEstablecimiento,
+            item.tipo
         );
     });
 }
-
-export const idPersona = localStorage.getItem('idPersona');
 
 
 // Limpia el localStorage cada hora (3600000 milisegundos)
 const limpiarLocalStorageInterval = setInterval(() => {
     localStorage.removeItem('incidentesDeInteres');
-    console.log("LocalStorage limpiado");
+    console.log("LocalStorage libre de incidentes de interés");
 }, 3600000);
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function incidentesASugerirModificar(){
     const ubicacionActual = await obtenerUbicacion();
@@ -55,11 +55,11 @@ export async function incidentesASugerirModificar(){
     const incidentesDeInteresLocalStorage = localStorage.getItem('incidentesDeInteres');
 
     if(JSON.stringify(incidentesDeInteresLocalStorage) === '{}' || incidentesDeInteresLocalStorage === null){
-        console.log('Solicitando datos al backend...');
+        console.log('Solicitando incidentes de interés al backend...');
         incidentesDeInteres = await getIncidentesDeInteres();
 
     }else{
-        console.log('Usando datos de localStorage:', incidentesDeInteresLocalStorage);
+        console.log('Usando incidentes de interés de localStorage:', incidentesDeInteresLocalStorage);
         incidentesDeInteres = parsearJSONaIncidentes(JSON.parse(incidentesDeInteresLocalStorage))
     }
 

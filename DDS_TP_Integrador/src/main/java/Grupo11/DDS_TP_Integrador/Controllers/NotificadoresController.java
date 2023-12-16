@@ -3,12 +3,13 @@ package Grupo11.DDS_TP_Integrador.Controllers;
 import Grupo11.DDS_TP_Integrador.Comunidades.ComunidadService;
 import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
-import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentes;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.GestorNotificacionesPersona;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
+import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
-import Grupo11.DDS_TP_Integrador.Responses.NotificacionModificarIncidente;
+import Grupo11.DDS_TP_Integrador.Responses.NotificacionModificarIncidenteResponse;
+import Grupo11.DDS_TP_Integrador.Responses.NotificacionNuevoIncidenteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,11 +44,11 @@ public class NotificadoresController {
     }
 
     @GetMapping("/{idPersona}/incidentesDeInteres")
-    public ResponseEntity<List<NotificacionModificarIncidente>> incidentesDeInteres(@PathVariable() Long idPersona) {
+    public ResponseEntity<List<NotificacionModificarIncidenteResponse>> incidentesDeInteres(@PathVariable() Long idPersona) {
         Persona persona = personaRepository.findByIdPersona(idPersona);
         List<Long> comunidadesMiembro = comunidadService.getComunidadesMiembroId(persona);
 
-        List<NotificacionModificarIncidente> incidentes = new ArrayList<>();
+        List<NotificacionModificarIncidenteResponse> incidentes = new ArrayList<>();
 
         for (Long idComunidad : comunidadesMiembro
         ) {
@@ -55,14 +56,14 @@ public class NotificadoresController {
 
             ) {
                 if (incidente.getEstado()) { //incidentes abiertos
-                    NotificacionModificarIncidente noti = new NotificacionModificarIncidente(
+                    NotificacionModificarIncidenteResponse noti = new NotificacionModificarIncidenteResponse(
                             incidente.getIdIncidente(),
                             incidente.getApertura(),
                             incidente.getEstado(),
                             incidente.getEstablecimiento().getNombreEstablecimiento(),
                             incidente.getPrestacionIncidentada().getNombrePrestacion(),
                             incidente.getEstablecimiento().getLocalizacion().getLatitudLocalizacion(),
-                            incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion()
+                            incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion(),"Modificar Incidente"
                     );
                     incidentes.add(noti);
                 }
@@ -70,7 +71,31 @@ public class NotificadoresController {
             }
 
         }
-        return new ResponseEntity<List<NotificacionModificarIncidente>>(incidentes, HttpStatus.OK);
+        return new ResponseEntity<List<NotificacionModificarIncidenteResponse>>(incidentes, HttpStatus.OK);
+    }
+
+    @GetMapping("/{idPersona}/notificaciones")
+    public ResponseEntity<List<NotificacionNuevoIncidenteResponse>> notificacionesNuevosIncidentesPersona(@PathVariable() Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+        List<Notificacion> notificacionesPersona = persona.getListaNotificaciones();
+
+        List<NotificacionNuevoIncidenteResponse> notificacionesNuevoIncidenteResponse = new ArrayList<>();
+
+        notificacionesPersona.forEach(notificacion -> {
+            notificacionesNuevoIncidenteResponse.add(
+                    NotificacionNuevoIncidenteResponse.builder()
+                            .nombrePrestacion(notificacion.getIncidente().getPrestacionIncidentada().getNombrePrestacion())
+                            .tipo("Nuevo Incidente")
+                            .estado(notificacion.getIncidente().getEstado())
+                            .idIncidente(notificacion.getIncidente().getIdIncidente())
+                            .fechaApertura(notificacion.getIncidente().getApertura())
+                            .nombreEstablecimiento(notificacion.getIncidente().getEstablecimiento().getNombreEstablecimiento())
+                            .build()
+            );
+        });
+
+        return new ResponseEntity<List<NotificacionNuevoIncidenteResponse>>(notificacionesNuevoIncidenteResponse, HttpStatus.OK);
     }
 
 
@@ -99,16 +124,6 @@ public class NotificadoresController {
         return new ResponseEntity<List<Miembro>>(membresias, HttpStatus.OK);
     }
 
-
-    //no anda hay recursividad
-//    @GetMapping("/{idPersona}/comunidades")
-//    public ResponseEntity<List<Comunidad>> comunidadesPersona(@PathVariable() Long idPersona) {
-//        Persona persona = personaRepository.findByIdPersona(idPersona);
-//
-//        List<Miembro> membresias = persona.getMembresias();
-//        List<Comunidad> comunidadesPersona = membresias.stream().map(miembro -> miembro.getComunidad()).collect(Collectors.toList());
-//       return new ResponseEntity<List<Comunidad>>(comunidadesPersona, HttpStatus.OK);
-//    }
 
 
 

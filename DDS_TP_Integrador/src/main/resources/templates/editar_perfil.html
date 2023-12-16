@@ -141,7 +141,7 @@
 													<label>Medio de comunicación</label><br>
 													<select name="nombreMedio" class="form-control" th:field="*{nombreMedio}">
 														<!-- The corrected first option -->
-														<option value="" disabled="" selected="">Seleccioná nuevos intervalos en minutos</option>
+														<option value="" disabled="" selected="">Seleccioná un medio de comunicacion</option>
 
 														<!-- Iterate over mediosComunicaciones and populate options -->
 														<option th:each="medioComunicacion : ${mediosComunicaciones}" th:value="${medioComunicacion.nombreMedio}" th:text="${medioComunicacion.nombreMedio}"></option>
