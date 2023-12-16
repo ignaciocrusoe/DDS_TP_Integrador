@@ -1,13 +1,20 @@
 package Grupo11.DDS_TP_Integrador.Controllers;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.ComunidadService;
+import Grupo11.DDS_TP_Integrador.Comunidades.IntervaloHorario;
 import Grupo11.DDS_TP_Integrador.Comunidades.Miembro;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.GestorNotificacionesPersona;
+import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
+import Grupo11.DDS_TP_Integrador.Requests.AbandonarComunidadRequest;
+import Grupo11.DDS_TP_Integrador.Requests.CambiarMedioRequest;
+import Grupo11.DDS_TP_Integrador.Requests.CambiarNombreRequest;
+import Grupo11.DDS_TP_Integrador.Requests.CambiarTipoRequest;
+import Grupo11.DDS_TP_Integrador.Responses.ConfiguracionNotificacionesResponse;
 import Grupo11.DDS_TP_Integrador.Responses.NotificacionModificarIncidenteResponse;
 import Grupo11.DDS_TP_Integrador.Responses.NotificacionNuevoIncidenteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +50,23 @@ public class NotificadoresController {
     public String vistaNotificaciones() {
         return "notificaciones";
     }
+
+    @GetMapping("/{idPersona}/notificaciones/configuracion")
+    public ResponseEntity<ConfiguracionNotificacionesResponse> configuracionNotificacionesPersona(@PathVariable() Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+
+        ConfiguracionNotificacionesResponse configuracionNotificacionesResponse =
+                ConfiguracionNotificacionesResponse.builder()
+                        .idPersona(persona.getIdPersona())
+                        .mail(persona.getMail())
+                        .horarios(persona.getHorarios())
+                        .build();
+
+        return new ResponseEntity<ConfiguracionNotificacionesResponse>(configuracionNotificacionesResponse, HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/{idPersona}/incidentesDeInteres")
     public ResponseEntity<List<NotificacionModificarIncidenteResponse>> incidentesDeInteres(@PathVariable() Long idPersona) {

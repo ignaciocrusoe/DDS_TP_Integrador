@@ -41,13 +41,13 @@ function parsearJSONaIncidentes(json) {
     });
 }
 
-
-// Limpia el localStorage cada hora (3600000 milisegundos)
-const limpiarLocalStorageInterval = setInterval(() => {
-    localStorage.removeItem('incidentesDeInteres');
-    console.log("LocalStorage libre de incidentes de interés");
-}, 3600000);
-
+//se hace en notifiaciones.html
+// // Limpia el localStorage cada hora (3600000 milisegundos)
+// const limpiarLocalStorageInterval = setInterval(() => {
+//     localStorage.removeItem('incidentesDeInteres');
+//     console.log("LocalStorage libre de incidentes de interés");
+// }, 3600000);
+//
 
 export async function incidentesASugerirModificar(){
     const ubicacionActual = await obtenerUbicacion();
@@ -104,6 +104,7 @@ export async function getIncidentesDeInteres() {
             .then(data => {
                 // Almacena en localStorage y resuelve la Promise con el JSON
                 localStorage.setItem('incidentesDeInteres', JSON.stringify(data));
+                console.log("Se guardan intereses de interés actualizados en LocalStorage");
                 resolve(parsearJSONaIncidentes(data));
             })
             .catch(error => {

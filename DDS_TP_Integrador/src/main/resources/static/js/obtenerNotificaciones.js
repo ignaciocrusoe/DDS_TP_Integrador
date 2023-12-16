@@ -31,11 +31,13 @@ function parsearJSONaNotificaciones(json) {
   });
 }
 
-// Limpia el localStorage cada hora (3600000 milisegundos)
-const limpiarLocalStorageInterval = setInterval(() => {
-  localStorage.removeItem('notificaciones');
-  console.log("LocalStorage libre de notificaciones");
-}, 3600000);
+//se hace en notificaciones.html
+
+// // Limpia el localStorage cada hora (3600000 milisegundos)
+// const limpiarLocalStorageInterval = setInterval(() => {
+//   localStorage.removeItem('notificaciones');
+//   console.log("LocalStorage libre de notificaciones");
+// }, 3600000);
 
 export async function obtenerNotificacionesPersona(){
   let notificaciones = [];
@@ -75,6 +77,7 @@ export async function getNotificacionesBackend() {
         .then(data => {
           // Almacena en localStorage y resuelve la Promise con el JSON
           localStorage.setItem('notificaciones', JSON.stringify(data));
+          console.log("Se guardan notificaciones actualizadas en LocalStorage");
           resolve(parsearJSONaNotificaciones(data));
         })
         .catch(error => {

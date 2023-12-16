@@ -137,13 +137,23 @@
 
 
 <script>
+    (async () => {
+        const configNotificaciones = await configuracionNotificaciones();
 
+        setInterval(async function() {
 
-    mostrarPagina();
+            localStorage.removeItem('incidentesDeInteres');
+            console.log("LocalStorage libre de incidentes de interés");
+            localStorage.removeItem('configuracionNotificaciones');
+            console.log("LocalStorage libre de configuraciones de notificaciones");
+            localStorage.removeItem('notificaciones');
+            console.log("LocalStorage libre de notificaciones");
 
-    setInterval(async function() {
-        await mostrarPagina();
-    }, 10000);
+            await mostrarPagina(); //pero toma los datos del localstorage asi q es medio mentiroso --> todo: configurar limpieza del local storage acorde a la actualizacion
+            console.log("Actualizando notificaciones cada " + (configNotificaciones.horarios[0].segundos/1000).toString() + " segundos" )
+        }, configNotificaciones.horarios[0].segundos); //todo: justificar esto jajaj
+    })();
+
 
     /* para que deje de ejecutar cuando la aplicacion se cierra ?
 
@@ -156,13 +166,36 @@
 
     */
 
+    async function configuracionNotificaciones() {
+        try {
+            const moduleConfigNotificaciones = await import('/js/administrarNotificaciones.js');
+
+            const configuracionNotificaciones = await moduleConfigNotificaciones.obtenerConfigNotificacionesPersona();
+
+            console.log("Esta es la configuracion de notificaciones " + JSON.stringify(configuracionNotificaciones));
+
+            mostrarPagina();
+
+            return configuracionNotificaciones;
+
+        } catch (error) {
+            // Ocurrió un error al obtener los datos
+            document.body.innerHTML = `
+                <h1>Error al buscar las configuraciones de notificaciones</h1>
+                <p>${error.message}</p>
+            `;
+        }
+    }
+
+
+
     // Función para mostrar la página web después de obtener los datos
     async function mostrarPagina() {
         try {
             const moduleSugerencias = await import('/js/sugerenciaRevisionIncidente.js');
             const moduleNotificaciones = await import('/js/obtenerNotificaciones.js');
             const incidentesASugerirModificar = await moduleSugerencias.incidentesASugerirModificar();
-            const otrasNotificaciones = moduleNotificaciones.obtenerNotificacionesPersona();
+            const otrasNotificaciones = await moduleNotificaciones.obtenerNotificacionesPersona();
             let listaNotificacionesCombinada = [];
             if (incidentesASugerirModificar.length > 0 && otrasNotificaciones.length > 0) {
                 // Ambas listas no están vacías, así que puedes combinarlas
@@ -182,7 +215,7 @@
         } catch (error) {
             // Ocurrió un error al obtener los datos
             document.body.innerHTML = `
-                <h1>Error al cargar la página</h1>
+                <h1>Error al cargar las notificaciones</h1>
                 <p>${error.message}</p>
             `;
         }
