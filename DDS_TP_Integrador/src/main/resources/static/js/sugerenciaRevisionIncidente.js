@@ -36,7 +36,7 @@ function parsearJSONaIncidentes(json) {
             item.prestacionIncidentada,
             item.latitudEstablecimiento,
             item.longitudEstablecimiento,
-            item.tipo
+            "Modificar Incidente"
         );
     });
 }

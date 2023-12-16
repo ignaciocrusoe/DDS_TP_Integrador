@@ -63,7 +63,8 @@ public class NotificadoresController {
                             incidente.getEstablecimiento().getNombreEstablecimiento(),
                             incidente.getPrestacionIncidentada().getNombrePrestacion(),
                             incidente.getEstablecimiento().getLocalizacion().getLatitudLocalizacion(),
-                            incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion(),"Modificar Incidente"
+                            incidente.getEstablecimiento().getLocalizacion().getLonguitudLocalizacion(),
+                            "Modificar Incidente"
                     );
                     incidentes.add(noti);
                 }
