@@ -1,12 +1,8 @@
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js"
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js"
 import { auth } from "./firebase.js";
-// import { showMessage } from "./showMessage.js";
+import { showMessage } from "./showMessage.js";
+import './logout.js'
 
-// import './signupForm.js'
-// import './signinForm.js'
-// import './googleLogin.js'
-// import './logout.js'
-//
 
 // Initialize loginInfo object
 let loginInfo = {
@@ -15,21 +11,7 @@ let loginInfo = {
   logoutTime: null,
 };
 
-// Handle user login
-// onAuthStateChanged(auth, async (user) => {
-//   if (user) {
-//     // User is signed in
-//     loginInfo.userId = user.uid;
-//     loginInfo.loginTime = new Date().toISOString();
-//     // Send a POST request to your Spring Boot endpoint to log the login event
-//     sendLoginEvent(loginInfo);
-//   } else {
-//     // User is signed out
-//     loginInfo.logoutTime = new Date().toISOString();
-//     // Send a POST request to your Spring Boot endpoint to log the logout event
-//     sendLogoutEvent(loginInfo);
-//   }
-// });
+
 
 // Manejador de eventos para el formulario de inicio de sesión
 const signInForm = document.querySelector("#login-form");
@@ -51,15 +33,22 @@ if (signInForm) {
       // Enviar evento de inicio de sesión
       await sendLoginEvent(loginInfo);
 
-      // Redirigir a la página de inicio
-      // window.location.href = '/inicio';
 
       // Restablecer el formulario
       signInForm.reset();
     } catch (error) {
-      console.log(error);
-      // Manejar errores de inicio de sesión
-      // ...
+      console.log(error)
+      if (error.code === 'auth/wrong-password') {
+        showMessage("Wrong password", "error")
+      } else if (error.code === 'auth/user-not-found') {
+        showMessage("User not found", "error")
+      } else if (error.code === 'auth/invalid-email') {
+        showMessage("Proporcione un email valido", "error")
+      } else if (error.code === 'auth/missing-password') {
+        showMessage("Proporcione una contraseña valida", "error")
+      } else {
+        showMessage("Something went wrong", "error")
+      }
     }
   });
 }
@@ -84,14 +73,21 @@ if (signUpForm) {
       // Enviar evento de inicio de sesión después del registro
       await sendLoginEvent(loginInfo);
 
-      // Redirigir a la página de inicio
-      // window.location.href = '/inicio';
 
       // Restablecer el formulario
       signUpForm.reset();
     } catch (error) {
-      // Manejar errores de registro
-      // ...
+      if (error.code === 'auth/email-already-in-use') {
+        showMessage("Email already in use", "error")
+      } else if (error.code === 'auth/invalid-email') {
+        showMessage("Proporcione un email valido", "error")
+      } else if (error.code === 'auth/missing-password') {
+        showMessage("Proporcione una contraseña valida", "error")
+      } else if (error.code === 'auth/weak-password') {
+        showMessage("Weak password", "error")
+      } else if (error.code) {
+        showMessage("Something went wrong", "error")
+      }
     }
   });
 }
