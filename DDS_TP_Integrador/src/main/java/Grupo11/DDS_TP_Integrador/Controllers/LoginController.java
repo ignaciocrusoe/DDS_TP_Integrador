@@ -1,11 +1,14 @@
 package Grupo11.DDS_TP_Integrador.Controllers;
 
+import Grupo11.DDS_TP_Integrador.Comunidades.IntervaloHorario;
 import Grupo11.DDS_TP_Integrador.Comunidades.Persona;
+import Grupo11.DDS_TP_Integrador.Repositories.IntervaloHorarioRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.LoginEventRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
 import Grupo11.DDS_TP_Integrador.Responses.LoginResponse;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import Grupo11.DDS_TP_Integrador.Requests.LoginRequest;
+import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LoginController{
@@ -21,6 +26,10 @@ public class LoginController{
     private LoginEventRepository loginEventRepository;
     @Autowired
     private PersonaRepository personaRepository;
+
+    @Autowired
+    IntervaloHorarioRepository intervaloHorarioRepository;
+
 
     @PostMapping("/login-session")
     public ResponseEntity<LoginResponse> handleLoginEvent(@RequestBody LoginRequest loginRequest) {
@@ -36,6 +45,13 @@ public class LoginController{
             // Si se encontró un LoginEvent anterior, obtén su Persona
             personaNueva = loginEventAnterior.getPersona();
         }else{
+
+            //seteo intervalo de notificaciones default
+            IntervaloHorario intervaloDefault30segs = intervaloHorarioRepository.getReferenceById(30000L);
+             List<IntervaloHorario> intervalosDefault = new ArrayList<>();
+            personaNueva.setIntervaloSeleccionado(intervaloDefault30segs);
+            intervalosDefault.add(intervaloDefault30segs);
+            personaNueva.setHorarios(intervalosDefault);
             personaRepository.save(personaNueva);
         }
 

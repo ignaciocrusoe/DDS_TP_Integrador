@@ -19,4 +19,6 @@ public class ConfiguracionNotificacionesResponse {
 
     private String mail;
 
+    private IntervaloHorario rangoSeleccionado;
+
 }

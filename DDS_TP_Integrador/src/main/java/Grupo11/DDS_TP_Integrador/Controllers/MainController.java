@@ -104,6 +104,26 @@ public class MainController {
         return "buscar_incidente";
     }
 
+    @GetMapping("/comunidades/{idPersona}")
+    public ModelAndView obtenerVistaComunidadesPersona(@PathVariable() Long idPersona) {
+
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+        List<Miembro> membresiasPersona = new ArrayList<>();
+
+        membresiasPersona = persona.getMembresias();
+
+        AbandonarComunidadRequest abandonarComunidadRequest = new AbandonarComunidadRequest();
+        CambiarTipoRequest cambiarTipoRequest = new CambiarTipoRequest();
+
+        ModelAndView modelAndView = new ModelAndView("mis_comunidades");
+        modelAndView.addObject("persona", persona);
+        modelAndView.addObject("membresias", membresiasPersona);
+        modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
+        modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
+        return modelAndView;
+    }
+
     @GetMapping("/buscar_incidente/{idIncidente}")
     public ModelAndView obtenerInformacion(@PathVariable() Long idIncidente) {
         Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
@@ -150,6 +170,7 @@ public class MainController {
         membresias.forEach(membresia ->System.out.println(membresia.getIdMiembro()));
 
         List<IntervaloHorario> rangosDefault = intervaloHorarioRepository.findAll();
+        List<IntervaloHorario> rangosActualesPersona = persona.getHorarios();
 
         CambiarMedioRequest cambiarMedioRequest = new CambiarMedioRequest();
         CambiarNombreRequest cambiarNombreRequest = new CambiarNombreRequest();
@@ -161,6 +182,7 @@ public class MainController {
         modelAndView.addObject("membresias", membresias);
         modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
         modelAndView.addObject("rangosHorariosDefault", rangosDefault);
+        modelAndView.addObject("rangosActualesPersona", rangosActualesPersona);
         modelAndView.addObject("cambiarMedioRequest", cambiarMedioRequest);
         modelAndView.addObject("cambiarNombreRequest", cambiarNombreRequest);
         modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
@@ -241,6 +263,8 @@ public class MainController {
         segundosSinRepetir.forEach(segundos->intervalosSinRepetir.add(new IntervaloHorario(segundos)));
 
         persona.setHorarios(intervalosSinRepetir);
+
+        persona.setIntervaloSeleccionado(cambiarMedioRequest.getRangoSeleccionado());
         personaRepository.save(persona);
 
         return "redirect:/editar_perfil/" + persona.getIdPersona();

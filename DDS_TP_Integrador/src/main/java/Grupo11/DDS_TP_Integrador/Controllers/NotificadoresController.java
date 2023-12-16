@@ -61,6 +61,7 @@ public class NotificadoresController {
                         .idPersona(persona.getIdPersona())
                         .mail(persona.getMail())
                         .horarios(persona.getHorarios())
+                        .rangoSeleccionado(persona.getIntervaloSeleccionado())
                         .build();
 
         return new ResponseEntity<ConfiguracionNotificacionesResponse>(configuracionNotificacionesResponse, HttpStatus.OK);

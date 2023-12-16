@@ -2,10 +2,11 @@ const idPersona = localStorage.getItem('idPersona');
 console.log('Received idPersona:', idPersona);
 
 export class ConfiguracionNotificaciones {
-    constructor(idPersona, horarios,mail) {
+    constructor(idPersona, horarios,mail, rangoSeleccionado) {
         this.idPersona = idPersona;
         this.horarios = horarios;
         this.mail = mail;
+        this.rangoSeleccionado = rangoSeleccionado;
     }
 }
 
@@ -50,7 +51,8 @@ function parsearJSONAConfiguracionNotificaciones(json) {
         return new ConfiguracionNotificaciones(
             json.idPersona,
             rangosHorarios,
-            json.mail
+            json.mail,
+            json.rangoSeleccionado
         );
 
 }

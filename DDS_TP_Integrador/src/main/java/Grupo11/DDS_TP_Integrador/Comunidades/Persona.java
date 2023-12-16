@@ -3,6 +3,7 @@ import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.*;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
+import Grupo11.DDS_TP_Integrador.Repositories.IntervaloHorarioRepository;
 import Grupo11.DDS_TP_Integrador.Sessions.LoginEvent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,6 +23,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Persona {
 
+
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="id_persona")
@@ -35,6 +38,10 @@ public class Persona {
   @ManyToMany
   @JoinColumn(name="persona_intervalo_notis")
   private List<IntervaloHorario> horarios;
+
+  @ManyToOne
+  @JoinColumn(name="persona_seleccion_intervalo_notis")
+  private IntervaloHorario intervaloSeleccionado;
 
   @Column(name="telefono")
   private Integer telefono;
@@ -69,6 +76,7 @@ public class Persona {
 
   @OneToMany(mappedBy = "persona")
   private List<LoginEvent> loginEventList;
+
 
   //metodos utilitarios
 

@@ -13,12 +13,8 @@ public class CambiarMedioRequest {
     private Long idPersona;
     private List<IntervaloHorario> rangosHorariosPersona;
     private String nombreMedio;
+    private IntervaloHorario rangoSeleccionado;
 
-    public CambiarMedioRequest(Long idPersona, List<IntervaloHorario> rangosHorariosPersona, String nombreMedio) {
-        this.idPersona = idPersona;
-        this.rangosHorariosPersona = rangosHorariosPersona;
-        this.nombreMedio = nombreMedio;
-    }
 
     public CambiarMedioRequest() {
         this.rangosHorariosPersona = new ArrayList<IntervaloHorario>();

@@ -138,7 +138,7 @@
 
 <script>
     (async () => {
-        const configNotificaciones = await configuracionNotificaciones();
+        let configNotificaciones = await configuracionNotificaciones();
 
         setInterval(async function() {
 
@@ -148,10 +148,10 @@
             console.log("LocalStorage libre de configuraciones de notificaciones");
             localStorage.removeItem('notificaciones');
             console.log("LocalStorage libre de notificaciones");
-
+            configNotificaciones = await configuracionNotificaciones();
             await mostrarPagina(); //pero toma los datos del localstorage asi q es medio mentiroso --> todo: configurar limpieza del local storage acorde a la actualizacion
-            console.log("Actualizando notificaciones cada " + (configNotificaciones.horarios[0].segundos/1000).toString() + " segundos" )
-        }, configNotificaciones.horarios[0].segundos); //todo: justificar esto jajaj
+            console.log("Actualizando notificaciones cada " + (configNotificaciones.rangoSeleccionado.segundos/1000).toString() + " segundos" )
+        }, configNotificaciones.rangoSeleccionado.segundos);
     })();
 
 

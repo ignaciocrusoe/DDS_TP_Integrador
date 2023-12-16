@@ -76,11 +76,17 @@
 
 											</div>
 											<div class="col-sm-5 d-flex ">
-												<input onclick="goToBuscarIncidentes()"
+
+												<input onclick="goToMisComunidades()"
 													   style="width: 100%; height:100px; margin-top: 20px;"
 													   type='button'
 													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
-													   value='Buscar incidente'>
+													   value='Mis Comunidades'>
+<!--												<input onclick="goToBuscarIncidentes()"-->
+<!--													   style="width: 100%; height:100px; margin-top: 20px;"-->
+<!--													   type='button'-->
+<!--													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''-->
+<!--													   value='Buscar incidente'>-->
 
 												<input onclick="goToReportarIncidente()"
 													   style="width: 100%; height:100px; margin-top: 20px;"
@@ -138,6 +144,10 @@
 
 	function goToBuscarIncidentes() {
 		window.location.href = "/buscar_incidente";
+	}
+
+	function goToMisComunidades() {
+		window.location.href = "/comunidades/"+idPersona.toString();
 	}
 
 	function goToNotificaciones() {
