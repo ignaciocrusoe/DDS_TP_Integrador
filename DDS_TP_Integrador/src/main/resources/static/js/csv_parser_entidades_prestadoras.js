@@ -4,6 +4,9 @@
   var qRegex = /^"|"$/g;
   var button = document.getElementById('boton-cargar-archivo');
   var i = document.getElementById('csv-file');
+  var listOfStrings;
+  var object;
+  var listOfObjects;
 
   var iterator = 0;
 
@@ -25,21 +28,21 @@
       var reader = new FileReader();
 
       reader.onload = function (e) {
-          toTable(e.target.result);
+          sendElements(e.target.result);
       };
 
       reader.readAsText(file);
   }
 
-  function toTable(text) {
-      if (!text || !table) {
+ 
+
+  function sendElements(text) {
+      if (!text) {
           return;
       }
 
-      // clear table
-      while (!!table.lastElementChild) {
-          table.removeChild(table.lastElementChild);
-      }
+      listOfStrings = [];
+      listOfObjects = [];
 
       var rows = text.split(NEWLINE);
       var headers = rows.shift().trim().split(DELIMITER);
@@ -72,10 +75,14 @@
           cols.forEach(function (c) {
               var tc = c.trim();
               iterator = iterator + 1;
-              //en tc está el elemento
-              console.log("tc = ", tc);
+
+              console.log("Text = ", tc);
+              listOfStrings.push(tc);
 
           });
+          let oject = {categoria: listOfStrings[0], nombre_entidad: listOfStrings[1], organismo_de_control: listOfStrings[2], prestador: listOfStrings[3]};
+          listOfObjects.push(object);
+          object = [];
 
       });
   }
