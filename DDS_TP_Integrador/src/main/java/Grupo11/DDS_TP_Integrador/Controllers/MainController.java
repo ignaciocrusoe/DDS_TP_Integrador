@@ -288,7 +288,7 @@ public class MainController {
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
 
-    @PostMapping(value = "//importar-organismos-de-control/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/importar-organismos-de-control/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_organismos_de_control(@RequestBody List<SubirCsvOrganismosRequest> subirCsvOrganismosRequest) {
         System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismo());
 

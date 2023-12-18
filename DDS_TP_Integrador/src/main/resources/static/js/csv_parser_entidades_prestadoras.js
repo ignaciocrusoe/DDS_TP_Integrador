@@ -80,10 +80,26 @@
               listOfStrings.push(tc);
 
           });
-          let oject = {categoria: listOfStrings[0], nombre_entidad: listOfStrings[1], organismo_de_control: listOfStrings[2], prestador: listOfStrings[3]};
+          let object = {categoria: listOfStrings[0], nombre_entidad: listOfStrings[1], organismo_de_control: listOfStrings[2], prestador: listOfStrings[3]};
+          console.log("object ",object);
           listOfObjects.push(object);
-          object = [];
+          listOfStrings = [];
 
       });
+      console.log("listOfObjects: ", listOfObjects);
+      fetch('/importar-entidades-prestadoras/csv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(listOfObjects),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
   }
 })();
