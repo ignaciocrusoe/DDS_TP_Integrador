@@ -327,10 +327,9 @@ public class MainController {
         LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
         List<RankingMayorImpacto> rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
-        rankingsMayorImpacto.stream()
-                .filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+        rankingsMayorImpacto.stream().
+                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                 .collect(Collectors.toList());
-
         switch(ranking)
         {
             case 1:
