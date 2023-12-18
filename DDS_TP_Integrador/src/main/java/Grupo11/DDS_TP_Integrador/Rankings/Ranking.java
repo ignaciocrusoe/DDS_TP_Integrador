@@ -3,6 +3,7 @@ package Grupo11.DDS_TP_Integrador.Rankings;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,5 +80,9 @@ public class Ranking {
 
     public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
         this.rankingMayorImpacto = rankingMayorImpacto;
+    }
+
+    public LocalDateTime getDate() {
+        return this.fechaRanking;
     }
 }

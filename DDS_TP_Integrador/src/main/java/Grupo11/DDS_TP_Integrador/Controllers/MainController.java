@@ -8,6 +8,7 @@ import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Rankings.Ranking;
 import Grupo11.DDS_TP_Integrador.Rankings.RankingMasIncidentes;
+import Grupo11.DDS_TP_Integrador.Rankings.RankingMayorImpacto;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
@@ -21,7 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,6 +56,9 @@ public class MainController {
 
     @Autowired
     private IntervaloHorarioRepository intervaloHorarioRepository;
+
+    @Autowired
+    private RankingMayorImpactoRepository rankingMayorImpactoRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -280,7 +287,7 @@ public class MainController {
         return "importar-entidades-prestadoras";
     }
 
-    @GetMapping("/importar-organismos")
+    @GetMapping("/importar-organismos-de-control")
     public String importarorganismos() {
         return "importar-organismos";
     }
@@ -306,13 +313,31 @@ public class MainController {
         return "rankings";
     }
     @GetMapping("/rankings/{ranking}/{fecha}")
-    public List<RankingMasIncidentes> obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
+    public List<RankingMayorImpacto> obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
+
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaComoDate = formato.parse(fecha);
 
-        List <RankingMasIncidentes> listaRankingMasIncidente = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-        return listaRankingMasIncidente;
+        List<RankingMayorImpacto> rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
+        rankingsMayorImpacto.stream()
+                .filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                .collect(Collectors.toList());
+
+        switch(ranking)
+        {
+            case 1:
+
+
+
+                break;
+
+        }
+
+        return rankingsMayorImpacto;
     }
 }

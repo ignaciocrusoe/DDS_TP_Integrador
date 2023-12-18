@@ -4,6 +4,8 @@ import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name="rankingMayorImpacto")
@@ -57,6 +59,10 @@ public class RankingMayorImpacto {
 
     public void setPosicion(Integer posicion) {
         this.posicion = posicion;
+    }
+
+    public LocalDateTime getDate() {
+        return this.ranking.getDate();
     }
 }
 
