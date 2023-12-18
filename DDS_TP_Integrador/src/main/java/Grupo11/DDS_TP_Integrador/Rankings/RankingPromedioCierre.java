@@ -3,6 +3,8 @@ package Grupo11.DDS_TP_Integrador.Rankings;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 @Entity(name="rankingPromedioCierre")
 @IdClass(RankingPK.class)
@@ -55,5 +57,9 @@ public class RankingPromedioCierre {
 
     public void setPosicion(Integer posicion) {
         this.posicion = posicion;
+    }
+
+    public LocalDateTime getDate() {
+        return this.ranking.getDate();
     }
 }

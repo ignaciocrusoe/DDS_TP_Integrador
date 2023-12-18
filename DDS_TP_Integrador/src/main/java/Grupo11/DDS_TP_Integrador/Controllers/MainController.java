@@ -9,6 +9,7 @@ import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Rankings.Ranking;
 import Grupo11.DDS_TP_Integrador.Rankings.RankingMasIncidentes;
 import Grupo11.DDS_TP_Integrador.Rankings.RankingMayorImpacto;
+import Grupo11.DDS_TP_Integrador.Rankings.RankingPromedioCierre;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
@@ -55,10 +56,16 @@ public class MainController {
     private EntidadRepository entidadRepository;
 
     @Autowired
-    private IntervaloHorarioRepository intervaloHorarioRepository;
+    private IntervaloHorarioRepository  intervaloHorarioRepository;
 
     @Autowired
     private RankingMayorImpactoRepository rankingMayorImpactoRepository;
+
+    @Autowired
+    private RankingMasIncidentesRepository rankingMasIncidentesRepository;
+
+    @Autowired
+    private RankingPromedioCierreRepository rankingPromedioCierreRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -318,6 +325,7 @@ public class MainController {
     @GetMapping("/rankings/{ranking}/{fecha}")
     public ModelAndView obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
 
+        ModelAndView modelAndView = new ModelAndView("rankings");
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaComoDate = formato.parse(fecha);
@@ -326,22 +334,37 @@ public class MainController {
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-        List<RankingMayorImpacto> rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
-        rankingsMayorImpacto.stream().
-                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
-                .collect(Collectors.toList());
+        List<RankingPromedioCierre> rankingsPromedioCierre;
+        List<RankingMasIncidentes> rankingsMasIncidentes;
+        List<RankingMayorImpacto> rankingsMayorImpacto;
+
         switch(ranking)
         {
             case 1:
+                rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
+                rankingsPromedioCierre.stream().
+                        filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                        .collect(Collectors.toList());
+                modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
+                break;
 
-
-
+            case 2:
+                rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
+                rankingsMasIncidentes.stream().
+                        filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                        .collect(Collectors.toList());
+                modelAndView.addObject("rankingSMasIncidentes", rankingsMasIncidentes);
+                break;
+            case 3:
+                rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
+                rankingsMayorImpacto.stream().
+                        filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                        .collect(Collectors.toList());
+                modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
                 break;
 
         }
 
-        ModelAndView modelAndView = new ModelAndView("rankings");
-        modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
 
         return modelAndView;
     }

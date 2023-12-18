@@ -4,6 +4,8 @@ import Grupo11.DDS_TP_Integrador.Comunidades.Comunidad;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 @Entity(name="rankingMasIncidentes")
 @IdClass(RankingPK.class)
@@ -55,5 +57,9 @@ public class RankingMasIncidentes {
 
     public void setPosicion(Integer posicion) {
         this.posicion = posicion;
+    }
+
+    public LocalDateTime getDate() {
+        return this.ranking.getDate();
     }
 }
