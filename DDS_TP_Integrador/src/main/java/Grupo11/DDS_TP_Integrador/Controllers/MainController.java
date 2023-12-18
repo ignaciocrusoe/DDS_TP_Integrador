@@ -305,15 +305,18 @@ public class MainController {
 
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
-
+/*
     @GetMapping("/rankings")
     public String getRankings(Model model) {
 
 
         return "rankings";
     }
+
+
+ */
     @GetMapping("/rankings/{ranking}/{fecha}")
-    public List<RankingMayorImpacto> obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
+    public ModelAndView obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
 
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -338,6 +341,9 @@ public class MainController {
 
         }
 
-        return rankingsMayorImpacto;
+        ModelAndView modelAndView = new ModelAndView("rankings");
+        modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
+
+        return modelAndView;
     }
 }
