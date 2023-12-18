@@ -6,6 +6,8 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
+import Grupo11.DDS_TP_Integrador.Rankings.Ranking;
+import Grupo11.DDS_TP_Integrador.Rankings.RankingMasIncidentes;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -295,5 +299,20 @@ public class MainController {
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
 
-}
+    @GetMapping("/rankings")
+    public String getRankings(Model model) {
 
+
+        return "rankings";
+    }
+    @GetMapping("/rankings/{ranking}/{fecha}")
+    public List<RankingMasIncidentes> obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaComoDate = formato.parse(fecha);
+
+        List <RankingMasIncidentes> listaRankingMasIncidente = new ArrayList<>();
+
+        return listaRankingMasIncidente;
+    }
+}
