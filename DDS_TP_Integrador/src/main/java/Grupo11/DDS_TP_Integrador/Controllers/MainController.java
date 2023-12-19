@@ -326,12 +326,13 @@ public class MainController {
 
     @PostMapping(value = "/importar-organismos-de-control/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_organismos_de_control(@RequestBody List<SubirCsvOrganismosRequest> subirCsvOrganismosRequest) {
-        //System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismo());
+        System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismoControl());
+        System.out.println(subirCsvOrganismosRequest.get(1).getMailOrganismoControl());
 
         for (SubirCsvOrganismosRequest request : subirCsvOrganismosRequest) {
             OrganismoControl organismo = new OrganismoControl();
-            organismo.setNombre(request.getNombreOrganismo());
-            organismo.setMail(request.getMailOrganismo());
+            organismo.setNombre(request.getNombreOrganismoControl());
+            organismo.setMail(request.getMailOrganismoControl());
             organismoControlRepository.save(organismo);
         }
 
