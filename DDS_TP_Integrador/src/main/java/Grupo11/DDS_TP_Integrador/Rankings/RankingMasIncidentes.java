@@ -57,6 +57,10 @@ public class RankingMasIncidentes {
     public LocalDateTime getDate() {
         return fecha;
     }
+
+    public Long getIdRanking() {
+        return idRanking;
+    }
 }
 
 

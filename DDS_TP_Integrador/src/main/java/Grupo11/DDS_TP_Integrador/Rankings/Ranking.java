@@ -99,4 +99,8 @@ public class Ranking {
     public Integer getTipoRanking(){
         return tipoRanking;
     }
+
+    public Long getId() {
+        return id_ranking;
+    }
 }

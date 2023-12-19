@@ -376,34 +376,30 @@ public class MainController {
                 filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                 .collect(Collectors.toList());
 
+        Ranking ranking = rankings.stream()
+                .sorted().collect(Collectors.toList()).get(0);
+
         List<RankingPromedioCierre> rankingsPromedioCierre;
         List<RankingMasIncidentes> rankingsMasIncidentes;
         List<RankingMayorImpacto> rankingsMayorImpacto;
 
-
-
-
-        //rankingsPromedioCierre = rankingPromedioCierreRepository.findBy();
         rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
         rankingsPromedioCierre.stream().
-                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                filter(obj -> obj.getIdRanking() == ranking.getId())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
 
         rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
         rankingsMasIncidentes.stream().
-                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                filter(obj -> obj.getIdRanking() == ranking.getId())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
 
         rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
         rankingsMayorImpacto.stream().
-                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                filter(obj -> obj.getIdRanking() == ranking.getId())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
-
-
-
 
         return modelAndView;
     }
