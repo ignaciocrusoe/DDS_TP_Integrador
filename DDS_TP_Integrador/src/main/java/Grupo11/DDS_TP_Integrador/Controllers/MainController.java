@@ -7,10 +7,7 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
-import Grupo11.DDS_TP_Integrador.Rankings.Ranking;
-import Grupo11.DDS_TP_Integrador.Rankings.RankingMasIncidentes;
-import Grupo11.DDS_TP_Integrador.Rankings.RankingMayorImpacto;
-import Grupo11.DDS_TP_Integrador.Rankings.RankingPromedioCierre;
+import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
@@ -73,6 +70,12 @@ public class MainController {
 
     @Autowired
     private PrestadoresRepository prestadoresRepository;
+
+    @Autowired
+    private GestorRankings gestorRankings;
+
+    @Autowired
+    RankingRepository rankingRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -368,11 +371,19 @@ public class MainController {
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
+        List<Ranking> rankings = rankingRepository.findAll();
+        rankings.stream().
+                filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
+                .collect(Collectors.toList());
+
         List<RankingPromedioCierre> rankingsPromedioCierre;
         List<RankingMasIncidentes> rankingsMasIncidentes;
         List<RankingMayorImpacto> rankingsMayorImpacto;
 
 
+
+
+        //rankingsPromedioCierre = rankingPromedioCierreRepository.findBy();
         rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
         rankingsPromedioCierre.stream().
                 filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
@@ -400,6 +411,13 @@ public class MainController {
     @GetMapping("/incidentes-de-comunidad/")
     public String obtenerIncidentesDeComunidad() throws ParseException {
         return "lista-de-incidentes";
+    }
+
+    @PostMapping("/calcular-rankings")
+    public ResponseEntity<Map<String, String>> calcularRankings() {
+        //String dateTime = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        gestorRankings.calcularRankings();
+        return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
 
 }

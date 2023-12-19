@@ -25,6 +25,9 @@ public class Ranking {
     @Column(name = "fechaRanking")
     private LocalDateTime fechaRanking;
 
+    @Column(name = "tipo_ranking")
+    private Integer tipoRanking;
+
 //    @OneToMany(mappedBy = "ranking")
 //    private List<RankingMasIncidentes> rankingMasIncidentes;
 
@@ -91,5 +94,9 @@ public class Ranking {
 
     public LocalDateTime getDate() {
         return this.fechaRanking;
+    }
+    public void setTipoRanking(Integer tipoRanking){this.tipoRanking = tipoRanking;}
+    public Integer getTipoRanking(){
+        return tipoRanking;
     }
 }

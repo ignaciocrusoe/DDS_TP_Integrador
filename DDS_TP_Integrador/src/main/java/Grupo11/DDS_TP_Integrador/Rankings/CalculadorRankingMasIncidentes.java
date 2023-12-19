@@ -38,22 +38,22 @@ public class CalculadorRankingMasIncidentes extends CalculadorRanking{
                 .collect(Collectors.toList());
     }
 
-    List<RankingMasIncidentes> generarRankingMasIncidente(List<Entidad> entidades)
+    List<RankingMasIncidentes> generarRankingMasIncidente(List<Entidad> entidades, Ranking nuevoRanking)
     {
         LocalDateTime fechaActual = LocalDateTime.now();
 
         return entidades.stream()
                 .map(entidad -> {
                     int posicion = entidades.indexOf(entidad) + 1; // le sumo uno para que arranque desde 1
-                    return new RankingMasIncidentes(entidad, posicion, fechaActual);
+                    return new RankingMasIncidentes(entidad, posicion, fechaActual, nuevoRanking.getId_ranking());
                 })
                 .collect(Collectors.toList());
 
     }
 
-    public void guardarRankingMasIncidentes(List<Entidad> entidades){
+    public void guardarRankingMasIncidentes(List<Entidad> entidades, Ranking nuevoRanking){
 
-        List<RankingMasIncidentes> ranking_mas_incidentes = this.generarRankingMasIncidente(entidades);
+        List<RankingMasIncidentes> ranking_mas_incidentes = this.generarRankingMasIncidente(entidades, nuevoRanking);
 
         for (RankingMasIncidentes ranking : ranking_mas_incidentes) {
             rankingMasIncidentesRepository.save(ranking);

@@ -22,13 +22,17 @@ public class RankingMasIncidentes {
 
     @Column(name = "fecha")
     private LocalDateTime fecha;
+
+    @Column(name = "id_ranking")
+    private Long idRanking;
     //metodos utilitarios
 
 
-    public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha) {
+    public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha, Long ranking) {
         this.entidad = entidad;
         this.posicion = posicion;
         this.fecha = fecha;
+        this.idRanking = ranking;
     }
 
     public RankingMasIncidentes() {

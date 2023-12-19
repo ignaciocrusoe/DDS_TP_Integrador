@@ -30,7 +30,14 @@ public class IncidenteProvider {
             sumatoria+=incidente.duracion();
 
         }
-        return (sumatoria/(incidentes.size()));
+        if(incidentes.size() == 0)
+        {
+            return 0;
+        }
+        {
+            return (sumatoria/(incidentes.size()));
+        }
+
     }
 
     public int cantidadIncidentes(List<Incidente> incidentes) {

@@ -28,27 +28,28 @@ public class CalculadorRankingTiempoPromedio extends CalculadorRanking{
 
         Comparator<Entidad> comparadorPorPromedioIncidente = Comparator.comparingLong((Entidad e) -> incidenteProvider.promedioIncidentes(e.getIncidentes_reportados_abierto_en_semana(fechaHace7Dias, fechaActual)));
 
+
         return entidades.stream()
                 .sorted(comparadorPorPromedioIncidente)
                 .collect(Collectors.toList());
     }
 
-    List<RankingPromedioCierre> generarRankingPromedioCierre(List<Entidad> entidades)
+    List<RankingPromedioCierre> generarRankingPromedioCierre(List<Entidad> entidades, Ranking nuevoRanking)
     {
         LocalDateTime fechaActual = LocalDateTime.now();
 
         return entidades.stream()
                 .map(entidad -> {
                     int posicion = entidades.indexOf(entidad) + 1; // le sumo uno para que arranque desde 1
-                    return new RankingPromedioCierre(entidad, posicion, fechaActual);
+                    return new RankingPromedioCierre(entidad, posicion, fechaActual, nuevoRanking.getId_ranking());
                 })
                 .collect(Collectors.toList());
 
     }
 
-    public void guardarRankingPromedioCierre(List<Entidad> entidades){
+    public void guardarRankingPromedioCierre(List<Entidad> entidades, Ranking nuevoRanking){
 
-        List<RankingPromedioCierre> ranking_promedio_cierre = this.generarRankingPromedioCierre(entidades);
+        List<RankingPromedioCierre> ranking_promedio_cierre = this.generarRankingPromedioCierre(entidades, nuevoRanking);
         rankingPromedioCierreRepository.saveAll(ranking_promedio_cierre);
     }
 

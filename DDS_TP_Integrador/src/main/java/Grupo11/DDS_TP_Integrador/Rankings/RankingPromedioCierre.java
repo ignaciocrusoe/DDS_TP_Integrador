@@ -29,12 +29,16 @@ public class RankingPromedioCierre {
 
     @Column(name = "fecha")
     private LocalDateTime fecha;
+
+    @Column(name = "id_ranking")
+    private Long idRanking;
     //metodos utilitarios
 
-    public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime fecha) {
+    public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime fecha, Long ranking) {
         this.entidad = entidad;
         this.posicion = posicion;
         this.fecha = fecha;
+        this.idRanking = ranking;
     }
 
 
