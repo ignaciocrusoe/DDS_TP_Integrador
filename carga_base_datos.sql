@@ -1,8 +1,6 @@
-#reset
 
-drop schema dds;
-create schema dds;
-
+#drop schema dds;
+#create schema dds;
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
 #organismos de control
@@ -2421,12 +2419,17 @@ insert into medios_comunicacion (nombre_Medio, categoria) values
 
 #MANEJO DE SESIONES, PERSONAS, Y COMUNIDADES (CORRER ESTO LUEGO DE LA MIGRACION)
 
-INSERT INTO personas (horarios, mail, nombre_persona, apellido_persona, telefono, medio) VALUES
-('17:00:00', 'pepe@gmail.com', 'Pepe', 'Peposo', '1164638551', 2),
-('17:00:00', 'pepa@gmail.com', 'Pepa', 'Peposa', '1164638551', 2);
+INSERT INTO intervalo_horario (interv_segundos) VALUES
+(15000),
+(30000),
+(60000);
+
+INSERT INTO personas (persona_seleccion_intervalo_notis, mail, nombre_persona, apellido_persona, telefono, medio) VALUES
+(15000, 'pepe@gmail.com', 'Pepe', 'Peposo', '1164638551', 2),
+(30000, 'pepa@gmail.com', 'Pepa', 'Peposa', '1164638551', 2);
 
 insert into login_event (id_usuario, login_time, logout_time, id_persona) values
-('h1vZSKgCYiZNe3UnAeZLbXd3U4L2', '2023-11-06 23:07:40.000000', '2023-11-06 23:07:40.000000', 1), # pepe@gmail.com qwertyu
+('h1SiQ66gD7Osyx1ezI7IawZm6Lo1', '2023-11-06 23:07:40.000000', '2023-11-06 23:07:40.000000', 1), # pepe@gmail.com qwertyu
 ('oY2yZ5QAsEUmEDzT5CXrH0GxXY12', '2023-11-06 23:11:00.000000', '2023-11-06 23:11:00.000000', 2); # pepa@gmail.com qwertyu
 
 insert into comunidades (descripcion_comunidad, nombre_comunidad) values
@@ -2437,4 +2440,9 @@ insert into comunidades (descripcion_comunidad, nombre_comunidad) values
 insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_comunidad) values
 ('COMUN', 'AFECTADO', 2, 2, 'Comunidad ciegos'),
 ('ADMIN', 'AFECTADO', 3, 1, 'Comunidad ancianos'),
-('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados');
+('COMUN', 'OBSERVADOR', 1, 1, 'Comunidad discapacitados'),
+('COMUN', 'AFECTADO', 2, 3, 'Comunidad ciegos'),
+('ADMIN', 'AFECTADO', 3, 3, 'Comunidad ancianos'),
+('COMUN', 'OBSERVADOR', 1, 3, 'Comunidad discapacitados');
+
+update personas set mail= 'martinfedorenkolk1288@gmail.com', apellido_persona = 'Fedorenko', nombre_persona='Martin', telefono='1164638550', medio = 2 where id_persona = 3

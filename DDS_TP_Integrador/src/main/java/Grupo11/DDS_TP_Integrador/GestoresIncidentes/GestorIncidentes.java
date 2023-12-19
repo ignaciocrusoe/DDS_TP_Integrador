@@ -5,6 +5,7 @@ import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
 import Grupo11.DDS_TP_Integrador.Repositories.ComunidadRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.EntidadRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.IncidenteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +23,10 @@ public class GestorIncidentes {
     @Autowired
     protected EntidadRepository entidadRepository;
 
+    @Transactional
     public void reportarIncidenteParaAfectados(Incidente incidente, List<Comunidad> comunidades){
 
-        for (Comunidad comunidad : comunidades) {
-            incidente.getComunidadesAfectadas().add(comunidad);
 
-            comunidad.getIncidentesReportados().add(incidente);
-
-            incidenteRepository.save(incidente);
-            comunidadRepository.save(comunidad);
-
-        }
     }
 
     public List<Incidente> getIncidentesAbiertosByComunidad(Comunidad  comunidad){

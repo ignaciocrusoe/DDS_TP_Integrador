@@ -42,12 +42,12 @@ public class Incidente {
     @ManyToOne
     @JoinColumn(name = "prestacion_incidentada")
     private Prestacion prestacionIncidentada;
+
     @ManyToOne
     @JoinColumn(name = "establecimiento")
     private Establecimiento establecimiento;
 
     @ManyToMany(mappedBy = "incidentesReportados")
-    @JsonIgnore
     private List<Comunidad> comunidadesAfectadas;
 
     @Column(name="horario_apertura")
