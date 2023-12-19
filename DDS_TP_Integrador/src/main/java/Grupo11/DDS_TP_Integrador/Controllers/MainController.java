@@ -96,7 +96,7 @@ public class MainController {
         return "reportar_incidente";
     }
 
-    @PostMapping("/crear_incidente") // Replace with your actual endpoint
+    @PostMapping("/crear_incidente")
     public String reportIncidente(@ModelAttribute ReportarIncidenteRequest reportarIncidenteRequest) {
         Establecimiento establecimiento = establecimientoRepository.findByNombreEstablecimiento(reportarIncidenteRequest.getEstablecimiento());
         Prestacion prestacion = prestacionRepository.findByNombrePrestacion(reportarIncidenteRequest.getPrestacion());
@@ -273,10 +273,6 @@ public class MainController {
             MedioComunicacion medio = medioComunicacionRepository.findByNombreMedio(cambiarMedioRequest.getNombreMedio());
             persona.setMedioComunicacion(medio);
         }
-
-        //logica pedorrisima para no duplicar horarios --> encapsular en algun lado asi no la veo mas
-
-        //funciona 10/10 igual
 
         cambiarMedioRequest.getRangosHorariosPersona().forEach(intervaloHorario -> persona.getHorarios().add(intervaloHorario));
 
