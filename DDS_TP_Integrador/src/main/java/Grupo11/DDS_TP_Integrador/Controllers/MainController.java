@@ -71,6 +71,9 @@ public class MainController {
     @Autowired
     private OrganismoControlRepository organismoControlRepository;
 
+    @Autowired
+    private PrestadoresRepository prestadoresRepository;
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -305,13 +308,16 @@ public class MainController {
 
     @PostMapping(value = "/importar-entidades-prestadoras/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
-        System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
+        //System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
+        //System.out.println(subirCsvEntidadesRequest.get(1).getOrganismo_de_control());
+        //System.out.println(subirCsvEntidadesRequest.get(1).getPrestador());
+        //System.out.println(subirCsvEntidadesRequest.get(1).getCategoria());
 
         for (SubirCsvEntidadesRequest request : subirCsvEntidadesRequest) {
             Entidad entidad = new Entidad();
             entidad.setNombre_entidad(request.getNombre_entidad());
-            //entidad.setPrestador(request.getPrestador());
-            //entidad.setOrganismoControl(request.getOrganismo_de_control());
+            entidad.setPrestador(prestadoresRepository.findById(request.getPrestador()).get());
+            entidad.setOrganismoControl(organismoControlRepository.findById(request.getOrganismo_de_control()).get());
             entidadRepository.save(entidad);
         }
 
@@ -320,7 +326,7 @@ public class MainController {
 
     @PostMapping(value = "/importar-organismos-de-control/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_organismos_de_control(@RequestBody List<SubirCsvOrganismosRequest> subirCsvOrganismosRequest) {
-        System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismo());
+        //System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismo());
 
         for (SubirCsvOrganismosRequest request : subirCsvOrganismosRequest) {
             OrganismoControl organismo = new OrganismoControl();

@@ -87,7 +87,7 @@
 
       });
       console.log("listOfObjects: ", listOfObjects);
-      fetch('/importar-entidades-prestadoras/csv', {
+      fetch('/importar-organismos-de-control/csv', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
