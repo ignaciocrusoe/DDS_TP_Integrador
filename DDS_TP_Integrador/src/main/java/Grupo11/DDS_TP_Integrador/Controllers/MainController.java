@@ -323,7 +323,9 @@ public class MainController {
 
  */
     @GetMapping("/rankings/{fecha}")
+
     public ModelAndView obtenerRanking( @PathVariable() String fecha) throws ParseException {
+
 
         ModelAndView modelAndView = new ModelAndView("rankings");
 
@@ -356,6 +358,7 @@ public class MainController {
                 filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
+
 
 
 
