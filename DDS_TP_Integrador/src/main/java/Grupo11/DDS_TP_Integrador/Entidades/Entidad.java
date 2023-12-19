@@ -1,5 +1,7 @@
 package Grupo11.DDS_TP_Integrador.Entidades;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
@@ -118,6 +120,17 @@ public class Entidad{
 
     public List<Incidente> getIncidentes_reportados() {
         return incidentes_reportados;
+    }
+
+    public List<Incidente> getIncidentes_reportados_abierto_en_semana(LocalDateTime inicioDeSemana, LocalDateTime finDeSemana) {
+        return this.getIncidentes_reportados().stream()
+                .filter(incidente ->
+                incidente.getEstado() && // Verificar si está abierto
+                        incidente.getApertura().isAfter(inicioDeSemana) && // Verificar si es después del inicio de la semana
+                        incidente.getApertura().isBefore(finDeSemana) // Verificar si es antes del fin de la semana
+        )
+                .collect(Collectors.toList());
+        )
     }
 
     public void setIncidentes_reportados(List<Incidente> incidentes_reportados) {

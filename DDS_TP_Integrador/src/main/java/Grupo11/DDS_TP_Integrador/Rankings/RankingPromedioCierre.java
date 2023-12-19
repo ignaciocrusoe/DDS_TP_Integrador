@@ -14,13 +14,13 @@ public class RankingPromedioCierre {
     @JoinColumn(name = "entidad")
     private Entidad entidad;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "ranking")
-    private Ranking ranking;
-
     @Column(name = "posicion")
     private Integer posicion;
+
+    @Column(name = "fecha")
+    private LocalDateTime fecha;
+    //metodos utilitarios
+
 
 
     //metodos utilitarios
@@ -29,19 +29,12 @@ public class RankingPromedioCierre {
     public RankingPromedioCierre() {
     }
 
-    public RankingPromedioCierre(Entidad entidad, Ranking ranking, Integer posicion) {
+    public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime) {
         this.entidad = entidad;
-        this.ranking = ranking;
         this.posicion = posicion;
+        this.fecha = fecha;
     }
 
-    public Ranking getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(Ranking ranking) {
-        this.ranking = ranking;
-    }
 
     public Entidad getEntidad() {
         return entidad;

@@ -9,21 +9,42 @@ import Grupo11.DDS_TP_Integrador.Comunidades.*;
 
 import Grupo11.DDS_TP_Integrador.Entidades.*;
 import Grupo11.DDS_TP_Integrador.Incidentes.*;
+import Grupo11.DDS_TP_Integrador.Repositories.EntidadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 public class GestorRankings {
 
     @Autowired
-    private CalculadorRanking calculadorRanking;
+    private CalculadorRankingMasIncidentes calculadorRankingMasIncidentes;
 
-    public void calcularRankings(){
-        //obtiene las entidades de la DB
-        //calcula los rankings
-        //almacena los rankings en la DB
-    }
+    @Autowired
+    private CalculadorRankingTiempoPromedio calculadorRankingTiempoPromedio;
 
-    public void setCalculadorRanking(CalculadorRanking calculadorRanking) {
-        this.calculadorRanking = calculadorRanking;
+    @Component
+    public class TareaProgramada {
+
+        @Scheduled(cron = "0 0 0 ? * SUN")  // Ejecutar cada domingo a medianoche
+        public void ejecutarTareaSemanal() {
+            calcularRankings();
+        }
+
+        public void calcularRankings() {
+
+            //obtiene las entidades de la DB
+            List<Entidad> entidades = EntidadRepository.findAll();
+
+            //calcula los rankings
+
+            List<Entidad> entidadesSegunMasincidentes = calculadorRankingMasIncidentes.calcularRanking(entidades);
+            List<Entidad> entidadesSegunTiempoPromedio =  calculadorRankingTiempoPromedio.calcularRanking(entidades);
+
+            //almacena los rankings en la DB
+            calculadorRankingMasIncidentes.guardarRankingMasIncidentes(entidadesSegunMasincidentes);
+            calculadorRankingTiempoPromedio.guardarRankingPromedioCierre(entidadesSegunTiempoPromedio);
+        }
+
     }
 }
 

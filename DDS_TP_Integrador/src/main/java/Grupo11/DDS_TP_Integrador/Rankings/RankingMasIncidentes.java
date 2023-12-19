@@ -15,29 +15,18 @@ public class RankingMasIncidentes {
     @JoinColumn(name = "entidad")
     private Entidad entidad;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "ranking")
-    private Ranking ranking;
-
     @Column(name = "posicion")
     private Integer posicion;
 
+    @Column(name = "fecha")
+    private LocalDateTime fecha;
     //metodos utilitarios
 
 
-    public RankingMasIncidentes(Entidad entidad, Ranking ranking, Integer posicion) {
+    public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha) {
         this.entidad = entidad;
-        this.ranking = ranking;
         this.posicion = posicion;
-    }
-
-    public Ranking getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(Ranking ranking) {
-        this.ranking = ranking;
+        this.fecha = fecha;
     }
 
     public RankingMasIncidentes() {
@@ -60,6 +49,8 @@ public class RankingMasIncidentes {
     }
 
     public LocalDateTime getDate() {
-        return this.ranking.getDate();
+        return fecha;
     }
 }
+
+
