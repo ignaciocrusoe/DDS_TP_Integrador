@@ -322,8 +322,8 @@ public class MainController {
 
 
  */
-    @GetMapping("/rankings/{ranking}/{fecha}")
-    public ModelAndView obtenerRanking(@PathVariable() Integer ranking, @PathVariable() String fecha) throws ParseException {
+    @GetMapping("/rankings/{fecha}")
+    public ModelAndView obtenerRanking(@PathVariable() String fecha) throws ParseException {
 
         ModelAndView modelAndView = new ModelAndView("rankings");
 
@@ -338,32 +338,23 @@ public class MainController {
         List<RankingMasIncidentes> rankingsMasIncidentes;
         List<RankingMayorImpacto> rankingsMayorImpacto;
 
-        switch(ranking)
-        {
-            case 1:
                 rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
                 rankingsPromedioCierre.stream().
                         filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                         .collect(Collectors.toList());
                 modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
-                break;
 
-            case 2:
                 rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
                 rankingsMasIncidentes.stream().
                         filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                         .collect(Collectors.toList());
                 modelAndView.addObject("rankingSMasIncidentes", rankingsMasIncidentes);
-                break;
-            case 3:
+
                 rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
                 rankingsMayorImpacto.stream().
                         filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                         .collect(Collectors.toList());
                 modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
-                break;
-
-        }
 
 
         return modelAndView;

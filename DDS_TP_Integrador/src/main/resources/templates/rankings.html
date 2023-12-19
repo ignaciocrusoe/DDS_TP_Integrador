@@ -98,7 +98,7 @@
 		                            	<div class="row">
 											<div class="col-sm-10 d-flex col-sm-offset-1">
 												<ul class="list-group" style="margin-top: 20px;">
-													<li class="list-group-item d-flex justify-content-between" th:each="ranking : ${rankingsMayorImpacto}" th:value="${ranking.entidad.nombre_entidad}" th:text="${ranking.entidad.nombre_entidad}"></li>
+													<li class="list-group-item d-flex justify-content-between" th:each="ranking : ${rankingsPromedioCierre}" th:value="${ranking.entidad.nombre_entidad}" th:text="${ranking.entidad.nombre_entidad}"></li>
 												  </ul>
 											</div>
 										</div>
@@ -108,19 +108,7 @@
 		                            	<div class="row">
 											<div class="col-sm-10 d-flex col-sm-offset-1">
 												<ul class="list-group" style="margin-top: 20px;">
-													<li class="list-group-item"><span><b>Ranking 2</b></span></li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
+													<li class="list-group-item d-flex justify-content-between" th:each="ranking : ${rankingsMasIncidentes}" th:value="${ranking.entidad.nombre_entidad}" th:text="${ranking.entidad.nombre_entidad}"></li>
 												  </ul>
 											</div>
 										</div>
@@ -129,21 +117,7 @@
 		                            <div class="tab-pane" id="ranking3">
 		                            	<div class="row">
 											<div class="col-sm-10 d-flex col-sm-offset-1">
-												<ul class="list-group" style="margin-top: 20px;">
-													<li class="list-group-item"><span><b>Ranking 3</b></span></li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
-													<li class="list-group-item d-flex justify-content-between">
-													  <span>Entidad</span>
-													  <span>1</span>
-													</li>
-												  </ul>
+												<li class="list-group-item d-flex justify-content-between" th:each="ranking : ${rankingsMayorImpacto}" th:value="${ranking.entidad.nombre_entidad}" th:text="${ranking.entidad.nombre_entidad}"></li>
 											</div>
 										</div>
 		                            </div>
