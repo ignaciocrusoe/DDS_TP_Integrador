@@ -1,5 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Requests;
 
+import Grupo11.DDS_TP_Integrador.Entidades.OrganismoControl;
+import Grupo11.DDS_TP_Integrador.Entidades.Prestador;
+
 public class SubirCsvEntidadesRequest {
     private String categoria;
     private String nombre_entidad;
