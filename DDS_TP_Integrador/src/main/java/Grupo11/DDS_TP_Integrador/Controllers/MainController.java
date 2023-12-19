@@ -119,7 +119,17 @@ public class MainController {
         incidenteRepository.save(nuevoIncidente);
         entidadRepository.save(entidad);
 
-        gestorIncidentesPersona.reportarIncidenteParaAfectados(nuevoIncidente, comunidades);
+        for (Comunidad comunidad : comunidades) {
+
+
+            comunidad.getIncidentesReportados().add(nuevoIncidente);
+
+            nuevoIncidente.getComunidadesAfectadas().add(comunidad);
+            comunidadRepository.save(comunidad);
+
+            incidenteRepository.save(nuevoIncidente);
+
+        }
 
         return "redirect:/reportar_incidente";
     }
@@ -304,10 +314,10 @@ public class MainController {
 
     @PostMapping(value = "/importar-entidades-prestadoras/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
-        //System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
-        //System.out.println(subirCsvEntidadesRequest.get(1).getOrganismo_de_control());
-        //System.out.println(subirCsvEntidadesRequest.get(1).getPrestador());
-        //System.out.println(subirCsvEntidadesRequest.get(1).getCategoria());
+        System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
+        System.out.println(subirCsvEntidadesRequest.get(1).getOrganismo_de_control());
+        System.out.println(subirCsvEntidadesRequest.get(1).getPrestador());
+        System.out.println(subirCsvEntidadesRequest.get(1).getCategoria());
 
         for (SubirCsvEntidadesRequest request : subirCsvEntidadesRequest) {
             Entidad entidad = new Entidad();

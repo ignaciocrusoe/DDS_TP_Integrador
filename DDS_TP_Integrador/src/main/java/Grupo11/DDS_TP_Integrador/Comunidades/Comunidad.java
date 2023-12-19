@@ -35,13 +35,12 @@ public class Comunidad{
 
     @ManyToMany
     @JoinTable(name = "comunidad_x_incidente",
-            joinColumns = @JoinColumn(name = "id_incidente"),
-            inverseJoinColumns = @JoinColumn(name = "id_comunidad"))
-    @JsonIgnore
+            joinColumns = @JoinColumn(name = "id_comunidad"),
+            inverseJoinColumns = @JoinColumn(name = "id_incidente"))
     private List<Incidente> incidentesReportados;
+
+
     @OneToMany(mappedBy = "comunidad", cascade= CascadeType.ALL)
-    @Column(name="miembro")
-    @JsonIgnore
     private List<Miembro> miembros;
 
 

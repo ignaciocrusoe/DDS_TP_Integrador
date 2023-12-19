@@ -26,16 +26,7 @@ public class GestorIncidentes {
     @Transactional
     public void reportarIncidenteParaAfectados(Incidente incidente, List<Comunidad> comunidades){
 
-        for (Comunidad comunidad : comunidades) {
-            incidente.getComunidadesAfectadas().add(comunidad);
 
-            comunidad.getIncidentesReportados().add(incidente);
-
-
-            comunidadRepository.save(comunidad);
-            incidenteRepository.save(incidente);
-
-        }
     }
 
     public List<Incidente> getIncidentesAbiertosByComunidad(Comunidad  comunidad){
