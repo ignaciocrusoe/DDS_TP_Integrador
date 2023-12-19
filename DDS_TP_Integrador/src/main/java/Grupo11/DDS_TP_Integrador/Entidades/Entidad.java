@@ -130,7 +130,7 @@ public class Entidad{
                         incidente.getApertura().isBefore(finDeSemana) // Verificar si es antes del fin de la semana
         )
                 .collect(Collectors.toList());
-        )
+
     }
 
     public void setIncidentes_reportados(List<Incidente> incidentes_reportados) {
