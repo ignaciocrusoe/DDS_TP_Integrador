@@ -9,15 +9,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name="rankingMayorImpacto")
-@IdClass(RankingPK.class)
+//@IdClass(RankingPK.class)
 public class RankingMayorImpacto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "entidad")
     private Entidad entidad;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "ranking")
     private Ranking ranking;

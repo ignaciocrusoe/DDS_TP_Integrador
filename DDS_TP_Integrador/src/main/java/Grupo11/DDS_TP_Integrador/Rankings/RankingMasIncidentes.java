@@ -8,9 +8,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity(name="rankingMasIncidentes")
-@IdClass(RankingPK.class)
+//@IdClass(RankingPK.class)
 public class RankingMasIncidentes {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "entidad")
     private Entidad entidad;

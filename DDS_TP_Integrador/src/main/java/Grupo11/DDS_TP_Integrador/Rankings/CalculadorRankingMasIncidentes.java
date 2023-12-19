@@ -3,12 +3,14 @@ package Grupo11.DDS_TP_Integrador.Rankings;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Repositories.RankingMasIncidentesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class CalculadorRankingMasIncidentes extends CalculadorRanking{
     /*
     @Override
@@ -52,7 +54,10 @@ public class CalculadorRankingMasIncidentes extends CalculadorRanking{
     public void guardarRankingMasIncidentes(List<Entidad> entidades){
 
         List<RankingMasIncidentes> ranking_mas_incidentes = this.generarRankingMasIncidente(entidades);
-        rankingMasIncidentesRepository.save(ranking_mas_incidentes);
+
+        for (RankingMasIncidentes ranking : ranking_mas_incidentes) {
+            rankingMasIncidentesRepository.save(ranking);
+        }
 
     }
 }

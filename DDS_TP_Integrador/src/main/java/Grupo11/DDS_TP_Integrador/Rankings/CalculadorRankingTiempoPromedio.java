@@ -4,12 +4,14 @@ import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Repositories.RankingMasIncidentesRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.RankingPromedioCierreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class CalculadorRankingTiempoPromedio extends CalculadorRanking{
 
 
@@ -31,14 +33,14 @@ public class CalculadorRankingTiempoPromedio extends CalculadorRanking{
                 .collect(Collectors.toList());
     }
 
-    List<RankingMasIncidentes> generarRankingPromedioCierre(List<Entidad> entidades)
+    List<RankingPromedioCierre> generarRankingPromedioCierre(List<Entidad> entidades)
     {
         LocalDateTime fechaActual = LocalDateTime.now();
 
         return entidades.stream()
                 .map(entidad -> {
                     int posicion = entidades.indexOf(entidad) + 1; // le sumo uno para que arranque desde 1
-                    return new RankingMasIncidentes(entidad, posicion, fechaActual);
+                    return new RankingPromedioCierre(entidad, posicion, fechaActual);
                 })
                 .collect(Collectors.toList());
 
@@ -46,9 +48,8 @@ public class CalculadorRankingTiempoPromedio extends CalculadorRanking{
 
     public void guardarRankingPromedioCierre(List<Entidad> entidades){
 
-        List<RankingMasIncidentes> ranking_promedio_cierre = this.generarRankingPromedioCierre(entidades);
-        rankingPromedioCierreRepository.save(ranking_promedio_cierre);
-
+        List<RankingPromedioCierre> ranking_promedio_cierre = this.generarRankingPromedioCierre(entidades);
+        rankingPromedioCierreRepository.saveAll(ranking_promedio_cierre);
     }
 
 

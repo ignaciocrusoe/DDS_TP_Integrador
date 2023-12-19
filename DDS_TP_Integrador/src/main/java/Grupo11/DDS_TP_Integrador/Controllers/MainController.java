@@ -2,6 +2,7 @@ package Grupo11.DDS_TP_Integrador.Controllers;
 
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
+import Grupo11.DDS_TP_Integrador.Entidades.OrganismoControl;
 import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
@@ -66,6 +67,9 @@ public class MainController {
 
     @Autowired
     private RankingPromedioCierreRepository rankingPromedioCierreRepository;
+    
+    @Autowired
+    private OrganismoControlRepository organismoControlRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -302,13 +306,28 @@ public class MainController {
     @PostMapping(value = "/importar-entidades-prestadoras/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_entidades_prestadoras(@RequestBody List<SubirCsvEntidadesRequest> subirCsvEntidadesRequest) {
         System.out.println(subirCsvEntidadesRequest.get(1).getNombre_entidad());
-
+/*
+        for (SubirCsvEntidadesRequest request : subirCsvEntidadesRequest) {
+            Entidad entidad = new Entidad();
+            entidad.setNombre_entidad(request.getNombre_entidad());
+            entidad.setPrestador(request.getPrestador());
+            entidad.setOrganismoControl(request.getOrganismo_de_control());
+            entidadRepository.save(entidad);
+        }
+*/
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
 
     @PostMapping(value = "/importar-organismos-de-control/csv", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> importar_organismos_de_control(@RequestBody List<SubirCsvOrganismosRequest> subirCsvOrganismosRequest) {
         System.out.println(subirCsvOrganismosRequest.get(1).getNombreOrganismo());
+
+        for (SubirCsvOrganismosRequest request : subirCsvOrganismosRequest) {
+            OrganismoControl organismo = new OrganismoControl();
+            organismo.setNombre(request.getNombreOrganismo());
+            organismo.setMail(request.getMailOrganismo());
+            organismoControlRepository.save(organismo);
+        }
 
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
