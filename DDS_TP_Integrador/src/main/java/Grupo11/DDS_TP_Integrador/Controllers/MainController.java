@@ -364,4 +364,10 @@ public class MainController {
 
         return modelAndView;
     }
+
+    @GetMapping("/incidentes-de-comunidad/")
+    public String obtenerIncidentesDeComunidad() throws ParseException {
+        return "lista-de-incidentes";
+    }
+
 }
