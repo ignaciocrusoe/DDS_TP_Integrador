@@ -30,15 +30,16 @@ public class RankingPromedioCierre {
     @Column(name = "fecha")
     private LocalDateTime fecha;
 
-    @Column(name = "id_ranking")
-    private Long idRanking;
+    @ManyToOne
+    @JoinColumn(name = "ranking")
+    private Ranking ranking;
     //metodos utilitarios
 
-    public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime fecha, Long ranking) {
+    public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime fecha, Ranking ranking) {
         this.entidad = entidad;
         this.posicion = posicion;
         this.fecha = fecha;
-        this.idRanking = ranking;
+        this.ranking = ranking;
     }
 
 

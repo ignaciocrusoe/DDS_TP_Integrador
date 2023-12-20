@@ -37,24 +37,18 @@ public class GestorRankings {
 
         LocalDateTime currentTime = LocalDateTime.now();
 
-        Ranking ranking = new Ranking();
-        ranking.setFechaRanking(currentTime);
-
         //Creamos los tres nuevos rankings
         Ranking rankingMasIncidentes = new Ranking();
         rankingMasIncidentes.setFechaRanking(currentTime);
         rankingMasIncidentes.setTipoRanking(1);
-        rankingMasIncidentes.setId_ranking(ranking.getId_ranking());
 
         Ranking rankingPromedioCierre = new Ranking();
         rankingPromedioCierre.setFechaRanking(currentTime);
         rankingPromedioCierre.setTipoRanking(2);
-        rankingPromedioCierre.setId_ranking(ranking.getId_ranking());
 
-        Ranking rankingMayorImpacto = new Ranking();
-        rankingMayorImpacto.setFechaRanking(currentTime);
-        rankingMayorImpacto.setTipoRanking(3);
-        rankingMayorImpacto.setId_ranking(ranking.getId_ranking());
+        //Ranking rankingMayorImpacto = new Ranking();
+        //rankingMayorImpacto.setFechaRanking(currentTime);
+        //rankingMayorImpacto.setTipoRanking(3);
 
         //obtiene las entidades de la DB
         List<Entidad> entidades = entidadRepository.findAll();
@@ -68,7 +62,6 @@ public class GestorRankings {
         calculadorRankingMasIncidentes.guardarRankingMasIncidentes(entidadesSegunMasincidentes, rankingMasIncidentes);
         calculadorRankingTiempoPromedio.guardarRankingPromedioCierre(entidadesSegunTiempoPromedio, rankingPromedioCierre);
 
-        rankingRepository.save(ranking);
         }
 
     @Scheduled(cron = "0 0 0 ? * SUN")  // Ejecutar cada domingo a medianoche

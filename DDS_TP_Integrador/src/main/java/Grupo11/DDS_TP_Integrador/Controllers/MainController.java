@@ -376,8 +376,23 @@ public class MainController {
                 filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                 .collect(Collectors.toList());
 
-        Ranking ranking = rankings.stream()
-                .sorted().collect(Collectors.toList()).get(0);
+        Ranking rankingPromedioCierre = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 1)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMasIncidentes = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 2)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMayorImpacto = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 3)
+                .collect(Collectors.toList())
+                .get(0);
+
+        System.out.println(rankingPromedioCierre.getTipoRanking());
+
 
         List<RankingPromedioCierre> rankingsPromedioCierre;
         List<RankingMasIncidentes> rankingsMasIncidentes;
@@ -385,19 +400,19 @@ public class MainController {
 
         rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
         rankingsPromedioCierre.stream().
-                filter(obj -> obj.getIdRanking() == ranking.getId())
+                filter(obj -> obj.getRanking() == rankingPromedioCierre)
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
 
         rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
         rankingsMasIncidentes.stream().
-                filter(obj -> obj.getIdRanking() == ranking.getId())
+                filter(obj -> obj.getRanking() == rankingMasIncidentes)
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
 
         rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
         rankingsMayorImpacto.stream().
-                filter(obj -> obj.getIdRanking() == ranking.getId())
+                filter(obj -> obj.getRanking() == rankingMayorImpacto)
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
 

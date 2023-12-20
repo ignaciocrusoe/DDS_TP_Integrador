@@ -26,10 +26,6 @@ public class RankingMayorImpacto {
 
     @Column(name = "posicion")
     private Integer posicion;
-
-    @Column(name = "id_ranking")
-    private Long idRanking;
-
     //metodos utilitarios
 
 
@@ -70,8 +66,5 @@ public class RankingMayorImpacto {
         return this.ranking.getDate();
     }
 
-    public Long getIdRanking() {
-        return idRanking;
-    }
 }
 

@@ -23,16 +23,17 @@ public class RankingMasIncidentes {
     @Column(name = "fecha")
     private LocalDateTime fecha;
 
-    @Column(name = "id_ranking")
-    private Long idRanking;
+    @ManyToOne
+    @JoinColumn(name = "ranking")
+    private Ranking ranking;
     //metodos utilitarios
 
 
-    public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha, Long ranking) {
+    public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha, Ranking ranking) {
         this.entidad = entidad;
         this.posicion = posicion;
         this.fecha = fecha;
-        this.idRanking = ranking;
+        this.ranking = ranking;
     }
 
     public RankingMasIncidentes() {
@@ -58,8 +59,8 @@ public class RankingMasIncidentes {
         return fecha;
     }
 
-    public Long getIdRanking() {
-        return idRanking;
+    public Ranking getRanking() {
+        return ranking;
     }
 }
 

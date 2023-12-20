@@ -2,6 +2,7 @@ package Grupo11.DDS_TP_Integrador.Rankings;
 
 import Grupo11.DDS_TP_Integrador.Entidades.Entidad;
 import Grupo11.DDS_TP_Integrador.Repositories.RankingMasIncidentesRepository;
+import Grupo11.DDS_TP_Integrador.Repositories.RankingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class CalculadorRankingMasIncidentes extends CalculadorRanking{
     */
    @Autowired
    RankingMasIncidentesRepository rankingMasIncidentesRepository;
+
+   @Autowired
+   RankingRepository rankingRepository;
 
     @Override
     public List<Entidad> calcularRanking(List<Entidad> entidades) {
@@ -45,7 +49,7 @@ public class CalculadorRankingMasIncidentes extends CalculadorRanking{
         return entidades.stream()
                 .map(entidad -> {
                     int posicion = entidades.indexOf(entidad) + 1; // le sumo uno para que arranque desde 1
-                    return new RankingMasIncidentes(entidad, posicion, fechaActual, nuevoRanking.getId_ranking());
+                    return new RankingMasIncidentes(entidad, posicion, fechaActual, nuevoRanking);
                 })
                 .collect(Collectors.toList());
 
@@ -54,7 +58,7 @@ public class CalculadorRankingMasIncidentes extends CalculadorRanking{
     public void guardarRankingMasIncidentes(List<Entidad> entidades, Ranking nuevoRanking){
 
         List<RankingMasIncidentes> ranking_mas_incidentes = this.generarRankingMasIncidente(entidades, nuevoRanking);
-
+        rankingRepository.save(nuevoRanking);
         for (RankingMasIncidentes ranking : ranking_mas_incidentes) {
             rankingMasIncidentesRepository.save(ranking);
         }
