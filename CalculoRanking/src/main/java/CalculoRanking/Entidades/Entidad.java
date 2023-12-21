@@ -13,6 +13,12 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Entidad extends Interes{
 
+    @Column(name = "id_entidad")
+    private Long id_entidad;
+
+    @Column(name = "nombre_entidad")
+    private String nombre_entidad;
+
     @OneToMany(mappedBy = "entidad",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Incidente> incidentes_reportados;
 
