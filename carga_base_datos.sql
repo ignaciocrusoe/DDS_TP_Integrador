@@ -1,6 +1,7 @@
 
 #drop schema dds;
 #create schema dds;
+use dds;
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 
 #organismos de control
@@ -2448,4 +2449,5 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_c
 update personas set mail= 'martinfedorenkolk1288@gmail.com', apellido_persona = 'Fedorenko', nombre_persona='Martin', telefono='1164638550', medio = 2 where id_persona = 3
 insert into incidentes (horario_apertura, horario_cierre, estado, observaciones, entidad, establecimiento, persona_reportadora, prestacion_incidentada) values
 ('2023-12-17 16:40:53.000000', '2023-12-18 19:40:53.000000', 0, 'Las escaleras mecánicas dejaron de funcionar.', 1, 1, 1, 3),
-('2023-12-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 1, 'No se pueden utilizar las escaleras.', 1, 1, 2, 1);
+('2023-12-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 1, 'No se pueden utilizar las escaleras.', 1, 1, 2, 1),
+('2023-11-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 0, 'No se pueden utilizar las escaleras.', 2, 1, 2, 1);

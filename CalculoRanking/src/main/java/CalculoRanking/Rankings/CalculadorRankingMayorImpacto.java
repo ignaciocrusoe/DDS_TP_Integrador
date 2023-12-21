@@ -5,6 +5,7 @@ import CalculoRanking.Rankings.CalculadorRanking;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,9 @@ public class CalculadorRankingMayorImpacto extends CalculadorRanking {
     @Override
     public List<Entidad> calcularRanking(List<Entidad> entidades) {
         Comparator<Entidad> comparadorPorImpacto = Comparator.comparingLong((Entidad e) -> calcularImpacto(cnf, e));
-        return entidades.stream().sorted(comparadorPorImpacto).collect(Collectors.toList());
+        List<Entidad> entidadesOrdenadas = entidades.stream().sorted(comparadorPorImpacto).collect(Collectors.toList());
+        Collections.reverse(entidadesOrdenadas);
+        return entidadesOrdenadas;
     }
 
     private Long calcularImpacto(Integer cnf, Entidad entidad){
