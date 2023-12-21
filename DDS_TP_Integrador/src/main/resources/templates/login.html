@@ -169,14 +169,34 @@
 <script>
 //borro toda la cache al pedir el login
 // Obtener todas las claves en LocalStorage
-for (let i = 0; i < localStorage.length; i++) {
-	const key = localStorage.key(i);
-	console.log('Clave en LocalStorage:', key);
 
-	// Borrar el elemento asociado a la clave
-	localStorage.removeItem(key);
-	console.log('Elemento eliminado en LocalStorage:', key);
-}
+	
+	localStorage.removeItem('idPersona');
+	localStorage.removeItem('notificaciones');
+	localStorage.removeItem('incidentesDeInteres');
+	localStorage.removeItem('configuracionNotificaciones');
+
+
+// const clearAndLogin = async () => {
+// 	console.log('Iniciando limpieza de LocalStorage...');
+// 	await clearLocalStorage();
+// 	console.log('Todos los elementos de LocalStorage han sido eliminados.');
+//
+// };
+//
+// async function clearLocalStorage(){
+// 	return new Promise(resolve => {
+// 			for (let i = 0; i < localStorage.length; i++) {
+// 			const key = localStorage.key(i);
+// 			console.log('Clave en LocalStorage:', key);
+//
+// 			// Borrar el elemento asociado a la clave
+// 			localStorage.removeItem(key);
+// 			console.log('Elemento eliminado en LocalStorage:', key);}
+// 	})
+//
+// }
+
 
 
 </script>
