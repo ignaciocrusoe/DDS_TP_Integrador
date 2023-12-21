@@ -168,7 +168,16 @@
 
 <script>
 //borro toda la cache al pedir el login
-	localStorage.clear();
+// Obtener todas las claves en LocalStorage
+for (let i = 0; i < localStorage.length; i++) {
+	const key = localStorage.key(i);
+	console.log('Clave en LocalStorage:', key);
+
+	// Borrar el elemento asociado a la clave
+	localStorage.removeItem(key);
+	console.log('Elemento eliminado en LocalStorage:', key);
+}
+
 
 </script>
 </html>

@@ -70,10 +70,19 @@
 														</span>
 											</div>
 										</form>
+										<form th:action="@{/unirse_a_comunidad}" method="post" th:object="${unirseAComunidadRequest}" id="unirse-a-comunidad-form">
+											<input type="hidden"  th:name="idPersona"  th:value="${personaEnCuestion.idPersona}" />
+											<div class="row" style="margin-top: 10px;">
+												<select name="tipo" class="btn form-control" th:field="*{idComunidad}" style="width: 60%;">
+													<option th:each="comunidad : ${comunidades}" th:value="${comunidad.getIdComunidad()}" th:text="${comunidad.getDescripcionComunidad()}" ></option>
+												</select>
+												<button type="submit" class="btn btn-primary rounded-circle" form="unirse-a-comunidad-form" >+</button>
+											</div>
+										</form>
 
 									</div>
 									<div class="tab-pane" id="comunidades" style="margin-top: 10px">
-										<h5 class="info-text"><b th:text="${persona.nombre + ' ' + persona.apellido}"></b> es miembro de las siguientes comunidades:</h5>
+										<h5 class="info-text"><b th:text="${personaEnCuestion.nombre + ' ' + personaEnCuestion.apellido}"></b> es miembro de las siguientes comunidades:</h5>
 										<div class="row">
 											<div class="col-sm-10 col-sm-offset-1">
 												<!--											todo: revisar este for each con posts dinamicos no funca-->
@@ -149,6 +158,10 @@
 	<script th:src="@{/js/editar-perfil.js}" type="module"></script>
 
 <!--todo: implementar busqueda de comunidades para enviar solicitud si hay ganas-->
+<script>
+
+	const idLocalStorage = localStorage.getItem('idPersona');
+</script>
 
 
 </html>
