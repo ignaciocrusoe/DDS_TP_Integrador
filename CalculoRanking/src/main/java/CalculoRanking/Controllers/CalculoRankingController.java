@@ -85,7 +85,7 @@ public class CalculoRankingController {
     }
 
     @PostMapping("/calcular-ranking-prueba")
-    public List<Entidad> calcularRankingsTest() {
+    public List<RankingMayorImpacto> calcularRankingsTest() {
         //String dateTime = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Integer cnf = 2;
         LocalDateTime fechaActual = LocalDateTime.now();
@@ -99,7 +99,7 @@ public class CalculoRankingController {
 
 
 
-        return entidades;
+        return rankingsMayorImpacto;
     }
 
 }
