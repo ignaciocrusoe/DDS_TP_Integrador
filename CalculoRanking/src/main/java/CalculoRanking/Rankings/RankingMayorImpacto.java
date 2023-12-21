@@ -46,10 +46,11 @@ public class RankingMayorImpacto {
     }
 */
 
-    public RankingMayorImpacto(Entidad entidad, Ranking ranking, LocalDateTime fecha) {
+    public RankingMayorImpacto(Entidad entidad, Ranking ranking, int posicion, LocalDateTime fecha) {
         this.entidad = entidad;
         this.ranking = ranking;
         this.fecha = fecha;
+        this.posicion = posicion;
     }
 
     public Ranking getRanking() {

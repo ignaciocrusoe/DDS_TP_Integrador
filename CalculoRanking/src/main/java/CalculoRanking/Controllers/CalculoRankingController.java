@@ -64,11 +64,8 @@ public class CalculoRankingController {
         return new ResponseEntity<List<RankingMayorImpacto>>(rankingsMayorImpacto, HttpStatus.OK);
 
     }
-
-    @PostMapping("/calcular-ranking")
-    public ResponseEntity<Map<String, String>> calcularRankings(/*@RequestParam Integer cnf*/) {
-        //String dateTime = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        Integer cnf = 2;
+    @PostMapping("/calcular-ranking/{cnf}")
+    public ResponseEntity<Map<String, String>> calcularRankings(@PathVariable int cnf) {
         LocalDateTime fechaActual = LocalDateTime.now();
         List<Entidad> entidades = entidadRepository.findAll();
         List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades);
@@ -77,29 +74,8 @@ public class CalculoRankingController {
         nuevoRanking.setTipoRanking(3);
         rankingRepository.save(nuevoRanking);
         List<RankingMayorImpacto> rankingsMayorImpacto = calculadorRankingMayorImpacto.generarRanking(entidadesOrdenadas, nuevoRanking, cnf);
-
-
         rankingMayorImpactoRepository.saveAll(rankingsMayorImpacto);
-
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
-    }
-
-    @PostMapping("/calcular-ranking-prueba")
-    public List<RankingMayorImpacto> calcularRankingsTest() {
-        //String dateTime = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        Integer cnf = 2;
-        LocalDateTime fechaActual = LocalDateTime.now();
-        List<Entidad> entidades = entidadRepository.findAll();
-        List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades);
-        Ranking nuevoRanking = new Ranking();
-        nuevoRanking.setTime(fechaActual);
-        nuevoRanking.setTipoRanking(3);
-
-        List<RankingMayorImpacto> rankingsMayorImpacto = calculadorRankingMayorImpacto.generarRanking(entidadesOrdenadas, nuevoRanking, cnf);
-
-
-
-        return rankingsMayorImpacto;
     }
 
 }

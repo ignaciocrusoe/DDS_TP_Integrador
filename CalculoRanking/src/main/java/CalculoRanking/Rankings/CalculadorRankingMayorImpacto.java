@@ -38,7 +38,7 @@ public class CalculadorRankingMayorImpacto extends CalculadorRanking {
         return entidades.stream()
                 .map(entidad -> {
                     int posicion = entidades.indexOf(entidad) + 1; // le sumo uno para que arranque desde 1
-                    return new RankingMayorImpacto(entidad, nuevoRanking, fechaActual);
+                    return new RankingMayorImpacto(entidad, nuevoRanking, posicion, fechaActual);
                 })
                 .collect(Collectors.toList());
 
