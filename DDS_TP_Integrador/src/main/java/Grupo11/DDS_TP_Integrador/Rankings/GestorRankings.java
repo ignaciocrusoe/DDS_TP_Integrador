@@ -58,6 +58,10 @@ public class GestorRankings {
         List<Entidad> entidadesSegunMasincidentes = calculadorRankingMasIncidentes.calcularRanking(entidades);
         List<Entidad> entidadesSegunTiempoPromedio =  calculadorRankingTiempoPromedio.calcularRanking(entidades);
 
+        //Invierto el orden porque tienen que esar ordenadas de mayor a menor
+        Collections.reverse(entidadesSegunMasincidentes);
+        Collections.reverse(entidadesSegunTiempoPromedio);
+
         //almacena los rankings en la DB
         calculadorRankingMasIncidentes.guardarRankingMasIncidentes(entidadesSegunMasincidentes, rankingMasIncidentes);
         calculadorRankingTiempoPromedio.guardarRankingPromedioCierre(entidadesSegunTiempoPromedio, rankingPromedioCierre);
