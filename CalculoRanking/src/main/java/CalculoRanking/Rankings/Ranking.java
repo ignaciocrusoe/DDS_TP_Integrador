@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity(name = "Ranking")
 public class Ranking {
 
@@ -13,47 +14,91 @@ public class Ranking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_ranking")
     private Long id_ranking;
+
     @Column(name = "fechaRanking")
     private LocalDateTime fechaRanking;
 
-    @OneToMany( mappedBy = "ranking", cascade = CascadeType.ALL)
-    private List<RankingMayorImpacto> rankingMayorImpacto;
+    @Column(name = "tipo_ranking")
+    private Integer tipoRanking;
 
-    public Ranking() {
-        this.rankingMayorImpacto = new ArrayList<>();
+//    @OneToMany(mappedBy = "ranking")
+//    private List<RankingMasIncidentes> rankingMasIncidentes;
+
+//    @OneToMany(mappedBy = "ranking")
+//    private List<RankingPromedioCierre> rankingPromedioCierre;
+
+//    @OneToMany(mappedBy = "ranking")
+//    private List<RankingMayorImpacto> rankingMayorImpacto;
+
+//    public Ranking() {
+//        this.rankingMayorImpacto = new ArrayList<>();
+//    }
+//
+//    public Ranking(Long id_ranking, LocalDateTime fechaRanking, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto) {
+//        this.id_ranking = id_ranking;
+//        this.fechaRanking = fechaRanking;
+//        this.rankingMasIncidentes = rankingMasIncidentes;
+//        this.rankingPromedioCierre = rankingPromedioCierre;
+//        this.rankingMayorImpacto = rankingMayorImpacto;
+//    }
+//
+//    public Ranking(LocalDateTime fechaRanking) {
+//        this.fechaRanking = fechaRanking;
+//    }
+//    public Long getId_ranking() {
+//        return id_ranking;
+//    }
+//
+//    public void setId_ranking(Long id_ranking) {
+//        this.id_ranking = id_ranking;
+//    }
+//
+//    public LocalDateTime getFechaRanking() {
+//        return fechaRanking;
+//    }
+//
+//    public void setFechaRanking(LocalDateTime fechaRanking) {
+//        this.fechaRanking = fechaRanking;
+//    }
+//
+//    public List<RankingMasIncidentes> getRankingMasIncidentes() {
+//        return rankingMasIncidentes;
+//    }
+//
+//    public void setRankingMasIncidentes(List<RankingMasIncidentes> rankingMasIncidentes) {
+//        this.rankingMasIncidentes = rankingMasIncidentes;
+//    }
+//
+//    public List<RankingPromedioCierre> getRankingPromedioCierre() {
+//        return rankingPromedioCierre;
+//    }
+//
+//    public void setRankingPromedioCierre(List<RankingPromedioCierre> rankingPromedioCierre) {
+//        this.rankingPromedioCierre = rankingPromedioCierre;
+//    }
+//
+//    public List<RankingMayorImpacto> getRankingMayorImpacto() {
+//        return rankingMayorImpacto;
+//    }
+//
+//    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
+//        this.rankingMayorImpacto = rankingMayorImpacto;
+//    }
+
+    public LocalDateTime getDate() {
+        return this.fechaRanking;
+    }
+    public void setTipoRanking(Integer tipoRanking){this.tipoRanking = tipoRanking;}
+    public Integer getTipoRanking(){
+        return tipoRanking;
     }
 
-    public Ranking(Long id_ranking, LocalDateTime fechaRanking, List<RankingMayorImpacto> rankingMayorImpacto) {
-        this.id_ranking = id_ranking;
-        this.fechaRanking = fechaRanking;
-        this.rankingMayorImpacto = rankingMayorImpacto;
-    }
-
-    public Ranking(LocalDateTime fechaRanking) {
-        this.fechaRanking = fechaRanking;
-    }
-
-    public Long getId_ranking() {
+    public Long getId() {
         return id_ranking;
     }
 
-    public void setId_ranking(Long id_ranking) {
-        this.id_ranking = id_ranking;
-    }
-
-    public LocalDateTime getFechaRanking() {
-        return fechaRanking;
-    }
-
-    public void setFechaRanking(LocalDateTime fechaRanking) {
-        this.fechaRanking = fechaRanking;
-    }
-
-    public List<RankingMayorImpacto> getRankingMayorImpacto() {
-        return rankingMayorImpacto;
-    }
-
-    public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
-        this.rankingMayorImpacto = rankingMayorImpacto;
+    public void setTime(LocalDateTime time)
+    {
+        this.fechaRanking = time;
     }
 }

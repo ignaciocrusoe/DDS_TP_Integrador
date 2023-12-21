@@ -1,6 +1,5 @@
 package CalculoRanking;
 
-import CalculoRanking.Calculo.CalculoRanking;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -13,8 +12,6 @@ import java.util.Date;
 @SpringBootApplication
 @EnableScheduling
 public class CalculoRankingApplication {
-	@Autowired
-	CalculoRanking calculoRanking;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CalculoRankingApplication.class, args);
@@ -22,10 +19,11 @@ public class CalculoRankingApplication {
 
 	private static Logger logger = LoggerFactory.getLogger(CalculoRankingApplication.class);
 	//@Scheduled(fixedRate = 2000L)
+	/*
 	@Scheduled(cron = "59 59 23 ? * SUN")
 	public void job(){
 		calculoRanking.calcularRankingSemanal(2);
 		System.out.println("Se genero el ranking semanal!");
 	}
-
+*/
 }

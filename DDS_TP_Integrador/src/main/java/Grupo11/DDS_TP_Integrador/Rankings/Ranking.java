@@ -103,4 +103,8 @@ public class Ranking {
     public Long getId() {
         return id_ranking;
     }
+    void setTime(LocalDateTime time)
+    {
+        this.fechaRanking = time;
+    }
 }

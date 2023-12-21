@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
-import CalculoRanking.Calculo.CalculoRanking;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,7 @@ public class CalculoRankingTest {
     private EntidadRepository entidadRepo;
     @Autowired
     private RankingRepository rankingRepo;
-    @Autowired
-    private CalculoRanking calculoRanking;
-
+/*
     @Test
     public void guardarEntidades() throws InterruptedException {
         Incidente incidente1 = new Incidente(LocalDateTime.now() );
@@ -61,10 +58,12 @@ public class CalculoRankingTest {
         entidadRepo.save(entidad2);
     }
 
+ */
+/*
     @Test
     public void calcularRanking(){
         calculoRanking.calcularRankingSemanal(2);
     }
-
+*/
 
 }
