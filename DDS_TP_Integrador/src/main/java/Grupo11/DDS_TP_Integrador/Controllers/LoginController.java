@@ -52,6 +52,8 @@ public class LoginController{
             personaNueva.setIntervaloSeleccionado(intervaloDefault30segs);
             intervalosDefault.add(intervaloDefault30segs);
             personaNueva.setHorarios(intervalosDefault);
+            //seteo email de la nueva persona
+            personaNueva.setMail(loginRequest.getEmail());
             personaRepository.save(personaNueva);
         }
 

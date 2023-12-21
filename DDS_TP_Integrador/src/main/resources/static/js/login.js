@@ -8,6 +8,7 @@ let loginInfo = {
   userId: null,
   loginTime: null,
   logoutTime: null,
+  mail: null
 };
 
 
@@ -27,6 +28,7 @@ if(googleButton) {
       // Actualizar información de inicio de sesión
       loginInfo.userId = userCredentials.user.uid;
       loginInfo.loginTime = new Date().toISOString();
+      loginInfo.mail = userCredentials.user.mail;
 
       // Enviar evento de inicio de sesión
       await sendLoginEvent(loginInfo);
@@ -57,7 +59,7 @@ if (signInForm) {
       // Actualizar información de inicio de sesión
       loginInfo.userId = userCredentials.user.uid;
       loginInfo.loginTime = new Date().toISOString();
-
+      loginInfo.mail = userCredentials.user.mail;
       // Enviar evento de inicio de sesión
       await sendLoginEvent(loginInfo);
 
@@ -97,6 +99,7 @@ if (signUpForm) {
       // Actualizar información de inicio de sesión
       loginInfo.userId = userCredential.user.uid;
       loginInfo.loginTime = new Date().toISOString();
+      loginInfo.mail = userCredential.user.mail;
 
       // Enviar evento de inicio de sesión después del registro
       await sendLoginEvent(loginInfo);
