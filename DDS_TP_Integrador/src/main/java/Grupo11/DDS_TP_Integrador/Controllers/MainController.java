@@ -114,7 +114,7 @@ public class MainController {
         List<Comunidad> comunidades = persona.getMembresias()
                 .stream()
                 .map(Miembro::getComunidad)
-                .collect(Collectors.toList());
+                .toList();
 
         Incidente nuevoIncidente = new Incidente();
         nuevoIncidente.setEstablecimiento(establecimiento);
@@ -138,8 +138,6 @@ public class MainController {
 
             comunidadRepository.save(comunidad);
 
-            incidenteRepository.save(nuevoIncidente);
-
         }
 
 
@@ -150,32 +148,6 @@ public class MainController {
     @GetMapping("/buscar_incidente")
     public String buscar_incidente() {
         return "buscar_incidente";
-    }
-
-    @GetMapping("/comunidades/{idPersona}")
-    public ModelAndView obtenerVistaComunidadesPersona(@PathVariable() Long idPersona) {
-
-        Persona persona = personaRepository.findByIdPersona(idPersona);
-
-        List<Miembro> membresiasPersona = new ArrayList<>();
-
-        membresiasPersona = persona.getMembresias();
-
-        AbandonarComunidadRequest abandonarComunidadRequest = new AbandonarComunidadRequest();
-        CambiarTipoRequest cambiarTipoRequest = new CambiarTipoRequest();
-
-        List<Comunidad> comunidades = comunidadRepository.findAll();
-
-        UnirseAComunidadRequest unirseAComunidadRequest = new UnirseAComunidadRequest();
-
-        ModelAndView modelAndView = new ModelAndView("mis_comunidades");
-        modelAndView.addObject("personaEnCuestion", persona);
-        modelAndView.addObject("unirseAComunidadRequest", unirseAComunidadRequest);
-        modelAndView.addObject("comunidades",comunidades);
-        modelAndView.addObject("membresias", membresiasPersona);
-        modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
-        modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
-        return modelAndView;
     }
 
     @GetMapping("/buscar_incidente/{idIncidente}")
@@ -194,9 +166,6 @@ public class MainController {
         return modelAndView;
     }
 
-
-
-
     @PostMapping("/cerrar_incidente")
     public String createIncidente(@ModelAttribute CerrarIncidenteRequest cerrarIncidenteRequest) {
         // Handle the data received from the frontend
@@ -213,30 +182,6 @@ public class MainController {
         // Return a response, e.g., a success message
         return "redirect:/buscar_incidente/" + incidente.getIdIncidente();
     }
-
-    @PostMapping("/unirse_a_comunidad")
-    public String unirseAComunidad(@ModelAttribute UnirseAComunidadRequest unirseAComunidadRequest) {
-        // Handle the data received from the frontend
-
-        System.out.println("La persona que se quiere unir es: " + unirseAComunidadRequest.getIdPersona());
-        Persona persona = personaRepository.findByIdPersona(unirseAComunidadRequest.getIdPersona());
-        Comunidad comunidad = comunidadRepository.getReferenceById(unirseAComunidadRequest.getIdComunidad());
-
-        //todo poner dentro de un gestor de comunidades + usar algún patron
-        Miembro miembro = new Miembro();
-        miembro.setComunidad(comunidad);
-        miembro.setPersona(persona);
-        miembro.setTipoUsuario(TipoUsuario.AFECTADO);
-        miembro.setRolEnComunidad(Rol.COMUN);
-        miembro.setNombre(comunidad.getDescripcionComunidad());
-
-        miembroRepository.save(miembro);
-
-
-        // Return a response, e.g., a success message
-        return "redirect:/comunidades/" + persona.getIdPersona().toString();
-    }
-
 
     @GetMapping("/editar_perfil/{idPersona}")
     public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
@@ -268,6 +213,59 @@ public class MainController {
         return modelAndView;
     }
 
+    @GetMapping("/comunidades/{idPersona}")
+    public ModelAndView obtenerVistaComunidadesPersona(@PathVariable() Long idPersona) {
+
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+        List<Miembro> membresiasPersona = new ArrayList<>();
+
+        membresiasPersona = persona.getMembresias();
+
+        for(Miembro membresia : membresiasPersona){
+            System.out.println(membresia.getIdMiembro());
+        }
+
+        AbandonarComunidadRequest abandonarComunidadRequest = new AbandonarComunidadRequest();
+        CambiarTipoRequest cambiarTipoRequest = new CambiarTipoRequest();
+
+        List<Comunidad> comunidades = comunidadRepository.findAll();
+
+        UnirseAComunidadRequest unirseAComunidadRequest = new UnirseAComunidadRequest();
+
+        ModelAndView modelAndView = new ModelAndView("mis_comunidades");
+        modelAndView.addObject("personaEnCuestion", persona);
+        modelAndView.addObject("unirseAComunidadRequest", unirseAComunidadRequest);
+        modelAndView.addObject("comunidades",comunidades);
+        modelAndView.addObject("membresias", membresiasPersona);
+        modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
+        modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
+        return modelAndView;
+    }
+
+    @PostMapping("/unirse_a_comunidad")
+    public String unirseAComunidad(@ModelAttribute UnirseAComunidadRequest unirseAComunidadRequest) {
+        // Handle the data received from the frontend
+
+        System.out.println("La persona que se quiere unir es: " + unirseAComunidadRequest.getIdPersona());
+        Persona persona = personaRepository.findByIdPersona(unirseAComunidadRequest.getIdPersona());
+        Comunidad comunidad = comunidadRepository.getReferenceById(unirseAComunidadRequest.getIdComunidad());
+
+        //todo poner dentro de un gestor de comunidades + usar algún patron
+        Miembro miembro = new Miembro();
+        miembro.setComunidad(comunidad);
+        miembro.setPersona(persona);
+        miembro.setTipoUsuario(TipoUsuario.AFECTADO);
+        miembro.setRolEnComunidad(Rol.COMUN);
+        miembro.setNombre(comunidad.getDescripcionComunidad());
+
+        miembroRepository.save(miembro);
+
+
+        // Return a response, e.g., a success message
+        return "redirect:/comunidades/" + persona.getIdPersona().toString();
+    }
+
 
     @PostMapping("/abandonar_comunidad")
     public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
@@ -277,7 +275,7 @@ public class MainController {
 
         miembroRepository.delete(miembro);
 
-        return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_tipo")
@@ -299,7 +297,7 @@ public class MainController {
         System.out.println(cambiarTipoRequest.getIdMiembro());
         System.out.println(cambiarTipoRequest.getTipo());
 
-        return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_nombre")
@@ -386,18 +384,68 @@ public class MainController {
 
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
-/*
+
     @GetMapping("/rankings")
-    public String getRankings(Model model) {
+    public ModelAndView obtenerUltimoRanking() throws ParseException {
 
 
-        return "rankings";
+        ModelAndView modelAndView = new ModelAndView("rankings");
+
+        List<Ranking> rankings = rankingRepository.findAll();
+
+        //Ordeno por fecha
+        Collections.sort(rankings, new Comparator<Ranking>() {
+            public int compare(Ranking ranking1, Ranking ranking2) {
+                return ranking1.getDate().compareTo(ranking2.getDate());
+            }
+        });
+        Collections.reverse(rankings);
+
+        Ranking rankingPromedioCierre = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 1)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMasIncidentes = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 2)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMayorImpacto = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 3)
+                .collect(Collectors.toList())
+                .get(0);
+
+        System.out.println(rankings);
+
+
+        List<RankingPromedioCierre> rankingsPromedioCierre;
+        List<RankingMasIncidentes> rankingsMasIncidentes;
+        List<RankingMayorImpacto> rankingsMayorImpacto;
+
+        rankingsPromedioCierre = rankingPromedioCierreRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking().getId() == rankingPromedioCierre.getId())
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
+
+        rankingsMasIncidentes = rankingMasIncidentesRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking() == rankingMasIncidentes)
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
+
+        rankingsMayorImpacto = rankingMayorImpactoRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking() == rankingMayorImpacto)
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
+
+        return modelAndView;
     }
 
 
- */
     @GetMapping("/rankings/{fecha}")
-
     public ModelAndView obtenerRanking( @PathVariable() String fecha) throws ParseException {
 
 
@@ -430,7 +478,6 @@ public class MainController {
                 .collect(Collectors.toList())
                 .get(0);
 
-        System.out.println(rankingPromedioCierre.getTipoRanking());
 
 
         List<RankingPromedioCierre> rankingsPromedioCierre;
@@ -439,28 +486,31 @@ public class MainController {
 
         rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
         rankingsPromedioCierre.stream().
-                filter(obj -> obj.getRanking() == rankingPromedioCierre)
+                filter(obj -> obj.getRanking().getId_ranking() == rankingPromedioCierre.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
 
         rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
-        rankingsMasIncidentes.stream().
-                filter(obj -> obj.getRanking() == rankingMasIncidentes)
+        rankingsMasIncidentes = rankingsMasIncidentes.stream().
+                filter(obj -> obj.getRanking().getId_ranking() == rankingMasIncidentes.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
 
         rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
         rankingsMayorImpacto.stream().
-                filter(obj -> obj.getRanking() == rankingMayorImpacto)
+                filter(obj -> obj.getRanking().getId_ranking() == rankingMayorImpacto.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
 
         return modelAndView;
     }
 
-    @GetMapping("/incidentes-de-comunidad/")
-    public String obtenerIncidentesDeComunidad() throws ParseException {
-        return "lista-de-incidentes";
+    @GetMapping("/incidentes")
+    public ModelAndView obtenerIncidentesDeComunidad() throws ParseException {
+        ModelAndView modelAndView = new ModelAndView("rankings");
+        List<Incidente> incidentes = incidenteRepository.findAll();
+        modelAndView.addObject("incidentes", incidentes);
+        return modelAndView;
     }
 
     @PostMapping("/calcular-rankings")
