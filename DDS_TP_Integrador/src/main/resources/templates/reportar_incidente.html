@@ -107,7 +107,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1">
-											<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd'>Reportar incidente</button>
+											<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd' onclick="submitForm()">Reportar incidente</button>
 										</div>
 									</div>
 								</div>
@@ -140,4 +140,18 @@
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script th:src="@{/js/reportar.js}" type="module"></script>
+
+<script>
+	function submitForm(event) {
+		// Prevent the default form submission
+		event.preventDefault();
+
+		// Clear localStorage (replace 'your_key' with the actual key used for storage)
+		localStorage.removeItem('notificaciones');
+		localStorage.removeItem('incidentesDeInteres');
+
+		// Submit the form
+		document.getElementById('reportar-incidente-form').submit();
+	}
+</script>
 </html>
