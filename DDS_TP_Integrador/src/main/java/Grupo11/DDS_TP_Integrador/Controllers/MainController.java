@@ -374,7 +374,6 @@ public class MainController {
 
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
-<<<<<<< Updated upstream
 
     @GetMapping("/rankings")
     public ModelAndView obtenerUltimoRanking() throws ParseException {
@@ -434,12 +433,6 @@ public class MainController {
 
         return modelAndView;
     }
-
-
-=======
-
-    @GetMapping("/rankings/{fecha}")
->>>>>>> Stashed changes
 
 
     @GetMapping("/rankings/{fecha}")
