@@ -108,6 +108,7 @@ public class MainController {
         List<Comunidad> comunidades = persona.getMembresias()
                 .stream()
                 .map(Miembro::getComunidad)
+                .toList();
 
         Incidente nuevoIncidente = new Incidente();
         nuevoIncidente.setEstablecimiento(establecimiento);
@@ -202,6 +203,59 @@ public class MainController {
         return modelAndView;
     }
 
+    @GetMapping("/comunidades/{idPersona}")
+    public ModelAndView obtenerVistaComunidadesPersona(@PathVariable() Long idPersona) {
+
+        Persona persona = personaRepository.findByIdPersona(idPersona);
+
+        List<Miembro> membresiasPersona = new ArrayList<>();
+
+        membresiasPersona = persona.getMembresias();
+
+        for(Miembro membresia : membresiasPersona){
+            System.out.println(membresia.getIdMiembro());
+        }
+
+        AbandonarComunidadRequest abandonarComunidadRequest = new AbandonarComunidadRequest();
+        CambiarTipoRequest cambiarTipoRequest = new CambiarTipoRequest();
+
+        List<Comunidad> comunidades = comunidadRepository.findAll();
+
+        UnirseAComunidadRequest unirseAComunidadRequest = new UnirseAComunidadRequest();
+
+        ModelAndView modelAndView = new ModelAndView("mis_comunidades");
+        modelAndView.addObject("personaEnCuestion", persona);
+        modelAndView.addObject("unirseAComunidadRequest", unirseAComunidadRequest);
+        modelAndView.addObject("comunidades",comunidades);
+        modelAndView.addObject("membresias", membresiasPersona);
+        modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
+        modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
+        return modelAndView;
+    }
+
+    @PostMapping("/unirse_a_comunidad")
+    public String unirseAComunidad(@ModelAttribute UnirseAComunidadRequest unirseAComunidadRequest) {
+        // Handle the data received from the frontend
+
+        System.out.println("La persona que se quiere unir es: " + unirseAComunidadRequest.getIdPersona());
+        Persona persona = personaRepository.findByIdPersona(unirseAComunidadRequest.getIdPersona());
+        Comunidad comunidad = comunidadRepository.getReferenceById(unirseAComunidadRequest.getIdComunidad());
+
+        //todo poner dentro de un gestor de comunidades + usar algún patron
+        Miembro miembro = new Miembro();
+        miembro.setComunidad(comunidad);
+        miembro.setPersona(persona);
+        miembro.setTipoUsuario(TipoUsuario.AFECTADO);
+        miembro.setRolEnComunidad(Rol.COMUN);
+        miembro.setNombre(comunidad.getDescripcionComunidad());
+
+        miembroRepository.save(miembro);
+
+
+        // Return a response, e.g., a success message
+        return "redirect:/comunidades/" + persona.getIdPersona().toString();
+    }
+
 
     @PostMapping("/abandonar_comunidad")
     public String abandonarComunidad(@ModelAttribute AbandonarComunidadRequest abandonarComunidadRequest) {
@@ -211,7 +265,7 @@ public class MainController {
 
         miembroRepository.delete(miembro);
 
-        return "redirect:/editar_perfil/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_tipo")
@@ -233,6 +287,7 @@ public class MainController {
         System.out.println(cambiarTipoRequest.getIdMiembro());
         System.out.println(cambiarTipoRequest.getTipo());
 
+        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_nombre")
@@ -381,6 +436,10 @@ public class MainController {
     }
 
 
+=======
+
+    @GetMapping("/rankings/{fecha}")
+>>>>>>> Stashed changes
 
 
     @GetMapping("/rankings/{fecha}")
