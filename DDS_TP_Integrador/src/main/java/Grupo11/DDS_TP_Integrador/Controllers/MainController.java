@@ -252,16 +252,22 @@ public class MainController {
         Comunidad comunidad = comunidadRepository.getReferenceById(unirseAComunidadRequest.getIdComunidad());
 
         //todo poner dentro de un gestor de comunidades + usar algún patron
-        Miembro miembro = new Miembro();
-        miembro.setComunidad(comunidad);
-        miembro.setPersona(persona);
-        miembro.setTipoUsuario(TipoUsuario.AFECTADO);
-        miembro.setRolEnComunidad(Rol.COMUN);
-        miembro.setNombre(comunidad.getDescripcionComunidad());
 
-        miembroRepository.save(miembro);
+        List<Long> idPersonasMiembro = comunidad.getMiembros().stream().map(miembro -> miembro.getPersona().getIdPersona()).toList();
 
+        if(!idPersonasMiembro.contains(persona.getIdPersona())){
+            Miembro miembro = new Miembro();
+            miembro.setComunidad(comunidad);
+            miembro.setPersona(persona);
+            miembro.setTipoUsuario(TipoUsuario.AFECTADO);
+            miembro.setRolEnComunidad(Rol.COMUN);
+            miembro.setNombre(comunidad.getDescripcionComunidad());
+            miembroRepository.save(miembro);
+        }else{
 
+            //todo considerar throw error y manejarlo con un msj en el front
+            System.out.println("La persona ya es miembro de dicha comunidad");
+        }
         // Return a response, e.g., a success message
         return "redirect:/comunidades/" + persona.getIdPersona().toString();
     }
