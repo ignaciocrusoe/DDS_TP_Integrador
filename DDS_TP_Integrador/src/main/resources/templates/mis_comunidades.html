@@ -62,45 +62,23 @@
 								<div class="col-sm-12">
 
 									<div class="position-relative" style="margin-bottom: 20px;">
-										<form id="buscar-comunidad-form">
-											<div class="input-group">
-												<input name="comunidadNombre" class="form-control  w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por nombre ">
-												<span class="input-group-btn">
-															<button type="submit" class="btn btn-fill btn-warning btn-wd">Buscar Comunidad</button>
-														</span>
-											</div>
-										</form>
-										<form th:action="@{/unirse_a_comunidad}" method="post" th:object="${unirseAComunidadRequest}" id="unirse-a-comunidad-form">
-											<input type="hidden"  th:name="idPersona"  th:value="${personaEnCuestion.idPersona}" />
-											<div class="row" style="margin-top: 10px;">
-												<select name="tipo" class="btn form-control" th:field="*{idComunidad}" style="width: 60%;">
-													<option th:each="comunidad : ${comunidades}" th:value="${comunidad.getIdComunidad()}" th:text="${comunidad.getDescripcionComunidad()}" ></option>
-												</select>
-												<button type="submit" class="btn btn-primary rounded-circle" form="unirse-a-comunidad-form" >+</button>
-											</div>
-										</form>
 
 									</div>
 									<div class="tab-pane" id="comunidades" style="margin-top: 10px">
 										<h5 class="info-text"><b th:text="${personaEnCuestion.nombre + ' ' + personaEnCuestion.apellido}"></b> es miembro de las siguientes comunidades:</h5>
 										<div class="row">
 											<div class="col-sm-10 col-sm-offset-1">
-												<!--											todo: revisar este for each con posts dinamicos no funca-->
-												<div th:each="membresia : ${membresias}" th:if="${membresia != null}">
 													<div class="col-sm-6">
 														<div class="choice" data-toggle="wizard-checkbox">
 															<div class="card card-checkboxes card-hover-effect">
 
 																<div class="row" style="padding-bottom: 10px">
 																	<i class="ti-comments"></i>
-																	<label th:text="${membresia.getComunidad().getDescripcionComunidad()}"></label>
 																	<form th:action="@{/abandonar_comunidad}" method="post" th:object="${abandonarComunidadRequest}" id="abandonar-comunidad-form">
-																		<input type="hidden" class="idMiembro" name="idMiembroAEliminar" th:field="*{idMiembroAEliminar}" th:value="${membresia.idMiembro}">
 																		<button type="submit" class="btn btn-danger">Abandonar</button>
 																	</form>
 
 																	<form th:action="@{/cambiar_tipo}" method="post" th:object="${cambiarTipoRequest}" id="cambiar-rol-form">
-																		<input type="hidden" class="idMiembro" name="idMiembro"   th:field="*{idMiembro}" th:value="${membresia.idMiembro}">
 																		<div class="row" style="margin-top: 10px;">
 																			<select name="tipo" class="btn form-control "  th:field="*{tipo}" style="width: 60%;">
 																				<option value="" disabled="" selected="">Tipo de usuario</option>
@@ -157,7 +135,6 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script th:src="@{/js/editar-perfil.js}" type="module"></script>
 
-<!--todo: implementar busqueda de comunidades para enviar solicitud si hay ganas-->
 <script>
 
 	const idLocalStorage = localStorage.getItem('idPersona');
