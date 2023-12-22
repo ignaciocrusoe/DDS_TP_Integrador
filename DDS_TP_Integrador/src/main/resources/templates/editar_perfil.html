@@ -161,7 +161,7 @@
 										</div>
 										<div class="row">
 											<div class="col-sm-10 col-sm-offset-1">
-												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd">Guardar cambios</button>
+												<button style="width: 100%;" type="submit" class="btn btn-fill btn-warning btn-wd"  id="guardarCambiosButton">Guardar cambios</button>
 											</div>
 										</div>
 									</div>
@@ -190,7 +190,28 @@
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script th:src="@{/js/editar-perfil.js}" type="module"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Find the button by its ID
+		var guardarCambiosButton = document.getElementById('guardarCambiosButton');
 
+		// Attach a click event listener to the button
+		guardarCambiosButton.addEventListener('click', function (event) {
+			// Prevent the default form submission
+			event.preventDefault();
+
+			// Clear localStorage
+			limpiarConfigNotisLocalStorafe();
+
+			// Submit the form
+			document.getElementById('cambiar-medio-form').submit();
+		});
+
+		function limpiarConfigNotisLocalStorafe() {
+			localStorage.removeItem('configuracionNotificaciones');
+		}
+	});
+</script>
 
 
 </html>

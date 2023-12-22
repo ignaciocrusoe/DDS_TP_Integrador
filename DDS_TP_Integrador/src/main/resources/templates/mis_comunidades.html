@@ -76,7 +76,7 @@
 													<select name="tipo" class="btn form-control" th:field="*{idComunidad}" style="width: 60%;">
 														<option th:each="comunidad : ${comunidades}" th:value="${comunidad.getIdComunidad()}" th:text="${comunidad.getDescripcionComunidad()}" ></option>
 													</select>
-													<button type="submit" class="btn btn-primary rounded-circle" form="unirse-a-comunidad-form" >+</button>
+													<button type="submit" class="btn btn-primary rounded-circle" form="unirse-a-comunidad-form" id="unirseButton" >+</button>
 												</div>
 											</form>
 											</div>
@@ -96,7 +96,7 @@
 																	<label th:text="${membresia.comunidad.getDescripcionComunidad()}"></label>
 																	<form th:action="@{/abandonar_comunidad}" method="post" th:object="${abandonarComunidadRequest}" id="abandonar-comunidad-form">
 																		<input type="hidden" class="idMiembro" name="idMiembroAEliminar" th:value="${membresia.idMiembro}">
-																		<button type="submit" class="btn btn-danger">Abandonar</button>
+																		<button type="submit" class="btn btn-danger" form="abandonar-comunidad-form" id="abandonarButton">Abandonar</button>
 																	</form>
 
 																	<form th:action="@{/cambiar_tipo}" method="post" th:object="${cambiarTipoRequest}" id="cambiar-rol-form">
@@ -158,12 +158,41 @@
 	<script th:src="@{/js/editar-perfil.js}" type="module"></script>
 
 <script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const idLocalStorage = localStorage.getItem('idPersona');
 
-	const idLocalStorage = localStorage.getItem('idPersona');
+		function submitFormUnirseAComunidad(event) {
+			// Prevent the default form submission
+			event.preventDefault();
+			limpiarNotisLocalStorage();
+			console.log("Limpiando notificaciones al enviar formulario de unirse a comunidad");
+			// Submit the form
+			document.getElementById('unirse-a-comunidad-form').submit();
+		}
 
+		function submitFormAbandonarComunidad(event) {
+			// Prevent the default form submission
+			event.preventDefault();
+			limpiarNotisLocalStorage();
+			console.log("Limpiando notificaciones al enviar formulario de abandonar comunidad");
+			// Submit the form
+			document.getElementById('abandonar-comunidad-form').submit();
+		}
+
+		function limpiarNotisLocalStorage() {
+			localStorage.removeItem('notificaciones');
+			localStorage.removeItem('incidentesDeInteres');
+		}
+
+		// Find the buttons by their IDs
+		var unirseButton = document.getElementById('unirseButton');
+		var abandonarButton = document.getElementById('abandonarButton');
+
+		// Attach click event listeners to the buttons
+		unirseButton.addEventListener('click', submitFormUnirseAComunidad);
+		abandonarButton.addEventListener('click', submitFormAbandonarComunidad);
+	});
 </script>
-
-
 
 
 </html>

@@ -107,7 +107,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1">
-											<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd' onclick="submitForm()">Reportar incidente</button>
+											<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd'  id="reportarIncidenteButton">Reportar incidente</button>
 										</div>
 									</div>
 								</div>
@@ -142,16 +142,25 @@
 	<script th:src="@{/js/reportar.js}" type="module"></script>
 
 <script>
-	function submitForm(event) {
-		// Prevent the default form submission
-		event.preventDefault();
+	document.addEventListener('DOMContentLoaded', function () {
+		function submitForm(event) {
+			console.log("Limpiando notificaciones al enviar formulario de reportar incidente");
+			// Prevent the default form submission
+			event.preventDefault();
 
-		// Clear localStorage (replace 'your_key' with the actual key used for storage)
-		localStorage.removeItem('notificaciones');
-		localStorage.removeItem('incidentesDeInteres');
+			// Clear localStorage
+			localStorage.removeItem('notificaciones');
+			localStorage.removeItem('incidentesDeInteres');
 
-		// Submit the form
-		document.getElementById('reportar-incidente-form').submit();
-	}
+			// Submit the form
+			document.getElementById('reportar-incidente-form').submit();
+		}
+
+		// Find the button by its ID
+		var reportarIncidenteButton = document.getElementById('reportarIncidenteButton');
+
+		// Attach click event listener to the button
+		reportarIncidenteButton.addEventListener('click', submitForm);
+	});
 </script>
 </html>
