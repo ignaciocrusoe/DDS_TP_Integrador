@@ -5,10 +5,12 @@ import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 
 @Entity
 @Table(name = "notificaciones")
+@Builder
 public class Notificacion {
 
     @Id
@@ -21,14 +23,21 @@ public class Notificacion {
     @JsonBackReference
     private Persona persona;
 
-    @Transient //todo ver persistencia
+    @ManyToOne
     private Incidente incidente;
 
     @Enumerated(EnumType.STRING)
     private TipoNotificacion tipo;
 
-    public Notificacion(Incidente incidente, TipoNotificacion tipo){
-        super();
+    public Notificacion(Long idNotificacion, Persona persona, Incidente incidente, TipoNotificacion tipo) {
+        this.idNotificacion = idNotificacion;
+        this.persona = persona;
+        this.incidente = incidente;
+        this.tipo = tipo;
+    }
+
+    public Notificacion(Persona persona, Incidente incidente, TipoNotificacion tipo) {
+        this.persona = persona;
         this.incidente = incidente;
         this.tipo = tipo;
     }

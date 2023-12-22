@@ -105,7 +105,7 @@ public class NotificadoresController {
     public ResponseEntity<List<NotificacionNuevoIncidenteResponse>> notificacionesNuevosIncidentesPersona(@PathVariable() Long idPersona) {
         Persona persona = personaRepository.findByIdPersona(idPersona);
 
-        List<Notificacion> notificacionesPersona = persona.getListaNotificaciones();
+        List<Notificacion> notificacionesPersona = gestorNotificacionesPersona.obtenerNotificacionesPendientesPersona(persona.getIdPersona());
 
         List<NotificacionNuevoIncidenteResponse> notificacionesNuevoIncidenteResponse = new ArrayList<>();
 

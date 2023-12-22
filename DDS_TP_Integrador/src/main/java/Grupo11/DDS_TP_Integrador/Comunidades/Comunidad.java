@@ -44,23 +44,13 @@ public class Comunidad{
     private List<Miembro> miembros;
 
 
-    @Autowired
-    @Transient
-    private IncidenteProvider incidenteProvider;
-    @Autowired
-    @Transient
-    private Notificador notificadorComunidad;
+//    @Autowired
+//    @Transient
+//    private IncidenteProvider incidenteProvider;
+//    @Autowired
+//    @Transient
+//    private Notificador notificadorComunidad;
 
-    private void notificarNuevoIncidenteAcomunidad_miembro(Incidente nuevoIncidente){
-        notificadorComunidad.notificarPersonas( this.getMiembros(), new Notificacion(nuevoIncidente, NUEVO_INCIDENTE));
-    }
-//  todo: esto creo que se puede eliminar
-//    public void sugerirActualizarIncidente(List<Miembro> comunidad_miembroCerca,Incidente nuevoIncidente){
-//
-//        List<Persona> personas_cerca = comunidad_miembroCerca.stream().map(miembro -> miembro.getPersona()).toList();
-//        notificadorComunidad.notificarPersonas( personas_cerca, new Notificacion(nuevoIncidente, SUGERENCIA));
-//
-//    }
 
 
 

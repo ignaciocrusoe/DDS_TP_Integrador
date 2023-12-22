@@ -149,7 +149,7 @@
             localStorage.removeItem('notificaciones');
             console.log("LocalStorage libre de notificaciones");
             configNotificaciones = await configuracionNotificaciones();
-            await mostrarPagina(); //pero toma los datos del localstorage asi q es medio mentiroso --> todo: configurar limpieza del local storage acorde a la actualizacion
+            await mostrarPagina();
             console.log("Actualizando notificaciones cada " + (configNotificaciones.rangoSeleccionado.segundos/1000).toString() + " segundos" )
         }, configNotificaciones.rangoSeleccionado.segundos);
     })();

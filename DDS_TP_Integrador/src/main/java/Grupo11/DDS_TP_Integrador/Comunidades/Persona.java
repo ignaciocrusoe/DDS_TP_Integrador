@@ -69,8 +69,9 @@ public class Persona {
   @JsonManagedReference
   private List<Entidad> entidadesSuscriptas;
 
-//  @Autowired
-//  private GestorNotificacionesPersona gestorNotificaciones;
+  //@Autowired
+  @Transient
+  private GestorNotificacionesPersona gestorNotificaciones = new GestorNotificacionesPersona();
 //  @Autowired
 //  private GestorIncidentesPersona gestorIncidentesPersona;
 

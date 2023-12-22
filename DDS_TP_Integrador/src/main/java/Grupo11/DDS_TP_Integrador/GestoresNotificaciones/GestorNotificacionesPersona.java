@@ -3,7 +3,10 @@ import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import Grupo11.DDS_TP_Integrador.Repositories.NotificacionRepository;
+import Grupo11.DDS_TP_Integrador.Repositories.PersonaRepository;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.UserTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class GestorNotificacionesPersona {
     private Notificador notificadorComunidad;
     @Autowired
     private NotificacionRepository notificacionRepository;
+
+    @Autowired
+    private PersonaRepository personaRepository;
     public void notificarEnHorario(){
 
     }
@@ -34,10 +40,22 @@ public class GestorNotificacionesPersona {
 //
 //    }
 
-    public List<Notificacion> obtenerNotificacionesPendientesPersona(Persona persona){
+    @Transactional
+    public List<Notificacion> obtenerNotificacionesPendientesPersona(Long idPersona) {
+        Persona persona = personaRepository.findByIdPersona(idPersona);
 
-        //return notificacionRepository.findAllByPersonaIdPersona(persona.getIdPersona()); depende qué traemos de bbdd
-        return persona.getListaNotificaciones();
+        List<Notificacion> notificaciones = new ArrayList<>(persona.getListaNotificaciones());
+
+        // Eliminar las notificaciones pendientes
+        notificacionRepository.deleteAll(notificaciones);
+
+        // Desvincular las notificaciones antes de guardar la persona
+        persona.setListaNotificaciones(null);
+
+        // Guardar la entidad persona después de eliminar notificaciones
+        personaRepository.save(persona);
+
+        return notificaciones;
     }
 
 

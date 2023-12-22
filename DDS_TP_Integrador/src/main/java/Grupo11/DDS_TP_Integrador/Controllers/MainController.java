@@ -7,6 +7,9 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
+import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
+import Grupo11.DDS_TP_Integrador.Notificadores.Notificador;
+import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
@@ -75,6 +78,9 @@ public class MainController {
     private GestorRankings gestorRankings;
 
     @Autowired
+    private Notificador noificador;
+
+    @Autowired
     RankingRepository rankingRepository;
 
     @GetMapping("/login")
@@ -128,11 +134,15 @@ public class MainController {
             comunidad.getIncidentesReportados().add(nuevoIncidente);
 
             nuevoIncidente.getComunidadesAfectadas().add(comunidad);
+            noificador.notificarPersonas(comunidad,nuevoIncidente,TipoNotificacion.NUEVO_INCIDENTE);
+
             comunidadRepository.save(comunidad);
 
             incidenteRepository.save(nuevoIncidente);
 
         }
+
+
 
         return "redirect:/reportar_incidente";
     }
