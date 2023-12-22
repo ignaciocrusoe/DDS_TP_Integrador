@@ -495,9 +495,12 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/incidentes-de-comunidad/")
-    public String obtenerIncidentesDeComunidad() throws ParseException {
-        return "lista-de-incidentes";
+    @GetMapping("/incidentes")
+    public ModelAndView obtenerIncidentesDeComunidad() throws ParseException {
+        ModelAndView modelAndView = new ModelAndView("rankings");
+        List<Incidente> incidentes = incidenteRepository.findAll();
+        modelAndView.addObject("incidentes", incidentes);
+        return modelAndView;
     }
 
     @PostMapping("/calcular-rankings")
