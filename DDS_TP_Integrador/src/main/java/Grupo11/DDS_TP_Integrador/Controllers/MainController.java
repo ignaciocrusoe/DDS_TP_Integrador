@@ -376,18 +376,70 @@ public class MainController {
 
         return ResponseEntity.ok(Map.of("message", "Objects received successfully"));
     }
-/*
+
     @GetMapping("/rankings")
-    public String getRankings(Model model) {
+    public ModelAndView obtenerUltimoRanking() throws ParseException {
 
 
-        return "rankings";
+        ModelAndView modelAndView = new ModelAndView("rankings");
+
+        List<Ranking> rankings = rankingRepository.findAll();
+
+        //Ordeno por fecha
+        Collections.sort(rankings, new Comparator<Ranking>() {
+            public int compare(Ranking ranking1, Ranking ranking2) {
+                return ranking1.getDate().compareTo(ranking2.getDate());
+            }
+        });
+        Collections.reverse(rankings);
+
+        Ranking rankingPromedioCierre = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 1)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMasIncidentes = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 2)
+                .collect(Collectors.toList())
+                .get(0);
+
+        Ranking rankingMayorImpacto = rankings.stream()
+                .filter(obj -> obj.getTipoRanking() == 3)
+                .collect(Collectors.toList())
+                .get(0);
+
+        System.out.println(rankings);
+
+
+        List<RankingPromedioCierre> rankingsPromedioCierre;
+        List<RankingMasIncidentes> rankingsMasIncidentes;
+        List<RankingMayorImpacto> rankingsMayorImpacto;
+
+        rankingsPromedioCierre = rankingPromedioCierreRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking().getId() == rankingPromedioCierre.getId())
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
+
+        rankingsMasIncidentes = rankingMasIncidentesRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking() == rankingMasIncidentes)
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
+
+        rankingsMayorImpacto = rankingMayorImpactoRepository.findAll()
+        .stream().
+                filter(obj -> obj.getRanking() == rankingMayorImpacto)
+                .collect(Collectors.toList());
+        modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
+
+        return modelAndView;
     }
 
 
- */
-    @GetMapping("/rankings/{fecha}")
 
+
+    @GetMapping("/rankings/{fecha}")
     public ModelAndView obtenerRanking( @PathVariable() String fecha) throws ParseException {
 
 
@@ -420,7 +472,6 @@ public class MainController {
                 .collect(Collectors.toList())
                 .get(0);
 
-        System.out.println(rankingPromedioCierre.getTipoRanking());
 
 
         List<RankingPromedioCierre> rankingsPromedioCierre;
@@ -429,19 +480,19 @@ public class MainController {
 
         rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
         rankingsPromedioCierre.stream().
-                filter(obj -> obj.getRanking() == rankingPromedioCierre)
+                filter(obj -> obj.getRanking().getId_ranking() == rankingPromedioCierre.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
 
         rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
-        rankingsMasIncidentes.stream().
-                filter(obj -> obj.getRanking() == rankingMasIncidentes)
+        rankingsMasIncidentes = rankingsMasIncidentes.stream().
+                filter(obj -> obj.getRanking().getId_ranking() == rankingMasIncidentes.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
 
         rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
         rankingsMayorImpacto.stream().
-                filter(obj -> obj.getRanking() == rankingMayorImpacto)
+                filter(obj -> obj.getRanking().getId_ranking() == rankingMayorImpacto.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
 

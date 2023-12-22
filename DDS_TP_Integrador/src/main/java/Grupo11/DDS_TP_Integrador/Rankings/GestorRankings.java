@@ -38,13 +38,13 @@ public class GestorRankings {
         LocalDateTime currentTime = LocalDateTime.now();
 
         //Creamos los tres nuevos rankings
-        Ranking rankingMasIncidentes = new Ranking();
-        rankingMasIncidentes.setFechaRanking(currentTime);
-        rankingMasIncidentes.setTipoRanking(1);
-
         Ranking rankingPromedioCierre = new Ranking();
         rankingPromedioCierre.setFechaRanking(currentTime);
-        rankingPromedioCierre.setTipoRanking(2);
+        rankingPromedioCierre.setTipoRanking(1);
+
+        Ranking rankingMasIncidentes = new Ranking();
+        rankingMasIncidentes.setFechaRanking(currentTime);
+        rankingMasIncidentes.setTipoRanking(2);
 
         //Ranking rankingMayorImpacto = new Ranking();
         //rankingMayorImpacto.setFechaRanking(currentTime);

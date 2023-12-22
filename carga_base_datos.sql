@@ -8,20 +8,28 @@ use dds;
 
 insert into organismos_control (mail_organismo_control, nombre_organismo_control) values
 ('secretaria@cas.com.ar', 'Cámara Argentina de Supermercados (CAS)'),
-('atencionalciudadano@cnrt.gob.ar', 'Comisión Nacional de Regulación del Transporte (CNRT)');
+('atencionalciudadano@cnrt.gob.ar', 'Comisión Nacional de Regulación del Transporte (CNRT)'),
+('info@emova.com.ar', 'EMOVA');
 
 #prestadores
 
 insert into prestadores (mail_prestador, nombre_prestador) values
 ('info@coto.com.ar', 'COTO'),
-('informacionpublica@trenesargentinos.gob.ar', 'Trenes Argentinos');
+('informacionpublica@trenesargentinos.gob.ar', 'Trenes Argentinos'),
+('info@sbase.com','Subterráneos de Buenos Aires S.E.');
 
 #entidades
 
 insert into entidades (nombre_entidad, organismo_control, prestador, categoria) values
 ('COTO', 1, 1, 'Organizacion'),
 ('Linea Sarmiento', 2, 2, 'Linea'),
-('Carrefour', 1, 1, 'Organizacion');
+('Carrefour', 1, 1, 'Organizacion'),
+('Linea A', 3, 3, 'Linea'),
+('Linea B', 3, 3, 'Linea'),
+('Linea C', 3, 3, 'Linea'),
+('Linea D', 3, 3, 'Linea'),
+('Linea E', 3, 3, 'Linea'),
+('Linea H', 3, 3, 'Linea');
 
 #provincias
 
@@ -2405,7 +2413,10 @@ INSERT INTO localizaciones(nombre_localizacion,id_localizacion,categoria,latitud
 insert into establecimientos (nombre_establecimiento, id_entidad, localizacion, categoria) values
 ('COTO Almagro', 1, 2035, 'Sucursal'),
 ('Estacion Once', 2, 2035, 'Estacion'),
-('Carrefour Express Almagro', 1, 2035, 'Sucursal');
+('Carrefour Express Almagro', 1, 2035, 'Sucursal'),
+('Estación Medrano', 5, 2035, 'Estacion'),
+('Estación Federico Lacroze', 5, 2035, 'Estacion'),
+('Estación Santa Fe', 9, 2035, 'Estacion');
 
 #prestaciones
 
@@ -2450,4 +2461,9 @@ update personas set mail= 'martinfedorenkolk1288@gmail.com', apellido_persona = 
 insert into incidentes (horario_apertura, horario_cierre, estado, observaciones, entidad, establecimiento, persona_reportadora, prestacion_incidentada) values
 ('2023-12-17 16:40:53.000000', '2023-12-18 19:40:53.000000', 0, 'Las escaleras mecánicas dejaron de funcionar.', 1, 1, 1, 3),
 ('2023-12-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 1, 'No se pueden utilizar las escaleras.', 1, 1, 2, 1),
-('2023-11-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 0, 'No se pueden utilizar las escaleras.', 2, 1, 2, 1);
+('2023-11-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 0, 'No se pueden utilizar las escaleras.', 2, 1, 2, 1),
+('2023-12-19 16:40:53.000000', '2023-12-19 20:18:13.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 4, 1, 3),
+('2023-12-19 20:19:00.000000', '2023-12-20 21:40:01.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 4, 1, 3),
+('2023-12-20 01:01:11.000000', '2023-12-20 07:31:51.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 5, 1, 3),
+('2023-12-20 10:14:21.000000', '2023-12-20 10:15:12.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 5, 1, 3),
+('2023-12-19 01:00:42.000000', '2023-12-22 15:53:01.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 9, 6, 1, 3);
