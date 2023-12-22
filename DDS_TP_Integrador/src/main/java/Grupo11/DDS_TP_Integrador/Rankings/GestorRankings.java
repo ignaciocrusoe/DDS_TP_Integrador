@@ -1,10 +1,8 @@
 package Grupo11.DDS_TP_Integrador.Rankings;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Collections;
+
 import Grupo11.DDS_TP_Integrador.Entidades.*;
 import Grupo11.DDS_TP_Integrador.Comunidades.*;
 
@@ -14,6 +12,7 @@ import Grupo11.DDS_TP_Integrador.Repositories.EntidadRepository;
 import Grupo11.DDS_TP_Integrador.Repositories.RankingRepository;
 import Grupo11.DDS_TP_Integrador.Requests.SubirCsvEntidadesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -69,8 +68,8 @@ public class GestorRankings {
         }
 
     @Scheduled(cron = "0 0 0 ? * SUN")  // Ejecutar cada domingo a medianoche
-    public void ejecutarTareaSemanal() {
-        calcularRankings();
+    public void calcularRankingsSemanalmente() {
+        this.calcularRankings();
     }
 
 }
