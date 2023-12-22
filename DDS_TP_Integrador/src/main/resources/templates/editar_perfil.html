@@ -65,7 +65,7 @@
 											Notificaciones
 										</a>
 									</li>
-<!--									<li>-->
+<!--									<--<li>
 <!--										<a href="#comunidades" data-toggle="tab">-->
 <!--											<div class="icon-circle">-->
 <!--												<i class="ti-settings"></i>-->
@@ -84,7 +84,7 @@
 
 										<div class="col-sm-4 col-sm-offset-1">
 											<div class="picture-container">
-												<!-- Check if persona.nombre is not equal to 'NULL' -->
+
 												<h6 th:if="${persona.nombre != 'NULL' && persona.apellido != 'NULL'}" th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
 
 												<div class="picture">
@@ -167,49 +167,6 @@
 									</div>
 									</form>
 								</div>
-
-<!--								<div class="tab-pane" id="comunidades" style="margin-top: 10px">-->
-<!--									<h5 class="info-text"><b>Andrew Smith</b> es miembro de las siguientes comunidades:</h5>-->
-<!--									<div class="row">-->
-<!--										<div class="col-sm-10 col-sm-offset-1">-->
-<!--&lt;!&ndash;											todo revisar este for each con posts dinamicos no funca&ndash;&gt;-->
-<!--											<div th:each="membresia : ${membresias}" th:if="${membresia != null}">-->
-<!--												<div class="col-sm-6">-->
-<!--													<div class="choice" data-toggle="wizard-checkbox">-->
-<!--														<div class="card card-checkboxes card-hover-effect">-->
-
-<!--															<div class="row" style="padding-bottom: 10px">-->
-<!--																<i class="ti-comments"></i>-->
-<!--																<label th:text="${membresia.comunidad.getNombre()}"></label>-->
-<!--																<form th:action="@{/abandonar_comunidad}" method="post" th:object="${abandonarComunidadRequest}" id="abandonar-comunidad-form">-->
-<!--																	<input type="hidden" class="idMiembro" name="idMiembroAEliminar" th:field="*{idMiembroAEliminar}" th:value="${membresia.idMiembro}">-->
-<!--																	<button type="submit" class="btn btn-danger">Abandonar</button>-->
-<!--																</form>-->
-
-<!--																<form th:action="@{/cambiar_tipo}" method="post" th:object="${cambiarTipoRequest}" id="cambiar-rol-form">-->
-<!--																	<input type="hidden" class="idMiembro" name="idMiembro"   th:field="*{idMiembro}" th:value="${membresia.idMiembro}">-->
-<!--																	<div class="row" style="margin-top: 10px;">-->
-<!--																		<select name="tipo" class="btn form-control "  th:field="*{tipo}" style="width: 60%;">-->
-<!--																			<option value="" disabled="" selected="">Tipo de usuario</option>-->
-<!--																			<option value="1">Observador</option>-->
-<!--																			<option value="2">Afectado</option>-->
-<!--																		</select>-->
-<!--																		<button type="submit" class="btn btn-primary rounded-circle">+</button>-->
-<!--																	</div>-->
-<!--																</form>-->
-<!--															</div>-->
-
-<!--														</div>-->
-<!--													</div>-->
-<!--												</div>-->
-<!--											</div>-->
-
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-					</div>
-				</div> <!-- wizard container -->
 			</div>
 		</div><!-- end row -->
 	</div> <!-- big container -->
