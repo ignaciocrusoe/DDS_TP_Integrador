@@ -87,55 +87,15 @@
 															</tr>
 															</thead>
 															<tbody>
-															<tr>
-																<td>12</td>
-																<td>1 Oct, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+															<tr th:each="incidente : ${incidentes}">
+																<td th:text="${incidente.idIncidente}"></td>
+																<td th:text="${#temporals.format(incidente.apertura, 'dd-MM-yyyy HH:mm')}"></td>
+																<td th:text="${incidente.prestacionIncidentada.nombrePrestacion}"></td>
+																<td th:if="${incidente.estado}"><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+																<td th:if="${!incidente.estado}"><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
 																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
 															</tr>
-															<tr>
-																<td>14</td>
-																<td>12 Oct, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-times-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
-															<tr>
-																<td>17</td>
-																<td>1 Nov, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
-															<tr>
-																<td>90</td>
-																<td>19 Oct, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
-															<tr>
-																<td>90</td>
-																<td>19 Oct, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
-															<tr>
-																<td>90</td>
-																<td>19 Oct, 21</td>
-																<td>Ascensores Disco</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
-															<tr>
-																<td>12</td>
-																<td>1 Oct, 21</td>
-																<td>Escaleras Coto</td>
-																<td><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
-															</tr>
+										
 															</tbody>
 														</table>
 													</div>

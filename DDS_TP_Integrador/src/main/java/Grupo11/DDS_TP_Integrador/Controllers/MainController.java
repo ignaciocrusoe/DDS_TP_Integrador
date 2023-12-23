@@ -513,7 +513,7 @@ public class MainController {
 
     @GetMapping("/incidentes")
     public ModelAndView obtenerIncidentesDeComunidad() throws ParseException {
-        ModelAndView modelAndView = new ModelAndView("rankings");
+        ModelAndView modelAndView = new ModelAndView("buscar-incidentes");
         List<Incidente> incidentes = incidenteRepository.findAll();
         modelAndView.addObject("incidentes", incidentes);
         return modelAndView;
