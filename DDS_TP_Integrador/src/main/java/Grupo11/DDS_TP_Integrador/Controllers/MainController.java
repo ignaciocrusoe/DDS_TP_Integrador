@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -457,15 +458,17 @@ public class MainController {
 
         ModelAndView modelAndView = new ModelAndView("rankings");
 
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaComoDate = formato.parse(fecha);
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaComoDate = LocalDate.parse(fecha, formato);
+
 
         LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-        List<Ranking> rankings = rankingRepository.findAll();
-        rankings.stream().
+        List<Ranking> rankings = rankingRepository.findAll()
+        .stream().
                 filter(obj -> obj.getDate().isAfter(startOfWeek.atStartOfDay()) && obj.getDate().isBefore(endOfWeek.atStartOfDay()))
                 .collect(Collectors.toList());
 
@@ -490,20 +493,20 @@ public class MainController {
         List<RankingMasIncidentes> rankingsMasIncidentes;
         List<RankingMayorImpacto> rankingsMayorImpacto;
 
-        rankingsPromedioCierre = rankingPromedioCierreRepository.findAll();
-        rankingsPromedioCierre.stream().
+        rankingsPromedioCierre = rankingPromedioCierreRepository.findAll()
+        .stream().
                 filter(obj -> obj.getRanking().getId_ranking() == rankingPromedioCierre.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsPromedioCierre", rankingsPromedioCierre);
 
-        rankingsMasIncidentes = rankingMasIncidentesRepository.findAll();
-        rankingsMasIncidentes = rankingsMasIncidentes.stream().
+        rankingsMasIncidentes = rankingMasIncidentesRepository.findAll()
+         .stream().
                 filter(obj -> obj.getRanking().getId_ranking() == rankingMasIncidentes.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMasIncidentes", rankingsMasIncidentes);
 
-        rankingsMayorImpacto = rankingMayorImpactoRepository.findAll();
-        rankingsMayorImpacto.stream().
+        rankingsMayorImpacto = rankingMayorImpactoRepository.findAll()
+        .stream().
                 filter(obj -> obj.getRanking().getId_ranking() == rankingMayorImpacto.getId_ranking())
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
