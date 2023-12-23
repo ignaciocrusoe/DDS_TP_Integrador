@@ -453,17 +453,13 @@ public class MainController {
 
 
     @GetMapping("/rankings/{fecha}")
-    public ModelAndView obtenerRanking( @PathVariable() String fecha) throws ParseException {
-
+    public ModelAndView obtenerRanking(@PathVariable() String fecha) throws ParseException {
 
         ModelAndView modelAndView = new ModelAndView("rankings");
-
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaComoDate = LocalDate.parse(fecha, formato);
 
-
-        LocalDate today = LocalDate.now();
         LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
@@ -511,6 +507,26 @@ public class MainController {
                 .collect(Collectors.toList());
         modelAndView.addObject("rankingsMayorImpacto", rankingsMayorImpacto);
 
+        return modelAndView;
+    }
+
+    @GetMapping("/rankings-cliente-pesado/{fecha}")
+    public ModelAndView rankingsClientePesado(@PathVariable() String fecha) throws ParseException{
+        ModelAndView modelAndView = new ModelAndView("rankings-cliente-pesado");
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaComoDate = LocalDate.parse(fecha, formato);
+
+        LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+
+        List<Entidad> entidades = entidadRepository.findAll();
+
+        for(Entidad entidad : entidades){
+            entidad.setIncidentes_reportados(entidad.getIncidentes_reportados().stream().filter(obj -> incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isAfter(startOfWeek.atStartOfDay()) && incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isBefore(endOfWeek.atStartOfDay())).collect(Collectors.toList()));
+        }
+
+        modelAndView.addObject("entidades", entidades);
         return modelAndView;
     }
 

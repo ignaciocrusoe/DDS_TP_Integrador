@@ -75,6 +75,8 @@ public class Incidente {
         return apertura.until(cierre, ChronoUnit.HOURS);
     }
 
+    public LocalDateTime getApertura(){return apertura;}
+
 
 }
 
