@@ -108,5 +108,14 @@ public class Entidad{
     public void setRankingMayorImpacto(List<RankingMayorImpacto> rankingMayorImpacto) {
         this.rankingMayorImpacto = rankingMayorImpacto;
     }
+    public List<Incidente> getIncidentes_reportados_en_semana(LocalDateTime inicioDeSemana, LocalDateTime finDeSemana) {
+        return this.getIncidentes_reportados().stream()
+                .filter(incidente ->
+                        incidente.getApertura().isAfter(inicioDeSemana) && // Verificar si es después del inicio de la semana
+                                incidente.getApertura().isBefore(finDeSemana) // Verificar si es antes del fin de la semana
+                )
+                .collect(Collectors.toList());
+
+    }
 
 }

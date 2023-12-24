@@ -52,8 +52,8 @@ public class CalculoRankingController {
         List<Entidad> entidades = rankingRequest.getEntidades();
         int cnf = rankingRequest.getCoeficiente();
         LocalDateTime fechaActual = LocalDateTime.now();
-
-        List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades);
+        LocalDateTime fechaHace7Dias = fechaActual.minusDays(7);
+        List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades, fechaActual, fechaHace7Dias);
         Ranking nuevoRanking = new Ranking();
         nuevoRanking.setTime(fechaActual);
         nuevoRanking.setTipoRanking(3);
@@ -64,8 +64,9 @@ public class CalculoRankingController {
     @PostMapping("/calcular-ranking/{cnf}")
     public ResponseEntity<Map<String, String>> calcularRankings(@PathVariable int cnf) {
         LocalDateTime fechaActual = LocalDateTime.now();
+        LocalDateTime fechaHace7Dias = fechaActual.minusDays(7);
         List<Entidad> entidades = entidadRepository.findAll();
-        List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades);
+        List<Entidad> entidadesOrdenadas = calculadorRankingMayorImpacto.calcularRanking(entidades, fechaActual, fechaHace7Dias);
         Ranking nuevoRanking = new Ranking();
         nuevoRanking.setTime(fechaActual);
         nuevoRanking.setTipoRanking(3);

@@ -88,6 +88,9 @@ public class MainController {
     @Autowired
     IncidenteProvider incidenteProvider;
 
+    @Autowired
+    CalculadorDeImpacto calculadorDeImpacto;
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -535,11 +538,55 @@ public class MainController {
         }
 
         Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
-        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return Math.toIntExact(incidenteProvider.promedioIncidentes(e2.getIncidentes_reportados_abierto_en_semana(fechaHace7Dias, fechaActual)) - incidenteProvider.promedioIncidentes(e1.getIncidentes_reportados_abierto_en_semana(fechaHace7Dias, fechaActual)));};
+        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{
+            long sumatoria1=0;
+            for (Incidente incidente: e1.getIncidentes_reportados()) {
+                sumatoria1+=incidente.duracion();
 
+            }
+            if(e1.getIncidentes_reportados().size() == 0)
+            {
+                return 1;
+            }
+            long sumatoria2=0;
+            for (Incidente incidente: e1.getIncidentes_reportados()) {
+                sumatoria2+=incidente.duracion();
+
+            }
+            if(e2.getIncidentes_reportados().size() == 0)
+            {
+                return -1;
+            }
+            return Math.toIntExact((sumatoria2 / e2.getIncidentes_reportados().size() - sumatoria1 / e1.getIncidentes_reportados().size()));
+
+
+        };
+        int cnf = 1;
+        Comparator<Entidad> compararPorImpacto = (e1, e2) ->{
+            int impacto1 = 0;
+            int sumatoriaTiempoResolucion1 = 0;
+            Integer incidentesNoResueltos = e1.getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+            for(Incidente incidente : e1.getIncidentes_reportados()){
+                sumatoriaTiempoResolucion1 += incidente.duracion();
+            }
+            impacto1 = sumatoriaTiempoResolucion1 + incidentesNoResueltos * cnf;
+
+            int impacto2 = 0;
+            int sumatoriaTiempoResolucion2 = 0;
+            Integer incidentesNoResueltos2 = e2.getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+            for(Incidente incidente : e2.getIncidentes_reportados()){
+                sumatoriaTiempoResolucion2 += incidente.duracion();
+            }
+            impacto1 = sumatoriaTiempoResolucion2 + incidentesNoResueltos * cnf;
+            return impacto2 - impacto1;
+
+
+
+        };
         modelAndView.addObject("entidades", entidades);
         modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);
         modelAndView.addObject("compararPorTiempoPromedio", compararPorTiempoPromedio);
+        modelAndView.addObject("compararPorImpacto", compararPorImpacto);
         return modelAndView;
     }
 

@@ -133,6 +133,16 @@ public class Entidad{
 
     }
 
+    public List<Incidente> getIncidentes_reportados_en_semana(LocalDateTime inicioDeSemana, LocalDateTime finDeSemana) {
+        return this.getIncidentes_reportados().stream()
+                .filter(incidente ->
+                                incidente.getApertura().isAfter(inicioDeSemana) && // Verificar si es después del inicio de la semana
+                                incidente.getApertura().isBefore(finDeSemana) // Verificar si es antes del fin de la semana
+                )
+                .collect(Collectors.toList());
+
+    }
+
     public void setIncidentes_reportados(List<Incidente> incidentes_reportados) {
         this.incidentes_reportados = incidentes_reportados;
     }
@@ -191,5 +201,16 @@ public class Entidad{
 
     public void setEstablecimientos(List<Establecimiento> establecimientos) {
         this.establecimientos = establecimientos;
+    }
+
+    public int getImpacto(Integer cnf){
+        int impacto = 0;
+        int sumatoriaTiempoResolucion = 0;
+        Integer incidentesNoResueltos = getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+        for(Incidente incidente : getIncidentes_reportados()){
+            sumatoriaTiempoResolucion += incidente.duracion();
+        }
+        impacto = sumatoriaTiempoResolucion + incidentesNoResueltos * cnf;
+        return impacto;
     }
 }

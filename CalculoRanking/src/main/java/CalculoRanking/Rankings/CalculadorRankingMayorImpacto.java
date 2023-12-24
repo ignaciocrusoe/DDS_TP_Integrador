@@ -1,7 +1,6 @@
 package CalculoRanking.Rankings;
 import CalculoRanking.Entidades.Entidad;
 import CalculoRanking.Incidentes.Incidente;
-import CalculoRanking.Rankings.CalculadorRanking;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,22 +10,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CalculadorRankingMayorImpacto extends CalculadorRanking {
+public class CalculadorRankingMayorImpacto {
 
     Integer cnf = 2; //Debería ser parametrizable
-    @Override
-    public List<Entidad> calcularRanking(List<Entidad> entidades) {
-        Comparator<Entidad> comparadorPorImpacto = Comparator.comparingLong((Entidad e) -> calcularImpacto(cnf, e));
+
+    public List<Entidad> calcularRanking(List<Entidad> entidades, LocalDateTime inicioSemana, LocalDateTime finSemana) {
+        Comparator<Entidad> comparadorPorImpacto = Comparator.comparingLong((Entidad e) -> calcularImpacto(cnf, e, inicioSemana, finSemana));
         List<Entidad> entidadesOrdenadas = entidades.stream().sorted(comparadorPorImpacto).collect(Collectors.toList());
-        Collections.reverse(entidadesOrdenadas);
         return entidadesOrdenadas;
     }
 
-    private Long calcularImpacto(Integer cnf, Entidad entidad){
+    private Long calcularImpacto(Integer cnf, Entidad entidad, LocalDateTime inicioSemana, LocalDateTime finSemana){
+
         Long impacto = 0L;
         Long sumatoriaTiempoResolucion = 0L;
-        Integer incidentesNoResueltos = entidad.getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
-        for(Incidente incidente : entidad.getIncidentes_reportados()){
+        Integer incidentesNoResueltos = entidad.getIncidentes_reportados_en_semana(inicioSemana, finSemana).stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+        for(Incidente incidente : entidad.getIncidentes_reportados_en_semana(inicioSemana, finSemana)){
             sumatoriaTiempoResolucion += incidente.duracion();
         }
         impacto = sumatoriaTiempoResolucion + incidentesNoResueltos * cnf;
