@@ -44,7 +44,12 @@ public class Comunidad{
     private List<Miembro> miembros;
 
 
-//    @Autowired
+    public String getDescripcionComunidad(){
+        return this.descripcionComunidad;
+    }
+
+
+    //    @Autowired
 //    @Transient
 //    private IncidenteProvider incidenteProvider;
 //    @Autowired

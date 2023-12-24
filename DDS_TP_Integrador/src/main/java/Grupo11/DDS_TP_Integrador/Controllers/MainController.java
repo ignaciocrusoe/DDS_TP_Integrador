@@ -8,6 +8,7 @@ import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
+import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificador;
 import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
@@ -45,6 +46,8 @@ public class MainController {
     private PersonaRepository personaRepository;
     @Autowired
     private IncidenteRepository incidenteRepository;
+    @Autowired
+    IncidenteService incidenteService;
     @Autowired
     private MiembroRepository miembroRepository;
     @Autowired
@@ -189,6 +192,45 @@ public class MainController {
 
         // Return a response, e.g., a success message
         return "redirect:/buscar_incidente/" + incidente.getIdIncidente();
+    }
+
+    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes")
+    public ModelAndView obtenerVistaIncidentesComunidad(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
+
+        Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
+
+        List<Incidente> incidentes = incidenteService.getIncidentesByComunidadAfectadaId(idComunidad);
+
+        ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
+        modelAndView.addObject("incidentes", incidentes);
+        modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
+        return modelAndView;
+    }
+
+    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes/abiertos")
+    public ModelAndView obtenerVistaIncidentesComunidadAbiertos(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
+
+        Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
+
+        List<Incidente> incidentesAbiertos = incidenteService.getIncidentesAbiertosByComunidadAfectadaId(idComunidad);
+
+        ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
+        modelAndView.addObject("incidentes", incidentesAbiertos);
+        modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
+        return modelAndView;
+    }
+
+    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes/cerrados")
+    public ModelAndView obtenerVistaIncidentesComunidadCerrados(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
+
+        Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
+
+        List<Incidente> incidentesCerrados = incidenteService.getIncidentesCerradosByComunidadAfectadaId(idComunidad);
+
+        ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
+        modelAndView.addObject("incidentes", incidentesCerrados);
+        modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
+        return modelAndView;
     }
 
     @GetMapping("/editar_perfil/{idPersona}")

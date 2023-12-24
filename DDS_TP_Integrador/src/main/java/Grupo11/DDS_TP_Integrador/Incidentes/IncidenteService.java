@@ -31,8 +31,34 @@ public class IncidenteService {
 
         List<Incidente> incidentes = new ArrayList<>();
         for (ComunidadXIncidente cxi: comunidadXIncidenteRepository.findAllByIdComunidad(idComunidad)
-             ) {
+        ) {
             incidentes.add(cxi.getIncidente());
+        }
+        return incidentes;
+
+    }
+
+    public List<Incidente> getIncidentesCerradosByComunidadAfectadaId(Long idComunidad){
+
+        List<Incidente> incidentes = new ArrayList<>();
+        for (ComunidadXIncidente cxi: comunidadXIncidenteRepository.findAllByIdComunidad(idComunidad)
+        ) {
+            if(!cxi.getIncidente().getEstado()){
+                incidentes.add(cxi.getIncidente());
+            }
+        }
+        return incidentes;
+
+    }
+
+    public List<Incidente> getIncidentesAbiertosByComunidadAfectadaId(Long idComunidad){
+
+        List<Incidente> incidentes = new ArrayList<>();
+        for (ComunidadXIncidente cxi: comunidadXIncidenteRepository.findAllByIdComunidad(idComunidad)
+        ) {
+            if(cxi.getIncidente().getEstado()){
+                incidentes.add(cxi.getIncidente());
+            }
         }
         return incidentes;
 
