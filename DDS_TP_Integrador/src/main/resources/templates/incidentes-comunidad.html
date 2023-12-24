@@ -80,7 +80,8 @@
                                                    style="width: 100%; margin-top: 20px;"
                                                    type='button'
                                                    class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
-                                                   value='Incidentes sin filtro'>
+                                                   value='Incidentes sin filtro'
+                                                   >
                                             </div>
                                             <div class="col-sm-4 d-flex ">
                                                 <input onclick="goToIncidentesCerrados()"
@@ -114,14 +115,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                        <tr th:each="incidente : ${incidentes}">
-                                                                            <td th:text="${incidente.idIncidente}"></td>
-                                                                            <td th:text="${incidente.apertura}"></td>
-                                                                            <td th:text="${incidente.observaciones}"></td>
-                                                                            <td th:text="${incidente.establecimiento.getNombreEstablecimiento()}"></td>
-                                                                            <td th:text="${incidente.estado}"></td>
-                                                                            <td class="btn btn-fill btn-warning" th:text="${incidente.estado}"></td>
-                                                                        </tr>
+                                                                    <tr th:each="incidente : ${incidentes}">
+                                                                        <td th:text="${incidente.idIncidente}"></td>
+                                                                        <td th:text="${#temporals.format(incidente.apertura, 'dd-MM-yyyy HH:mm')}"></td>
+                                                                        <td th:text="${incidente.prestacionIncidentada.nombrePrestacion}"></td>
+                                                                        <td th:if="${incidente.estado}"><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
+                                                                        <td th:if="${!incidente.estado}"><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
+                                                                        <td><a th:href="@{/incidente/{id}(id=${incidente.idIncidente})}"><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></a></td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>

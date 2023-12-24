@@ -203,6 +203,8 @@ public class MainController {
 
         ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
         modelAndView.addObject("incidentes", incidentes);
+        modelAndView.addObject("idPersona", idPersona);
+        modelAndView.addObject("comunidad", comunidad);
         modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
         return modelAndView;
     }
