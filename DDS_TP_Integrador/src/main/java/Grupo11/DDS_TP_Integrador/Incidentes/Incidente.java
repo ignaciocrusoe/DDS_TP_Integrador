@@ -27,7 +27,7 @@ public class Incidente {
     @Column(name="id_incidente")
     private Long idIncidente;
     @Column(name="observaciones")
-    private String observaciones;
+        private String observaciones;
 
     @ManyToOne
     @JoinColumn(name = "entidad")

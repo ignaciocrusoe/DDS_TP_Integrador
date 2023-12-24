@@ -7,6 +7,7 @@ import Grupo11.DDS_TP_Integrador.Establecimientos.Establecimiento;
 import Grupo11.DDS_TP_Integrador.GestoresIncidentes.GestorIncidentesPersona;
 import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
+import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificador;
 import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
@@ -83,6 +84,9 @@ public class MainController {
 
     @Autowired
     RankingRepository rankingRepository;
+
+    @Autowired
+    IncidenteProvider incidenteProvider;
 
     @GetMapping("/login")
     public String login() {
@@ -519,6 +523,10 @@ public class MainController {
 
         LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        // Obtener la fecha y hora hace 7 días
+        LocalDateTime fechaHace7Dias = fechaActual.minusDays(7);
 
         List<Entidad> entidades = entidadRepository.findAll();
 
@@ -526,7 +534,12 @@ public class MainController {
             entidad.setIncidentes_reportados(entidad.getIncidentes_reportados().stream().filter(obj -> incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isAfter(startOfWeek.atStartOfDay()) && incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isBefore(endOfWeek.atStartOfDay())).collect(Collectors.toList()));
         }
 
+        Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
+        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return Math.toIntExact(incidenteProvider.promedioIncidentes(e2.getIncidentes_reportados_abierto_en_semana(fechaHace7Dias, fechaActual)) - incidenteProvider.promedioIncidentes(e1.getIncidentes_reportados_abierto_en_semana(fechaHace7Dias, fechaActual)));};
+
         modelAndView.addObject("entidades", entidades);
+        modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);
+        modelAndView.addObject("compararPorTiempoPromedio", compararPorTiempoPromedio);
         return modelAndView;
     }
 
