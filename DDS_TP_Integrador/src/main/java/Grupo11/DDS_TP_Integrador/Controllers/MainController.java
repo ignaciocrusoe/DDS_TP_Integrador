@@ -151,7 +151,7 @@ public class MainController {
         return "buscar_incidente";
     }
 
-    @GetMapping("/buscar_incidente/{idIncidente}")
+    @GetMapping("/incidente/{idIncidente}")
     public ModelAndView obtenerInformacion(@PathVariable() Long idIncidente) {
         Incidente incidente = incidenteRepository.findByIdIncidente(idIncidente);
         Establecimiento establecimiento = incidente.getEstablecimiento();
@@ -531,9 +531,17 @@ public class MainController {
     }
 
     @GetMapping("/incidentes")
-    public ModelAndView obtenerIncidentesDeComunidad() throws ParseException {
+    public ModelAndView obtenerIncidentes() throws ParseException {
         ModelAndView modelAndView = new ModelAndView("buscar-incidentes");
         List<Incidente> incidentes = incidenteRepository.findAll();
+        modelAndView.addObject("incidentes", incidentes);
+        return modelAndView;
+    }
+
+    @GetMapping("/buscar-incidente/{incidente}")
+    public ModelAndView buscarIncidentes(@PathVariable() Long incidente) throws ParseException {
+        ModelAndView modelAndView = new ModelAndView("buscar-incidentes");
+        List<Incidente> incidentes = incidenteRepository.findAll().stream().filter(obj -> obj.getIdIncidente() == incidente).collect(Collectors.toList());
         modelAndView.addObject("incidentes", incidentes);
         return modelAndView;
     }

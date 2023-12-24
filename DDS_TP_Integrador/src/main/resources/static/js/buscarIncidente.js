@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log('Received id:', idIncidente);
 
-    window.location.href = "/buscar_incidente/" + idIncidente;
+    window.location.href = "/buscar-incidente/" + idIncidente;
 
    });
 });

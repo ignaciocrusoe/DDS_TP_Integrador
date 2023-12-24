@@ -93,7 +93,7 @@
 																<td th:text="${incidente.prestacionIncidentada.nombrePrestacion}"></td>
 																<td th:if="${incidente.estado}"><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
 																<td th:if="${!incidente.estado}"><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
-																<td><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></td>
+																<td><a th:href="@{/incidente/{id}(id=${incidente.idIncidente})}"><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></a></td>
 															</tr>
 										
 															</tbody>
@@ -134,4 +134,5 @@
 	<!-- Toastify js -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script th:src="@{/js/buscarIncidente.js}" type="module"></script>
+	
 </html>
