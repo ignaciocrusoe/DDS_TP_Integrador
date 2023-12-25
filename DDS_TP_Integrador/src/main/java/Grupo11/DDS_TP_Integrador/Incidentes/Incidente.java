@@ -72,7 +72,12 @@ public class Incidente {
         this.estado = false; //false el incidente esta cerrado
     }
     public long duracion(){
-        return apertura.until(cierre, ChronoUnit.HOURS);
+        if(apertura == null || cierre == null){
+            return 0;
+        }
+        else{
+            return apertura.until(cierre, ChronoUnit.HOURS);
+        }
     }
 
     public LocalDateTime getApertura(){return apertura;}

@@ -203,12 +203,16 @@ public class Entidad{
         this.establecimientos = establecimientos;
     }
 
-    public int getImpacto(Integer cnf){
+    public int getImpacto(int cnf){
         int impacto = 0;
         int sumatoriaTiempoResolucion = 0;
-        Integer incidentesNoResueltos = getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+        int incidentesNoResueltos = getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
         for(Incidente incidente : getIncidentes_reportados()){
             sumatoriaTiempoResolucion += incidente.duracion();
+        }
+        if(getIncidentes_reportados().size() == 0)
+        {
+            return 0;
         }
         impacto = sumatoriaTiempoResolucion + incidentesNoResueltos * cnf;
         return impacto;

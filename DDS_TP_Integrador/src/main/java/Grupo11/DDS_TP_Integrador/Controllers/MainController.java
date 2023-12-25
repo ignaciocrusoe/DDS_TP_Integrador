@@ -561,8 +561,8 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/rankings-cliente-pesado/{fecha}")
-    public ModelAndView rankingsClientePesado(@PathVariable() String fecha) throws ParseException{
+    @GetMapping("/rankings-cliente-pesado/{fecha}/{cnf}")
+    public ModelAndView rankingsClientePesado(@PathVariable() String fecha, @PathVariable() int cnf) throws ParseException{
         ModelAndView modelAndView = new ModelAndView("rankings-cliente-pesado");
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -582,6 +582,10 @@ public class MainController {
         }
 
         Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
+        Comparator<Entidad> compararPorImpacto = (e1, e2) ->{return e2.getImpacto(cnf) - e1.getImpacto(cnf);};
+        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
+
+        /*
         Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{
             long sumatoria1=0;
             for (Incidente incidente: e1.getIncidentes_reportados()) {
@@ -627,6 +631,12 @@ public class MainController {
 
 
         };
+        */
+
+        for(Entidad entidad : entidades){
+            System.out.println(entidad.getImpacto(1));
+        }
+
         modelAndView.addObject("entidades", entidades);
         modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);
         modelAndView.addObject("compararPorTiempoPromedio", compararPorTiempoPromedio);
