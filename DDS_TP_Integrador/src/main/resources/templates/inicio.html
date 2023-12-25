@@ -98,6 +98,45 @@
 											</div>
 
 										</div>
+										<div class="row">
+											<div class="col-sm-5 d-flex col-sm-offset-1">
+
+												<input onclick="goToRankings()"
+													   style="width: 100%; height:100px; margin-top: 20px;"
+													   type='button'
+													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
+													   value='Rankings'>
+
+												<input onclick="goToRankingsClientePesado()"
+													   style="width: 100%; height:100px; margin-top: 20px;"
+													   type='button'
+													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
+													   value='-'>
+
+											</div>
+											<div class="col-sm-5 d-flex ">
+
+												<input onclick="goToRankingsClientePesado()"
+													   style="width: 100%; height:100px; margin-top: 20px;"
+													   type='button'
+													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
+													   value='Rankings (cliente pesado)'>
+<!--												<input onclick="goToBuscarIncidentes()"-->
+<!--													   style="width: 100%; height:100px; margin-top: 20px;"-->
+<!--													   type='button'-->
+<!--													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''-->
+<!--													   value='Buscar incidente'>-->
+
+												<input onclick="goToReportarIncidente()"
+													   style="width: 100%; height:100px; margin-top: 20px;"
+													   type='button'
+													   class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
+													   value='-'>
+
+
+											</div>
+
+										</div>
 		                            </div>
 								</div>
 		                    </form>
@@ -158,6 +197,15 @@
 	function goToPerfil() {
 
 		window.location.href = "/editar_perfil/"+ idPersona.toString();
+	}
+	function goToRankings() {
+
+		window.location.href = "/rankings";
+	}
+
+	function goToRankingsClientePesado() {
+
+		window.location.href = "/rankings-cliente-pesado";
 	}
 
 
