@@ -583,59 +583,9 @@ public class MainController {
 
         Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
         Comparator<Entidad> compararPorImpacto = (e1, e2) ->{return e2.getImpacto(cnf) - e1.getImpacto(cnf);};
-        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
-
-        /*
-        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{
-            long sumatoria1=0;
-            for (Incidente incidente: e1.getIncidentes_reportados()) {
-                sumatoria1+=incidente.duracion();
-
-            }
-            if(e1.getIncidentes_reportados().size() == 0)
-            {
-                return 1;
-            }
-            long sumatoria2=0;
-            for (Incidente incidente: e1.getIncidentes_reportados()) {
-                sumatoria2+=incidente.duracion();
-
-            }
-            if(e2.getIncidentes_reportados().size() == 0)
-            {
-                return -1;
-            }
-            return Math.toIntExact((sumatoria2 / e2.getIncidentes_reportados().size() - sumatoria1 / e1.getIncidentes_reportados().size()));
+        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return e2.getTiempoPromedio() - e1.getTiempoPromedio();};
 
 
-        };
-        int cnf = 1;
-        Comparator<Entidad> compararPorImpacto = (e1, e2) ->{
-            int impacto1 = 0;
-            int sumatoriaTiempoResolucion1 = 0;
-            Integer incidentesNoResueltos = e1.getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
-            for(Incidente incidente : e1.getIncidentes_reportados()){
-                sumatoriaTiempoResolucion1 += incidente.duracion();
-            }
-            impacto1 = sumatoriaTiempoResolucion1 + incidentesNoResueltos * cnf;
-
-            int impacto2 = 0;
-            int sumatoriaTiempoResolucion2 = 0;
-            Integer incidentesNoResueltos2 = e2.getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
-            for(Incidente incidente : e2.getIncidentes_reportados()){
-                sumatoriaTiempoResolucion2 += incidente.duracion();
-            }
-            impacto1 = sumatoriaTiempoResolucion2 + incidentesNoResueltos * cnf;
-            return impacto2 - impacto1;
-
-
-
-        };
-        */
-
-        for(Entidad entidad : entidades){
-            System.out.println(entidad.getImpacto(1));
-        }
 
         modelAndView.addObject("entidades", entidades);
         modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);

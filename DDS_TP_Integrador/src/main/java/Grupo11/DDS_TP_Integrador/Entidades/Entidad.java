@@ -217,4 +217,17 @@ public class Entidad{
         impacto = sumatoriaTiempoResolucion + incidentesNoResueltos * cnf;
         return impacto;
     }
+
+    public int getTiempoPromedio(){
+        long sumatoria=0;
+        for (Incidente incidente: getIncidentes_reportados()) {
+            sumatoria+=incidente.duracion();
+
+        }
+        if(getIncidentes_reportados().size() == 0)
+        {
+            return 1;
+        }
+        return (int) (sumatoria/getIncidentes_reportados().size());
+    }
 }
