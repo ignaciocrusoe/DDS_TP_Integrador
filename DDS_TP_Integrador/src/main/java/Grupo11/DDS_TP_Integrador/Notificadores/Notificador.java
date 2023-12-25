@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,14 +35,17 @@ public class Notificador {
 
         Comunidad comunidad1 = comunidadRepository.getReferenceById(comunidad.getIdComunidad());
 
+        Set<Long> miembrodb_ids = comunidad.getMiembros().stream().map(Miembro::getIdMiembro).collect(Collectors.toSet());
+
 
         List<Notificacion> notificaciones = new ArrayList<>();
-        for (Miembro miembro : comunidad1.getMiembros()
+        for (Long miembroId : miembrodb_ids
         ) {
-            Miembro miembrodb = miembroRepository.findById(miembro.getIdMiembro()).get();
-            Persona persona = personaRepository.findByIdPersona(miembrodb.getPersona().getIdPersona());
-            notificaciones.add(new Notificacion(persona, nuevoIncidente, tipoNotificacion));
 
+            Persona persona = personaRepository.findByIdPersona(miembroId);
+         if(persona!=null){
+             notificaciones.add(new Notificacion(persona, nuevoIncidente, tipoNotificacion));
+         }
         }
 
         notificacionRepository.saveAll(notificaciones);
