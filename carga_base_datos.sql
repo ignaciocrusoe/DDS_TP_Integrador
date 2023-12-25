@@ -2463,15 +2463,11 @@ insert into membresias (rol_comunidad, rol_usuario, comunidad, persona, nombre_c
 insert into incidentes (horario_apertura, horario_cierre, estado, observaciones, entidad, establecimiento, persona_reportadora, prestacion_incidentada) values
 ('2023-12-17 16:40:53.000000', '2023-12-18 19:40:53.000000', 0, 'Las escaleras mecánicas dejaron de funcionar.', 1, 1, 1, 3),
 ('2023-12-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 1, 'No se pueden utilizar las escaleras.', 1, 1, 2, 1),
-<<<<<<< Updated upstream
 ('2023-11-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 0, 'No se pueden utilizar las escaleras.', 2, 1, 2, 1),
 ('2023-12-19 16:40:53.000000', '2023-12-19 20:18:13.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 4, 1, 3),
 ('2023-12-19 20:19:00.000000', '2023-12-20 21:40:01.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 4, 1, 3),
 ('2023-12-20 01:01:11.000000', '2023-12-20 07:31:51.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 5, 1, 3),
 ('2023-12-20 10:14:21.000000', '2023-12-20 10:15:12.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 4, 5, 1, 3),
-('2023-12-19 01:00:42.000000', '2023-12-22 15:53:01.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 9, 6, 1, 3);
-=======
+('2023-12-19 01:00:42.000000', '2023-12-22 15:53:01.000000', 1, 'Las escaleras mecánicas dejaron de funcionar.', 9, 6, 1, 3),
 ('2023-11-18 16:40:53.000000', '2023-12-19 19:40:53.000000', 0, 'No se pueden utilizar las escaleras.', 2, 1, 2, 1);
 
-select * from personas
->>>>>>> Stashed changes
