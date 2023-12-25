@@ -217,6 +217,7 @@ public class MainController {
 
         ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
         modelAndView.addObject("incidentes", incidentesAbiertos);
+        modelAndView.addObject("idComunidad", idComunidad);
         modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
         return modelAndView;
     }
@@ -230,6 +231,7 @@ public class MainController {
 
         ModelAndView modelAndView = new ModelAndView("incidentes-comunidad");
         modelAndView.addObject("incidentes", incidentesCerrados);
+        modelAndView.addObject("idComunidad", idComunidad);
         modelAndView.addObject("titulo", "Incidentes de " + comunidad.getDescripcionComunidad());
         return modelAndView;
     }

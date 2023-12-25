@@ -78,7 +78,7 @@
 
                                         <div class="row" style="margin-bottom: 20px;">
                                             <div class="col-sm-4 d-flex ">
-                                            <input onclick="goToIncidentes()"
+                                            <input th:attr="onclick=${'goToIncidentes('+idComunidad+')'}"
                                                    style="width: 100%; margin-top: 20px;"
                                                    type='button'
                                                    class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
@@ -86,14 +86,14 @@
                                                    >
                                             </div>
                                             <div class="col-sm-4 d-flex ">
-                                                <input onclick="goToIncidentesCerrados()"
+                                                <input th:attr="onclick=${'goToIncidentesCerrados('+idComunidad+')'}"
                                                        style="width: 100%; margin-top: 20px;"
                                                        type='button'
                                                        class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
                                                        value='Incidentes cerrados'>
                                             </div>
                                             <div class="col-sm-4 d-flex ">
-                                                <input onclick="goToIncidentesAbiertos()"
+                                                <input th:attr="onclick=${'goToIncidentesAbiertos('+idComunidad+')'}"
                                                        style="width: 100%; margin-top: 20px;"
                                                        type='button'
                                                        class='btn btn-fill btn-warning btn-wd card-hover-effect' name=''
