@@ -1,14 +1,22 @@
 const idLocalStorage = localStorage.getItem('idPersona');
 console.log('Received idPersona:', idLocalStorage);
+var idComunidad = "${idComunidad}";
+console.log(idComunidad);
 
 function goToIncidentes() {
-	window.location.href = "/comunidades/"+idLocalStorage.toString()+[[${comunidad.idComunidad}]].toString()+"/incidentes"
+  if (idLocalStorage) {
+    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes";
+  }
 }
 
 function goToIncidentesAbiertos() {
-	window.location.href = "/comunidades/"+idLocalStorage.toString()+[[${comunidad.idComunidad}]].toString()+"/incidentes/abiertos"
+  if (idLocalStorage) {
+    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes/abiertos";
+  }
 }
 
 function goToIncidentesCerrados() {
-	window.location.href = "/comunidades/"+idLocalStorage.toString()+[[${comunidad.idComunidad}]].toString()+"/incidentes/cerrados"
+  if (idLocalStorage) {
+    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes/cerrados";
+  }
 }
