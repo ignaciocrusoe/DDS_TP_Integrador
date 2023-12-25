@@ -340,7 +340,7 @@ public class MainController {
     @PostMapping("/cambiar_tipo")
     public String cambiarTipo(@ModelAttribute CambiarTipoRequest cambiarTipoRequest) {
 
-
+        System.out.println(cambiarTipoRequest.getTipo());
         Miembro miembro = miembroRepository.getReferenceById(cambiarTipoRequest.getIdMiembro());
 
         if( cambiarTipoRequest.getTipo().equals("Observador")){
