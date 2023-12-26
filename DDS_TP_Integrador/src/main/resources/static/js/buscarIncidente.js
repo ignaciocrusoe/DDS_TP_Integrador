@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const inputIdIncidente = incidentForm.querySelector('input[name="idIncidente"]');
 
-    // Get the selected values
     const idIncidente = inputIdIncidente.value;
 
     console.log('Received id:', idIncidente);

@@ -3,7 +3,7 @@ import { auth } from "./firebase.js";
 import { showMessage } from "./showMessage.js";
 import './logout.js'
 
-// Initialize loginInfo object
+
 let loginInfo = {
   userId: null,
   loginTime: null,
@@ -24,17 +24,12 @@ if(googleButton) {
       console.log(userCredentials);
       console.log("google sign in");
 
-
-      // Actualizar información de inicio de sesión
       loginInfo.userId = userCredentials.user.uid;
       loginInfo.loginTime = new Date().toISOString();
       loginInfo.mail = userCredentials.user.mail;
 
-      // Enviar evento de inicio de sesión
       await sendLoginEvent(loginInfo);
 
-
-      // Restablecer el formulario
       signInForm.reset();
 
     } catch (error) {
