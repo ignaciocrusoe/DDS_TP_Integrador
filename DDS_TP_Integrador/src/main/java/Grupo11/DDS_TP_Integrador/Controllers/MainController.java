@@ -15,8 +15,10 @@ import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
+import Grupo11.DDS_TP_Integrador.Responses.EntidadesResponse;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -134,7 +136,7 @@ public class MainController {
         nuevoIncidente.setPrestacionIncidentada(prestacion);
         nuevoIncidente.setEntidad(entidad);
 
-        entidad.getIncidentes_reportados().add(nuevoIncidente);
+        entidad.getIncidentesReportados().add(nuevoIncidente);
 
         incidenteRepository.save(nuevoIncidente);
         entidadRepository.save(entidad);
@@ -562,38 +564,34 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/rankings-cliente-pesado/{fecha}/{cnf}")
-    public ModelAndView rankingsClientePesado(@PathVariable() String fecha, @PathVariable() int cnf) throws ParseException{
-        ModelAndView modelAndView = new ModelAndView("rankings-cliente-pesado");
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fechaComoDate = LocalDate.parse(fecha, formato);
-
-        LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        LocalDateTime fechaActual = LocalDateTime.now();
-
-        // Obtener la fecha y hora hace 7 días
-        LocalDateTime fechaHace7Dias = fechaActual.minusDays(7);
-
-        List<Entidad> entidades = entidadRepository.findAll();
-
-        for(Entidad entidad : entidades){
-            entidad.setIncidentes_reportados(entidad.getIncidentes_reportados().stream().filter(obj -> incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isAfter(startOfWeek.atStartOfDay()) && incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isBefore(endOfWeek.atStartOfDay())).collect(Collectors.toList()));
-        }
-
-        Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
-        Comparator<Entidad> compararPorImpacto = (e1, e2) ->{return e2.getImpacto(cnf) - e1.getImpacto(cnf);};
-        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return e2.getTiempoPromedio() - e1.getTiempoPromedio();};
-
-
-
-        modelAndView.addObject("entidades", entidades);
-        modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);
-        modelAndView.addObject("compararPorTiempoPromedio", compararPorTiempoPromedio);
-        modelAndView.addObject("compararPorImpacto", compararPorImpacto);
-        return modelAndView;
+    @GetMapping("/rankings-cliente-pesado")
+    public String rankingsClientePesado(){
+        return "rankings-cliente-pesado";
     }
+
+    @GetMapping("/obtener-entidades")
+    public ResponseEntity<List<EntidadesResponse>> obtenerEntidades() {
+        List<Entidad> entidades = entidadRepository.findAll();
+        List<EntidadesResponse> entidadesResponses = entidades
+                .stream()
+                .map(entidad -> {
+                    EntidadesResponse entidadesResponse = new EntidadesResponse();
+                    entidadesResponse.agregarIncidentes(entidad.getIncidentesReportados());
+                    entidadesResponse.setIdEntidad(entidad.getId_entidad());
+                    return entidadesResponse;
+                })
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<EntidadesResponse>>(entidadesResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/obtener-comunidades")
+    public ResponseEntity<List<Comunidad>> obtenerComunidades() {
+        List<Comunidad> entidades = comunidadRepository.findAll();
+
+        return new ResponseEntity<List<Comunidad>>(entidades, HttpStatus.OK);
+    }
+
 
     @GetMapping("/incidentes")
     public ModelAndView obtenerIncidentes() throws ParseException {
