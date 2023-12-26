@@ -186,11 +186,12 @@
 	}
 
 	function goToMisComunidades() {
+
+		localStorage.setItem('linkComunidadesPersona',"/comunidades/"+idPersona.toString())
 		window.location.href = "/comunidades/"+idPersona.toString();
 	}
 
 	function goToNotificaciones() {
-
 		window.location.href = "/notificaciones";
 	}
 

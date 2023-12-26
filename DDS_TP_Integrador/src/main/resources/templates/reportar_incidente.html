@@ -110,10 +110,16 @@
 											<button style="width: 100%;" type='submit' class='btn btn-fill btn-warning btn-wd'  id="reportarIncidenteButton">Reportar incidente</button>
 										</div>
 									</div>
+
 								</div>
 							</div>
 							<div class="clearfix"></div>
 						</form>
+						<div class="row">
+							<div class="col-sm-10 col-sm-offset-1">
+								<button style="width: 100%;" type='button' class='btn btn-fill btn-default btn-wd'  id="volverAInicio2">Volver a Inicio</button>
+							</div>
+						</div>
 					</div>
 				</div> <!-- wizard container -->
 			</div>
@@ -142,6 +148,11 @@
 	<script th:src="@{/js/reportar.js}" type="module"></script>
 
 <script>
+
+	document.getElementById('volverAInicio2').addEventListener('click', function () {
+		window.location.href = '/inicio';
+	});
+
 	document.addEventListener('DOMContentLoaded', function () {
 		function submitForm(event) {
 			console.log("Limpiando notificaciones al enviar formulario de reportar incidente");

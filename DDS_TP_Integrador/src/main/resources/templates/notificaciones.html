@@ -63,17 +63,6 @@
                                 <div class="tab-content">
                                     <div class="col-sm-12">
 
-                                        <div class="position-relative" style="margin-bottom: 20px;">
-                                            <form id="buscar-incidente-form">
-                                                <div class="input-group">
-                                                    <input name="idIncidente" class="form-control  w-100" style="font-family: Arial, FontAwesome" placeholder="&#xF002; Buscar por #incidente">
-                                                    <span class="input-group-btn">
-															<button type="submit" class="btn btn-fill btn-warning btn-wd">Buscar notificacion</button>
-														</span>
-                                                </div>
-                                            </form>
-
-                                        </div>
                                         
                                         <div class="tab-pane" id="tablaDeIncidentes">
                                             <div class="col-sm-10 col-sm-offset-1">
@@ -102,7 +91,13 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                            </form>                            
+                            </form>
+
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <button style="width: 100%;" type='button' class='btn btn-fill btn-default btn-wd'  id="volverAInicio2">Volver a Inicio</button>
+                                </div>
+                            </div>
                         </div>
                     </div> <!-- wizard container -->
                 </div>
@@ -137,6 +132,20 @@
 
 
 <script>
+    // Obtén el valor actual del localStorage
+    var valorActual = localStorage.getItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente');
+
+    // Si el valor actual existe, elimínalo
+    if (valorActual !== null) {
+        localStorage.removeItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente');
+    }
+
+    // Agrega el nuevo valor al localStorage
+    localStorage.setItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente', '/notificaciones');
+
+    document.getElementById('volverAInicio2').addEventListener('click', function() {
+        window.location.href = '/inicio';
+    });
     (async () => {
         let configNotificaciones = await configuracionNotificaciones();
 

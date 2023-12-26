@@ -135,6 +135,13 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
+
+                                    <div class="row">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <button style="width: 100%;" type='button' class='btn btn-fill btn-default btn-wd'  id="volverAInicio2">Volver a Mis Comunidades</button>
+                                        </div>
+                                    </div>
+
                             </form>                            
                         </div>
                     </div> <!-- wizard container -->
@@ -166,7 +173,21 @@
 
 <script>
 
+    // Obtén el valor actual del localStorage
+    var valorActual = localStorage.getItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente');
 
+    // Si el valor actual existe, elimínalo
+    if (valorActual !== null) {
+        localStorage.removeItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente');
+    }
+
+    // Agrega el nuevo valor al localStorage
+    localStorage.setItem('ultimoLinkParaVolverAtrasDeVistaInfoIncidente',window.location.href);
+
+
+    document.getElementById('volverAInicio2').addEventListener('click', function() {
+        window.location.href = localStorage.getItem('linkComunidadesPersona');
+    });
 
 
 </script>

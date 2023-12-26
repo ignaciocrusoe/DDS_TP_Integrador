@@ -41,14 +41,6 @@ function parsearJSONaIncidentes(json) {
     });
 }
 
-//se hace en notifiaciones.html
-// // Limpia el localStorage cada hora (3600000 milisegundos)
-// const limpiarLocalStorageInterval = setInterval(() => {
-//     localStorage.removeItem('incidentesDeInteres');
-//     console.log("LocalStorage libre de incidentes de interés");
-// }, 3600000);
-//
-
 export async function incidentesASugerirModificar(){
     const ubicacionActual = await obtenerUbicacion();
     let incidentesDeInteres = [];
@@ -65,7 +57,7 @@ export async function incidentesASugerirModificar(){
 
     let incidentesASugerirModificar = [];
     incidentesDeInteres.forEach((incidente)=>{
-        agregarIncidenteASugerirModificar(incidente,incidentesASugerirModificar,ubicacionActual,100000000000)
+        agregarIncidenteASugerirModificar(incidente,incidentesASugerirModificar,ubicacionActual,100)
     });
     return incidentesASugerirModificar;
 
