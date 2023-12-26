@@ -31,14 +31,6 @@ public class GestorNotificacionesPersona {
 
     }
 
-    //todo este tmb se puede eliminar
-//    public void sugerirMiembroCercaActualizarIncidente(Persona personaMiembroCerca,List<Incidente> incidentesCerca){
-//        for (Incidente incidente: incidentesCerca
-//             ) {
-//            notificadorComunidad.notificarPersonas((List<Persona>) personaMiembroCerca, new Notificacion(incidente, SUGERENCIA));
-//        }
-//
-//    }
 
     @Transactional
     public List<Notificacion> obtenerNotificacionesPendientesPersona(Long idPersona) {

@@ -62,17 +62,7 @@ public class Entidad{
     @JsonIgnore
     protected List<Establecimiento> establecimientos;
 
-//    @Autowired
-//    @Transient
-//    protected IncidenteProvider incidenteProvider;
-//    @Autowired
-//    @Transient
-//    protected GestorRankings gestorRankings;
-//    @Autowired
-//    @Transient
-//    protected Notificador notificador;
 
-    //metodos utilitarios
     public Entidad() {
     }
 
@@ -88,19 +78,7 @@ public class Entidad{
         this.rankingMayorImpacto = rankingMayorImpacto;
         this.establecimientos = establecimientos;
     }
-//    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, List<Establecimiento> establecimientos, IncidenteProvider incidenteProvider, GestorRankings gestorRankings, Notificador notificador) {
-//        this.incidentes_reportados = incidentes_reportados;
-//        this.prestador = prestador;
-//        this.organismoControl = organismoControl;
-//        this.suscriptores = suscriptores;
-//        this.rankingMasIncidentes = rankingMasIncidentes;
-//        this.rankingPromedioCierre = rankingPromedioCierre;
-//        this.rankingMayorImpacto = rankingMayorImpacto;
-//        this.establecimientos = establecimientos;
-//        this.incidenteProvider = incidenteProvider;
-//        this.gestorRankings = gestorRankings;
-//        this.notificador = notificador;
-//    }
+
 
     public Long getId_entidad() {
         return id_entidad;

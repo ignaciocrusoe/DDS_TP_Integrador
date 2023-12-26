@@ -26,7 +26,6 @@ public class RankingMayorImpacto {
 
     @Column(name = "posicion")
     private Integer posicion;
-    //metodos utilitarios
 
 
     public RankingMayorImpacto(Entidad entidad, Ranking ranking, Integer posicion) {

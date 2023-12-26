@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EntidadesResponse {
     private Long idEntidad;
+    private String nombreEntidad;
     public List<Incidente> incidentes;
     public void agregarIncidentes(List<Incidente> incidentesNuevos){
         for(Incidente incidente : incidentesNuevos){

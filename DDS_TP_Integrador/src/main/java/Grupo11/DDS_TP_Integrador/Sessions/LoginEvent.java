@@ -11,13 +11,13 @@ public class LoginEvent {
     private Long idLoginEvent;
 
     @Column(name = "idUsuario")
-    private String idUsuario;  // Updated property name to match the repository method
+    private String idUsuario;
 
     @Column(name = "loginTime")
-    private LocalDateTime loginTime;  // Updated property name to match the repository method
+    private LocalDateTime loginTime;
 
     @Column(name = "logoutTime")
-    private LocalDateTime logoutTime;  // Updated property name to match the repository method
+    private LocalDateTime logoutTime;
 
     @ManyToOne
     @JoinColumn(name = "id_persona")

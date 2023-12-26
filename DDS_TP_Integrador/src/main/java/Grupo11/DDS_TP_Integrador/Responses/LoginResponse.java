@@ -8,7 +8,6 @@ public class LoginResponse {
         this.IdPersona = IdPersona;
     }
 
-    // Getters and setters for the fields
     public String getMessage() {
         return message;
     }

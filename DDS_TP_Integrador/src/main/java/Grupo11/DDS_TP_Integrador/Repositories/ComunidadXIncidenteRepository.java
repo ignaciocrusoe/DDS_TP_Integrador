@@ -14,10 +14,6 @@ import java.util.List;
 
 public interface ComunidadXIncidenteRepository extends JpaRepository<ComunidadXIncidente, ComunidadXIncidenteId> {
 
-    // Ejemplo de consulta por idIncidente e idComunidad
     List<ComunidadXIncidente> findAllByIdComunidad(Long idComunidad);
-
-    // Otros métodos de consulta según tus necesidades
-    // ...
 
 }
