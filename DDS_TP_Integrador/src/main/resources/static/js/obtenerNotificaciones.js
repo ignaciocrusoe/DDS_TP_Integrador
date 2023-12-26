@@ -15,7 +15,7 @@ export class Notificacion {
 }
 function parsearJSONaNotificaciones(json) {
   return json.map(item => {
-    // Convierte la fecha a un objeto Date si está presente
+
     const fechaApertura = item.fechaApertura ? new Date(item.fechaApertura) : null;
 
     return new Notificacion(
