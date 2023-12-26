@@ -267,7 +267,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/comunidades/{idPersona}")
+    @GetMapping("/comunidades-{idPersona}")
     public ModelAndView obtenerVistaComunidadesPersona(@PathVariable() Long idPersona) {
 
         Persona persona = personaRepository.findByIdPersona(idPersona);
@@ -318,7 +318,7 @@ public class MainController {
 
             System.out.println("La persona ya es miembro de dicha comunidad");
         }
-        return "redirect:/comunidades/" + persona.getIdPersona().toString();
+        return "redirect:/comunidades-" + persona.getIdPersona().toString();
     }
 
 
@@ -330,7 +330,7 @@ public class MainController {
 
         miembroRepository.delete(miembro);
 
-        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_tipo_pesado")
@@ -353,7 +353,7 @@ public class MainController {
         System.out.println(cambiarTipoRequest.getIdMiembro());
         System.out.println(cambiarTipoRequest.getTipo());
 
-        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_tipo_liviano")
@@ -376,7 +376,7 @@ public class MainController {
         System.out.println(cambiarTipoRequest.getIdMiembro());
         System.out.println(cambiarTipoRequest.getTipo());
 
-        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
+        return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
 
     @PostMapping("/cambiar_nombre")
@@ -387,7 +387,7 @@ public class MainController {
         persona.setApellido(cambiarNombreRequest.getNuevoApellido());
         personaRepository.save(persona);
 
-        return "redirect:/editar_perfil/" + persona.getIdPersona();
+        return "redirect:/editar_perfil-" + persona.getIdPersona();
     }
 
     @PostMapping("/cambiar_medio")
@@ -417,7 +417,7 @@ public class MainController {
         persona.setIntervaloSeleccionado(cambiarMedioRequest.getRangoSeleccionado());
         personaRepository.save(persona);
 
-        return "redirect:/editar_perfil/" + persona.getIdPersona();
+        return "redirect:/editar_perfil-" + persona.getIdPersona();
 
     }
 
