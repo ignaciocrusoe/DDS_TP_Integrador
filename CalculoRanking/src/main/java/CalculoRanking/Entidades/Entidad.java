@@ -25,7 +25,6 @@ public class Entidad{
     private String nombre_entidad;
 
     @OneToMany(mappedBy = "entidad")
-    @JsonIgnore
     protected List<Incidente> incidentes_reportados;
 
     @OneToMany(mappedBy = "entidad")
