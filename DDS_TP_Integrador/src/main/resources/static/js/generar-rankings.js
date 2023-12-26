@@ -88,7 +88,7 @@ function ordenarPorImpacto(array){
       });
 
       return listaNueva;
-
+/*
 fetch('localhost:8082/calculoRanking')
 .then(response => {
       if (!response.ok) {
@@ -98,7 +98,7 @@ fetch('localhost:8082/calculoRanking')
     })
     .then(data => {
       const list = Array.isArray(data) ? data : [data];
-
+*/
 var listaNueva = [];
 
 

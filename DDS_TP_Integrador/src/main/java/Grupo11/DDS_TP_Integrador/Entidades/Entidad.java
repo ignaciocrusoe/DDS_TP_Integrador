@@ -10,6 +10,7 @@ import Grupo11.DDS_TP_Integrador.Incidentes.*;
 import Grupo11.DDS_TP_Integrador.Notificadores.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class Entidad{
     @Column(name = "nombre_entidad")
     private String nombre_entidad;
 
+    @JsonIgnoreProperties("entidad")
     @OneToMany(mappedBy = "entidad")
-    @JsonIgnore
     protected List<Incidente> incidentesReportados;
     @ManyToOne
     @JoinColumn(name = "prestador")

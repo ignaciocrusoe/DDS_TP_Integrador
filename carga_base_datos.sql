@@ -1,6 +1,7 @@
 
 #drop schema dds;
 #create schema dds;
+
 use dds;
 #MIGRACION DE DATOS (CORRER TODO EL SCRIPT DE CORRIDO)
 

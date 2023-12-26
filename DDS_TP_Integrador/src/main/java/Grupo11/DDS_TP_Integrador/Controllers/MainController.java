@@ -237,7 +237,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/editar_perfil/{idPersona}")
+    @GetMapping("/editar_perfil-{idPersona}")
     public ModelAndView editar_perfil(@PathVariable() Long idPersona) {
 
         Persona persona = personaRepository.findByIdPersona(idPersona);

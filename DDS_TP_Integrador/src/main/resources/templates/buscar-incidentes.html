@@ -93,8 +93,8 @@
 																<td th:text="${incidente.idIncidente}"></td>
 																<td th:text="${#temporals.format(incidente.apertura, 'dd-MM-yyyy HH:mm')}"></td>
 																<td th:text="${incidente.prestacionIncidentada.nombrePrestacion}"></td>
-																<td th:if="${incidente.estado}"><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Cierre</span></td>
-																<td th:if="${!incidente.estado}"><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Abierta</span></td>
+																<td th:if="${!incidente.estado}"><i class="fa fa-check-circle text-danger"></i><span class="ms-1"> Cerrado</span></td>
+																<td th:if="${incidente.estado}"><i class="fa fa-check-circle text-success"></i><span class="ms-1"> Abierto</span></td>
 																<td><a th:href="@{/incidente/{id}(id=${incidente.idIncidente})}"><input type='button' class='btn btn-primary ' name='ver' value='Ver Más'/></a></td>
 															</tr>
 										

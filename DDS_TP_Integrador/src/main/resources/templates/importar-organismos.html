@@ -68,10 +68,17 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-sm-4 col-sm-offset-4">
-											<button id="boton-cargar-archivo" style="margin-top: 20px; width: 100%;" type="button" class="btn btn-fill btn-warning btn-wd">Cargar archivo</button>
+										<div class="col-sm-10 col-sm-offset-1">
+											<button id="boton-cargar-archivo" style="margin-top: 20px; margin-bottom: 10px; width: 100%;" type="button" class="btn btn-fill btn-warning btn-wd">Cargar archivo</button>
 										</div>
 		                            </div>
+									<div class="row">
+										<div class="col-sm-10 col-sm-offset-1">
+											<button style="width: 100%;     margin-bottom: 20px;" type='button' class='btn btn-fill btn-default btn-wd'
+													id="volverAInicio2">Volver a Inicio
+											</button>
+										</div>
+									</div>
 		                        </div>
 
 		                    </form>
@@ -106,4 +113,13 @@
 <script th:src="@{/js/inicio.js}" type="module"></script>
 
 	<script th:src="@{/js/csv_parser_organismos_de_control.js}" type="text/javascript"></script>
+
+<script>
+
+    document.getElementById('volverAInicio2').addEventListener('click', function () {
+        window.location.href = '/inicio';
+    });
+
+</script>
+
 </html>

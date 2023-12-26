@@ -31,7 +31,7 @@ public class Incidente {
 
     @ManyToOne
     @JoinColumn(name = "entidad")
-    @JsonBackReference
+    @JsonIgnore
     private Entidad entidad;
 
     @ManyToOne

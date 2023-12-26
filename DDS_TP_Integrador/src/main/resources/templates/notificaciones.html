@@ -75,7 +75,6 @@
                                                                         <th scope="col" class="col-1">#</th>
                                                                         <th scope="col" class="col-1">Fecha</th>
                                                                         <th scope="col" class="col-1">Descripción</th>
-                                                                        <th scope="col" class="col-1">Establecimiento</th>
                                                                         <th scope="col" class="col-1">Estado</th>
                                                                         <th scope="col" class="col-1">Tipo</th>
                                                                     </tr>
@@ -95,7 +94,7 @@
 
                             <div class="row">
                                 <div class="col-sm-10 col-sm-offset-1">
-                                    <button style="width: 100%;" type='button' class='btn btn-fill btn-default btn-wd'  id="volverAInicio2">Volver a Inicio</button>
+                                    <button style="width: 100%;     margin-bottom: 20px;" type='button' class='btn btn-fill btn-default btn-wd'  id="volverAInicio2">Volver a Inicio</button>
                                 </div>
                             </div>
                         </div>
@@ -266,9 +265,6 @@
 
             tr.appendChild(tdFecha);
 
-            const tdDescripcion = document.createElement("td");
-            tdDescripcion.innerHTML = `<img src="https://i.imgur.com/VKOeFyS.png" width="25"> ${notificacion.prestacionIncidentada}`;
-            tr.appendChild(tdDescripcion);
 
             const tdEstablecimiento = document.createElement("td");
             tdEstablecimiento.textContent = notificacion.nombreEstablecimiento;
