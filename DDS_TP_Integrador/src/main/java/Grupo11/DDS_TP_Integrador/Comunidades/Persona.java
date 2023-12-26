@@ -69,17 +69,13 @@ public class Persona {
   @JsonManagedReference
   private List<Entidad> entidadesSuscriptas;
 
-  //@Autowired
   @Transient
   private GestorNotificacionesPersona gestorNotificaciones = new GestorNotificacionesPersona();
-//  @Autowired
-//  private GestorIncidentesPersona gestorIncidentesPersona;
+
 
   @OneToMany(mappedBy = "persona")
   private List<LoginEvent> loginEventList;
 
-
-  //metodos utilitarios
 
 
 }

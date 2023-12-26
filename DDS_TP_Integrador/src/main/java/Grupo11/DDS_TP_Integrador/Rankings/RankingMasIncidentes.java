@@ -26,7 +26,6 @@ public class RankingMasIncidentes {
     @ManyToOne
     @JoinColumn(name = "ranking")
     private Ranking ranking;
-    //metodos utilitarios
 
 
     public RankingMasIncidentes(Entidad entidad, Integer posicion , LocalDateTime fecha, Ranking ranking) {

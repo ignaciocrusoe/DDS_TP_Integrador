@@ -29,7 +29,7 @@ public class Entidad{
 
     @OneToMany(mappedBy = "entidad")
     @JsonIgnore
-    protected List<Incidente> incidentes_reportados;
+    protected List<Incidente> incidentesReportados;
     @ManyToOne
     @JoinColumn(name = "prestador")
     @JsonIgnore
@@ -62,24 +62,14 @@ public class Entidad{
     @JsonIgnore
     protected List<Establecimiento> establecimientos;
 
-//    @Autowired
-//    @Transient
-//    protected IncidenteProvider incidenteProvider;
-//    @Autowired
-//    @Transient
-//    protected GestorRankings gestorRankings;
-//    @Autowired
-//    @Transient
-//    protected Notificador notificador;
 
-    //metodos utilitarios
     public Entidad() {
     }
 
     public Entidad(Long id_entidad, String nombre_entidad, List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, List<Establecimiento> establecimientos) {
         this.id_entidad = id_entidad;
         this.nombre_entidad = nombre_entidad;
-        this.incidentes_reportados = incidentes_reportados;
+        this.incidentesReportados = incidentes_reportados;
         this.prestador = prestador;
         this.organismoControl = organismoControl;
         this.suscriptores = suscriptores;
@@ -88,19 +78,7 @@ public class Entidad{
         this.rankingMayorImpacto = rankingMayorImpacto;
         this.establecimientos = establecimientos;
     }
-//    public Entidad(List<Incidente> incidentes_reportados, Prestador prestador, OrganismoControl organismoControl, List<Persona> suscriptores, List<RankingMasIncidentes> rankingMasIncidentes, List<RankingPromedioCierre> rankingPromedioCierre, List<RankingMayorImpacto> rankingMayorImpacto, List<Establecimiento> establecimientos, IncidenteProvider incidenteProvider, GestorRankings gestorRankings, Notificador notificador) {
-//        this.incidentes_reportados = incidentes_reportados;
-//        this.prestador = prestador;
-//        this.organismoControl = organismoControl;
-//        this.suscriptores = suscriptores;
-//        this.rankingMasIncidentes = rankingMasIncidentes;
-//        this.rankingPromedioCierre = rankingPromedioCierre;
-//        this.rankingMayorImpacto = rankingMayorImpacto;
-//        this.establecimientos = establecimientos;
-//        this.incidenteProvider = incidenteProvider;
-//        this.gestorRankings = gestorRankings;
-//        this.notificador = notificador;
-//    }
+
 
     public Long getId_entidad() {
         return id_entidad;
@@ -118,12 +96,12 @@ public class Entidad{
         this.nombre_entidad = nombre_entidad;
     }
 
-    public List<Incidente> getIncidentes_reportados() {
-        return incidentes_reportados;
+    public List<Incidente> getIncidentesReportados() {
+        return incidentesReportados;
     }
 
     public List<Incidente> getIncidentes_reportados_abierto_en_semana(LocalDateTime inicioDeSemana, LocalDateTime finDeSemana) {
-        return this.getIncidentes_reportados().stream()
+        return this.getIncidentesReportados().stream()
                 .filter(incidente ->
                 incidente.getEstado() && // Verificar si está abierto
                         incidente.getApertura().isAfter(inicioDeSemana) && // Verificar si es después del inicio de la semana
@@ -134,7 +112,7 @@ public class Entidad{
     }
 
     public List<Incidente> getIncidentes_reportados_en_semana(LocalDateTime inicioDeSemana, LocalDateTime finDeSemana) {
-        return this.getIncidentes_reportados().stream()
+        return this.getIncidentesReportados().stream()
                 .filter(incidente ->
                                 incidente.getApertura().isAfter(inicioDeSemana) && // Verificar si es después del inicio de la semana
                                 incidente.getApertura().isBefore(finDeSemana) // Verificar si es antes del fin de la semana
@@ -144,7 +122,7 @@ public class Entidad{
     }
 
     public void setIncidentes_reportados(List<Incidente> incidentes_reportados) {
-        this.incidentes_reportados = incidentes_reportados;
+        this.incidentesReportados = incidentes_reportados;
     }
 
     public Prestador getPrestador() {
@@ -206,11 +184,11 @@ public class Entidad{
     public int getImpacto(int cnf){
         int impacto = 0;
         int sumatoriaTiempoResolucion = 0;
-        int incidentesNoResueltos = getIncidentes_reportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
-        for(Incidente incidente : getIncidentes_reportados()){
+        int incidentesNoResueltos = getIncidentesReportados().stream().filter(obj -> !obj.getEstado()).collect(Collectors.toList()).size();
+        for(Incidente incidente : getIncidentesReportados()){
             sumatoriaTiempoResolucion += incidente.duracion();
         }
-        if(getIncidentes_reportados().size() == 0)
+        if(getIncidentesReportados().size() == 0)
         {
             return 0;
         }
@@ -220,14 +198,14 @@ public class Entidad{
 
     public int getTiempoPromedio(){
         long sumatoria=0;
-        for (Incidente incidente: getIncidentes_reportados()) {
+        for (Incidente incidente: getIncidentesReportados()) {
             sumatoria+=incidente.duracion();
 
         }
-        if(getIncidentes_reportados().size() == 0)
+        if(getIncidentesReportados().size() == 0)
         {
             return 1;
         }
-        return (int) (sumatoria/getIncidentes_reportados().size());
+        return (int) (sumatoria/getIncidentesReportados().size());
     }
 }

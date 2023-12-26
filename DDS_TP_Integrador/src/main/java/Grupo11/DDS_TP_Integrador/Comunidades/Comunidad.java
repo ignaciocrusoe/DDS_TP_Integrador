@@ -49,14 +49,5 @@ public class Comunidad{
     }
 
 
-    //    @Autowired
-//    @Transient
-//    private IncidenteProvider incidenteProvider;
-//    @Autowired
-//    @Transient
-//    private Notificador notificadorComunidad;
-
-
-
 
 }

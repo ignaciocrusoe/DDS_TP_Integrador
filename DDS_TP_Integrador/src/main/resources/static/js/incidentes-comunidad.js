@@ -4,18 +4,18 @@ console.log(idComunidad);
 
 function goToIncidentes(idComunidad) {
   if (idLocalStorage) {
-    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes";
+    window.location.href = "/comunidades-" + idLocalStorage + "/incidentes-" + idComunidad;
   }
 }
 
 function goToIncidentesAbiertos(idComunidad) { 
   if (idLocalStorage) {
-    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes/abiertos";
+    window.location.href = "/comunidades-" + idLocalStorage + "/incidentes-" + idComunidad + "-abiertos";
   }
 }
 
 function goToIncidentesCerrados(idComunidad) {
   if (idLocalStorage) {
-    window.location.href = "/comunidades/" + idLocalStorage + "/" + idComunidad + "/incidentes/cerrados";
+    window.location.href = "/comunidades-" + idLocalStorage + "/incidentes-" + idComunidad + "-cerrados";
   }
 }

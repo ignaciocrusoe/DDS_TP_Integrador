@@ -17,7 +17,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public final class IntervaloHorario {
 
-    //en segundos
 
     @Id
     @Column(name = "interv_segundos")

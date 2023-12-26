@@ -15,8 +15,10 @@ import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
+import Grupo11.DDS_TP_Integrador.Responses.EntidadesResponse;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -107,10 +109,10 @@ public class MainController {
     @GetMapping("/reportar_incidente")
     public String reportar_incidente(Model model) {
 
-        List<Establecimiento> establecimientos = establecimientoRepository.findAll(); // Replace with your actual data retrieval logic
+        List<Establecimiento> establecimientos = establecimientoRepository.findAll();
         model.addAttribute("establecimientos", establecimientos);
 
-        List<Prestacion> prestaciones = prestacionRepository.findAll(); // Replace with your actual data retrieval logic
+        List<Prestacion> prestaciones = prestacionRepository.findAll();
         model.addAttribute("prestaciones", prestaciones);
 
         return "reportar_incidente";
@@ -134,7 +136,7 @@ public class MainController {
         nuevoIncidente.setPrestacionIncidentada(prestacion);
         nuevoIncidente.setEntidad(entidad);
 
-        entidad.getIncidentes_reportados().add(nuevoIncidente);
+        entidad.getIncidentesReportados().add(nuevoIncidente);
 
         incidenteRepository.save(nuevoIncidente);
         entidadRepository.save(entidad);
@@ -179,7 +181,7 @@ public class MainController {
 
     @PostMapping("/cerrar_incidente")
     public String createIncidente(@ModelAttribute CerrarIncidenteRequest cerrarIncidenteRequest) {
-        // Handle the data received from the frontend
+
         Incidente incidente = incidenteRepository.findByIdIncidente(cerrarIncidenteRequest.getIdIncidente());
         String nuevaObservacion = cerrarIncidenteRequest.getDescription();
         System.out.println(nuevaObservacion);
@@ -190,11 +192,10 @@ public class MainController {
 
         incidenteRepository.save(incidente);
 
-        // Return a response, e.g., a success message
         return "redirect:/buscar_incidente/" + incidente.getIdIncidente();
     }
 
-    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes")
+    @GetMapping("/comunidades-{idPersona}/incidentes-{idComunidad}")
     public ModelAndView obtenerVistaIncidentesComunidad(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
 
         Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
@@ -208,7 +209,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes/abiertos")
+    @GetMapping("/comunidades-{idPersona}/incidentes-{idComunidad}-abiertos")
     public ModelAndView obtenerVistaIncidentesComunidadAbiertos(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
 
         Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
@@ -222,7 +223,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/comunidades/{idPersona}/{idComunidad}/incidentes/cerrados")
+    @GetMapping("/comunidades-{idPersona}/incidentes-{idComunidad}-cerrados")
     public ModelAndView obtenerVistaIncidentesComunidadCerrados(@PathVariable() Long idPersona, @PathVariable() Long idComunidad) {
 
         Comunidad comunidad = comunidadRepository.findByIdComunidad(idComunidad);
@@ -298,13 +299,10 @@ public class MainController {
 
     @PostMapping("/unirse_a_comunidad")
     public String unirseAComunidad(@ModelAttribute UnirseAComunidadRequest unirseAComunidadRequest) {
-        // Handle the data received from the frontend
 
         System.out.println("La persona que se quiere unir es: " + unirseAComunidadRequest.getIdPersona());
         Persona persona = personaRepository.findByIdPersona(unirseAComunidadRequest.getIdPersona());
         Comunidad comunidad = comunidadRepository.getReferenceById(unirseAComunidadRequest.getIdComunidad());
-
-        //todo poner dentro de un gestor de comunidades + usar algún patron
 
         List<Long> idPersonasMiembro = comunidad.getMiembros().stream().map(miembro -> miembro.getPersona().getIdPersona()).toList();
 
@@ -318,10 +316,8 @@ public class MainController {
             miembroRepository.save(miembro);
         }else{
 
-            //todo considerar throw error y manejarlo con un msj en el front
             System.out.println("La persona ya es miembro de dicha comunidad");
         }
-        // Return a response, e.g., a success message
         return "redirect:/comunidades/" + persona.getIdPersona().toString();
     }
 
@@ -586,37 +582,33 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/rankings-cliente-pesado/{fecha}/{cnf}")
-    public ModelAndView rankingsClientePesado(@PathVariable() String fecha, @PathVariable() int cnf) throws ParseException{
-        ModelAndView modelAndView = new ModelAndView("rankings-cliente-pesado");
+    @GetMapping("/rankings-cliente-pesado")
+    public String rankingsClientePesado(){
+        return "rankings-cliente-pesado";
+    }
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fechaComoDate = LocalDate.parse(fecha, formato);
-
-        LocalDate startOfWeek = fechaComoDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endOfWeek = fechaComoDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        LocalDateTime fechaActual = LocalDateTime.now();
-
-        // Obtener la fecha y hora hace 7 días
-        LocalDateTime fechaHace7Dias = fechaActual.minusDays(7);
-
+    @GetMapping("/obtener-entidades")
+    public ResponseEntity<List<EntidadesResponse>> obtenerEntidades() {
         List<Entidad> entidades = entidadRepository.findAll();
+        List<EntidadesResponse> entidadesResponses = entidades
+                .stream()
+                .map(entidad -> {
+                    EntidadesResponse entidadesResponse = new EntidadesResponse();
+                    entidadesResponse.agregarIncidentes(entidad.getIncidentesReportados());
+                    entidadesResponse.setIdEntidad(entidad.getId_entidad());
+                    entidadesResponse.setNombreEntidad(entidad.getNombre_entidad());
+                    return entidadesResponse;
+                })
+                .collect(Collectors.toList());
 
-        for(Entidad entidad : entidades){
-            entidad.setIncidentes_reportados(entidad.getIncidentes_reportados().stream().filter(obj -> incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isAfter(startOfWeek.atStartOfDay()) && incidenteRepository.findById(obj.getIdIncidente()).get().getApertura().isBefore(endOfWeek.atStartOfDay())).collect(Collectors.toList()));
-        }
+        return new ResponseEntity<List<EntidadesResponse>>(entidadesResponses, HttpStatus.OK);
+    }
 
-        Comparator<Entidad> compararPorIncidentes = (e1, e2) ->{return e2.getIncidentes_reportados().size() - e1.getIncidentes_reportados().size();};
-        Comparator<Entidad> compararPorImpacto = (e1, e2) ->{return e2.getImpacto(cnf) - e1.getImpacto(cnf);};
-        Comparator<Entidad> compararPorTiempoPromedio = (e1, e2) ->{return e2.getTiempoPromedio() - e1.getTiempoPromedio();};
+    @GetMapping("/obtener-comunidades")
+    public ResponseEntity<List<Comunidad>> obtenerComunidades() {
+        List<Comunidad> entidades = comunidadRepository.findAll();
 
-
-
-        modelAndView.addObject("entidades", entidades);
-        modelAndView.addObject("compararPorIncidentes", compararPorIncidentes);
-        modelAndView.addObject("compararPorTiempoPromedio", compararPorTiempoPromedio);
-        modelAndView.addObject("compararPorImpacto", compararPorImpacto);
-        return modelAndView;
+        return new ResponseEntity<List<Comunidad>>(entidades, HttpStatus.OK);
     }
 
     @GetMapping("/incidentes")

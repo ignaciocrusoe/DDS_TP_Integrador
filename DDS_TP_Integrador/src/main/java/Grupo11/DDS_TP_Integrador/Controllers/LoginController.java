@@ -79,7 +79,6 @@ public class LoginController{
     public ResponseEntity<String> handleLogoutEvent(@RequestBody LoginRequest loginRequest) {
             String userId = loginRequest.getUserId();
 
-            // Find the most recent login event for the user
             LoginEvent loginEvent = loginEventRepository.findFirstByIdUsuarioOrderByLoginTimeDesc(userId);
 
             if (loginEvent != null) {
@@ -87,8 +86,6 @@ public class LoginController{
             loginEventRepository.save(loginEvent);
             }
 
-            // Handle the user logout in your session management mechanism
-            // ...
 
             return ResponseEntity.ok("Logout event processed successfully");
     }

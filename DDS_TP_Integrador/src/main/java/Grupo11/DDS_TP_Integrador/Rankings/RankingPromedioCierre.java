@@ -33,7 +33,6 @@ public class RankingPromedioCierre {
     @ManyToOne
     @JoinColumn(name = "ranking")
     private Ranking ranking;
-    //metodos utilitarios
 
     public RankingPromedioCierre(Entidad entidad, Integer posicion, LocalDateTime fecha, Ranking ranking) {
         this.entidad = entidad;
@@ -42,25 +41,6 @@ public class RankingPromedioCierre {
         this.ranking = ranking;
     }
 
-
-    //metodos utilitarios
-
-
-//    public Entidad getEntidad() {
-//        return entidad;
-//    }
-//
-//    public void setEntidad(Entidad entidad) {
-//        this.entidad = entidad;
-//    }
-//
-//    public Integer getPosicion() {
-//        return posicion;
-//    }
-//
-//    public void setPosicion(Integer posicion) {
-//        this.posicion = posicion;
-//    }
 
     public LocalDateTime getDate() {
         return this.fecha;

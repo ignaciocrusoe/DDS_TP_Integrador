@@ -27,5 +27,4 @@ public class ComunidadXIncidente {
     private Comunidad comunidad;
 
 
-    // Resto de la entidad
 }
