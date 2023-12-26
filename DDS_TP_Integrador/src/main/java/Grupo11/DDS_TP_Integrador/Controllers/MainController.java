@@ -337,10 +337,34 @@ public class MainController {
         return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
     }
 
-    @PostMapping("/cambiar_tipo")
-    public String cambiarTipo(@ModelAttribute CambiarTipoRequest cambiarTipoRequest) {
+    @PostMapping("/cambiar_tipo_pesado")
+    public String cambiarTipoPesado(@RequestBody CambiarTipoRequest cambiarTipoRequest) {
 
         System.out.println(cambiarTipoRequest.getTipo());
+        System.out.println(cambiarTipoRequest.getIdMiembro());
+        Miembro miembro = miembroRepository.getReferenceById(cambiarTipoRequest.getIdMiembro());
+
+        if( cambiarTipoRequest.getTipo().equals("Observador")){
+            miembro.setTipoUsuario(TipoUsuario.OBSERVADOR);
+        }else if (cambiarTipoRequest.getTipo().equals("Afectado")){
+            miembro.setTipoUsuario(TipoUsuario.AFECTADO);
+        }else{
+            miembro.setTipoUsuario( miembro.getTipoUsuario());
+        }
+
+        miembroRepository.save(miembro);
+
+        System.out.println(cambiarTipoRequest.getIdMiembro());
+        System.out.println(cambiarTipoRequest.getTipo());
+
+        return "redirect:/comunidades/" + miembro.getPersona().getIdPersona();
+    }
+
+    @PostMapping("/cambiar_tipo_liviano")
+    public String cambiarTipoLiviano(@ModelAttribute CambiarTipoRequest cambiarTipoRequest) {
+
+        System.out.println(cambiarTipoRequest.getTipo());
+        System.out.println(cambiarTipoRequest.getIdMiembro());
         Miembro miembro = miembroRepository.getReferenceById(cambiarTipoRequest.getIdMiembro());
 
         if( cambiarTipoRequest.getTipo().equals("Observador")){
