@@ -9,13 +9,13 @@ import Grupo11.DDS_TP_Integrador.GestoresNotificaciones.MedioComunicacion;
 import Grupo11.DDS_TP_Integrador.Incidentes.Incidente;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteProvider;
 import Grupo11.DDS_TP_Integrador.Incidentes.IncidenteService;
-import Grupo11.DDS_TP_Integrador.Notificadores.Notificacion;
 import Grupo11.DDS_TP_Integrador.Notificadores.Notificador;
 import Grupo11.DDS_TP_Integrador.Notificadores.TipoNotificacion;
 import Grupo11.DDS_TP_Integrador.Rankings.*;
 import Grupo11.DDS_TP_Integrador.Repositories.*;
 import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Responses.EntidadesResponse;
+import Grupo11.DDS_TP_Integrador.Responses.IncidenteResponse;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -590,16 +589,21 @@ public class MainController {
     @GetMapping("/obtener-entidades")
     public ResponseEntity<List<EntidadesResponse>> obtenerEntidades() {
         List<Entidad> entidades = entidadRepository.findAll();
-        List<EntidadesResponse> entidadesResponses = entidades
-                .stream()
-                .map(entidad -> {
+        List<EntidadesResponse> entidadesResponses = new ArrayList<>();
+                for(Entidad entidad : entidades){
                     EntidadesResponse entidadesResponse = new EntidadesResponse();
-                    entidadesResponse.agregarIncidentes(entidad.getIncidentesReportados());
+                    for(Incidente incidente : entidad.getIncidentesReportados()){
+                        IncidenteResponse incienteResponse = new IncidenteResponse();
+                        incienteResponse.setApertura(incidente.getApertura());
+                        incienteResponse.setCierre(incidente.getCierre());
+                        incienteResponse.setIdIncidente(incidente.getIdIncidente());
+                        incienteResponse.setEstado(incidente.getEstado());
+                        entidadesResponse.agregarIncidente(incienteResponse);
+                    }
                     entidadesResponse.setIdEntidad(entidad.getId_entidad());
                     entidadesResponse.setNombreEntidad(entidad.getNombre_entidad());
-                    return entidadesResponse;
-                })
-                .collect(Collectors.toList());
+                    entidadesResponses.add(entidadesResponse);
+                }
 
         return new ResponseEntity<List<EntidadesResponse>>(entidadesResponses, HttpStatus.OK);
     }
