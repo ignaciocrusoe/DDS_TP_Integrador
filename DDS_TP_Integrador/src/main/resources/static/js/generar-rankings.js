@@ -112,14 +112,8 @@ var listaNueva = [];
 
       return listaNueva;
 
-
-
-
-      })
-            .catch(error => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/obtener-entidades')

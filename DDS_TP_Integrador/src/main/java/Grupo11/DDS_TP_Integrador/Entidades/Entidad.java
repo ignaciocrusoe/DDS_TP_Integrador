@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "categoria", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Entidad")
+
 public class Entidad{
 
     @Id
@@ -28,8 +29,8 @@ public class Entidad{
     @Column(name = "nombre_entidad")
     private String nombre_entidad;
 
-    @JsonIgnoreProperties("entidad")
-    @OneToMany(mappedBy = "entidad")
+
+    @OneToMany(mappedBy = "entidad", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     protected List<Incidente> incidentesReportados;
     @ManyToOne
     @JoinColumn(name = "prestador")

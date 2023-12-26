@@ -19,19 +19,20 @@ import lombok.NoArgsConstructor;
 import java.time.temporal.ChronoUnit;
 
 @Entity(name = "incidentes")
-@Data
 @AllArgsConstructor
 public class Incidente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_incidente")
     private Long idIncidente;
+
     @Column(name="observaciones")
         private String observaciones;
 
-    @ManyToOne
-    @JoinColumn(name = "entidad")
+
+    @ManyToOne(fetch=FetchType.LAZY)
     @JsonIgnore
+    @JoinColumn(name = "entidad")
     private Entidad entidad;
 
     @ManyToOne
@@ -82,6 +83,81 @@ public class Incidente {
 
     public LocalDateTime getApertura(){return apertura;}
 
+    @JsonIgnore
+    public Entidad getEntidad() {
+        return entidad;
+    }
+    @JsonIgnore
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
+    }
 
+    public Long getIdIncidente() {
+        return idIncidente;
+    }
+
+    public void setIdIncidente(Long idIncidente) {
+        this.idIncidente = idIncidente;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Persona getPersonaQueReporto() {
+        return personaQueReporto;
+    }
+
+    public void setPersonaQueReporto(Persona personaQueReporto) {
+        this.personaQueReporto = personaQueReporto;
+    }
+
+    public Prestacion getPrestacionIncidentada() {
+        return prestacionIncidentada;
+    }
+
+    public void setPrestacionIncidentada(Prestacion prestacionIncidentada) {
+        this.prestacionIncidentada = prestacionIncidentada;
+    }
+
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
+    }
+
+    public List<Comunidad> getComunidadesAfectadas() {
+        return comunidadesAfectadas;
+    }
+
+    public void setComunidadesAfectadas(List<Comunidad> comunidadesAfectadas) {
+        this.comunidadesAfectadas = comunidadesAfectadas;
+    }
+
+    public void setApertura(LocalDateTime apertura) {
+        this.apertura = apertura;
+    }
+
+    public LocalDateTime getCierre() {
+        return cierre;
+    }
+
+    public void setCierre(LocalDateTime cierre) {
+        this.cierre = cierre;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 }
 
