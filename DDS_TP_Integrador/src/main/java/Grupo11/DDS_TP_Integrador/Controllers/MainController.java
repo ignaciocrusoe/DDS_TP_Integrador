@@ -191,7 +191,7 @@ public class MainController {
 
         incidenteRepository.save(incidente);
 
-        return "redirect:/buscar_incidente/" + incidente.getIdIncidente();
+        return "redirect:/incidente/" + incidente.getIdIncidente();
     }
 
     @GetMapping("/comunidades-{idPersona}/incidentes-{idComunidad}")
