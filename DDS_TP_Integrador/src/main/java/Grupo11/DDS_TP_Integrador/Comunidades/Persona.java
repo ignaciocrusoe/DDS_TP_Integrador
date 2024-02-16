@@ -35,6 +35,10 @@ public class Persona {
   @Column(name="apellido_persona")
   private String apellido;
 
+  // Imagen perfil --> Agregue un atributo
+  @Column(name="imagen_perfil")
+  private String imagen_perfil;
+
   @ManyToMany
   @JoinColumn(name="persona_intervalo_notis")
   private List<IntervaloHorario> horarios;

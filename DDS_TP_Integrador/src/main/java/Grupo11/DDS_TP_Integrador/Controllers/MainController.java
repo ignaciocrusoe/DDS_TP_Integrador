@@ -117,8 +117,30 @@ public class MainController {
         return "reportar_incidente";
     }
 
+
+    // Cambiar descripcion de un incidente, osea actualizar su estado
+
+    // ejemplo: /incdente/4/actualizar-incidente
+    @PutMapping("/incidente/{id_incidente}/actualizar_incidente") // 1. Put es un metodo http para actualizar un elemento de la base
+    // Tenes como path variable a id_incidente, que es una variable que viene en la uri
+    // Tenes por parte del body el estado que vas a actualizar en el incidente que estas buscando por el id_incidente
+    public String actualizarIncidente(@PathVariable Long id_incidente,@ModelAttribute ActualizarIncidenteRequest actualizarIncidenteRequest){
+        // ActualizarIncidenteRequest es un DTO que maneja el estado que manda el cliente al controlador
+        // DTO: Data Trasfer Object: Es la informacion que viene del body
+        Optional<Incidente> incidenteBuscado = incidenteRepository.findAll() // llamo al repositorio de incidentes y filtro
+                .stream()
+                .filter(obj -> obj.getIdIncidente().equals(id_incidente)) // filtro por el que tenga el mismo id
+                .findFirst(); // Como el id es unico, me traigo el primero que encuentra
+        if(incidenteBuscado.isEmpty()) throw new RuntimeException("No se encontró un incidente con ese id"); // Valido que lo encuentre, caso negativo --> tira excepcion de que no lo encontro: 404
+        Incidente i = incidenteBuscado.get(); // Caso positvo, lo obtengo.
+        i.setObservaciones(actualizarIncidenteRequest.getDescripcion()); // Le actualizo la informacion con lo que me manda el cliente
+        incidenteRepository.save(i); // Y lo guardo en la base otra vez
+        return "redirect:/incidente/" + id_incidente; // Redirecciono al incidente actualizado.
+    }
+
     @PostMapping("/crear_incidente")
     public String reportIncidente(@ModelAttribute ReportarIncidenteRequest reportarIncidenteRequest) {
+
         Establecimiento establecimiento = establecimientoRepository.findByNombreEstablecimiento(reportarIncidenteRequest.getEstablecimiento());
         Prestacion prestacion = prestacionRepository.findByNombrePrestacion(reportarIncidenteRequest.getPrestacion());
         Persona persona = personaRepository.findByIdPersona(reportarIncidenteRequest.getIdPersona());
@@ -378,12 +400,13 @@ public class MainController {
         return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
 
-    @PostMapping("/cambiar_nombre")
+    @PostMapping("/cambiar_nombre") // Mismo endpoint para cambiar Nombre e imagen del perfil --> Por lo tanto, cambiarNombreRequest espera tanto el nuevo nombre como puede ser tambien la nueva imagen
     public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
 
         Persona persona = personaRepository.findByIdPersona(cambiarNombreRequest.getIdPersona());
         persona.setNombre(cambiarNombreRequest.getNuevoNombre());
         persona.setApellido(cambiarNombreRequest.getNuevoApellido());
+        persona.setImagen_perfil(cambiarNombreRequest.getImagen_perfil()); // Se tiene que cambiar si o si el nombre, el apellido y la imagen perfil
         personaRepository.save(persona);
 
         return "redirect:/editar_perfil-" + persona.getIdPersona();
