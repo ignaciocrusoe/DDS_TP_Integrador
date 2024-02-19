@@ -81,11 +81,12 @@
                                                 <h6 th:if="${persona.nombre != 'NULL' && persona.apellido != 'NULL'}"
                                                     th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
 
-                                                <div class="picture">
-                                                    <!--<img src="/static/img/default-avatar.jpg" id="wizardPicturePreview"
-                                                         title="">-->
-                                                </div>
+                                                <div class="picture" id="imagen-perfil" style="background: url('../img/image0.jpg');background-size:contain;">
 
+                                                    <input type="file" name="csvFile" accept=".png" id="csv-file">
+
+                                                </div>
+                                                Edite su foto de perfil
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
