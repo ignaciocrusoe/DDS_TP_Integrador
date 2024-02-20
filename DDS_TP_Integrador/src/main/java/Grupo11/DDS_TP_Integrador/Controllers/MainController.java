@@ -197,6 +197,11 @@ public class MainController {
         modelAndView.addObject("entidad", entidad);
         modelAndView.addObject("prestacion", prestacion);
 
+        List<Establecimiento> establecimientos = establecimientoRepository.findAll();
+        modelAndView.addObject("establecimientos", establecimientos);
+        List<Prestacion> prestaciones = prestacionRepository.findAll();
+        modelAndView.addObject("prestaciones", prestaciones);
+
         return modelAndView;
     }
 
@@ -284,6 +289,7 @@ public class MainController {
         modelAndView.addObject("cambiarNombreRequest", cambiarNombreRequest);
         modelAndView.addObject("cambiarTipoRequest", cambiarTipoRequest);
         modelAndView.addObject("abandonarComunidadRequest", abandonarComunidadRequest);
+        /*cambiar imagen request*/
 
         return modelAndView;
     }
@@ -399,7 +405,8 @@ public class MainController {
 
         return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
-
+/*Agregar cambiar_imagen postmapping y el request*/
+    /*AAAAAAA*/
     @PostMapping("/cambiar_nombre") // Mismo endpoint para cambiar Nombre e imagen del perfil --> Por lo tanto, cambiarNombreRequest espera tanto el nuevo nombre como puede ser tambien la nueva imagen
     public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
 

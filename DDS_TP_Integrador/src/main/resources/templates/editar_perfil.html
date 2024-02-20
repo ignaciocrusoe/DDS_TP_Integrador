@@ -71,7 +71,7 @@
 
                             <div class="tab-pane" id="about" style="margin-top: 40px">
                                 <form th:action="@{/cambiar_nombre}" method="post" th:object="${cambiarNombreRequest}"
-                                      id="cambiar-nombre-form">
+                                      id="cambiar-nombre-form" >
 
                                     <div class="row">
 
@@ -81,13 +81,31 @@
                                                 <h6 th:if="${persona.nombre != 'NULL' && persona.apellido != 'NULL'}"
                                                     th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
 
-                                                <div class="picture" id="imagen-perfil" style="background: url('../img/image0.jpg');background-size:contain;">
+                                                <div class="picture" id="img" style="background: url('../img/image0.jpg');background-size:contain;">
 
                                                     <input type="file" name="csvFile" accept=".png" id="csv-file">
 
                                                 </div>
                                                 Edite su foto de perfil
                                             </div>
+                                            <script> /*EDITAR PERFIL: Agrego elementos y cambio el background image del input*/
+                                                    const defaultFile = 'url("../img/image0.jpg")';
+                                                    var idImagen = document.getElementById('img');
+                                                    var idInput = document.getElementById('csv-file');
+
+                                                    idInput.addEventListener('change', e => {
+                                                    if (e.target.files[0]) {
+                                                        const reader = new FileReader();
+                                                        reader.onload = function (e) {
+                                                        idImagen.style.backgroundImage = `url(${e.target.result})`;
+                                                        }
+                                                        reader.readAsDataURL(e.target.files[0]);
+                                                    } else {
+                                                    idImagen.style.backgroundImage = defaultFile;
+                                                    }
+                                                    });
+                                            </script>
+
                                         </div>
                                         <div class="col-sm-6">
 
@@ -113,7 +131,9 @@
                                             </button>
                                         </div>
                                     </div>
+                                    </form>
                                 </form>
+
                             </div>
 
 
