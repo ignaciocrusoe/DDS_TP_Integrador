@@ -119,7 +119,7 @@ public class MainController {
 
 
     // Cambiar descripcion de un incidente, osea actualizar su estado
-
+    // modificar incidente
     // ejemplo: /incdente/4/actualizar-incidente
     @PutMapping("/incidente/{id_incidente}/actualizar_incidente") // 1. Put es un metodo http para actualizar un elemento de la base
     // Tenes como path variable a id_incidente, que es una variable que viene en la uri
@@ -405,15 +405,14 @@ public class MainController {
 
         return "redirect:/comunidades-" + miembro.getPersona().getIdPersona();
     }
-/*Agregar cambiar_imagen postmapping y el request*/
-    /*AAAAAAA*/
+
     @PostMapping("/cambiar_nombre") // Mismo endpoint para cambiar Nombre e imagen del perfil --> Por lo tanto, cambiarNombreRequest espera tanto el nuevo nombre como puede ser tambien la nueva imagen
     public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
 
         Persona persona = personaRepository.findByIdPersona(cambiarNombreRequest.getIdPersona());
-        persona.setNombre(cambiarNombreRequest.getNuevoNombre());
-        persona.setApellido(cambiarNombreRequest.getNuevoApellido());
-        persona.setImagen_perfil(cambiarNombreRequest.getImagen_perfil()); // Se tiene que cambiar si o si el nombre, el apellido y la imagen perfil
+        if(cambiarNombreRequest.getNuevoNombre() != null) persona.setNombre(cambiarNombreRequest.getNuevoNombre());
+        if(cambiarNombreRequest.getImagen_perfil() != null) persona.setImagen_perfil(cambiarNombreRequest.getImagen_perfil()); // Se tiene que cambiar si o si el nombre, el apellido y la imagen perfil
+        if(cambiarNombreRequest.getNuevoApellido() != null) persona.setApellido(cambiarNombreRequest.getNuevoApellido());
         personaRepository.save(persona);
 
         return "redirect:/editar_perfil-" + persona.getIdPersona();
