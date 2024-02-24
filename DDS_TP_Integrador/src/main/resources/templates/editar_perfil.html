@@ -85,7 +85,7 @@
 
                                                 <div class="picture" id="img" style="background: url('../img/image0.png');background-size:contain;">
 
-                                                    <input  type="file" name="csvFile" accept=".png" id="csv-file" th:field="*{nuevoNombre}"/>
+                                                    <input  type="file" name="imagen" accept=".png" id="csv-file" th:field="*{nuevaImagen}"/>
 
                                                 </div>
 
@@ -256,18 +256,15 @@
         crossorigin="anonymous"></script>
 <!-- Toastify js -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script th:src="@{/js/editar-perfil.js}" type="module"></script>
+<script th:src="@{/js/editar-perfil.js}" type="text/javascript"></script>
 <script>
 
     document.getElementById('volverAInicio2').addEventListener('click', function () {
         window.location.href = '/inicio';
     });
-    document.addEventListener('DOMContentLoaded', function () {
-        // Find the button by its ID
-        var guardarCambiosButton = document.getElementById('guardarCambiosButton');
 
         // Attach a click event listener to the button
-        guardarCambiosButton.addEventListener('click', function (event) {
+        document.getElementById('guardarCambiosButton').addEventListener('click', function (event) {
             // Prevent the default form submission
             event.preventDefault();
 
@@ -281,7 +278,6 @@
         function limpiarConfigNotisLocalStorafe() {
             localStorage.removeItem('configuracionNotificaciones');
         }
-    });
 </script>
 
 

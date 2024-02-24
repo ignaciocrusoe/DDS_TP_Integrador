@@ -24,8 +24,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -408,10 +410,12 @@ public class MainController {
 
     @PostMapping("/cambiar_nombre") // Mismo endpoint para cambiar Nombre e imagen del perfil --> Por lo tanto, cambiarNombreRequest espera tanto el nuevo nombre como puede ser tambien la nueva imagen
     public String cambiarNombre(@ModelAttribute CambiarNombreRequest cambiarNombreRequest) {
-
+        System.out.println(cambiarNombreRequest.getNuevaImagen());
+        System.out.println("------------");
+        System.out.println(cambiarNombreRequest.getNuevoNombre());
         Persona persona = personaRepository.findByIdPersona(cambiarNombreRequest.getIdPersona());
         if(cambiarNombreRequest.getNuevoNombre() != null) persona.setNombre(cambiarNombreRequest.getNuevoNombre());
-        if(cambiarNombreRequest.getImagen_perfil() != null) persona.setImagen_perfil(cambiarNombreRequest.getImagen_perfil()); // Se tiene que cambiar si o si el nombre, el apellido y la imagen perfil
+        if(cambiarNombreRequest.getNuevaImagen() != null) persona.setImagen_perfil(cambiarNombreRequest.getNuevoNombre());
         if(cambiarNombreRequest.getNuevoApellido() != null) persona.setApellido(cambiarNombreRequest.getNuevoApellido());
         personaRepository.save(persona);
 
