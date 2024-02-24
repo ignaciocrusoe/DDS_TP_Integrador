@@ -14,6 +14,8 @@ public class CambiarNombreRequest {
         return nuevoNombre;
     }
 
+    private MultipartFile archivo;
+
     public void setNuevoNombre(String nuevoNombre) {
         this.nuevoNombre = nuevoNombre;
     }
@@ -35,4 +37,7 @@ public class CambiarNombreRequest {
 
     public void setNuevaImagen(String imagen_perfil) { this.nuevaImagen = imagen_perfil; }
     public String getNuevaImagen() { return nuevaImagen; }
+
+    public void setArchivo(MultipartFile archivo) {this.archivo = archivo;}
+    public MultipartFile getArchivo() {return archivo;}
 }

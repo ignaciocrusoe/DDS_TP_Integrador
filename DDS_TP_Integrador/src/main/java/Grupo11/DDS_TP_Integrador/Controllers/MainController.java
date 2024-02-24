@@ -17,7 +17,9 @@ import Grupo11.DDS_TP_Integrador.Requests.*;
 import Grupo11.DDS_TP_Integrador.Responses.EntidadesResponse;
 import Grupo11.DDS_TP_Integrador.Responses.IncidenteResponse;
 import Grupo11.DDS_TP_Integrador.Servicios.Prestacion;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -206,7 +212,21 @@ public class MainController {
 
         return modelAndView;
     }
+    @PostMapping("/modificar_incidente")
+    public String createIncidente(@ModelAttribute ModificarIncidenteRequest modificarIncidenteRequest) {
 
+        Incidente incidente = incidenteRepository.findByIdIncidente(modificarIncidenteRequest.getIdIncidente());
+        String nuevaObservacion = modificarIncidenteRequest.getDescription();
+        System.out.println(nuevaObservacion);
+
+        incidente.setObservaciones(nuevaObservacion);
+        incidente.setCierre(LocalDateTime.now());
+        incidente.setEstado(false);
+
+        incidenteRepository.save(incidente);
+
+        return "redirect:/incidente/" + incidente.getIdIncidente();
+    }
     @PostMapping("/cerrar_incidente")
     public String createIncidente(@ModelAttribute CerrarIncidenteRequest cerrarIncidenteRequest) {
 
@@ -273,6 +293,8 @@ public class MainController {
         List<Miembro> membresias = persona.getMembresias();
         membresias.forEach(membresia ->System.out.println(membresia.getIdMiembro()));
 
+        String imagenString = persona.getImagen_perfil();
+
         List<IntervaloHorario> rangosDefault = intervaloHorarioRepository.findAll();
         List<IntervaloHorario> rangosActualesPersona = persona.getHorarios();
 
@@ -283,6 +305,9 @@ public class MainController {
 
         ModelAndView modelAndView = new ModelAndView("editar_perfil");
         modelAndView.addObject("persona", persona);
+
+        modelAndView.addObject("imagenString", imagenString);
+
         modelAndView.addObject("membresias", membresias);
         modelAndView.addObject("mediosComunicaciones", mediosComunicaciones);
         modelAndView.addObject("rangosHorariosDefault", rangosDefault);
@@ -413,14 +438,27 @@ public class MainController {
         System.out.println(cambiarNombreRequest.getNuevaImagen());
         System.out.println("------------");
         System.out.println(cambiarNombreRequest.getNuevoNombre());
+//        MultipartFile archivo = cambiarNombreRequest.getArchivo();
+//        MainController.uploadFile(archivo);
         Persona persona = personaRepository.findByIdPersona(cambiarNombreRequest.getIdPersona());
         if(cambiarNombreRequest.getNuevoNombre() != null) persona.setNombre(cambiarNombreRequest.getNuevoNombre());
-        if(cambiarNombreRequest.getNuevaImagen() != null) persona.setImagen_perfil(cambiarNombreRequest.getNuevoNombre());
+//        if(cambiarNombreRequest.getNuevaImagen() != null) persona.setImagen_perfil(archivo.getName());
+        if(cambiarNombreRequest.getNuevaImagen() != null) persona.setImagen_perfil(cambiarNombreRequest.getNuevaImagen());
         if(cambiarNombreRequest.getNuevoApellido() != null) persona.setApellido(cambiarNombreRequest.getNuevoApellido());
         personaRepository.save(persona);
 
         return "redirect:/editar_perfil-" + persona.getIdPersona();
     }
+
+//    public static void uploadFile(MultipartFile file){
+//
+//        try {
+//            Path destination = Paths.get("rootDir").resolve(file.getOriginalFilename()).normalize().toAbsolutePath();
+//            Files.copy(file.getInputStream(), destination);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @PostMapping("/cambiar_medio")
     public String cambiarMedio(@ModelAttribute CambiarMedioRequest cambiarMedioRequest) {

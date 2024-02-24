@@ -83,9 +83,15 @@
                                                     th:text="${persona.nombre + ' ' + persona.apellido}"></h6>
 
 
-                                                <div class="picture" id="img" style="background: url('../img/image0.png');background-size:contain;">
+                                                <div class="picture" id="img" th:style="'background: url('+@{${imagenString}}+');background-size:contain;'">
+<!--                                                    <div class="picture" id="img"></div>-->
 
-                                                    <input  type="file" name="imagen" accept=".png" id="csv-file" th:field="*{nuevaImagen}"/>
+<!--                                                    <script>-->
+<!--                                                        var imgDiv = document.getElementById('img');-->
+<!--                                                        imgDiv.style.backgroundImage = "url('" + persona.imagen_perfil + "')";-->
+<!--                                                        imgDiv.style.backgroundSize = "contain";-->
+<!--                                                    </script>-->
+<!--                                                    <input  type="file" name="imagen" accept=".png" id="csv-file" th:field="*{nuevaImagen}"/>-->
 
                                                 </div>
 
@@ -130,6 +136,9 @@
                                             <input name="nuevoApellido" th:field="*{nuevoApellido}"
                                                    th:value="${nuevoApellido}" type="text" class="form-control"
                                                    placeholder="Ejemplo: Peposo">
+                                            <label>Link Imagen: </label>
+                                            <input name="imagen" th:field="*{nuevaImagen}"
+                                                   th:value="${nuevaImagen}" type="text" class="form-control">
                                         </div>
 
                                     </div>
