@@ -136,16 +136,17 @@
 							<div class="row">
 								<form th:action="@{/modificar_incidente}" method="post" th:object="${modificarIncidenteRequest}" id="modificar-incidente-form">
 								<div class="col-sm-10 col-sm-offset-1">
-									<label>Comentarios sobre la resolución</label>
+									<label>Comentarios sobre la modificación</label>
 									<div class="responsive-box form-control" style="word-wrap: break-word; width: 100%;  height:100%; ">
-										<textarea class="form-control" name="descripcion"  th:text="${incidente.observaciones}" rows="3"></textarea>
+										<textarea class="form-control" name="description"  th:text="${incidente.observaciones}" rows="3"></textarea>
+										<input type="hidden" name="idIncidente" th:value="${incidente.idIncidente}" />
 									</div>
 								</div>
 								<div class="col-sm-10 col-sm-offset-1">
 									<div class="form-group" >
 										<label>Establecimiento</label>
 										<select class="form-control" name="establecimiento">
-											<option disabled="" selected="" th:text="${establecimiento.nombreEstablecimiento}"></option>
+											<option disabled="" th:selected="${establecimiento.nombreEstablecimiento}" th:placeholder="${establecimiento.nombreEstablecimiento}"></option>
 											<option th:each="establecimiento : ${establecimientos}" th:value="${establecimiento.nombreEstablecimiento}" th:text="${establecimiento.nombreEstablecimiento}"></option>
 										</select>
 									</div>
@@ -155,7 +156,7 @@
 									<div class="form-group">
 										<label>Prestación Incidentada</label>
 										<select class="form-control" name="prestacion">
-											<option disabled="" selected="" th:text="${prestacion.nombrePrestacion}"></option>
+											<option disabled="" th:selected="${prestacion.nombrePrestacion}" th:placeholder="${prestacion.nombrePrestacion}"></option>
 											<option th:each="prestacion : ${prestaciones}" th:value="${prestacion.nombrePrestacion}" th:text="${prestacion.nombrePrestacion}"></option>
 										</select>
 									</div>

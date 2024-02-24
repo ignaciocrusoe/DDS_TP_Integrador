@@ -220,11 +220,14 @@ public class MainController {
         System.out.println(nuevaObservacion);
 
         incidente.setObservaciones(nuevaObservacion);
-        incidente.setCierre(LocalDateTime.now());
-        incidente.setEstado(false);
-
+        if(modificarIncidenteRequest.getEstablecimiento() != null){
+            incidente.setEstablecimiento(establecimientoRepository.findByNombreEstablecimiento(modificarIncidenteRequest.getEstablecimiento()));
+        }
+        if(modificarIncidenteRequest.getPrestacion() != null) {
+            incidente.setPrestacionIncidentada(prestacionRepository.findByNombrePrestacion(modificarIncidenteRequest.getPrestacion()));
+        }
+        
         incidenteRepository.save(incidente);
-
         return "redirect:/incidente/" + incidente.getIdIncidente();
     }
     @PostMapping("/cerrar_incidente")
